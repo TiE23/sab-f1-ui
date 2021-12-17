@@ -1,0 +1,3 @@
+{
+  "jest.jestCommandLine": "node_modules/.bin/react-scripts test --run-in-band --no-cache --watchAll=false"
+}
