@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
+import { HeaderBar } from "./styles";
 
 type RouteHeaderProps = {
   title: string,
@@ -7,9 +7,9 @@ type RouteHeaderProps = {
 
 export const RouteHeader = React.forwardRef<HTMLHeadElement, RouteHeaderProps>(
   (props, ref) => (
-    <Container ref={ref}>
+    <HeaderBar ref={ref}>
       {props.title}
-    </Container>
+    </HeaderBar>
   ),
 );
 RouteHeader.displayName = "RouteHeader";  // Required due to forwardRef().

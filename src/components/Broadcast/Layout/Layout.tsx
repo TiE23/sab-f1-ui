@@ -1,58 +1,43 @@
-import { Stack } from "@bedrock-layout/stack";
-import { Column, Columns } from "@bedrock-layout/columns";
-
 import { MockupBlock } from "../../Common/MockupBlock.styled";
-import { ExpandedStack, ExpandedBlock } from "./styles";
+import { LayoutGrid, LayoutGridItem } from "./styles";
 
 type LayoutProps = {
   headerHeight?: number,
 };
 
 export function Layout({ headerHeight }: LayoutProps) {
-  const headerOffset = headerHeight ? headerHeight + 5 : 0;
-
   return (
-    <Stack gutter="none">
-      <Columns gutter="none" columns={7} dense>
+    <LayoutGrid headerOffset={headerHeight} columns={6} rows={10}>
+      <LayoutGridItem column={1} row={1} rowSpan={6}>
         <MockupBlock
           color="#f7aeae"
           minWidth="200px"
-          minHeight={`calc(65vh - ${headerOffset}px)`}
         >Timing Board UI</MockupBlock>
-        <Column span={6}>
-          <MockupBlock
-            color="#c5c5c5"
-            minHeight="100%"
-          >Video Feed</MockupBlock>
-        </Column>
-      </Columns>
-      <Columns gutter="none" columns={7} dense>
-        <Column span={1}>
-          <ExpandedStack>
-            <ExpandedBlock>
-              <MockupBlock
-                color="#5576e2"
-                minWidth="200px"
-                minHeight="200px"
-                height="20vh"
-              >Race Status UI</MockupBlock>
-            </ExpandedBlock>
-            <ExpandedBlock>
-              <MockupBlock
-                color="#bc62ce"
-                minHeight="40px"
-                height="15vh"
-              >Race Director UI</MockupBlock>
-            </ExpandedBlock>
-          </ExpandedStack>
-        </Column>
-        <Column span={6}>
-          <MockupBlock
-            color="#4d828b"
-            minHeight="35vh"
-          >Broadcast Director UI</MockupBlock>
-        </Column>
-      </Columns>
-    </Stack>
+      </LayoutGridItem>
+
+      <LayoutGridItem column={2} row={1} columnSpan={5} rowSpan={6} >
+        <MockupBlock
+          color="#c5c5c5"
+        >Video Feed</MockupBlock>
+      </LayoutGridItem>
+
+      <LayoutGridItem column={1} row={7} rowSpan={3}>
+        <MockupBlock
+          color="#5576e2"
+        >Race Status UI</MockupBlock>
+      </LayoutGridItem>
+
+      <LayoutGridItem column={1} row={10}>
+        <MockupBlock
+          color="#bc62ce"
+        >Race Director UI</MockupBlock>
+      </LayoutGridItem>
+
+      <LayoutGridItem column={2} row={7} columnSpan={5} rowSpan={4}>
+        <MockupBlock
+          color="#4d828b"
+        >Broadcast Director UI</MockupBlock>
+      </LayoutGridItem>
+    </LayoutGrid>
   );
 }
