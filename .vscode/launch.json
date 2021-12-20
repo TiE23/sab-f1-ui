@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Attach to Edge :3000",
+      "port": 9222,
+      "request": "attach",
+      "type": "pwa-msedge",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "name": "Launch Edge :3000",
       "request": "launch",
       "type": "pwa-msedge",

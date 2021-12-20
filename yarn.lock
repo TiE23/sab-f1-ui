@@ -1014,7 +1014,7 @@
     core-js-pure "^3.19.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.16.5"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.16.5.tgz"
   integrity sha512-TXWihFIS3Pyv5hzR7j6ihmeLkZfrXGxAr5UfSl8CHf+6q/wpiYDkUau0czckpYG8QmnCIuPpdLtuA9VmuGGyMA==
@@ -1074,6 +1074,17 @@
   dependencies:
     "@bedrock-layout/spacing-constants" "^2.5.1"
 
+"@bedrock-layout/columns@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/columns/-/columns-2.3.4.tgz#805de442f9c5962dd9609d8ef8a05dd9768d7bd1"
+  integrity sha512-ybBW9dh5JJdop0NYMkDmdxPjtDyA/D4npjsBhpKq2zh9TyFJjImTbrkYc6X8dj4+106DXDyxxiKkU2NxYGVK2A==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+    "@bedrock-layout/stack" "^2.3.4"
+    "@bedrock-layout/type-utils" "^0.0.14"
+    "@bedrock-layout/use-container-query" "^1.2.14"
+    "@bedrock-layout/use-forwarded-ref" "^1.1.11"
+
 "@bedrock-layout/frame@^2.2.4":
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/@bedrock-layout/frame/-/frame-2.2.4.tgz#7c124718e0543ec1b53903788d040d05a9e8e1de"
@@ -1085,6 +1096,48 @@
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@bedrock-layout/spacing-constants/-/spacing-constants-2.5.1.tgz#935f552df2e741d5e1ee561ba53da17b022d94b3"
   integrity sha512-bGpNIwFCaVu5mrJCakwawJfjuRZWJLWDgQUBlt5o2ZyOxT6Ytr+U2DszDm3DyadelTGxJAsYWGX64xSXPcUWzw==
+
+"@bedrock-layout/split@^2.3.5":
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/split/-/split-2.3.5.tgz#4b4fee46bf46e7c293a6303e75a8d5f2edb6bf7a"
+  integrity sha512-iwqx0MZnJ/VdrJ7ZVQjgwgnaMA8zHLpPYnz0Rj0vvbJwyxbZehMo5QdN52fiRx+gODbPOowXRUYYOEejfG/Jng==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+    "@bedrock-layout/stack" "^2.3.4"
+    "@bedrock-layout/type-utils" "^0.0.14"
+    "@bedrock-layout/use-container-query" "^1.2.14"
+    "@bedrock-layout/use-forwarded-ref" "^1.1.11"
+
+"@bedrock-layout/stack@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/stack/-/stack-2.3.4.tgz#79b6ae45358ffde79442faf31d0f76c0b4b14121"
+  integrity sha512-h/W7en01AMnQusoUTlZmh3Lp1rIgn8TbZ+3N5272Me2GmyMa6zrkffI4FJeJZNPy9aoRjXTLlKyT6HXzVVYzkQ==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+
+"@bedrock-layout/type-utils@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/type-utils/-/type-utils-0.0.14.tgz#63288f5cb806f50ac6409e07a3cb73ae8488566f"
+  integrity sha512-SaZjUFF2wAMX5mJNn2YL6WbxIKK5P79X6cFUqvlmOLPHbjzmTHsJyqFbyBNp21ykpLpHmbYDD9W55dhhh+HQEQ==
+
+"@bedrock-layout/use-container-query@^1.2.14":
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/use-container-query/-/use-container-query-1.2.14.tgz#ae57f8d253e1828480c359cb6ed0c2a289a58bd8"
+  integrity sha512-Sumykay3uCKcFpn3SXisxIJo4CthEvy+wdEhn06BTB3wa904wofZDsqSOEyza+Shu5HxUapxZaE2i7RYpGtN0Q==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+
+"@bedrock-layout/use-forwarded-ref@^1.1.11":
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/use-forwarded-ref/-/use-forwarded-ref-1.1.11.tgz#c649a0dc442ee7633509f1d279f55152e55e718f"
+  integrity sha512-FR10Q59jOzOfAk1TMSWpBAPRG35cCW57Y1gLloqwBqbYypuUICaXnYGoMCy9bBqpeBpweVJNSWVvmFhuAFzLjg==
+  dependencies:
+    "@bedrock-layout/use-stateful-ref" "^1.1.11"
+
+"@bedrock-layout/use-stateful-ref@^1.1.11":
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/use-stateful-ref/-/use-stateful-ref-1.1.11.tgz#16c08097bec069ab234043383d1ccc77a4dacd4a"
+  integrity sha512-yU73p/LxInc3T4ZHF/2vGrmYB0LxHEbpw9bOLG8YE8cptmnDWbxd3vTEFERts9dwD0kqV+UV2iqXzuHWwj9kiA==
 
 "@csstools/normalize.css@*":
   version "12.0.0"
@@ -4237,7 +4290,7 @@ eslint-plugin-react-hooks@^4.3.0:
 
 eslint-plugin-react@^7.27.1:
   version "7.27.1"
-  resolved "https://registry.npmjs.org/eslint-plugin-react/-/eslint-plugin-react-7.27.1.tgz"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.27.1.tgz#469202442506616f77a854d91babaae1ec174b45"
   integrity sha512-meyunDjMMYeWr/4EBLTV1op3iSG3mjT/pz5gti38UzfM4OPpNc2m0t2xvKCOMU5D6FSdd34BIMFOvQbW+i8GAA==
   dependencies:
     array-includes "^3.1.4"
@@ -4892,6 +4945,13 @@ he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
+history@5, history@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.2.0.tgz#7cdd31cf9bac3c5d31f09c231c9928fad0007b7c"
+  integrity sha512-uPSF6lAJb3nSePJ43hN3eKj1dTWpN9gMod0ZssbFTIsen+WehTmEadgL+kg78xLJFdRfrrC//SavDzmRVdE+Ig==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
 
 hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0:
   version "3.3.2"
@@ -7501,6 +7561,21 @@ react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
+
+react-router-dom@6:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.2.1.tgz#32ec81829152fbb8a7b045bf593a22eadf019bec"
+  integrity sha512-I6Zax+/TH/cZMDpj3/4Fl2eaNdcvoxxHoH1tYOREsQ22OKDYofGebrNm6CTPUcvLvZm63NL/vzCYdjf9CUhqmA==
+  dependencies:
+    history "^5.2.0"
+    react-router "6.2.1"
+
+react-router@6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.2.1.tgz#be2a97a6006ce1d9123c28934e604faef51448a3"
+  integrity sha512-2fG0udBtxou9lXtK97eJeET2ki5//UWfQSl1rlJ7quwe6jrktK9FCCc8dQb5QY6jAv3jua8bBQRhhDOM/kVRsg==
+  dependencies:
+    history "^5.2.0"
 
 react-scripts@5.0.0:
   version "5.0.0"
