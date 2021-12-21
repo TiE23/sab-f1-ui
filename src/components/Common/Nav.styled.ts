@@ -5,3 +5,4 @@ export const Nav = styled.nav`
   padding-bottom: 1rem;
   padding-left: 1rem;
 `;
+Nav.displayName = "Nav";
