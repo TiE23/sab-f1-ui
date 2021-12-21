@@ -11,3 +11,4 @@ export const HeaderBar = styled.header`
   font-family: ${p => p.theme.fonts.accent};
   font-size: 0.8em;
 `;
+HeaderBar.displayName = "HeaderBar";

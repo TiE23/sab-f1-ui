@@ -5,7 +5,7 @@ type FullScreenContainerProps = {
   minWidth?: number,
 }
 
-export const FullScreenContainer = styled.div < FullScreenContainerProps>`
+export const FullScreenContainer = styled.div<FullScreenContainerProps>`
   --minHeight: ${({ minHeight = 0 }) => `${minHeight}px`};
   --minWidth: ${({ minWidth = 0 }) => `${minWidth}px`};
   --overflowY: ${({ minHeight }) => minHeight ? "scroll" : "hidden" };
@@ -20,3 +20,4 @@ export const FullScreenContainer = styled.div < FullScreenContainerProps>`
   overflow-y: var(--overflowY);
   overflow-x: var(--overflowX);
 `;
+FullScreenContainer.displayName = "FullScreenContainer";
