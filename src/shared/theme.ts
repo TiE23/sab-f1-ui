@@ -10,6 +10,7 @@ export const theme = {
     blue: "#387af5",
     pink: "#eb57a3",
     grey: "#aaa",
+    darkGrey: "#303030",
     videoFrameBG: "#333",
   },
 };

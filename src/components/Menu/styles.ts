@@ -10,7 +10,7 @@ export const MenuBar = styled(InlineCluster).attrs(() => ({
   align: "center",
 }))`
   background-image: linear-gradient(to right, #f0f0f0, #fff);
-  border-block-end: 1px solid #303030;
+  border-block-end: 1px solid ${p => p.theme.colors.darkGrey};
 `;
 
 type MenuItemProps = {
@@ -22,12 +22,12 @@ export const MenuItem = styled(PadBox).attrs(() => ({
 })) <MenuItemProps>`
   border-radius: 0.25rem;
   > a {
-    color: #333;
+    color: ${p => p.theme.colors.darkGrey};
     text-decoration: none;
     font-weight: 900;
   }
   :hover {
-    background: #303030;
+    background: ${p => p.theme.colors.darkGrey};
     > a {
       color: white;
     }

@@ -1,21 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-
 import { FullScreenContainer } from "./styles";
 import { Layout } from "../components/Broadcast/Layout";
-import { RouteHeader } from "../components/Common/RouteHeader";
+import { MainMenu } from "../components/Menu";
+import { useDimensions } from "../utils/hooks";
 
 export default function Broadcast() {
-  const [height, setHeight] = useState(0);
-  const ref = useRef < HTMLHeadElement>(null);
-
-  useEffect(() => {
-    if (ref?.current != null)
-      setHeight(ref.current.clientHeight);
-  });
+  const [ref, { height }] = useDimensions<HTMLDivElement>();
 
   return (
     <FullScreenContainer minHeight={700} minWidth={900}>
-      <RouteHeader ref={ref} title="Broadcast Page" />
+      <MainMenu ref={ref}/>
       <Layout headerHeight={height} />
     </FullScreenContainer>
   );
