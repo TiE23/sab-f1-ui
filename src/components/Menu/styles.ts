@@ -1,6 +1,6 @@
 import { InlineCluster } from "@bedrock-layout/inline-cluster";
 import { PadBox } from "@bedrock-layout/padbox";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const MenuBar = styled(InlineCluster).attrs(() => ({
   as: PadBox,
@@ -14,22 +14,28 @@ export const MenuBar = styled(InlineCluster).attrs(() => ({
 `;
 
 type MenuItemProps = {
+  hovered?: boolean,
   active?: boolean,
 };
 export const MenuItem = styled(PadBox).attrs(() => ({
   as: "li",
   padding: ["sm", "lg"],
-})) <MenuItemProps>`
+}))<MenuItemProps>`
   border-radius: 0.25rem;
   > a {
     color: ${p => p.theme.colors.darkGrey};
     text-decoration: none;
     font-weight: 900;
   }
-  :hover {
+
+  ${({ active }) => active && css`
+    background: ${p => p.theme.colors.lightGrey};
+  `}
+
+  ${({ hovered }) => hovered && css`
     background: ${p => p.theme.colors.darkGrey};
     > a {
       color: white;
     }
-  }
+  `}
 `;

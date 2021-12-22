@@ -10,6 +10,7 @@ export const theme = {
     blue: "#387af5",
     pink: "#eb57a3",
     grey: "#aaa",
+    lightGrey: "#ddd",
     darkGrey: "#303030",
     videoFrameBG: "#333",
   },
@@ -29,8 +30,6 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   *::before { box-sizing: border-box; }
 
   h1, h2, h3, h4, h5, h6 { margin: 0; }
-  a { color: ${({ theme }) => theme.colors.blue} }
-  a:hover { color: ${({ theme }) => theme.colors.pink} }
 
   input,
   textarea,
@@ -41,5 +40,10 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   .main {
     padding: 70px 0 20px;
     min-height: calc(100vh - 50px);
+  }
+  .activeNavLink {
+    border-color: ${({ theme }) => theme.colors.darkGrey};
+    font-style: italic;
+    text-decoration: underline;
   }
 `;
