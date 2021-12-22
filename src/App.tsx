@@ -1,15 +1,16 @@
-// import "./App.css";
 import { Outlet, Link } from "react-router-dom";
 
-import { Nav } from "./components/Common/Nav.styled";
+import { Menu } from "./components/Menu";
 
 function App() {
   return (
     <div className="App">
-      <h1>Main Page</h1>
-      <Nav>
+      <Menu title="F1 World Broadcast Emulator Project">
         <Link to="/broadcast">Broadcast Page</Link>
-      </Nav>
+        <Link to="/broadcast">Broadcast Page</Link>
+        <Link to="/broadcast">Broadcast Page</Link>
+        <Link to="/broadcast">Broadcast Page</Link>
+      </Menu>
       <Outlet />
     </div>
   );

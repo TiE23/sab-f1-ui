@@ -1092,6 +1092,28 @@
   dependencies:
     "@bedrock-layout/spacing-constants" "^2.5.1"
 
+"@bedrock-layout/inline-cluster@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/inline-cluster/-/inline-cluster-2.4.2.tgz#0019482153b61f63a85cc0c22133f3ecac1e2821"
+  integrity sha512-aoN9ey7R1QOv0Ap4zpmzrdFzjeGmZfiF0nX8YxJbd8A99tsOxlGQzpghnXdOymnWwxHci1jSzwippyOGiF5BUQ==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+
+"@bedrock-layout/inline@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/inline/-/inline-2.3.3.tgz#77ccc00fbfbfc4efd886fd28818d999396ce18fa"
+  integrity sha512-I8XjARt1qbtBB94NOlau6WG8r6MfAJfqYMfdA+F346pYY+9XoQo7nG6jleLQuZlSLsE/ci6cWuN4Y3a5DjcKsQ==
+  dependencies:
+    "@bedrock-layout/inline-cluster" "^2.4.2"
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+
+"@bedrock-layout/padbox@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/padbox/-/padbox-2.1.4.tgz#9069b8e94d741f89e23bfd1d88a8f256b18995eb"
+  integrity sha512-mwNYEjcYHhs/T0YHa6Yt1C0IdIORTt+gfjkmjygcvqBCDzfj0stR/DmlbMNHv5URRt2ch2AO3E66v5IGIwjb0g==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+
 "@bedrock-layout/spacing-constants@^2.5.1":
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@bedrock-layout/spacing-constants/-/spacing-constants-2.5.1.tgz#935f552df2e741d5e1ee561ba53da17b022d94b3"
