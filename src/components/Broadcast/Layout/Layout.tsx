@@ -1,4 +1,5 @@
 import { MockupBlock } from "../../Common/MockupBlock.styled";
+import VideoFeed from "../VideoFeed/VideoFeed";
 import { LayoutGrid, LayoutGridItem } from "./styles";
 
 type LayoutProps = {
@@ -16,9 +17,7 @@ export function Layout({ headerHeight }: LayoutProps) {
       </LayoutGridItem>
 
       <LayoutGridItem column={2} row={1} columnSpan={5} rowSpan={6} >
-        <MockupBlock
-          color="#c5c5c5"
-        >Video Feed</MockupBlock>
+        <VideoFeed />
       </LayoutGridItem>
 
       <LayoutGridItem column={1} row={7} rowSpan={3}>
