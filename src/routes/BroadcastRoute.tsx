@@ -14,7 +14,7 @@ export default function Broadcast() {
   });
 
   return (
-    <FullScreenContainer minHeight={400} minWidth={600}>
+    <FullScreenContainer minHeight={700} minWidth={900}>
       <RouteHeader ref={ref} title="Broadcast Page" />
       <Layout headerHeight={height} />
     </FullScreenContainer>

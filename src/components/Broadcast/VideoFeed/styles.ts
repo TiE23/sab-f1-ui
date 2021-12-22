@@ -11,27 +11,23 @@ export const VideoFeedFrame = styled.div<VideoFeedFrameProps>`
 
   ${({ centered = false }) => centered && css`
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* > * {
-      left: 10px;
-    } */
+    > div {
+      background-position: center;
+    }
   `}
 `;
 VideoFeedFrame.displayName = "VideoFeedFrame";
 
 export const BackgroundImage = styled.img`
   height: 100%;
+  max-width: 100%;
   object-fit: contain;
 `;
 BackgroundImage.displayName = "BackgroundImage";
 
-/**
- * A slight improvement to using a simple img in that we can resize the image
- * (the video) to shrink slightly in the video feed frame if the browser window
- * is too narrow.
- */
 type BackgroundImageDivProps = {
   src: string,
 }
@@ -41,5 +37,6 @@ export const BackgroundImageDiv = styled.div<BackgroundImageDivProps>`
   background-image: ${({ src }) => `url("${src}")`};
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: 0% 50%;
 `;
 BackgroundImageDiv.displayName = "BackgroundImageDiv";
