@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-// import "./index.css";
-// import "./clear.css";
+import "./clear.css";
 
 import App from "./App";
 import Broadcast from "./routes/BroadcastRoute";
