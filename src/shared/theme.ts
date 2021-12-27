@@ -41,9 +41,4 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
     padding: 70px 0 20px;
     min-height: calc(100vh - 50px);
   }
-  .activeNavLink {
-    border-color: ${({ theme }) => theme.colors.darkGrey};
-    font-style: italic;
-    text-decoration: underline;
-  }
 `;
