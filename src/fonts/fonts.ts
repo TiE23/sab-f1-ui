@@ -11,7 +11,7 @@ import Formula1BlackTTF from "./Formula1-Black.ttf";
 import Formula1WideWoff2 from "./Formula1-Wide.woff2";
 import Formula1WideTTF from "./Formula1-Wide.ttf";
 
-export default createGlobalStyle`
+export const GlobalFonts = createGlobalStyle`
   @font-face {
     font-family: "Formula1 Regular";
     src: url(${Formula1RegularWoff2}) format("woff2"),

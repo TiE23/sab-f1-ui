@@ -8,7 +8,7 @@ import "./clear.css";
 import App from "./App";
 import Broadcast from "./routes/BroadcastRoute";
 import { GlobalStyle, theme } from "./shared/theme";
-import GlobalFonts from "./fonts/fonts";
+import { GlobalFonts } from "./fonts";
 
 ReactDOM.render(
   <React.StrictMode>
