@@ -2,6 +2,10 @@ import { InlineCluster } from "@bedrock-layout/inline-cluster";
 import { PadBox } from "@bedrock-layout/padbox";
 import styled, { css } from "styled-components";
 
+export const Title = styled.h3`
+  font-family: ${p => p.theme.fonts.f1Bold};
+`;
+
 export const MenuBar = styled(InlineCluster).attrs(() => ({
   as: PadBox,
   padding: ["xs", "lg"],
@@ -25,7 +29,8 @@ export const MenuItem = styled(PadBox).attrs(() => ({
   > a {
     color: ${p => p.theme.colors.darkGrey};
     text-decoration: none;
-    font-weight: 900;
+    font-family: ${p => p.theme.fonts.f1Regular};
+    font-size: 0.8em;
   }
 
   ${({ active }) => active && css`
