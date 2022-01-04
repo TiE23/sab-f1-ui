@@ -8,11 +8,13 @@ import "./clear.css";
 import App from "./App";
 import Broadcast from "./routes/BroadcastRoute";
 import { GlobalStyle, theme } from "./shared/theme";
+import GlobalFonts from "./fonts/fonts";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle theme={theme} />
+      <GlobalFonts />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />

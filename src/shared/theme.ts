@@ -3,7 +3,12 @@ import { createGlobalStyle, ThemeProps } from "styled-components";
 export const theme = {
   fonts: {
     basic: "Helvetica, sans-serif",
-    accent: "\"Permanent Marker\", cursive",
+    f1: "Formula1, sans-serif",
+    f1Regular: "\"Formula1 Regular\", sans-serif",
+    f1Bold: "\"Formula1 Bold\", sans-serif",
+    f1Italic: "\"Formula1 Italic\", sans-serif",
+    f1Black: "\"Formula1 Black\", sans-serif",
+    f1Wide: "\"Formula1 Wide\", sans-serif",
   },
   colors: {
     orange: "#f4ae40",
@@ -20,7 +25,7 @@ export type MainThemeProps = ThemeProps<typeof theme>;
 export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   body {
     margin: 0;
-    font-family: ${({ theme }) => theme.fonts.basic};
+    font-family: ${p => p.theme.fonts.basic};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -34,7 +39,7 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   input,
   textarea,
   button {
-    font-family: ${({ theme }) => theme.fonts.basic};
+    font-family: ${p => p.theme.fonts.basic};
   }
 
   .main {
