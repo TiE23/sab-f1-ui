@@ -18,29 +18,23 @@ export const MenuBar = styled(InlineCluster).attrs(() => ({
 `;
 
 type MenuItemProps = {
-  hovered?: boolean,
-  active?: boolean,
+  isHovered?: boolean,
+  isActive?: boolean,
 };
 export const MenuItem = styled(PadBox).attrs(() => ({
-  as: "li",
   padding: ["sm", "lg"],
 }))<MenuItemProps>`
   border-radius: 0.25rem;
-  > a {
-    color: ${p => p.theme.colors.darkGrey};
-    text-decoration: none;
-    font-family: ${p => p.theme.fonts.f1Regular};
-    font-size: 0.8em;
-  }
+  color: ${p => p.theme.colors.darkGrey};
+  font-family: ${p => p.theme.fonts.f1Regular};
+  font-size: 0.8em;
 
-  ${({ active }) => active && css`
+  ${({ isActive }) => isActive && css`
     background: ${p => p.theme.colors.lightGrey};
   `}
 
-  ${({ hovered }) => hovered && css`
+  ${({ isHovered }) => isHovered && css`
     background: ${p => p.theme.colors.darkGrey};
-    > a {
-      color: white;
-    }
+    color: white;
   `}
 `;
