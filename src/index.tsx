@@ -20,8 +20,9 @@ ReactDOM.render(
         <GlobalFonts />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/broadcast" element={<Broadcast />} />
+            <Route path="/" element={<App />} >
+              <Route path="/broadcast" element={<Broadcast />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
