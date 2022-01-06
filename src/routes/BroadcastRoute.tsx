@@ -1,15 +1,15 @@
+import { useSelector } from "react-redux";
+
 import { FullScreenContainer } from "./styles";
 import { Layout } from "../components/Broadcast/Layout";
-import { MainMenu } from "../components/Menu";
-import { useDimensions } from "../utils/hooks";
+import { menuSelector } from "../features/pageDimensions/pageDimensionsSelector";
 
 export default function Broadcast() {
-  const [ref, { height }] = useDimensions<HTMLDivElement>();
+  const { height } = useSelector(menuSelector);
 
   return (
-    <FullScreenContainer minHeight={700} minWidth={900}>
-      <MainMenu ref={ref}/>
-      <Layout headerHeight={height} />
+    <FullScreenContainer minHeight={700} minWidth={900} heightCutoff={height}>
+      <Layout />
     </FullScreenContainer>
   );
 }
