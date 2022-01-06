@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 
-import { FullScreenContainer } from "./styles";
-import { Layout } from "../components/Broadcast/Layout";
-import { menuSelector } from "../features/pageDimensions/pageDimensionsSelector";
+import { FullScreenContainer } from "../Common/FullScreenContainer.styled";
+import { Layout } from "./Layout";
+import { menuSelector } from "../../features/pageDimensions/pageDimensionsSelector";
 
 export default function Broadcast() {
   const { height } = useSelector(menuSelector);

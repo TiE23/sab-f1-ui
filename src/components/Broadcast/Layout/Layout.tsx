@@ -1,6 +1,6 @@
 import { MockupBlock } from "../../Common/MockupBlock.styled";
 import VideoFeed from "../VideoFeed/VideoFeed";
-import { LayoutGrid, LayoutGridItem } from "./styles";
+import { LayoutGrid, LayoutGridItem } from "../../Common/LayoutGrid.styled";
 
 type LayoutProps = {
   headerHeight?: number,

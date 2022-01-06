@@ -15,6 +15,7 @@ export const MainMenu = React.forwardRef<HTMLDivElement>(
       links={[
         { label: "Home", to: "/" },
         { label: "Broadcast Page", to: "/broadcast" },
+        { label: "Workspaces", to: "/workspaces" },
       ]}
     />
   ),
