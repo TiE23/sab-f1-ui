@@ -1,7 +1,32 @@
 import { useParams } from "react-router-dom";
+import { Cover } from "@bedrock-layout/cover";
+import { Center } from "@bedrock-layout/center";
+import { Stack } from "@bedrock-layout/stack";
+
+import { PreviewWindow, H2 } from "./styles";
+import { WorkspaceControls } from "./WorkspaceControls";
+import { MockupBlock } from "../../Common/MockupBlock.styled";
+
+import { workspaceObject } from "../workspaces";
 
 export const Workspace = () => {
-  const params = useParams();
-  return <h1>{params.workspaceName}</h1>;
-
+  const { workspaceId } = useParams();
+  return (
+    <Stack
+      gutter="lg"
+      as={Center}
+      maxWidth="80%"
+      centerChildren
+    >
+      <H2>{workspaceId ? workspaceObject[workspaceId] : ""}</H2>
+      <PreviewWindow height={600} width={800}>
+        <MockupBlock
+          color="#415bad"
+          height="300px"
+          width="400px"
+        >Preview Item</MockupBlock>
+      </PreviewWindow>
+      <WorkspaceControls />
+    </Stack>
+  );
 };

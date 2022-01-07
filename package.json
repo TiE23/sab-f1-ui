@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@bedrock-layout/appboundary": "^2.2.4",
+    "@bedrock-layout/center": "^2.2.5",
     "@bedrock-layout/columns": "^2.3.4",
     "@bedrock-layout/cover": "^2.2.5",
     "@bedrock-layout/frame": "^2.2.4",

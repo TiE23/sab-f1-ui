@@ -1081,6 +1081,13 @@
   dependencies:
     "@bedrock-layout/spacing-constants" "^2.5.1"
 
+"@bedrock-layout/center@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/center/-/center-2.2.5.tgz#a559215267ae6e008cadc790b8b287c74d99dcd0"
+  integrity sha512-Y3fXSFdwcxZh1A+VED/itwT5gAmlfuD0+5/hGV1/iHPvR8qCtZ7fbx/YyjA3Jb0P+NRX6sXrq5dCWv54fxvNMQ==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+
 "@bedrock-layout/columns@^2.3.4":
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/@bedrock-layout/columns/-/columns-2.3.4.tgz#805de442f9c5962dd9609d8ef8a05dd9768d7bd1"
