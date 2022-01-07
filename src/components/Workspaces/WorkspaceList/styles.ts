@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { PadBox } from "@bedrock-layout/padbox";
 
 export const WorkspaceListBox = styled(PadBox).attrs(() => ({
-  padding: ["lg", "sm"],
+  padding: ["lg", "md"],
 }))`
   height: 100%;
   width: 100%;

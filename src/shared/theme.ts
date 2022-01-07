@@ -19,6 +19,11 @@ export const theme = {
     darkGrey: "#303030",
     videoFrameBG: "#333",
   },
+  design: {
+    button: {
+      borderRadius: "0.25rem",
+    },
+  },
 };
 
 export type MainThemeProps = ThemeProps<typeof theme>;

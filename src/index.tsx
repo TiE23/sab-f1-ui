@@ -9,6 +9,7 @@ import "./clear.css";
 import App from "./App";
 import Broadcast from "./components/Broadcast/BroadcastRoute";
 import Workspaces from "./components/Workspaces/WorkspacesRoute";
+import { Workspace } from "./components/Workspaces/Workspace";
 
 import { GlobalStyle, theme } from "./shared/theme";
 import { GlobalFonts } from "./fonts";
@@ -22,12 +23,15 @@ ReactDOM.render(
         <GlobalFonts />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<App />} >
+            <Route path="/" element={<App />}>
+              <Route index element={<h1>Home</h1>} />
               <Route path="broadcast" element={<Broadcast />} />
               <Route path="workspaces" element={<Workspaces />}>
-                <Route path=":workspaceName" element={<div>What</div>} />
+                <Route index element={<h1>Workspaces Home</h1>} />
+                <Route path=":workspaceName" element={<Workspace />} />
               </Route>
             </Route>
+            <Route path="*" element={<h1>Page Not Found</h1>} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

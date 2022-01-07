@@ -12,7 +12,7 @@ export default function Workspaces() {
 
   return (
     <FullScreenContainer minHeight={700} minWidth={900} heightCutoff={height}>
-      <LayoutGrid columns={[1, 5]} rows={1}>
+      <LayoutGrid columns={["180px", 5]} rows={1}>
         <LayoutGridItem column={1} row={1}>
           <WorkspaceList />
         </LayoutGridItem>
