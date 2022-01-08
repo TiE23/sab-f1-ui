@@ -4,8 +4,11 @@ import { NavLink } from "react-router-dom";
 import { MenuItem } from "../../Common/MenuItem.styled";
 import { workspaceList } from "../workspaces";
 
-export const WorkspaceList = () => (
-  <WorkspaceListBox>
+type WorkspaceListProps = {
+  headerOffset?: number,
+};
+export const WorkspaceList = ({ headerOffset }: WorkspaceListProps) => (
+  <WorkspaceListBox headerOffset={headerOffset}>
     <Stack as="ul" gutter="md">
       {workspaceList.map((workspace, i) => (
         <WorkspaceListNavLink key={i} to={workspace.id} label={workspace.name} />

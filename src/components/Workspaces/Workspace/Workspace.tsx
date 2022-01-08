@@ -18,8 +18,8 @@ export const Workspace = () => {
       maxWidth="80%"
       centerChildren
     >
-      <H2>{workspaceId ? workspaceObject[workspaceId] : ""}</H2>
-      <PreviewWindow height={600} width={800}>
+      <H2>{workspaceId ? workspaceObject[workspaceId] : "Unknown"}</H2>
+      <PreviewWindow height={600} width={800} animatedBG>
         <MockupBlock
           color="#415bad"
           height="300px"
