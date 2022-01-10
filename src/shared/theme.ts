@@ -14,10 +14,17 @@ export const theme = {
     orange: "#f4ae40",
     blue: "#387af5",
     pink: "#eb57a3",
+    activeGreen: "#65c466",
     grey: "#aaa",
     lightGrey: "#ddd",
+    faintGrey: "#eee",
     darkGrey: "#303030",
     videoFrameBG: "#333",
+  },
+  design: {
+    button: {
+      borderRadius: "0.25rem",
+    },
   },
 };
 
@@ -40,10 +47,5 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   textarea,
   button {
     font-family: ${p => p.theme.fonts.basic};
-  }
-
-  .main {
-    padding: 70px 0 20px;
-    min-height: calc(100vh - 50px);
   }
 `;

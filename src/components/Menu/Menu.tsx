@@ -3,7 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 import { InlineCluster } from "@bedrock-layout/inline-cluster";
 import useForwardedRef from "@bedrock-layout/use-forwarded-ref";
 
-import { MenuBar, MenuItem, Title } from "./styles";
+import { MenuBar, Title } from "./styles";
+import { MenuItem } from "../Common/MenuItem.styled";
 
 import f1Logo from "../../public/images/logos/f1-logo-red.svg";
 
@@ -15,6 +16,7 @@ export const MainMenu = React.forwardRef<HTMLDivElement>(
       links={[
         { label: "Home", to: "/" },
         { label: "Broadcast Page", to: "/broadcast" },
+        { label: "Workspaces", to: "/workspaces" },
       ]}
     />
   ),

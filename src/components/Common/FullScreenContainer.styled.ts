@@ -10,8 +10,8 @@ type FullScreenContainerProps = {
 export const FullScreenContainer = styled.div<FullScreenContainerProps>`
   --minHeight: ${({ minHeight = 0 }) => `${minHeight}px`};
   --minWidth: ${({ minWidth = 0 }) => `${minWidth}px`};
-  --overflowY: ${({ minHeight }) => minHeight ? "scroll" : "hidden" };
-  --overflowX: ${({ minWidth }) => minWidth ? "scroll" : "hidden" };
+  --overflowY: ${({ minHeight }) => minHeight ? "scroll" : "hidden"};
+  --overflowX: ${({ minWidth }) => minWidth ? "scroll" : "hidden"};
   --heightCutoff: ${({ heightCutoff = 0 }) => `${heightCutoff}px`};
   --widthCutoff: ${({ widthCutoff = 0 }) => `${widthCutoff}px`};
 
