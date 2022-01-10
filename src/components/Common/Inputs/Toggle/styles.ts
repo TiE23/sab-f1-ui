@@ -35,6 +35,7 @@ ToggleLabel.displayName = "ToggleLabel";
 type ToggleBackgroundProps = {
   toggled: boolean,
   toggledColor?: string,
+  showIndicators?: boolean,
 };
 export const ToggleBackground = styled.div<ToggleBackgroundProps>`
   background-color: ${({
@@ -47,10 +48,31 @@ export const ToggleBackground = styled.div<ToggleBackgroundProps>`
   )};
   width: 100%;
   height: 100%;
+  transition: background-color 300ms;
 
   ${({ toggled }) => toggled && css`
     box-shadow: inset 0 0 24px -16px black;
   `}
+
+  ${({ toggled, showIndicators }) => showIndicators && (toggled ?
+    css`
+      div:before {
+        position: absolute;
+        right: 26px;
+        bottom: -2px;
+        content: "I";
+        color: ${p => p.theme.colors.darkGrey};
+      }
+    ` :
+    css`
+      div:after {
+        position: absolute;
+        left: 23px;
+        bottom: -2px;
+        content: "O";
+        color: ${p => p.theme.colors.grey};
+      }
+    `)}
 `;
 ToggleBackground.displayName = "ToggleBackground";
 

@@ -13,13 +13,17 @@ export type ToggleProps = {
   label: string,
   toggled: boolean,
   onToggle: (value: AnimatedBG) => void,
+  showIndicators?: boolean,
 };
 /**
  * This is my attempt at making a iOS-style toggle switch.
- * @param param0
- * @returns
  */
-export const Toggle = ({ label, toggled, onToggle }: ToggleProps) => {
+export const Toggle = ({
+  label,
+  toggled,
+  onToggle,
+  showIndicators = false,
+}: ToggleProps) => {
   const [hovered, setHovered] = useState(false);
   return (
     <ToggleContainer>
@@ -37,8 +41,9 @@ export const Toggle = ({ label, toggled, onToggle }: ToggleProps) => {
           onMouseDown={() => setHovered(true)}
           onMouseUp={() => setHovered(false)}
         >
-          <ToggleBackground toggled={toggled} />
-          <ToggleCircle toggled={toggled} stretched={hovered} />
+          <ToggleBackground toggled={toggled} showIndicators={showIndicators}>
+            <ToggleCircle toggled={toggled} stretched={hovered} />
+          </ToggleBackground>
         </ToggleLabel>
       </ToggleBody>
     </ToggleContainer>

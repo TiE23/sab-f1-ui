@@ -48,9 +48,4 @@ export const GlobalStyle = createGlobalStyle<MainThemeProps>`
   button {
     font-family: ${p => p.theme.fonts.basic};
   }
-
-  .main {
-    padding: 70px 0 20px;
-    min-height: calc(100vh - 50px);
-  }
 `;
