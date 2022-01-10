@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import { Cover } from "@bedrock-layout/cover";
+import { useSelector } from "react-redux";
 import { Center } from "@bedrock-layout/center";
 import { Stack } from "@bedrock-layout/stack";
 
-import { PreviewWindow, H2 } from "./styles";
+import { workspaceSelector } from "../../../features/workspace/workspaceSelector";
+
+import { PreviewWindow, H2, ControlsContainer } from "./styles";
 import { WorkspaceControls } from "./WorkspaceControls";
 import { MockupBlock } from "../../Common/MockupBlock.styled";
 
@@ -11,6 +13,7 @@ import { workspaceObject } from "../workspaces";
 
 export const Workspace = () => {
   const { workspaceId } = useParams();
+  const { animatedBG } = useSelector(workspaceSelector);
   return (
     <Stack
       gutter="lg"
@@ -19,14 +22,16 @@ export const Workspace = () => {
       centerChildren
     >
       <H2>{workspaceId ? workspaceObject[workspaceId] : "Unknown"}</H2>
-      <PreviewWindow height={600} width={800} animatedBG>
+      <PreviewWindow height={600} width={800} animatedBG={animatedBG}>
         <MockupBlock
           color="#415bad"
           height="300px"
           width="400px"
         >Preview Item</MockupBlock>
       </PreviewWindow>
-      <WorkspaceControls />
+      <ControlsContainer>
+        <WorkspaceControls />
+      </ControlsContainer>
     </Stack>
   );
 };

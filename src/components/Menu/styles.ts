@@ -5,6 +5,7 @@ import styled from "styled-components";
 export const Title = styled.h3`
   font-family: ${p => p.theme.fonts.f1Bold};
 `;
+Title.displayName = "Title";
 
 export const MenuBar = styled(InlineCluster).attrs(() => ({
   as: PadBox,
@@ -16,3 +17,4 @@ export const MenuBar = styled(InlineCluster).attrs(() => ({
   background-image: linear-gradient(to right, #f0f0f0, #fff);
   border-block-end: 1px solid ${p => p.theme.colors.darkGrey};
 `;
+MenuBar.displayName = "MenuBar";

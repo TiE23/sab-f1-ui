@@ -1113,6 +1113,13 @@
   dependencies:
     "@bedrock-layout/spacing-constants" "^2.5.1"
 
+"@bedrock-layout/grid@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@bedrock-layout/grid/-/grid-2.2.5.tgz#36b622481c5d8b3bfb5a0fd76e5e0986ed69b098"
+  integrity sha512-5HteSi7BEWU7RTEBG9dRanqsKxf18aOcFj0V12S1muGki6Xc1yxw1V4O/GH/wGppvU1NH5ICxGuUBBqmXMPoyQ==
+  dependencies:
+    "@bedrock-layout/spacing-constants" "^2.5.1"
+
 "@bedrock-layout/inline-cluster@^2.4.2":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@bedrock-layout/inline-cluster/-/inline-cluster-2.4.2.tgz#0019482153b61f63a85cc0c22133f3ecac1e2821"

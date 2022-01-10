@@ -33,6 +33,7 @@ export const PreviewWindow = styled(PadBox).attrs(() => ({
     animation: ${scrollAnimation} 5s linear infinite;
   `}
 `;
+PreviewWindow.displayName = "PreviewWindow";
 
 export const H2 = styled.h2`
   margin: 0.2em;
@@ -40,3 +41,12 @@ export const H2 = styled.h2`
   font-family: ${p => p.theme.fonts.f1Regular};
   max-inline-size: 600px;
 `;
+H2.displayName = "H2";
+
+export const ControlsContainer = styled(PadBox).attrs(() => ({
+  padding: "lg",
+}))`
+  background-color: ${p => p.theme.colors.faintGrey};
+  border-radius: 1em;
+`;
+ControlsContainer.displayName = "ControlsContainer";
