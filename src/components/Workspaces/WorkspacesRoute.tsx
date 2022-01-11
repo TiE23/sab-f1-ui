@@ -1,14 +1,15 @@
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
-import { menuSelector } from "../../features/pageDimensions/pageDimensionsSelector";
+import { menuDimensionsSelector } from "../../features/pageDimensions/pageDimensionsSelector";
 
 import { FullScreenContainer } from "../Common/FullScreenContainer.styled";
 import { WorkspaceList } from "./WorkspaceList";
 import { LayoutGrid, LayoutGridItem } from "../Common/LayoutGrid.styled";
+import { OverlayDisplay } from "../OverlayTool";
 
 export default function Workspaces() {
-  const { height } = useSelector(menuSelector);
+  const { height } = useSelector(menuDimensionsSelector);
 
   return (
     <FullScreenContainer minHeight={700} minWidth={900} heightCutoff={height}>
@@ -18,6 +19,7 @@ export default function Workspaces() {
         </LayoutGridItem>
         <LayoutGridItem column={2} row={1}>
           <Outlet />
+          <OverlayDisplay />
         </LayoutGridItem>
       </LayoutGrid>
     </FullScreenContainer>

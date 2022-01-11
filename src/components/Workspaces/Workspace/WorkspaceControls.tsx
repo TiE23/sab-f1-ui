@@ -6,6 +6,7 @@ import { setAnimatedBG } from "../../../features/workspace/workspaceSlice";
 import { AnimatedBG } from "../../../types/state";
 
 import { Toggle } from "../../Common/Inputs/Toggle";
+import { OverlayControl } from "../../OverlayTool";
 
 export const WorkspaceControls = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export const WorkspaceControls = () => {
         onToggle={(value: AnimatedBG) => {
           dispatch(setAnimatedBG(value));
         }} />
+      <OverlayControl />
     </Grid>
   );
 };
