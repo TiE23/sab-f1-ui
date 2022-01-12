@@ -11,8 +11,8 @@ export const OverlayItemContainer = styled.div.attrs<OverlayItemContainerProps>(
   visible,
 }) => ({
   style: {
-    top: y,
-    left: x,
+    // top: y,
+    // left: x,
     display: visible ? undefined : "none",
   },
 }))<OverlayItemContainerProps>`
