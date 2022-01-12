@@ -1,3 +1,4 @@
 {
-  "jest.jestCommandLine": "node_modules/.bin/react-scripts test --run-in-band --no-cache --watchAll=false"
+  "jest.jestCommandLine": "node_modules/.bin/react-scripts test --run-in-band --no-cache --watchAll=false",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

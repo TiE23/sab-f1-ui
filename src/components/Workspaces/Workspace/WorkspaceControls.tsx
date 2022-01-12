@@ -12,7 +12,7 @@ export const WorkspaceControls = () => {
   const { animatedBG } = useSelector(workspaceSelector);
 
   return(
-    <Grid gutter="sm">
+    <Grid gutter="sm" minItemWidth="25rem">
       <Toggle
         label="Animate BG"
         toggled={animatedBG}

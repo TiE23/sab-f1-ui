@@ -49,5 +49,7 @@ export const ControlsContainer = styled(PadBox).attrs(() => ({
 }))`
   background-color: ${p => p.theme.colors.faintGrey};
   border-radius: 1em;
+  width: 800px;
+  margin-bottom: 1em;
 `;
 ControlsContainer.displayName = "ControlsContainer";
