@@ -5,7 +5,7 @@ import { useDrag } from "@use-gesture/react";
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { setPosition } from "../../../features/overlayTool/overlayToolSlice";
 
-import { OverlayItemContainer } from "./styles";
+import { AnimatedOverlayItemContainer } from "./styles";
 
 export function OverlayDisplay() {
   const { currentOverlayItem, visible } = useSelector(overlayToolSelector);
@@ -37,21 +37,20 @@ export function OverlayDisplay() {
   return (
     transition((style, visible) =>
       visible ? (
-        <animated.div
-          {...bindOverlayItem({ xPos, yPos })}
-          style={{
-            ...style,
-            left: xPos,
-            // top: style.top.get() + yPos, // This doesn't work.
-            top: yPos,
-            position: "absolute",
-          }}
-        >
-          <OverlayItemContainer position={position} visible={visible}>
+        <animated.div style={{ ...style, position: "absolute" }}>
+          <AnimatedOverlayItemContainer
+            {...bindOverlayItem({ xPos, yPos })}
+            style={{
+              left: xPos,
+              top: yPos,
+              position: "absolute",
+            }}
+            visible={visible}
+          >
             {id}
             <br />
             (x:{position.x}px, y:{position.y}px)
-          </OverlayItemContainer>
+          </AnimatedOverlayItemContainer>
         </animated.div>
       ) : null,
     )

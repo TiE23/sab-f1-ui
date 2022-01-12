@@ -1,3 +1,4 @@
+import { animated } from "@react-spring/web";
 import styled from "styled-components";
 
 import { OverlayPosition } from "../../../types/state";
@@ -11,8 +12,8 @@ export const OverlayItemContainer = styled.div.attrs<OverlayItemContainerProps>(
   visible,
 }) => ({
   style: {
-    // top: y,
-    // left: x,
+    top: y,
+    left: x,
     display: visible ? undefined : "none",
   },
 }))<OverlayItemContainerProps>`
@@ -23,4 +24,24 @@ export const OverlayItemContainer = styled.div.attrs<OverlayItemContainerProps>(
   box-shadow: 0px 7px 11px 1px black;
 `;
 OverlayItemContainer.displayName = "OverlayItemContainer";
+
+type AnimatedOverlayItemContainerProps = {
+  visible: boolean,
+}
+export const AnimatedOverlayItemContainer = styled(animated.div).attrs<AnimatedOverlayItemContainerProps>(({
+  visible,
+}) => ({
+  style: {
+    display: visible ? undefined : "none",
+  },
+}))<AnimatedOverlayItemContainerProps>`
+  position: absolute;
+  z-index: 1;
+
+  /* Temporary. Overlay will be transparent and based on an image. */
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  box-shadow: 0px 7px 11px 1px black;
+`;
 
