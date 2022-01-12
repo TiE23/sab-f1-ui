@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AnimatedBG } from "../../../../types/state";
+
 import {
   ToggleContainer,
   ToggleBody,
@@ -12,7 +12,7 @@ import {
 export type ToggleProps = {
   label: string,
   toggled: boolean,
-  onToggle: (value: AnimatedBG) => void,
+  onToggle: (value: boolean) => void,  // eslint-disable-line no-unused-vars
   showIndicators?: boolean,
 };
 /**

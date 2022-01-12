@@ -8,6 +8,7 @@ import { workspaceSelector } from "../../../features/workspace/workspaceSelector
 import { PreviewWindow, H2, ControlsContainer } from "./styles";
 import { WorkspaceControls } from "./WorkspaceControls";
 import { MockupBlock } from "../../Common/MockupBlock.styled";
+import { OverlayDisplay } from "../../OverlayTool";
 
 import { workspaceObject } from "../workspaces";
 
@@ -28,6 +29,7 @@ export const Workspace = () => {
           height="300px"
           width="400px"
         >Preview Item</MockupBlock>
+        <OverlayDisplay />
       </PreviewWindow>
       <ControlsContainer>
         <WorkspaceControls />

@@ -4,11 +4,17 @@ import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSe
 import { OverlayItemContainer } from "./styles";
 
 export function OverlayDisplay() {
-  const { currentOverlayItem } = useSelector(overlayToolSelector);
+  const { currentOverlayItem, visible } = useSelector(overlayToolSelector);
+
   if (currentOverlayItem == null) return null;
+
   const { id, position } = currentOverlayItem;
+
   return (
-    <OverlayItemContainer position={position}>
+    <OverlayItemContainer
+      position={position}
+      visible={visible}
+    >
       {id}
       <br />
       ({position.x}px {position.y}px)

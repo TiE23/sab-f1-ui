@@ -1,29 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { RootState, MenuDimensions, AppDimensions } from "../../types/state";
+import { RootState, Dimensions } from "../../types/state";
 
 const initialState: RootState["pageDimensions"] = {
-  menu: {
-    height: 0,
-  },
-  app: {
-    height: 0,
-    width: 0,
-  },
+  mainMenu: { height: 0, width: 0 },
+  app: { height: 0, width: 0 },
+  workspace: { height: 0, width: 0 },
+};
+
+type SetDimensionsAction = {
+  name: "mainMenu" | "app" | "workspace",
+  dimensions: Dimensions,
 };
 
 export const pageDimensionsSlice = createSlice({
   name: "pageDimensions",
   initialState,
   reducers: {
-    setMenuDimensions: (state, action: PayloadAction<MenuDimensions>) => {
-      state.menu = action.payload;
-    },
-    setAppDimensions: (state, action: PayloadAction<AppDimensions>) => {
-      state.app = action.payload;
+    setDimensions: (state, action: PayloadAction<SetDimensionsAction>) => {
+      state[action.payload.name] = action.payload.dimensions;
     },
   },
 });
 
-export const { setMenuDimensions, setAppDimensions } = pageDimensionsSlice.actions;
+export const { setDimensions } = pageDimensionsSlice.actions;
 export default pageDimensionsSlice.reducer;

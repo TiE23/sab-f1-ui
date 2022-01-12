@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { workspaceSelector } from "../../../features/workspace/workspaceSelector";
 import { setAnimatedBG } from "../../../features/workspace/workspaceSlice";
-import { AnimatedBG } from "../../../types/state";
 
 import { Toggle } from "../../Common/Inputs/Toggle";
 import { OverlayControl } from "../../OverlayTool";
@@ -17,7 +16,7 @@ export const WorkspaceControls = () => {
       <Toggle
         label="Animate BG"
         toggled={animatedBG}
-        onToggle={(value: AnimatedBG) => {
+        onToggle={(value: boolean) => {
           dispatch(setAnimatedBG(value));
         }} />
       <OverlayControl />

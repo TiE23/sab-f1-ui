@@ -16,6 +16,7 @@ export type PreviewWindowProps = {
 export const PreviewWindow = styled(PadBox).attrs(() => ({
   padding: "lg",
 }))<PreviewWindowProps>`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

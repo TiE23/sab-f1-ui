@@ -6,26 +6,19 @@ export type RootState = {
 
 // Page Dimensions
 export type PageDimensions = {
-  menu: MenuDimensions,
-  app: AppDimensions,
+  mainMenu: Dimensions,
+  app: Dimensions,
+  workspace: Dimensions,
 };
-
-export type MenuDimensions = {
-  height: number,
-};
-export type AppDimensions = {
-  height: number,
-  width: number,
-};
+export type Dimensions = { width: number, height: number };
 
 // Workspace
 export type Workspace = {
   workspaceId: WorkspaceId,
-  animatedBG: AnimatedBG,
+  animatedBG: boolean,
 };
 
 export type WorkspaceId = string;
-export type AnimatedBG = boolean;
 
 // Overlay Tool
 export type OverlayTool = {

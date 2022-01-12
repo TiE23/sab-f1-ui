@@ -2,8 +2,7 @@ import { Outlet } from "react-router-dom";
 
 import { useDimensions } from "./utils/hooks";
 import {
-  setMenuDimensions,
-  setAppDimensions,
+  setDimensions,
 } from "./features/pageDimensions/pageDimensionsSlice";
 
 import { MainMenu } from "./components/Menu";
@@ -12,18 +11,30 @@ import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
-  const [appRef, { height: appHeight, width: appWidth }] = useDimensions<HTMLDivElement>();
-  const [mainMenuRef, { height: mainMenuHeight }] = useDimensions<HTMLDivElement>();
+  const [appRef, {
+    height: appHeight,
+    width: appWidth,
+  }] = useDimensions<HTMLDivElement>();
+  const [mainMenuRef, {
+    height: mainMenuHeight,
+    width: mainMenuWidth,
+  }] = useDimensions<HTMLDivElement>();
 
-  // Set App height and width.
+  // Set App dimensions.
   useEffect(() => {
-    dispatch(setAppDimensions({ height: appHeight, width: appWidth }));
+    dispatch(setDimensions({
+      name: "app",
+      dimensions: { height: appHeight, width: appWidth },
+    }));
   }, [appHeight, appWidth]);
 
-  // Set MainMenu height.
+  // Set MainMenu dimensions.
   useEffect(() => {
-    dispatch(setMenuDimensions({ height: mainMenuHeight }));
-  }, [mainMenuHeight]);
+    dispatch(setDimensions({
+      name: "mainMenu",
+      dimensions: { height: mainMenuHeight, width: mainMenuWidth },
+    }));
+  }, [mainMenuHeight, mainMenuWidth]);
 
   return (
     <div className="App" ref={appRef}>

@@ -4,7 +4,6 @@ import {
   RootState,
   OverlayPosition,
   OverlayId,
-  AppDimensions,
 } from "../../types/state";
 
 const initialState: RootState["overlayTool"] = {
@@ -16,13 +15,10 @@ const initialState: RootState["overlayTool"] = {
 
 const makeNewOverlayItem = (
   overlayId: OverlayId,
-  appDimensions: AppDimensions,
+  initialPosition: OverlayPosition,
 ) => ({
   id: overlayId,
-  position: {
-    x: appDimensions.width / 2,
-    y: appDimensions.height / 2,
-  },
+  position: initialPosition,
   opacity: 1,
   scale: 1,
 });
@@ -30,7 +26,8 @@ const makeNewOverlayItem = (
 
 type InitNewOverlayItemAction = {
   overlayId: OverlayId,
-  appDimensions: AppDimensions,
+  initialPosition: OverlayPosition,
+  setVisible: boolean,
 };
 
 export const overlayToolSlice = createSlice({
@@ -41,9 +38,10 @@ export const overlayToolSlice = createSlice({
       if (state.currentOverlayItem == null) {
         state.currentOverlayItem = makeNewOverlayItem(
           action.payload.overlayId,
-          action.payload.appDimensions,
+          action.payload.initialPosition,
         );
         state.currentOverlayId = action.payload.overlayId;
+        state.visible = action.payload.setVisible;
       }
     },
     setVisibility: (state, action: PayloadAction<boolean>) => {

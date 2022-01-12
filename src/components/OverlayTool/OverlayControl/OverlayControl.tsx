@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PadBox } from "@bedrock-layout/padbox";
 
-import { appDimensionsSelector } from "../../../features/pageDimensions/pageDimensionsSelector";
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import {
   initNewOverlayItem,
@@ -22,17 +21,15 @@ export function OverlayControl() {
 
 
   /* For prototyping use only */
-  const { width: appWidth, height: appHeight } = useSelector(appDimensionsSelector);
   const [overlayId, setOverlayId] = useState("foo_1.00000");
-  const { width, height } = useSelector(appDimensionsSelector);
 
   const getRandomArbitrary = (min: number, max: number) =>
     Math.random() * (max - min) + min;
 
   const posRandomizer = () => {
     dispatch(setPosition({
-      x: Math.floor(getRandomArbitrary(50, width - 50)),
-      y: Math.floor(getRandomArbitrary(50, height - 50)),
+      x: Math.floor(getRandomArbitrary(-50, 850)),
+      y: Math.floor(getRandomArbitrary(-50, 650)),
     }));
   };
   const idRandomizer = () => {
@@ -48,10 +45,12 @@ export function OverlayControl() {
     if (currentOverlayItem == null) {
       dispatch(initNewOverlayItem({
         overlayId,
-        appDimensions: { height: appHeight, width: appWidth },
+        initialPosition: { x: 400, y: 300 },
+        setVisible: true,
       }));
+    } else {
+      dispatch(setVisibility(value));
     }
-    dispatch(setVisibility(value));
   };
 
   return (
