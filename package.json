@@ -15,6 +15,7 @@
     "@bedrock-layout/split": "^2.3.5",
     "@bedrock-layout/stack": "^2.3.4",
     "@bedrock-layout/use-forwarded-ref": "^1.1.11",
+    "@react-hook/resize-observer": "^1.2.5",
     "@react-spring/web": "^9.4.1",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.14.1",
