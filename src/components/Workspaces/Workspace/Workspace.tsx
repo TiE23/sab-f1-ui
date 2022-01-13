@@ -16,11 +16,14 @@ import { OverlayDisplay } from "../../OverlayTool";
 
 import { workspaceObject } from "../workspaces";
 
+const PREVIEW_WINDOW_HEIGHT = 600;
+const PREVIEW_WINDOW_WIDTH = 800;
+
 export const Workspace = () => {
+  const dispatch = useDispatch();
   const { workspaceId } = useParams();
   const { animatedBG } = useSelector(workspaceSelector);
   const { currentWorkspaceId: overlayWorkspaceId } = useSelector(overlayToolSelector);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (workspaceId == null) return;
@@ -45,13 +48,23 @@ export const Workspace = () => {
       centerChildren
     >
       <H2>{workspaceId ? workspaceObject[workspaceId].name : "Unknown"}</H2>
-      <PreviewWindow height={600} width={800} animatedBG={animatedBG}>
+      <PreviewWindow
+        height={PREVIEW_WINDOW_HEIGHT}
+        width={PREVIEW_WINDOW_WIDTH}
+        animatedBG={animatedBG}
+      >
         <MockupBlock
           color="#415bad"
           height="300px"
           width="400px"
         >Preview Item</MockupBlock>
-        <OverlayDisplay />
+        <OverlayDisplay
+          containerDimensions={{
+            height: PREVIEW_WINDOW_HEIGHT,
+            width: PREVIEW_WINDOW_WIDTH,
+          }}
+          bleedover={50}
+        />
       </PreviewWindow>
       <ControlsContainer>
         <WorkspaceControls />

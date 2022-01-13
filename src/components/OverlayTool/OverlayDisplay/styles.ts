@@ -12,6 +12,7 @@ export const OverlayItemContainer = styled.div.attrs<OverlayItemContainerProps>(
   },
 }))<OverlayItemContainerProps>`
   /* Temporary. Overlay will be transparent and based on an image. */
+  /* width: ${({ tempColor }) => tempColor == "red" ? "150px" : "100px"}; */
   width: 150px;
   height: 150px;
   background-color: ${({ tempColor }) => tempColor};

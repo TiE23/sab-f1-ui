@@ -23,15 +23,6 @@ export function OverlayControl() {
   /* For prototyping use only */
   const [idNum, setIdNum] = useState(0);
 
-  const getRandomArbitrary = (min: number, max: number) =>
-    Math.random() * (max - min) + min;
-
-  const posRandomizer = () => {
-    dispatch(setPosition({
-      x: Math.floor(getRandomArbitrary(-50, 850)),
-      y: Math.floor(getRandomArbitrary(-50, 650)),
-    }));
-  };
   const nextIdNum = () => {
     const nextIdNum = (idNum + 1) % overlayIds.length;
     setIdNum(nextIdNum);
@@ -45,7 +36,7 @@ export function OverlayControl() {
     if (currentOverlayItem == null) {
       dispatch(initNewOverlayItem({
         overlayId: overlayIds[idNum],
-        initialPosition: { x: 0, y: 300 },
+        initialPosition: { x: 400, y: 300 },
         setVisible: true,
       }));
     } else {
@@ -62,12 +53,6 @@ export function OverlayControl() {
       />
 
       {/* For prototyping use only */}
-      <br />
-      <a
-        onClick={posRandomizer}
-      >
-        Random Location
-      </a>
       <br />
       <a
         onClick={nextIdNum}

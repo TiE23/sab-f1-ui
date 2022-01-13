@@ -2,24 +2,47 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTransition, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
+import { useDimensions } from "../../../utils/hooks";
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { setPosition } from "../../../features/overlayTool/overlayToolSlice";
 
 import { OverlayItemContainer } from "./styles";
 
-export function OverlayDisplay() {
+type OverlayDisplayProps = {
+  containerDimensions: {
+    width: number,
+    height: number,
+  },
+  bleedover?: number,
+};
+export function OverlayDisplay({
+  containerDimensions: { width: containerWidth, height: containerHeight },
+  bleedover = 0,
+}: OverlayDisplayProps) {
+  const dispatch = useDispatch();
   const {
     currentOverlayId,
     currentOverlayItem,
     visible,
   } = useSelector(overlayToolSelector);
 
-  const dispatch = useDispatch();
+  // Monitor element dimensions to calculate min/max drag coordinates.
+  const [overlayItemRef, {
+    width: overlayItemWidth,
+    height: overlayItemHeight,
+  }] = useDimensions<HTMLDivElement>();
+  const
+    minX = -bleedover,
+    minY = -bleedover,
+    maxX = containerWidth - overlayItemWidth + bleedover,
+    maxY = containerHeight - overlayItemHeight + bleedover;
 
   const bindOverlayItem = useDrag(({ args, delta }) => {
+    const newX = args[0].xPos + delta[0];
+    const newY = args[0].yPos + delta[1];
     dispatch(setPosition({
-      x: args[0].xPos + delta[0],
-      y: args[0].yPos + delta[1],
+      x: newX >= minX && newX <= maxX ? newX : args[0].xPos,
+      y: newY >= minY && newY <= maxY ? newY : args[0].yPos,
     }));
   });
 
@@ -54,7 +77,11 @@ export function OverlayDisplay() {
         }}
       >
         <animated.div style={{ ...style, position: "absolute" }}>
-          <OverlayItemContainer visible={visible} tempColor={currentOverlayId}>
+          <OverlayItemContainer
+            ref={overlayItemRef}
+            visible={visible}
+            tempColor={currentOverlayId}
+          >
             {currentOverlayId}
             <br />
             (x:{Math.floor(position.x)}px, y:{Math.floor(position.y)}px)

@@ -15,7 +15,7 @@ export const WorkspaceList = ({ headerOffset }: WorkspaceListProps) => {
   return (
     <WorkspaceListBox headerOffset={headerOffset}>
       <Stack as="ul" gutter="md">
-        {workspaceList.map((id, i) => (
+        {workspaceList.map((id) => (
           <WorkspaceListNavLink
             key={id}
             to={id}
