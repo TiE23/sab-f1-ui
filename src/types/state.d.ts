@@ -22,17 +22,16 @@ export type WorkspaceId = string;
 
 // Overlay Tool
 export type OverlayTool = {
-  // workspaceId: WorkspaceId,
-  overlayIds: Array<OverlayId>,
+  currentWorkspaceId: WorkspaceId,
+  overlayIds: OverlayIds,
   currentOverlayId: OverlayId | null,
   currentOverlayItem: OverlayItem | null,
   visible: boolean,
 };
 export type OverlayId = string;
+export type OverlayIds = Array<OverlayId>;
 export type OverlayPosition = { x: number, y: number };
 export type OverlayItem = {
-  id: OverlayId,
   position: OverlayPosition,
   opacity: number,
-  scale: number,
 };

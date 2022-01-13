@@ -15,13 +15,13 @@ import { Toggle } from "../../Common/Inputs/Toggle";
 
 export function OverlayControl() {
   const dispatch = useDispatch();
-  const { visible, currentOverlayItem } = useSelector(overlayToolSelector);
+  const { overlayIds, visible, currentOverlayItem } = useSelector(overlayToolSelector);
 
 
 
 
   /* For prototyping use only */
-  const [overlayId, setOverlayId] = useState("foo_1.00000");
+  const [idNum, setIdNum] = useState(0);
 
   const getRandomArbitrary = (min: number, max: number) =>
     Math.random() * (max - min) + min;
@@ -32,10 +32,10 @@ export function OverlayControl() {
       y: Math.floor(getRandomArbitrary(-50, 650)),
     }));
   };
-  const idRandomizer = () => {
-    const newId = `id_${getRandomArbitrary(1, 10)}`.slice(0, 10);
-    setOverlayId(newId);
-    dispatch(setCurrentOverlayId(newId));
+  const nextIdNum = () => {
+    const nextIdNum = (idNum + 1) % overlayIds.length;
+    setIdNum(nextIdNum);
+    dispatch(setCurrentOverlayId(overlayIds[nextIdNum]));
   };
   /* For prototyping use only */
 
@@ -44,8 +44,8 @@ export function OverlayControl() {
   const onToggle = (value: boolean) => {
     if (currentOverlayItem == null) {
       dispatch(initNewOverlayItem({
-        overlayId,
-        initialPosition: { x: 400, y: 300 },
+        overlayId: overlayIds[idNum],
+        initialPosition: { x: 0, y: 300 },
         setVisible: true,
       }));
     } else {
@@ -70,9 +70,9 @@ export function OverlayControl() {
       </a>
       <br />
       <a
-        onClick={idRandomizer}
+        onClick={nextIdNum}
       >
-        Id: {overlayId}
+        Id #{idNum}: &quot;{overlayIds[idNum]}&quot;
       </a>
       {/* For prototyping use only */}
 

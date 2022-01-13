@@ -5,15 +5,21 @@ import { useDrag } from "@use-gesture/react";
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { setPosition } from "../../../features/overlayTool/overlayToolSlice";
 
-import { AnimatedOverlayItemContainer } from "./styles";
+import { OverlayItemContainer } from "./styles";
 
 export function OverlayDisplay() {
-  const { currentOverlayItem, visible } = useSelector(overlayToolSelector);
+  const {
+    currentOverlayId,
+    currentOverlayItem,
+    visible,
+  } = useSelector(overlayToolSelector);
+
   const dispatch = useDispatch();
-  const bindOverlayItem = useDrag((state) => {
+
+  const bindOverlayItem = useDrag(({ args, delta }) => {
     dispatch(setPosition({
-      x: state.args[0].xPos + state.delta[0],
-      y: state.args[0].yPos + state.delta[1],
+      x: args[0].xPos + delta[0],
+      y: args[0].yPos + delta[1],
     }));
   });
 
@@ -28,31 +34,33 @@ export function OverlayDisplay() {
     leave: { top: 50, opacity: 0 },
   });
 
-  if (currentOverlayItem == null) {
-    return null;  // Exit - There is no overlay item yet!
+  // Cannot make an earlier return because all hooks must run or React gets mad.
+  if (currentOverlayId == null || currentOverlayItem == null) {
+    return null;
   }
 
-  const { id, position } = currentOverlayItem;
+  const { position } = currentOverlayItem;
 
-  return (
-    transition((style, visible) =>
-      visible ? (
+  return transition((style, visible) =>
+    visible ? (
+      <animated.div
+        {...bindOverlayItem({ xPos, yPos })}
+        style={{
+          left: xPos,
+          top: yPos,
+          position: "absolute",
+          touchAction: "none",
+          zIndex: 1,
+        }}
+      >
         <animated.div style={{ ...style, position: "absolute" }}>
-          <AnimatedOverlayItemContainer
-            {...bindOverlayItem({ xPos, yPos })}
-            style={{
-              left: xPos,
-              top: yPos,
-              position: "absolute",
-            }}
-            visible={visible}
-          >
-            {id}
+          <OverlayItemContainer visible={visible} tempColor={currentOverlayId}>
+            {currentOverlayId}
             <br />
-            (x:{position.x}px, y:{position.y}px)
-          </AnimatedOverlayItemContainer>
+            (x:{Math.floor(position.x)}px, y:{Math.floor(position.y)}px)
+          </OverlayItemContainer>
         </animated.div>
-      ) : null,
-    )
+      </animated.div>
+    ) : null,
   );
 }

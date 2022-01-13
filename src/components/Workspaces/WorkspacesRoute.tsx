@@ -13,7 +13,7 @@ import { LayoutGrid, LayoutGridItem } from "../Common/LayoutGrid.styled";
 const WORKSPACE_LIST_WIDTH = 180;
 
 export default function Workspaces() {
-  const { height } = useSelector(mainMenuDimensionsSelector);
+  const { height: mainMenuHeight } = useSelector(mainMenuDimensionsSelector);
   const dispatch = useDispatch();
   const [workspaceRef, {
     height: workspaceHeight,
@@ -31,14 +31,14 @@ export default function Workspaces() {
   return (
     <LayoutGrid columns={[`${WORKSPACE_LIST_WIDTH}px`, 1]} rows={1}>
       <LayoutGridItem column={1} row={1}>
-        <WorkspaceList headerOffset={height} />
+        <WorkspaceList headerOffset={mainMenuHeight} />
       </LayoutGridItem>
       <LayoutGridItem column={2} row={1}>
         <FullScreenContainer
           ref={workspaceRef}
           minHeight={700}
           minWidth={900}
-          heightCutoff={height}
+          heightCutoff={mainMenuHeight}
           widthCutoff={WORKSPACE_LIST_WIDTH}
         >
           <Outlet />
