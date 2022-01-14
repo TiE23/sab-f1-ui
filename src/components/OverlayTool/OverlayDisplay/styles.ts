@@ -1,22 +1,28 @@
 import styled from "styled-components";
 
-export type OverlayItemContainerProps = {
-  visible: boolean,
-  tempColor: string,
+/**
+ * scale is a percentage (0-100%)
+ * */
+type OverlayImageProps = {
+  src: string,
+  scale?: number,
 };
-export const OverlayItemContainer = styled.div.attrs<OverlayItemContainerProps>(({
-  visible,
+export const OverlayImage = styled.img.attrs<OverlayImageProps>(({
+  src,
 }) => ({
-  style: {
-    display: visible ? undefined : "none",
-  },
-}))<OverlayItemContainerProps>`
-  /* Temporary. Overlay will be transparent and based on an image. */
-  /* width: ${({ tempColor }) => tempColor == "red" ? "150px" : "100px"}; */
-  width: 150px;
-  height: 150px;
-  background-color: ${({ tempColor }) => tempColor};
-  box-shadow: 0px 7px 11px 1px black;
+  draggable: false,
+  src,
+}))<OverlayImageProps>`
+  width: ${({ scale = 100 }) => `${scale}%`};
 `;
-OverlayItemContainer.displayName = "OverlayItemContainer";
+OverlayImage.displayName = "OverlayImage";
 
+export const OverlayImageContainer = styled.div`
+  display: flex;
+`;
+OverlayImageContainer.displayName = "OverlayImageContainer";
+
+export const OverlayImageSubContainer = styled.div`
+  flex-shrink: 0;
+`;
+OverlayImageSubContainer.displayName = "OverlayImageSubContainer";

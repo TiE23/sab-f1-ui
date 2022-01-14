@@ -16,9 +16,6 @@ import { OverlayDisplay } from "../../OverlayTool";
 
 import { workspaceObject } from "../workspaces";
 
-const PREVIEW_WINDOW_HEIGHT = 600;
-const PREVIEW_WINDOW_WIDTH = 800;
-
 export const Workspace = () => {
   const dispatch = useDispatch();
   const { workspaceId } = useParams();
@@ -40,6 +37,9 @@ export const Workspace = () => {
     }
   }, [workspaceId]);
 
+  if (workspaceId == null) return null;
+  const workspace = workspaceObject[workspaceId];
+
   return (
     <Stack
       gutter="lg"
@@ -47,23 +47,18 @@ export const Workspace = () => {
       maxWidth="80%"
       centerChildren
     >
-      <H2>{workspaceId ? workspaceObject[workspaceId].name : "Unknown"}</H2>
+      <H2>{workspaceId ? workspace.name : "Unknown"}</H2>
       <PreviewWindow
-        height={PREVIEW_WINDOW_HEIGHT}
-        width={PREVIEW_WINDOW_WIDTH}
+        dimensions={workspace.previewWindowDimensions}
         animatedBG={animatedBG}
       >
         <MockupBlock
           color="#415bad"
-          height="300px"
-          width="400px"
+          height="100px"
+          width="100px"
         >Preview Item</MockupBlock>
         <OverlayDisplay
-          containerDimensions={{
-            height: PREVIEW_WINDOW_HEIGHT,
-            width: PREVIEW_WINDOW_WIDTH,
-          }}
-          bleedover={50}
+          containerDimensions={workspace.previewWindowDimensions}
         />
       </PreviewWindow>
       <ControlsContainer>

@@ -5,8 +5,9 @@ import { useDrag } from "@use-gesture/react";
 import { useDimensions } from "../../../utils/hooks";
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { setPosition } from "../../../features/overlayTool/overlayToolSlice";
+import { OverlayImage, OverlayImageContainer, OverlayImageSubContainer } from "./styles";
 
-import { OverlayItemContainer } from "./styles";
+const overlayImages = require.context("../../../public/images/overlays", true);
 
 type OverlayDisplayProps = {
   containerDimensions: {
@@ -27,10 +28,11 @@ export function OverlayDisplay({
   } = useSelector(overlayToolSelector);
 
   // Monitor element dimensions to calculate min/max drag coordinates.
-  const [overlayItemRef, {
+  const [overlayItemImageRef, {
     width: overlayItemWidth,
     height: overlayItemHeight,
-  }] = useDimensions<HTMLDivElement>();
+  }] = useDimensions<HTMLImageElement>();
+  console.log(overlayItemWidth, overlayItemHeight);
   const
     minX = -bleedover,
     minY = -bleedover,
@@ -62,7 +64,6 @@ export function OverlayDisplay({
     return null;
   }
 
-  const { position } = currentOverlayItem;
 
   return transition((style, visible) =>
     visible ? (
@@ -77,15 +78,14 @@ export function OverlayDisplay({
         }}
       >
         <animated.div style={{ ...style, position: "absolute" }}>
-          <OverlayItemContainer
-            ref={overlayItemRef}
-            visible={visible}
-            tempColor={currentOverlayId}
-          >
-            {currentOverlayId}
-            <br />
-            (x:{Math.floor(position.x)}px, y:{Math.floor(position.y)}px)
-          </OverlayItemContainer>
+          <OverlayImageContainer>
+            <OverlayImageSubContainer>
+              <OverlayImage
+                ref={overlayItemImageRef}
+                src={overlayImages(`./${currentOverlayId}`)}
+              />
+            </OverlayImageSubContainer>
+          </OverlayImageContainer>
         </animated.div>
       </animated.div>
     ) : null,

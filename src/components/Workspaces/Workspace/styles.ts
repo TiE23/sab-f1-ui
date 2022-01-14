@@ -2,6 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 import { PadBox } from "@bedrock-layout/padbox";
 
 import bg from "../../../public/images/misc/checker-40x40.png";
+import { Dimensions } from "../../../types/state";
 
 const scrollAnimation = keyframes`
   from { background-position: 0 0; }
@@ -9,8 +10,7 @@ const scrollAnimation = keyframes`
 `;
 
 export type PreviewWindowProps = {
-  height: number,
-  width: number,
+  dimensions: Dimensions,
   animatedBG?: boolean,
 };
 export const PreviewWindow = styled(PadBox).attrs(() => ({
@@ -21,8 +21,8 @@ export const PreviewWindow = styled(PadBox).attrs(() => ({
   justify-content: center;
   align-items: center;
 
-  height: ${({ height }) => height}px;
-  width: ${({ width }) => width}px;
+  height: ${({ dimensions }) => dimensions.height}px;
+  width: ${({ dimensions }) => dimensions.width}px;
 
   border-radius: 1em;
 

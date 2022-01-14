@@ -6,7 +6,6 @@ import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSe
 import {
   initNewOverlayItem,
   setCurrentOverlayId,
-  setPosition,
   setVisibility,
 } from "../../../features/overlayTool/overlayToolSlice";
 
@@ -36,7 +35,7 @@ export function OverlayControl() {
     if (currentOverlayItem == null) {
       dispatch(initNewOverlayItem({
         overlayId: overlayIds[idNum],
-        initialPosition: { x: 400, y: 300 },
+        initialPosition: { x: 0, y: 0 },
         setVisible: true,
       }));
     } else {
