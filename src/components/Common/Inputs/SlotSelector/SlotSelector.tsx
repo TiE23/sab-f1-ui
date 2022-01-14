@@ -26,24 +26,31 @@ export function SlotSelector({
     setPrefixMask(findPrefixCount(tempFormattedItems));
   }, [items]);
 
+  const getNextIndex = (i: number) => (i + 1) % items.length;
+  const getPreviousIndex = (i: number) => i - 1 >= 0 ? i - 1 : items.length - 1;
+
   const onClick = () => {
-    const nextIndex = (index + 1) % items.length;
+    const nextIndex = getNextIndex(index);
     setIndex(nextIndex);
     onChange(items[nextIndex]);
   };
+
+  const getItem = (i: number) =>
+    formattedItems.length &&
+      removePrefix &&
+      formattedItems[0].length !== prefixMask ?
+      formattedItems[i].slice(prefixMask) :
+      formattedItems[i];
+
+  const currentItem = getItem(index);
+  const nextItem = getItem(getNextIndex(index));
 
   return (
     <SlotWindow
       onClick={onClick}
     >
-      <SlotText>
-        {formattedItems.length &&
-          removePrefix && formattedItems[0].length !== prefixMask ?
-          formattedItems[index].slice(prefixMask)
-          :
-          formattedItems[index]
-        }
-      </SlotText>
+      <SlotText>{currentItem}</SlotText>
+      <SlotText>{nextItem}</SlotText>
     </SlotWindow>
   );
 }

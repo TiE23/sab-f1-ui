@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 export const SlotWindow = styled.div`
   position: relative;
-  height: 1.2em;
-  height: 100%;
+  height: 1.7em;
   width: 200px;
 
   border-radius: 0.6em;
@@ -19,6 +18,7 @@ export const SlotWindow = styled.div`
 `;
 
 export const SlotText = styled.span`
+  display: block;
   margin-left: .4em;
   position: relative;
   font-family: ${p => p.theme.fonts.f1Regular};
