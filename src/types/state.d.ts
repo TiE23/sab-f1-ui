@@ -16,9 +16,15 @@ export type Dimensions = { width: number, height: number };
 export type Workspace = {
   workspaceId: WorkspaceId,
   animatedBG: boolean,
+  workspaceProperties: WorkspaceProperties,
 };
 
 export type WorkspaceId = string;
+export type WorkspaceProperties = {
+  name: string,
+  overlayIds: OverlayIds,
+  previewWindowDimensions: Dimensions,
+};
 
 // Overlay Tool
 export type OverlayTool = {
