@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useTransition, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
+import useMeasure from "react-use-measure";
 
-import { useDimensions } from "../../../utils/hooks";
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { setPosition } from "../../../features/overlayTool/overlayToolSlice";
 import { OverlayImage, OverlayImageContainer, OverlayImageSubContainer } from "./styles";
@@ -31,8 +31,7 @@ export function OverlayDisplay({
   const [overlayItemImageRef, {
     width: overlayItemWidth,
     height: overlayItemHeight,
-  }] = useDimensions<HTMLImageElement>();
-  console.log(overlayItemWidth, overlayItemHeight);
+  }] = useMeasure();
   const
     minX = -bleedover,
     minY = -bleedover,

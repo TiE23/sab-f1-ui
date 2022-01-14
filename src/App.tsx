@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
+import useMeasure from "react-use-measure";
 
-import { useDimensions } from "./utils/hooks";
 import {
   setDimensions,
 } from "./features/pageDimensions/pageDimensionsSlice";
@@ -14,11 +14,11 @@ function App() {
   const [appRef, {
     height: appHeight,
     width: appWidth,
-  }] = useDimensions<HTMLDivElement>();
+  }] = useMeasure();
   const [mainMenuRef, {
     height: mainMenuHeight,
     width: mainMenuWidth,
-  }] = useDimensions<HTMLDivElement>();
+  }] = useMeasure();
 
   // Set App dimensions.
   useEffect(() => {
