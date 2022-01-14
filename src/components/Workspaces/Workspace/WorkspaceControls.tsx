@@ -1,4 +1,5 @@
 import { Grid } from "@bedrock-layout/grid";
+import { PadBox } from "@bedrock-layout/padbox";
 import { useDispatch, useSelector } from "react-redux";
 
 import { workspaceSelector } from "../../../features/workspace/workspaceSelector";
@@ -12,14 +13,18 @@ export const WorkspaceControls = () => {
   const { animatedBG } = useSelector(workspaceSelector);
 
   return(
-    <Grid gutter="sm" minItemWidth="25rem">
-      <Toggle
-        label="Animate BG"
-        toggled={animatedBG}
-        onToggle={(value: boolean) => {
-          dispatch(setAnimatedBG(value));
-        }} />
-      <OverlayControl />
+    <Grid gutter="sm" minItemWidth="100px">
+      <PadBox padding="sm">
+        <Toggle
+          label="Animate BG"
+          toggled={animatedBG}
+          onToggle={(value: boolean) => {
+            dispatch(setAnimatedBG(value));
+          }} />
+      </PadBox>
+      <PadBox padding="sm">
+        <OverlayControl />
+      </PadBox>
     </Grid>
   );
 };
