@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
+import useMeasure from "react-use-measure";
 
 import { mainMenuDimensionsSelector } from "../../features/pageDimensions/pageDimensionsSelector";
-import { useDimensions } from "../../utils/hooks";
 import { setDimensions } from "../../features/pageDimensions/pageDimensionsSlice";
 
 import { FullScreenContainer } from "../Common/FullScreenContainer.styled";
@@ -18,7 +18,7 @@ export default function Workspaces() {
   const [workspaceRef, {
     height: workspaceHeight,
     width: workspaceWidth,
-  }] = useDimensions<HTMLDivElement>();
+  }] = useMeasure();
 
   // Set Workspace dimensions.
   useEffect(() => {
