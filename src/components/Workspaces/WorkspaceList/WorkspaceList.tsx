@@ -1,21 +1,31 @@
+import _ from "lodash";
+import { NavLink } from "react-router-dom";
+
 import { WorkspaceListBox } from "./styles";
 import { Stack } from "@bedrock-layout/stack";
-import { NavLink } from "react-router-dom";
 import { MenuItem } from "../../Common/MenuItem.styled";
-import { workspaceList } from "../workspaces";
+
+import { workspaceObject } from "../workspaces";
 
 type WorkspaceListProps = {
   headerOffset?: number,
 };
-export const WorkspaceList = ({ headerOffset }: WorkspaceListProps) => (
-  <WorkspaceListBox headerOffset={headerOffset}>
-    <Stack as="ul" gutter="md">
-      {workspaceList.map((workspace, i) => (
-        <WorkspaceListNavLink key={i} to={workspace.id} label={workspace.name} />
-      ))}
-    </Stack>
-  </WorkspaceListBox>
-);
+export const WorkspaceList = ({ headerOffset }: WorkspaceListProps) => {
+  const workspaceList = _.keys(workspaceObject);
+  return (
+    <WorkspaceListBox headerOffset={headerOffset}>
+      <Stack as="ul" gutter="md">
+        {workspaceList.map((id) => (
+          <WorkspaceListNavLink
+            key={id}
+            to={id}
+            label={workspaceObject[id].name}
+          />
+        ))}
+      </Stack>
+    </WorkspaceListBox>
+  );
+};
 
 type WorkspaceListNavLinkProps = {
   to: string,

@@ -2,6 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 import { PadBox } from "@bedrock-layout/padbox";
 
 import bg from "../../../public/images/misc/checker-40x40.png";
+import { Dimensions } from "../../../types/state";
 
 const scrollAnimation = keyframes`
   from { background-position: 0 0; }
@@ -9,19 +10,19 @@ const scrollAnimation = keyframes`
 `;
 
 export type PreviewWindowProps = {
-  height: number,
-  width: number,
+  dimensions: Dimensions,
   animatedBG?: boolean,
 };
 export const PreviewWindow = styled(PadBox).attrs(() => ({
   padding: "lg",
 }))<PreviewWindowProps>`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: ${({ height }) => height}px;
-  width: ${({ width }) => width}px;
+  height: ${({ dimensions }) => dimensions.height}px;
+  width: ${({ dimensions }) => dimensions.width}px;
 
   border-radius: 1em;
 
@@ -48,5 +49,7 @@ export const ControlsContainer = styled(PadBox).attrs(() => ({
 }))`
   background-color: ${p => p.theme.colors.faintGrey};
   border-radius: 1em;
+  width: 800px;
+  margin-bottom: 1em;
 `;
 ControlsContainer.displayName = "ControlsContainer";

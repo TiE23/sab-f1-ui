@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, WorkspaceId, AnimatedBG } from "../../types/state";
+import { RootState, WorkspaceId } from "../../types/state";
 
 const initialState: RootState["workspace"] = {
   workspaceId: "",
@@ -13,7 +13,7 @@ export const workspaceSlice = createSlice({
     setWorkspaceId: (state, action: PayloadAction<WorkspaceId>) => {
       state.workspaceId = action.payload;
     },
-    setAnimatedBG: (state, action: PayloadAction<AnimatedBG>) => {
+    setAnimatedBG: (state, action: PayloadAction<boolean>) => {
       state.animatedBG = action.payload;
     },
   },
