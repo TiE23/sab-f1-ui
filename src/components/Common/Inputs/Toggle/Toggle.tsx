@@ -12,7 +12,7 @@ import {
 export type ToggleProps = {
   label: string,
   toggled: boolean,
-  onToggle: (value: boolean) => void,  // eslint-disable-line no-unused-vars
+  onToggle: (value: boolean) => void,
   showIndicators?: boolean,
 };
 /**

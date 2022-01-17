@@ -1,14 +1,16 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { animated, useSpringRef, useTransition } from "@react-spring/web";
+
 import { findPrefixCount } from "../../../../utils/strings";
 import { SlotText, SlotWindow } from "./styles";
 
 type SlotSelectorProps = {
   items: Array<string>,
-  onChange: (value: string) => void,  // eslint-disable-line no-unused-vars
+  onChange: (value: string) => void,
   removePrefix?: boolean,
-  formatter?: (value: string) => string,  // eslint-disable-line no-unused-vars
+  formatter?: (value: string) => string,
   initialIndex?: number,
-}
+};
 export function SlotSelector({
   items,
   onChange,
@@ -20,17 +22,15 @@ export function SlotSelector({
   const [prefixMask, setPrefixMask] = useState(0);
   const [formattedItems, setFormattedItems] = useState<Array<string>>([]);
 
+  // useMemo makes these functions only run once when mounting. Not ever re-render.
   useMemo(() => {
     const tempFormattedItems = items.map(item => formatter(item));
     setFormattedItems(tempFormattedItems);
     setPrefixMask(findPrefixCount(tempFormattedItems));
   }, [items]);
 
-  const getNextIndex = (i: number) => (i + 1) % items.length;
-  const getPreviousIndex = (i: number) => i - 1 >= 0 ? i - 1 : items.length - 1;
-
   const onClick = () => {
-    const nextIndex = getNextIndex(index);
+    const nextIndex = (index + 1) % items.length;
     setIndex(nextIndex);
     onChange(items[nextIndex]);
   };
@@ -42,15 +42,24 @@ export function SlotSelector({
       formattedItems[i].slice(prefixMask) :
       formattedItems[i];
 
-  const currentItem = getItem(index);
-  const nextItem = getItem(getNextIndex(index));
+  const transRef = useSpringRef();
+  const transitions = useTransition(index, {
+    ref: transRef,
+    keys: null,
+    from: { opacity: 0, transform: "translate3d(0, 100%, 0" },
+    enter: { opacity: 1, transform: "translate3d(0, 0%, 0" },
+    leave: { opacity: 0, transform: "translate3d(0, -100%, 0" },
+  });
+
+  useEffect(() => {
+    transRef.start();
+  }, [index]);
 
   return (
-    <SlotWindow
-      onClick={onClick}
-    >
-      <SlotText>{currentItem}</SlotText>
-      <SlotText>{nextItem}</SlotText>
+    <SlotWindow onClick={onClick}>
+      {transitions((style, i) => (
+        <SlotText as={animated.span} style={style}>{getItem(i)}</SlotText>
+      ))}
     </SlotWindow>
   );
 }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SlotWindow = styled.div`
   position: relative;
   height: 1.7em;
-  width: 200px;
+  width: auto;
 
   border-radius: 0.6em;
   background-color: white;
@@ -18,9 +18,9 @@ export const SlotWindow = styled.div`
 `;
 
 export const SlotText = styled.span`
+  position: absolute;
   display: block;
   margin-left: .4em;
-  position: relative;
   font-family: ${p => p.theme.fonts.f1Regular};
   color: ${p => p.theme.colors.darkGrey};
   user-select: none;
