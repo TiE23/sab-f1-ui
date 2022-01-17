@@ -65,6 +65,10 @@ export const overlayToolSlice = createSlice({
       state.currentWorkspaceId = action.payload.workspaceId;
       state.overlayIds = action.payload.overlayIds;
     },
+    setOpacity: (state, action: PayloadAction<number>) => {
+      if (state.currentOverlayItem == null) return;
+      state.currentOverlayItem.opacity = action.payload;
+    },
   },
 });
 
@@ -74,5 +78,6 @@ export const {
   setCurrentOverlayId,
   setPosition,
   newWorkspace,
+  setOpacity,
 } = overlayToolSlice.actions;
 export default overlayToolSlice.reducer;

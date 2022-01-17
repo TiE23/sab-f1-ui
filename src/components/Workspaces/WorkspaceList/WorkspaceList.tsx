@@ -5,13 +5,13 @@ import { WorkspaceListBox } from "./styles";
 import { Stack } from "@bedrock-layout/stack";
 import { MenuItem } from "../../Common/MenuItem.styled";
 
-import { workspaceObject } from "../workspaces";
+import { workspaces } from "../workspaces";
 
 type WorkspaceListProps = {
   headerOffset?: number,
 };
 export const WorkspaceList = ({ headerOffset }: WorkspaceListProps) => {
-  const workspaceList = _.keys(workspaceObject);
+  const workspaceList = _.keys(workspaces);
   return (
     <WorkspaceListBox headerOffset={headerOffset}>
       <Stack as="ul" gutter="md">
@@ -19,7 +19,7 @@ export const WorkspaceList = ({ headerOffset }: WorkspaceListProps) => {
           <WorkspaceListNavLink
             key={id}
             to={id}
-            label={workspaceObject[id].name}
+            label={workspaces[id].name}
           />
         ))}
       </Stack>

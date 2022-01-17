@@ -1,13 +1,9 @@
-import { Dimensions, OverlayIds } from "../../types/state";
+import { WorkspaceProperties } from "../../types/state";
 
-export type WorkspaceObject = {
-  [id: string]: {
-    name: string,
-    overlayIds: OverlayIds,
-    previewWindowDimensions: Dimensions,
-  },
+type WorkspaceObject = {
+  [id: string]: WorkspaceProperties,
 };
-export const workspaceObject: WorkspaceObject = {
+export const workspaces: WorkspaceObject = {
   chyronSimple: {
     name: "Chyron Simple",
     overlayIds: [

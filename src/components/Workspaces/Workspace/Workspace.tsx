@@ -5,7 +5,7 @@ import { Center } from "@bedrock-layout/center";
 import { Stack } from "@bedrock-layout/stack";
 
 import { workspaceSelector } from "../../../features/workspace/workspaceSelector";
-import { setWorkspaceId } from "../../../features/workspace/workspaceSlice";
+import { updateWorkspace } from "../../../features/workspace/workspaceSlice";
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { newWorkspace } from "../../../features/overlayTool/overlayToolSlice";
 
@@ -14,31 +14,33 @@ import { WorkspaceControls } from "./WorkspaceControls";
 import { MockupBlock } from "../../Common/MockupBlock.styled";
 import { OverlayDisplay } from "../../OverlayTool";
 
-import { workspaceObject } from "../workspaces";
+import { workspaces } from "../workspaces";
 
 export const Workspace = () => {
   const dispatch = useDispatch();
   const { workspaceId } = useParams();
-  const { animatedBG } = useSelector(workspaceSelector);
+  const { animatedBG, workspaceProperties } = useSelector(workspaceSelector);
   const { currentWorkspaceId: overlayWorkspaceId } = useSelector(overlayToolSelector);
 
   useEffect(() => {
     if (workspaceId == null) return;
 
     // Update workspace store for ID.
-    dispatch(setWorkspaceId(workspaceId));
+    dispatch(updateWorkspace({
+      workspaceId,
+      workspaceProperties: workspaces[workspaceId],
+    }));
 
     // Switching Workspace means we need to init a newWorkspace for Overlay tool.
     if (overlayWorkspaceId !== workspaceId) {
       dispatch(newWorkspace({
-        overlayIds: workspaceObject[workspaceId].overlayIds,
+        overlayIds: workspaces[workspaceId].overlayIds,
         workspaceId: workspaceId,
       }));
     }
   }, [workspaceId]);
 
   if (workspaceId == null) return null;
-  const workspace = workspaceObject[workspaceId];
 
   return (
     <Stack
@@ -47,9 +49,9 @@ export const Workspace = () => {
       maxWidth="80%"
       centerChildren
     >
-      <H2>{workspaceId ? workspace.name : "Unknown"}</H2>
+      <H2>{workspaceId ? workspaceProperties.name : "Unknown"}</H2>
       <PreviewWindow
-        dimensions={workspace.previewWindowDimensions}
+        dimensions={workspaceProperties.previewWindowDimensions}
         animatedBG={animatedBG}
       >
         <MockupBlock
@@ -58,7 +60,7 @@ export const Workspace = () => {
           width="100px"
         >Preview Item</MockupBlock>
         <OverlayDisplay
-          containerDimensions={workspace.previewWindowDimensions}
+          containerDimensions={workspaceProperties.previewWindowDimensions}
         />
       </PreviewWindow>
       <ControlsContainer>

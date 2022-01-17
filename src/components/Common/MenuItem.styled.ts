@@ -6,7 +6,7 @@ const hoverRules = css`
   color: white;
 `;
 
-export type MenuItemProps = {
+type MenuItemProps = {
   isHovered?: boolean,
   isActive?: boolean,
 };
