@@ -17,10 +17,13 @@ export const ProgressSliderBody = styled.div`
 `;
 
 type ProgressSliderBarProps = {
+  bodyWidth: number,
   color?: string,
 };
-export const ProgressSliderBar = styled.div<ProgressSliderBarProps>`
+export const ProgressSliderBar = styled(animated.div)<ProgressSliderBarProps>`
   position: absolute;
+  left: ${({ bodyWidth }) => `${-bodyWidth}px`};
+  /* left: -359px; */
   height: 100%;
   width: 100%;
   background-color: ${({ color }) => (color ?? (p => p.theme.colors.activeGreen))};
@@ -29,9 +32,9 @@ ProgressSliderBar.displayName = "ProgressSliderBar";
 
 
 export const ProgressSliderBarHandleContainer = styled(animated.div)`
+  position: absolute;
   width: 100%;
   height: 100%;
-  position: absolute;
 `;
 ProgressSliderBarHandleContainer.displayName = "ProgressSliderBarHandleContainer";
 
@@ -39,15 +42,14 @@ export const ProgressSliderBarHandle = styled.div`
   position: relative;
   width: 1ch;
   height: 1.2em;
-  background-color: white;
-  /* margin: 2px; */
+  background-color: black;
   margin-top: 1px;
   border-radius: 3px;
   opacity: 0.5;
   cursor: pointer;
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.8;
   }
 `;
 ProgressSliderBarHandle.displayName = "ProgressSliderBarHandle";
