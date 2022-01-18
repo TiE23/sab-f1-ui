@@ -1,4 +1,3 @@
-import { animated } from "@react-spring/web";
 import styled from "styled-components";
 
 export const ProgressSliderBody = styled.div`
@@ -20,10 +19,9 @@ type ProgressSliderBarProps = {
   bodyWidth: number,
   color?: string,
 };
-export const ProgressSliderBar = styled(animated.div)<ProgressSliderBarProps>`
+export const ProgressSliderBar = styled.div<ProgressSliderBarProps>`
   position: absolute;
   left: ${({ bodyWidth }) => `${-bodyWidth}px`};
-  /* left: -359px; */
   height: 100%;
   width: 100%;
   background-color: ${({ color }) => (color ?? (p => p.theme.colors.activeGreen))};
@@ -31,21 +29,30 @@ export const ProgressSliderBar = styled(animated.div)<ProgressSliderBarProps>`
 ProgressSliderBar.displayName = "ProgressSliderBar";
 
 
-export const ProgressSliderBarHandleContainer = styled(animated.div)`
-  position: absolute;
+export const ProgressSliderBarHandleContainer = styled.div`
+  position: relative;
+  left: -50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
+
+
+  background-color: rgba(200, 200, 0, 0.3);
 `;
 ProgressSliderBarHandleContainer.displayName = "ProgressSliderBarHandleContainer";
 
 export const ProgressSliderBarHandle = styled.div`
   position: relative;
   width: 1ch;
-  height: 1.2em;
-  background-color: black;
-  margin-top: 1px;
-  border-radius: 3px;
+  height: 80%;
+  border-radius: 2px;
+
   opacity: 0.5;
+  background-color: white;
+
   cursor: pointer;
 
   &:hover {

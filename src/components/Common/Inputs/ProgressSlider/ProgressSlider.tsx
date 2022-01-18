@@ -20,10 +20,14 @@ export function ProgressSlider({
   const [bodyRef, {
     width: bodyWidth,
   }] = useMeasure();
-  const barPos = useSpring({ x: (bodyWidth -  MARGIN_WIDTH) * value });
+  const barPos = useSpring({ x: (bodyWidth - MARGIN_WIDTH) * value });
   const bindBarPos = useDrag((params) => {
-    const newPos = clamp(barPos.x.get() + params.delta[0], MARGIN_WIDTH, bodyWidth - MARGIN_WIDTH);
-    const newValue = newPos / (bodyWidth - MARGIN_WIDTH);
+    const newPos = clamp(
+      barPos.x.get() + params.delta[0],
+      MARGIN_WIDTH,
+      bodyWidth - MARGIN_WIDTH,
+    );
+    const newValue = (newPos - MARGIN_WIDTH) / (bodyWidth - 2 * MARGIN_WIDTH);
 
     barPos.x.set(newPos);
     onChange(newValue);
@@ -31,20 +35,16 @@ export function ProgressSlider({
     console.log("drag", newPos, newValue);
   });
 
-  // const
-  // console.log("main", bodyWidth, barPos.x.get());
-  // console.log("main",barPos.x.get());
-  // console.log(bodyWidth);
+
+  const AnimatedProgressSliderBar = animated(ProgressSliderBar);
+  const AnimatedProgressSliderBarHandleContainer = animated(ProgressSliderBarHandleContainer);
 
   return (
     <ProgressSliderBody ref={bodyRef}>
-
-
-      <ProgressSliderBar style={{ x: barPos.x }} bodyWidth={bodyWidth - MARGIN_WIDTH} />
-      <ProgressSliderBarHandleContainer {...bindBarPos()} style={{ x: barPos.x }}>
+      <AnimatedProgressSliderBar style={{ x: barPos.x }} bodyWidth={bodyWidth - MARGIN_WIDTH} />
+      <AnimatedProgressSliderBarHandleContainer {...bindBarPos()} style={{ x: barPos.x }}>
         <ProgressSliderBarHandle />
-      </ProgressSliderBarHandleContainer>
-
+      </AnimatedProgressSliderBarHandleContainer>
     </ProgressSliderBody>
   );
 }
