@@ -22,9 +22,7 @@ export const WorkspaceControls = () => {
             dispatch(setAnimatedBG(value));
           }} />
       </PadBox>
-      <PadBox padding="sm">
-        <OverlayControl />
-      </PadBox>
+      <OverlayControl />
     </Grid>
   );
 };
