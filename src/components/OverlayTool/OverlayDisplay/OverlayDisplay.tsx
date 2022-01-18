@@ -53,7 +53,7 @@ export function OverlayDisplay({
     from: { top: 50, opacity: 0 },
     enter: {
       top: 0,
-      opacity: currentOverlayItem?.opacity ?? 1,
+      opacity: 1,
     },
     leave: { top: 50, opacity: 0 },
   });
@@ -77,7 +77,7 @@ export function OverlayDisplay({
         }}
       >
         <animated.div style={{ ...style, position: "absolute" }}>
-          <OverlayImageContainer>
+          <OverlayImageContainer opacity={currentOverlayItem?.opacity ?? 1}>
             <OverlayImageSubContainer>
               <OverlayImage
                 ref={overlayItemImageRef}
