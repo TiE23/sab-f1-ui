@@ -12,10 +12,8 @@ import {
 } from "../../../features/overlayTool/overlayToolSlice";
 
 import { Toggle } from "../../Common/Inputs/Toggle";
-import { MockupBlock } from "../../Common/MockupBlock.styled";
 import { SlotSelector } from "../../Common/Inputs/SlotSelector";
 import { ProgressSlider } from "../../Common/Inputs/ProgressSlider";
-import { useState } from "react";
 
 
 export function OverlayControl() {
@@ -37,10 +35,6 @@ export function OverlayControl() {
   const onChangeOpacity = (value: number) => {
     dispatch(setOpacity(value));
   };
-
-  /* TEMP */
-  const [barValue, setBarValue] = useState(0.3);
-  /* TEMP */
 
   return (
     <Stack as={PadBox} gutter="md" padding="sm">

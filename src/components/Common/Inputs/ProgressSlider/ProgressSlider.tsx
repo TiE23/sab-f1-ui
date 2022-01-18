@@ -3,7 +3,7 @@ import { useDrag } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
 import { clamp } from "lodash";
 
-import { ProgressSliderBar, ProgressSliderBarHandle, ProgressSliderBarHandleContainer, ProgressSliderBody } from "./styles";
+import { ProgressSliderBar, ProgressSliderBarHandle, ProgressSliderBody } from "./styles";
 
 const MARGIN_WIDTH = 15;
 
@@ -20,7 +20,7 @@ export function ProgressSlider({
   const [bodyRef, {
     width: bodyWidth,
   }] = useMeasure();
-  const barPos = useSpring({ x: (bodyWidth - MARGIN_WIDTH) * value });
+  const barPos = useSpring({ x: ((bodyWidth - 2 * MARGIN_WIDTH) * value) + MARGIN_WIDTH });
   const bindBarPos = useDrag((params) => {
     const newPos = clamp(
       barPos.x.get() + params.delta[0],
@@ -37,14 +37,16 @@ export function ProgressSlider({
 
 
   const AnimatedProgressSliderBar = animated(ProgressSliderBar);
-  const AnimatedProgressSliderBarHandleContainer = animated(ProgressSliderBarHandleContainer);
 
   return (
     <ProgressSliderBody ref={bodyRef}>
-      <AnimatedProgressSliderBar style={{ x: barPos.x }} bodyWidth={bodyWidth - MARGIN_WIDTH} />
-      <AnimatedProgressSliderBarHandleContainer {...bindBarPos()} style={{ x: barPos.x }}>
+      <AnimatedProgressSliderBar
+        {...bindBarPos()}
+        style={{ x: barPos.x }}
+        bodyWidth={bodyWidth - MARGIN_WIDTH}
+      >
         <ProgressSliderBarHandle />
-      </AnimatedProgressSliderBarHandleContainer>
+      </AnimatedProgressSliderBar>
     </ProgressSliderBody>
   );
 }

@@ -28,31 +28,20 @@ export const ProgressSliderBar = styled.div<ProgressSliderBarProps>`
 `;
 ProgressSliderBar.displayName = "ProgressSliderBar";
 
-
-export const ProgressSliderBarHandleContainer = styled.div`
-  position: relative;
-  left: -50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-
-
-  background-color: rgba(200, 200, 0, 0.3);
-`;
-ProgressSliderBarHandleContainer.displayName = "ProgressSliderBarHandleContainer";
-
 export const ProgressSliderBarHandle = styled.div`
   position: relative;
-  width: 1ch;
-  height: 80%;
+  float: right;
+
+  width: 0.8ch;
+  right: 0.5ch;
+
+  height: 70%;
+  top: 15%;
+
   border-radius: 2px;
 
   opacity: 0.5;
   background-color: white;
-
   cursor: pointer;
 
   &:hover {
