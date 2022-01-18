@@ -7,6 +7,7 @@ import {
   ToggleLabel,
   ToggleBackground,
   ToggleCircle,
+  ToggleLabelText,
 } from "./styles";
 
 export type ToggleProps = {
@@ -27,7 +28,7 @@ export const Toggle = ({
   const [hovered, setHovered] = useState(false);
   return (
     <ToggleContainer>
-      {label}{" "}
+      <ToggleLabelText>{label}</ToggleLabelText>
       <ToggleBody>
         <ToggleInput
           type="checkbox"

@@ -32,27 +32,23 @@ export function OverlayControl() {
   };
 
   return (
-    <Stack gutter="sm">
-      <Inline gutter="sm" stretch="end">
+    <Stack as={PadBox} gutter="md" padding="sm">
+      <Inline gutter="md" stretch="end">
         <Toggle
           label="Show Overlay"
           toggled={visible}
           onToggle={onToggle}
         />
-        <PadBox padding="sm">
-          <SlotSelector
-            items={overlayIds}
-            onChange={(value) => dispatch(setCurrentOverlayId(value))}
-            removePrefix
-            formatter={(value) => value.replace(/(\.png)|(\.jpg)$/, "")}
-          />
-        </PadBox>
+        <SlotSelector
+          items={overlayIds}
+          onChange={(value) => dispatch(setCurrentOverlayId(value))}
+          removePrefix
+          formatter={(value) => value.replace(/(\.png)|(\.jpg)$/, "")}
+        />
       </Inline>
-      <PadBox padding="sm">
-        <MockupBlock color="green" height="1.5rem" width="100%">
+      <MockupBlock color="green" height="1.5rem" width="100%">
           Opacity Slider
-        </MockupBlock>
-      </PadBox>
+      </MockupBlock>
     </Stack>
   );
 }

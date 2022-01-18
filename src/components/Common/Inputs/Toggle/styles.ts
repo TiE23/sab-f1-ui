@@ -4,7 +4,8 @@ type ToggleContainerProps = {
   fontSize?: string;
 }
 export const ToggleContainer = styled.div<ToggleContainerProps>`
-  text-align: center;
+  display: flex;
+  justify-content: center;
   font-size: ${({ fontSize = "inherit" }) => fontSize};
 `;
 ToggleContainer.displayName = "ToggleContainer";
@@ -13,7 +14,6 @@ export const ToggleBody = styled.div`
   position: relative;
   display: inline-block;
   text-align: left;
-  top: 0.5em;
 `;
 ToggleBody.displayName = "ToggleBody";
 
@@ -21,6 +21,10 @@ export const ToggleInput = styled.input`
   display: none;
 `;
 ToggleInput.displayName = "ToggleInput";
+
+export const ToggleLabelText = styled.span`
+  margin-right: 1ch;
+`;
 
 export const ToggleLabel = styled.label`
   display: block;
