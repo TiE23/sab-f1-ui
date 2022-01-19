@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ProgressSliderBody = styled.div`
   position: relative;
@@ -49,3 +49,25 @@ export const ProgressSliderBarHandle = styled.div`
   }
 `;
 ProgressSliderBarHandle.displayName = "ProgressSliderBarHandle";
+
+type ProgressSliderBarIndicatorProps = {
+  left: boolean,
+  onBarColor?: string,
+};
+export const ProgressSliderBarIndicator = styled.span<ProgressSliderBarIndicatorProps>`
+  display: block;
+  position: relative;
+  float: right;
+  left: ${({ left }) => left ? -1 : 3}ch;
+
+  font-family: ${p => p.theme.fonts.f1Regular};
+  font-size: 0.9em;
+  color: ${({ onBarColor, left }) => left ? onBarColor ?? "white" : "black"};
+
+  transition-property: left, color;
+  transition-timing-function: ease;
+  transition-duration: 0.2s;
+
+  user-select: none;
+`;
+ProgressSliderBarIndicator.displayName = "ProgressSliderBarIndicator";

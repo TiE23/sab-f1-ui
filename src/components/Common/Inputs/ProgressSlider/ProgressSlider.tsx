@@ -3,19 +3,27 @@ import { useDrag } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
 import { clamp } from "lodash";
 
-import { ProgressSliderBar, ProgressSliderBarHandle, ProgressSliderBody } from "./styles";
+import {
+  ProgressSliderBar,
+  ProgressSliderBarHandle,
+  ProgressSliderBarIndicator,
+  ProgressSliderBody,
+} from "./styles";
 
 const MARGIN_WIDTH = 15;
+const percentage = (value: number) => `${Math.floor(value * 100)}%`;
 
 type ProgressSliderProps = {
   value: number,  // Fraction of 1 (0.0 to 1.0)
   onChange: (value: number) => void,
+  disabled?: boolean,
   formatter?: (value: number) => string,
 };
 export function ProgressSlider({
   value,
   onChange,
-  formatter = (x) => x.toString(),
+  disabled = false,
+  formatter = percentage,
 }: ProgressSliderProps) {
   const [bodyRef, {
     width: bodyWidth,
@@ -31,10 +39,7 @@ export function ProgressSlider({
 
     barPos.x.set(newPos);
     onChange(newValue);
-
-    console.log("drag", newPos, newValue);
-  });
-
+  }, { enabled: !disabled });
 
   const AnimatedProgressSliderBar = animated(ProgressSliderBar);
 
@@ -46,6 +51,9 @@ export function ProgressSlider({
         bodyWidth={bodyWidth - MARGIN_WIDTH}
       >
         <ProgressSliderBarHandle />
+        <ProgressSliderBarIndicator left={barPos.x.get() > 45 || barPos.x.get() < 0}>
+          {formatter(value)}
+        </ProgressSliderBarIndicator>
       </AnimatedProgressSliderBar>
     </ProgressSliderBody>
   );

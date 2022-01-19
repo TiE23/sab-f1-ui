@@ -54,6 +54,7 @@ export function OverlayControl() {
       <ProgressSlider
         value={currentOverlayItem?.opacity ?? 1}
         onChange={onChangeOpacity}
+        disabled={!visible}
       />
     </Stack>
   );
