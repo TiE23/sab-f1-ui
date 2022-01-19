@@ -7,19 +7,20 @@ import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSe
 import {
   initNewOverlayItem,
   setCurrentOverlayId,
+  setOpacity,
   setVisibility,
 } from "../../../features/overlayTool/overlayToolSlice";
 
 import { Toggle } from "../../Common/Inputs/Toggle";
-import { MockupBlock } from "../../Common/MockupBlock.styled";
 import { SlotSelector } from "../../Common/Inputs/SlotSelector";
+import { ProgressSlider } from "../../Common/Inputs/ProgressSlider";
 
 
 export function OverlayControl() {
   const dispatch = useDispatch();
   const { overlayIds, visible, currentOverlayItem } = useSelector(overlayToolSelector);
 
-  const onToggle = (value: boolean) => {
+  const onToggleVisibility = (value: boolean) => {
     if (currentOverlayItem == null) {
       dispatch(initNewOverlayItem({
         overlayId: overlayIds[0],
@@ -31,13 +32,17 @@ export function OverlayControl() {
     }
   };
 
+  const onChangeOpacity = (value: number) => {
+    dispatch(setOpacity(value));
+  };
+
   return (
     <Stack as={PadBox} gutter="md" padding="sm">
       <Inline gutter="md" stretch="end">
         <Toggle
           label="Show Overlay"
           toggled={visible}
-          onToggle={onToggle}
+          onToggle={onToggleVisibility}
         />
         <SlotSelector
           items={overlayIds}
@@ -46,9 +51,11 @@ export function OverlayControl() {
           formatter={(value) => value.replace(/(\.png)|(\.jpg)$/, "")}
         />
       </Inline>
-      <MockupBlock color="green" height="1.5rem" width="100%">
-          Opacity Slider
-      </MockupBlock>
+      <ProgressSlider
+        value={currentOverlayItem?.opacity ?? 1}
+        onChange={onChangeOpacity}
+        disabled={!visible}
+      />
     </Stack>
   );
 }

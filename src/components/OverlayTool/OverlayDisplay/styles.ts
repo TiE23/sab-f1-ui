@@ -17,7 +17,16 @@ export const OverlayImage = styled.img.attrs<OverlayImageProps>(({
 `;
 OverlayImage.displayName = "OverlayImage";
 
-export const OverlayImageContainer = styled.div`
+type OverlayImageContainerProps = {
+  opacity: number,
+};
+export const OverlayImageContainer = styled.div.attrs<OverlayImageContainerProps>(({
+  opacity,
+}) => ({
+  style: {
+    opacity,
+  },
+}))<OverlayImageContainerProps>`
   display: flex;
 `;
 OverlayImageContainer.displayName = "OverlayImageContainer";
