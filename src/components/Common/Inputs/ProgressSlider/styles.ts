@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const ProgressSliderBody = styled.div`
   position: relative;
@@ -17,6 +17,7 @@ export const ProgressSliderBody = styled.div`
 
 type ProgressSliderBarProps = {
   bodyWidth: number,
+  disabled: boolean,
   color?: string,
 };
 export const ProgressSliderBar = styled.div<ProgressSliderBarProps>`
@@ -24,11 +25,18 @@ export const ProgressSliderBar = styled.div<ProgressSliderBarProps>`
   left: ${({ bodyWidth }) => `${-bodyWidth}px`};
   height: 100%;
   width: 100%;
-  background-color: ${({ color }) => (color ?? (p => p.theme.colors.activeGreen))};
+  background-color: ${({ color, disabled }) => (
+    disabled ? (p => p.theme.colors.lightGrey) :
+      color ?? (p => p.theme.colors.activeGreen)
+  )};
+  transition: background-color 0.2s ease;
 `;
 ProgressSliderBar.displayName = "ProgressSliderBar";
 
-export const ProgressSliderBarHandle = styled.div`
+type ProgressSliderBarHandleProps = {
+  color?: string,
+};
+export const ProgressSliderBarHandle = styled.div<ProgressSliderBarHandleProps>`
   position: relative;
   float: right;
 
@@ -41,7 +49,8 @@ export const ProgressSliderBarHandle = styled.div`
   border-radius: 2px;
 
   opacity: 0.5;
-  background-color: white;
+  background-color: ${({ color = "white" }) => color};
+  transition: background-color 0.2s ease;
   cursor: pointer;
 
   &:hover {
@@ -51,18 +60,25 @@ export const ProgressSliderBarHandle = styled.div`
 ProgressSliderBarHandle.displayName = "ProgressSliderBarHandle";
 
 type ProgressSliderBarIndicatorProps = {
-  left: boolean,
+  left: number,
+  disabled: boolean,
   onBarColor?: string,
 };
 export const ProgressSliderBarIndicator = styled.span<ProgressSliderBarIndicatorProps>`
   display: block;
   position: relative;
   float: right;
-  left: ${({ left }) => left ? -1 : 3}ch;
+  left: ${({ left }) => left}ch;
 
   font-family: ${p => p.theme.fonts.f1Regular};
   font-size: 0.9em;
-  color: ${({ onBarColor, left }) => left ? onBarColor ?? "white" : "black"};
+  color: ${({ onBarColor, left, disabled }) => (
+    left < 0
+      ? disabled
+        ? (p => p.theme.colors.darkGrey)
+        : onBarColor ?? "white"
+      : (p => p.theme.colors.darkGrey)
+  )};
 
   transition-property: left, color;
   transition-timing-function: ease;

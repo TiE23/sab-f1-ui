@@ -10,6 +10,11 @@ import {
   ProgressSliderBody,
 } from "./styles";
 
+/**
+ * This component isn't 100% amazing. Consider that the number indicator
+ * component may be bugged when loading with a value that isn't 1.
+ */
+
 const MARGIN_WIDTH = 15;
 const percentage = (value: number) => `${Math.floor(value * 100)}%`;
 
@@ -18,15 +23,24 @@ type ProgressSliderProps = {
   onChange: (value: number) => void,
   disabled?: boolean,
   formatter?: (value: number) => string,
+  barColor?: string,
+  labelColor?: string,
+  handleColor?: string,
 };
 export function ProgressSlider({
   value,
   onChange,
   disabled = false,
   formatter = percentage,
+  barColor,
+  labelColor,
+  handleColor,
 }: ProgressSliderProps) {
   const [bodyRef, {
     width: bodyWidth,
+  }] = useMeasure();
+  const [labelRef, {
+    width: labelWidth,
   }] = useMeasure();
   const barPos = useSpring({ x: ((bodyWidth - 2 * MARGIN_WIDTH) * value) + MARGIN_WIDTH });
   const bindBarPos = useDrag((params) => {
@@ -41,6 +55,8 @@ export function ProgressSlider({
     onChange(newValue);
   }, { enabled: !disabled });
 
+  console.log(bodyWidth, labelWidth, value, barPos.x.get());
+
   const AnimatedProgressSliderBar = animated(ProgressSliderBar);
 
   return (
@@ -49,9 +65,22 @@ export function ProgressSlider({
         {...bindBarPos()}
         style={{ x: barPos.x }}
         bodyWidth={bodyWidth - MARGIN_WIDTH}
+        disabled={disabled}
+        color={barColor}
       >
-        <ProgressSliderBarHandle />
-        <ProgressSliderBarIndicator left={barPos.x.get() > 45 || barPos.x.get() < 0}>
+        <ProgressSliderBarHandle color={disabled ? "black" : handleColor} />
+        <ProgressSliderBarIndicator
+          ref={labelRef}
+          left={
+            (
+              barPos.x.get() > labelWidth * 1.5
+              || barPos.x.get() < 0
+              || value === 1
+            ) ? -1 : value > 0.1 ? 4 : 3  // Tuned fitting considerations.
+          }
+          disabled={disabled}
+          onBarColor={labelColor}
+        >
           {formatter(value)}
         </ProgressSliderBarIndicator>
       </AnimatedProgressSliderBar>
