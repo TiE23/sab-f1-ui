@@ -55,8 +55,6 @@ export function ProgressSlider({
     onChange(newValue);
   }, { enabled: !disabled });
 
-  console.log(bodyWidth, labelWidth, value, barPos.x.get());
-
   const AnimatedProgressSliderBar = animated(ProgressSliderBar);
 
   return (
