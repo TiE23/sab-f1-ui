@@ -13,7 +13,7 @@ import {
   TextContainer,
 } from "./styles";
 
-export function ChyronDriverBasic() {
+export function ChyronDriver() {
   // TODO - Get driver details from Redux.
 
   const baseWidth = 582;

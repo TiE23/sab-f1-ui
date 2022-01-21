@@ -327,8 +327,8 @@ export const teamNumberStyles: { [teamId: string]: NumberStyle } = {
     numberColor: "#daffff",
     fontFamily: theme.fonts.f1Italic,
     rules: [
-      { type: "shadow", property: repeater("0 0 0.15em #daffff", 4) },
-      { type: "stroke", color: "#000", width: 0.10 },
+      { type: "shadow", property: repeater("0 0 0.2em #daffff", 4) },
+      { type: "stroke", color: "#000", width: 0.13 },
       { type: "stroke", color: "#35dfae", width: 0.05 },
       { type: "shadow", property: repeater("0 0 0.07em #35dfae", 2) },
     ],

@@ -2,21 +2,28 @@ import { ReactNode } from "react";
 import { WorkspaceId, WorkspaceProperties } from "../../types/state";
 
 // Broadcast Graphics
-import { ChyronDriverBasic } from "../../components/BroadcastGraphics/Chyrons/Driver";
+import { ChyronDriver } from "../../components/BroadcastGraphics/Chyrons/Driver";
 
 type WorkspaceObject = {
   [id: WorkspaceId]: WorkspaceProperties,
 };
 export const workspaces: WorkspaceObject = {
-  chyronDriverBasic: {
-    name: "Chyron Driver Basic",
+  chyronDriver: {
+    name: "Chyron Driver",
     overlayIds: [
-      "chyron-driver-basic-full.png",
-      "chyron-driver-basic-opening-1.png",
-      "chyron-driver-basic-opening-2.png",
+      "chyron-driver-medium-full-ham.png",
+      "chyron-driver-medium-op1-ham.png",
+      "chyron-driver-medium-op2-ham.png",
+      "chyron-driver-medium-full-alo.png",
+      "chyron-driver-medium-full-gas-weird.png",
+      "chyron-driver-medium-full-nor-weird.png",
+      "chyron-driver-medium-full-lat-no-pos.png",
+      "chyron-driver-medium-full-msc.png",
+      "chyron-driver-large-np-tsu.png",
+      "chyron-driver-large-dnf-ver.png",
     ],
     previewWindowDimensions: {
-      width: 650,
+      width: 750,
       height: 200,
     },
   },
@@ -24,7 +31,7 @@ export const workspaces: WorkspaceObject = {
 
 export function fetchBroadcastGraphic(workspaceId: WorkspaceId): ReactNode {
   switch(workspaceId) {
-  case "chyronDriverBasic": return ChyronDriverBasic();
+  case "chyronDriver": return ChyronDriver();
   default: return null;
   }
 }
