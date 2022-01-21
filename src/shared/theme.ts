@@ -20,11 +20,27 @@ export const theme = {
     faintGrey: "#eee",
     darkGrey: "#303030",
     videoFrameBG: "#333",
+    teams: {
+      alfaRomeo: "#900000",
+      alphaTauri: "#2b4562",
+      alpine: "#0090ff",
+      astonMartin: "#006f62",
+      ferrari: "#dc0000",
+      haas: "#fff",
+      mclaren: "#ff9800",
+      mercedes: "#00d2be",
+      redbull: "#0600ef",
+      williams: "#005aff",
+    },
   },
   design: {
     button: {
       borderRadius: "0.25rem",
     },
+  },
+  graphics: {
+    medRadius: "11px",
+    smRadius: "7px",
   },
 };
 

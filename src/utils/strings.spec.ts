@@ -1,4 +1,4 @@
-import { findPrefixCount } from "./strings";
+import { findPrefixCount, repeater } from "./strings";
 
 describe("strings", () => {
   describe("findPrefixCount", () => {
@@ -41,12 +41,59 @@ describe("strings", () => {
           "Hello",
         ], true)).toBe(1);
       });
-      it("is correctly case-insensitive", () => {
+      it("is case-insensitive", () => {
         expect(findPrefixCount([
           "Hello",
           "HELLO",
           "Hello",
         ], false)).toBe(5);
+      });
+    });
+  });
+
+  describe("repeater", () => {
+    describe("repeats correctly", () => {
+      it("repeats 1 time", () => {
+        expect(repeater(
+          "A",
+          1,
+          ",",
+        )).toBe("A");
+      });
+      it("repeats 3 times", () => {
+        expect(repeater(
+          "A",
+          3,
+          ",",
+        )).toBe("A,A,A");
+      });
+      it("correctly handles 0", () => {
+        expect(repeater(
+          "A",
+          0,
+          ",",
+        )).toBe("");
+      });
+      it("correctly handles -1", () => {
+        expect(repeater(
+          "A",
+          -1,
+          ",",
+        )).toBe("");
+      });
+      it("correctly handles blank delimiter", () => {
+        expect(repeater(
+          "A",
+          3,
+          "",
+        )).toBe("AAA");
+      });
+      it("correctly handles different delimiter", () => {
+        expect(repeater(
+          "A",
+          3,
+          " + ",
+        )).toBe("A + A + A");
       });
     });
   });

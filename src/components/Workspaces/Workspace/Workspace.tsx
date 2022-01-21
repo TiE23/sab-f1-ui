@@ -10,11 +10,10 @@ import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSe
 import { newWorkspace } from "../../../features/overlayTool/overlayToolSlice";
 
 import { PreviewWindow, H2, ControlsContainer } from "./styles";
-import { WorkspaceControls } from "./WorkspaceControls";
-import { MockupBlock } from "../../Common/MockupBlock.styled";
+import { WorkspaceControls } from "./WorkspaceControls/WorkspaceControls";
 import { OverlayDisplay } from "../../OverlayTool";
 
-import { workspaces } from "../workspaces";
+import { fetchBroadcastGraphic, workspaces } from "../../../domain/data/workspaces";
 
 export const Workspace = () => {
   const dispatch = useDispatch();
@@ -54,11 +53,7 @@ export const Workspace = () => {
         dimensions={workspaceProperties.previewWindowDimensions}
         animatedBG={animatedBG}
       >
-        <MockupBlock
-          color="#415bad"
-          height="100px"
-          width="100px"
-        >Preview Item</MockupBlock>
+        {fetchBroadcastGraphic(workspaceId)}
         <OverlayDisplay
           containerDimensions={workspaceProperties.previewWindowDimensions}
         />

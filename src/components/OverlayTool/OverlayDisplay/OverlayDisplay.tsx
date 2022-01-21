@@ -50,12 +50,9 @@ export function OverlayDisplay({
   const xPos = currentOverlayItem?.position.x ?? 0;
   const yPos = currentOverlayItem?.position.y ?? 0;
   const transition = useTransition(visible, {
-    from: { top: 50, opacity: 0 },
-    enter: {
-      top: 0,
-      opacity: 1,
-    },
-    leave: { top: 50, opacity: 0 },
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
   });
 
   // Cannot make an earlier return because all hooks must run or React gets mad.
