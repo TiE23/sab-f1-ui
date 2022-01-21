@@ -2,11 +2,12 @@ import { DriverNumber } from "../../Common/DriverNumber";
 import {
   BaseBackground,
   FirstName,
-  FlagNumber,
+  PositionNumber,
   LastName,
   NameContainer,
   NumberContainer,
-  NumberFlag,
+  PositionFlag,
+  Spacer,
   TeamColorBar,
   TeamName,
   TextContainer,
@@ -15,12 +16,18 @@ import {
 export function ChyronDriverBasic() {
   // TODO - Get driver details from Redux.
 
+  const baseWidth = 582;
+  const baseHeight = 72;
+
   return (
-    <BaseBackground>
-      <NumberFlag>
-        <FlagNumber>1</FlagNumber>
-      </NumberFlag>
+    <BaseBackground width={baseWidth} height={baseHeight}>
+      <Spacer width="6px" />
+      <PositionFlag containerHeight={baseHeight}>
+        <PositionNumber containerHeight={baseHeight}>1</PositionNumber>
+      </PositionFlag>
+      <Spacer width="8px" />
       <TeamColorBar color="#00d2be" />
+      <Spacer width="8px" />
       <TextContainer>
         <NameContainer>
           <FirstName>Lewis</FirstName>

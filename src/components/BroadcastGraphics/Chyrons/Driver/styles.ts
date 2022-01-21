@@ -1,21 +1,31 @@
 import styled from "styled-components";
 
-export const BaseBackground = styled.div`
+type BaseBackgroundProps = {
+  width: number, // px
+  height: number, // px
+};
+export const BaseBackground = styled.div<BaseBackgroundProps>`
   position: relative;
-  width: 582px;
-  height: 72px;
+  width: ${({ width }) => `${width}px`};
+  height: ${({ height }) => `${height}px`};
+
+  display: flex;
+  align-items: center;
 
   border-bottom-right-radius: 11px;
   background-color: #000;
+
+  overflow: hidden;
 `;
 BaseBackground.displayName = "BaseBackground";
 
-export const NumberFlag = styled.div`
-  position: absolute;
-  width: 61px;
-  height: 61px;
-  top: 6px;
-  left: 6px;
+type PositionFlagProps = {
+  containerHeight: number,  // px
+};
+export const PositionFlag = styled.div<PositionFlagProps>`
+  position: relative;
+  height: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
+  width: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
 
   border-bottom-right-radius: 9px;
   background-color: #f4f3ee;
@@ -24,34 +34,36 @@ export const NumberFlag = styled.div`
   align-items: center;
   justify-content: center;
 `;
-NumberFlag.displayName = "NumberFlag";
+PositionFlag.displayName = "PositionFlag";
 
-export const FlagNumber = styled.span`
+type PositionNumberProps = {
+  containerHeight: number,  // px
+};
+export const PositionNumber = styled.span<PositionNumberProps>`
   font-family: ${p => p.theme.fonts.f1Regular};
-  font-size: 39px;
+  font-size: ${({ containerHeight }) => `${containerHeight * 0.85 * 0.64}px`};
   margin-top: 2px;
 `;
-FlagNumber.displayName = "FlagNumber";
+PositionNumber.displayName = "PositionNumber";
 
 type TeamColorBarProps = {
   color: string,
 };
 export const TeamColorBar = styled.div<TeamColorBarProps>`
-  position: absolute;
-  width: 6px;
-  height: 45px;
-  top: 14px;
-  left: 75px;
+  position: relative;
+  width: 1%;  // 6px;
+  height: 63%;
 
   background-color: ${({ color }) => color};
 `;
 TeamColorBar.displayName = "TeamColorBar";
 
 export const TextContainer = styled.div`
-  position: absolute;
-  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
   height: 100%;
-  left: 90px;
 `;
 TextContainer.displayName = "TextContainer";
 
@@ -86,11 +98,21 @@ export const NumberContainer = styled.div`
 `;
 NumberContainer.displayName = "NumberContainer";
 
-export const TeamName = styled.span`
-  position: absolute;
+export const TeamName = styled.div`
+  position: relative;
   font-family: ${p => p.theme.fonts.f1Regular};
   color: #d1d1d1;
   font-size: 20px;
-  bottom: 6px;
 `;
 TeamName.displayName = "TeamName";
+
+
+type SpacerProps = {
+  width?: string,
+  height?: string;
+};
+export const Spacer = styled.div<SpacerProps>`
+  width: ${({ width = "0" }) => width};
+  height: ${({ height = "0" }) => height};
+`;
+Spacer.displayName = "Spacer";

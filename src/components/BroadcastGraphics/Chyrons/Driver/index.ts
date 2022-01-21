@@ -1,1 +1,1 @@
-export * from "./ChyronDriverBasic";
+export * from "./ChyronDriver";
