@@ -42,8 +42,8 @@ export function OverlayDisplay({
     const newX = args[0].xPos + delta[0];
     const newY = args[0].yPos + delta[1];
     dispatch(setPosition({
-      x: newX >= minX && newX <= maxX ? newX : args[0].xPos,
-      y: newY >= minY && newY <= maxY ? newY : args[0].yPos,
+      x: newX >= minX && newX <= maxX ? newX : newX > maxX ? maxX : args[0].xPos,
+      y: newY >= minY && newY <= maxY ? newY : newY > maxY ? maxY : args[0].yPos,
     }));
   });
 
