@@ -1,65 +1,65 @@
-export type RootState = {
-  pageDimensions: PageDimensions,
-  workspace: Workspace,
-  overlayTool: OverlayTool,
-};
+export interface RootState {
+  pageDimensions: PageDimensions;
+  workspace: Workspace;
+  overlayTool: OverlayTool;
+}
 
 // Page Dimensions
-export type PageDimensions = {
-  mainMenu: Dimensions,
-  app: Dimensions,
-  workspace: Dimensions,
-};
-export type Dimensions = { width: number, height: number };
+export interface PageDimensions {
+  mainMenu: Dimensions;
+  app: Dimensions;
+  workspace: Dimensions;
+}
+export interface Dimensions { width: number; height: number; }
 
 // Workspace
-export type Workspace = {
-  workspaceId: WorkspaceId,
-  animatedBG: boolean,
-  workspaceProperties: WorkspaceProperties,
-};
+export interface Workspace {
+  workspaceId: WorkspaceId;
+  animatedBG: boolean;
+  workspaceProperties: WorkspaceProperties;
+}
 
 export type WorkspaceId = string;
-export type WorkspaceProperties = {
-  name: string,
-  overlayIds: OverlayIds,
-  previewWindowDimensions: Dimensions,
-};
+export interface WorkspaceProperties {
+  name: string;
+  overlayIds: OverlayIds;
+  previewWindowDimensions: Dimensions;
+}
 
 // Overlay Tool
-export type OverlayTool = {
-  currentWorkspaceId: WorkspaceId,
-  overlayIds: OverlayIds,
-  currentOverlayId: OverlayId | null,
-  currentOverlayItem: OverlayItem | null,
-  visible: boolean,
-};
+export interface OverlayTool {
+  currentWorkspaceId: WorkspaceId;
+  overlayIds: OverlayIds;
+  currentOverlayId: OverlayId | null;
+  currentOverlayItem: OverlayItem | null;
+  visible: boolean;
+}
 export type OverlayId = string;
 export type OverlayIds = Array<OverlayId>;
-export type OverlayPosition = { x: number, y: number };
-export type OverlayItem = {
-  position: OverlayPosition,
-  opacity: number,
-};
+export interface OverlayPosition { x: number; y: number; }
+export interface OverlayItem {
+  position: OverlayPosition;
+  opacity: number;
+}
 
 // Race State.
-export type Car = {
-  position: number,
-  driver: Driver,
-  // status: ???,
-  // distance: number,
-};
+export interface Car {
+  position: number;
+  driver: Driver;
+  // status: ???;
+  // distance: number;
+}
 export type Grid = Array<Car>;
-export type Driver = {
-  id: DriverId,
-  firstName: string,
-  lastName: string,
-  number: number,
-  team: Team,
-  yellowTCam: boolean,
-  initials: string,
-  nationality: string,  // ISO 3166-1 alpha-3 codes
-};
+export interface Driver {
+  id: DriverId;
+  firstName: string;
+  lastName: string;
+  number: number;
+  team: Team;
+  yellowTCam: boolean;
+  initials: string;
+  nationality: string;  // ISO 3166-1 alpha-3 codes
+}
 export type DriverId =
   | "albon"
   | "alonso"
@@ -85,13 +85,13 @@ export type DriverId =
   | "vettel"
   | "zhou";
 
-export type Team = {
-  id: TeamId,
-  shortName: TeamShortName,
-  fullName: TeamFullName,
-  nationality: string,  // ISO 3166-1 alpha-3 codes
-  // logo: string,
-};
+export interface Team {
+  id: TeamId;
+  shortName: TeamShortName;
+  fullName: TeamFullName;
+  nationality: string;  // ISO 3166-1 alpha-3 codes
+  // logo: string;
+}
 export type TeamId =
   | "alfaRomeo"
   | "alphaTauri"
@@ -127,3 +127,40 @@ export type TeamFullName =
   | "Williams Racing";
 
 // Broadcast Graphics
+export interface BGRelativePos {
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
+}
+export interface BroadcastGraphics {
+  // timingBoard: BGTimingBoard;
+  // statusIndicator: BGStatusIndicator;
+  // indicators: BGIndicators
+  chyrons: BGChyrons;
+  // gems: BGGems
+  // toasts: BGToasts;
+}
+
+export interface BGChyrons {
+  primary: BGChyron;
+  secondary: BGChyron;
+  // sponsorGem: BGSponsorGem;
+}
+
+export type FlagMode = "country" | "team";
+export type BGChyronMode =
+  | "driver-basic-small"
+  | "driver-basic-medium"
+  | "driver-basic-large";
+export interface BGChyron extends BGRelativePos {
+  mode: BGChyronMode;
+  cars: Array<Car>;
+}
+export interface BGChyronMedium extends BGChyron {
+  mode: "driver-basic-medium";
+  flag: FlagMode;
+  showPosFlag: boolean;
+  showDriverNumber: boolean;
+}
+

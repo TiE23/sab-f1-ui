@@ -3,6 +3,7 @@ import { WorkspaceId, WorkspaceProperties } from "../../types/state";
 
 // Broadcast Graphics
 import { ChyronDriver } from "../../components/BroadcastGraphics/Chyrons/Driver";
+import { AngledFlagWorkSpace } from "../../components/Workspaces/CustomWorkSpaces/AngledFlagWorkSpace";
 
 type WorkspaceObject = {
   [id: WorkspaceId]: WorkspaceProperties,
@@ -27,11 +28,22 @@ export const workspaces: WorkspaceObject = {
       height: 200,
     },
   },
+  angledFlag: {
+    name: "Angled Flag",
+    overlayIds: [
+      "angled-flag-gbr.png",
+    ],
+    previewWindowDimensions: {
+      width: 500,
+      height: 500,
+    },
+  },
 };
 
 export function fetchBroadcastGraphic(workspaceId: WorkspaceId): ReactNode {
   switch(workspaceId) {
   case "chyronDriver": return ChyronDriver();
+  case "angledFlag": return AngledFlagWorkSpace();
   default: return null;
   }
 }

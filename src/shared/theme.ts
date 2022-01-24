@@ -29,7 +29,7 @@ export const theme = {
       haas: "#fff",
       mclaren: "#ff9800",
       mercedes: "#00d2be",
-      redbull: "#0600ef",
+      redBull: "#0600ef",
       williams: "#005aff",
     },
   },

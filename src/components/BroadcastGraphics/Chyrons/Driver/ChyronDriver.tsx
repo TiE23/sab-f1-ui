@@ -1,4 +1,5 @@
 import { DriverNumber } from "../../Common/DriverNumber";
+import { AngledFlag } from "../../Common/AngledFlag";
 import {
   BaseBackground,
   FirstName,
@@ -11,10 +12,14 @@ import {
   TeamColorBar,
   TeamName,
   TextContainer,
+  FlagContainer,
 } from "./styles";
+import { drivers } from "../../../../domain/data/teams";
+import { theme } from "../../../../shared/theme";
 
 export function ChyronDriver() {
   // TODO - Get driver details from Redux.
+  const driver = drivers["hamilton"];
 
   const baseWidth = 582;
   const baseHeight = 72;
@@ -26,18 +31,33 @@ export function ChyronDriver() {
         <PositionNumber containerHeight={baseHeight}>1</PositionNumber>
       </PositionFlag>
       <Spacer width="8px" />
-      <TeamColorBar color="#00d2be" />
+      <TeamColorBar color={theme.colors.teams[driver.team.id]} />
       <Spacer width="8px" />
       <TextContainer>
         <NameContainer>
-          <FirstName>Lewis</FirstName>
-          <LastName>Hamilton</LastName>
+          <FirstName>{driver.firstName}</FirstName>
+          <LastName>{driver.lastName}</LastName>
           <NumberContainer>
-            <DriverNumber teamId="mercedes" fontSize="29px" number={44} />
+            <DriverNumber
+              teamId={driver.team.id}
+              fontSize="29px"
+              number={driver.number}
+            />
           </NumberContainer>
         </NameContainer>
-        <TeamName>Mercedes</TeamName>
+        <TeamName>{driver.team.shortName}</TeamName>
       </TextContainer>
+      <FlagContainer
+        height={baseHeight * 0.9}
+        width={250}
+      >
+        <AngledFlag
+          flagMode="country"
+          flag={driver.nationality}
+          flagHeight={64}
+        />
+
+      </FlagContainer>
     </BaseBackground>
   );
 }

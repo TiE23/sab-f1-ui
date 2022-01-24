@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Px } from "../../../../types/style";
 
 type BaseBackgroundProps = {
-  width: number, // px
-  height: number, // px
+  width: Px,
+  height: Px,
 };
 export const BaseBackground = styled.div<BaseBackgroundProps>`
   position: relative;
@@ -20,7 +21,7 @@ export const BaseBackground = styled.div<BaseBackgroundProps>`
 BaseBackground.displayName = "BaseBackground";
 
 type PositionFlagProps = {
-  containerHeight: number,  // px
+  containerHeight: Px,
 };
 export const PositionFlag = styled.div<PositionFlagProps>`
   position: relative;
@@ -37,7 +38,7 @@ export const PositionFlag = styled.div<PositionFlagProps>`
 PositionFlag.displayName = "PositionFlag";
 
 type PositionNumberProps = {
-  containerHeight: number,  // px
+  containerHeight: Px,
 };
 export const PositionNumber = styled.span<PositionNumberProps>`
   font-family: ${p => p.theme.fonts.f1Regular};
@@ -116,3 +117,22 @@ export const Spacer = styled.div<SpacerProps>`
   height: ${({ height = "0" }) => height};
 `;
 Spacer.displayName = "Spacer";
+
+type FlagContainerProps = {
+  height: Px,
+  width: Px,
+};
+export const FlagContainer = styled.div<FlagContainerProps>`
+  position: absolute;
+  right: -65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: ${({ height }) => `${height}px`};
+  width: ${({ width }) => `${width}px`};
+
+  overflow: hidden;
+`;
+FlagContainer.displayName = "FlagContainer";
