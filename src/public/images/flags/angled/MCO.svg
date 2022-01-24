@@ -1,1 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800"><path fill="#FFF" d="M0,0h1000V800H0z"/><path fill="#CE1126" d="M0,0h1000V400H0z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" height="100%" xmlns:vectornator="http://vectornator.io" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 6804 3402" width="100%">
+<path d="M1.21687-7.39372L6829.18-7.39372L6829.18+3410.95L1.21687+3410.95L1.21687-7.39372Z" opacity="1" fill="#ffffff"/>
+<path d="M0.793517-7.78451L6828.75-7.78451L6828.75+1701.39L0.793517+1701.39L0.793517-7.78451Z" opacity="1" fill="#ce1126"/>
+</svg>

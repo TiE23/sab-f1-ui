@@ -323,6 +323,72 @@ export type NumberStyle = {
  * Do not grab directly!
  */
 export const teamNumberStyles: { [teamId: string]: NumberStyle } = {
+  alpine: {
+    numberColor: "#ddffff",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #4B7B9E", 4) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "shadow", property: repeater("0 0 0.07em #65A6D6", 2) },
+    ],
+  },
+  alfaRomeo: {
+    numberColor: "#ffe9f4",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #900000", 2) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "stroke", color: "#900000", width: 0.05 },
+      { type: "shadow", property: "0 0 0.07em #900000" },
+    ],
+  },
+  alphaTauri: {
+    numberColor: "#eff5fc",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "stroke", color: "#2b4562", width: 0.03 },
+    ],
+  },
+  astonMartin: {
+    numberColor: "#f9ffff",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #006f62", 4) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "stroke", color: "#006f62", width: 0.05 },
+      { type: "shadow", property: "0 0 0.07em #006f62" },
+    ],
+  },
+  haas: {
+    numberColor: "#fff",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #fff", 4) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "stroke", color: "#999", width: 0.05 },
+      { type: "shadow", property: "0 0 0.07em #eee" },
+    ],
+  },
+  ferrari: {
+    numberColor: "#fff5f6",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #dc0000", 2) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "stroke", color: "#dc0000", width: 0.05 },
+      { type: "shadow", property: "0 0 0.07em #dc0000" },
+    ],
+  },
+  mclaren: {
+    numberColor: "#fdf5f6",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #ffb241", 2) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "stroke", color: "#ffb241", width: 0.05 },
+      { type: "shadow", property: "0 0 0.07em #ffb241" },
+    ],
+  },
   mercedes: {
     numberColor: "#daffff",
     fontFamily: theme.fonts.f1Italic,
@@ -331,6 +397,24 @@ export const teamNumberStyles: { [teamId: string]: NumberStyle } = {
       { type: "stroke", color: "#000", width: 0.13 },
       { type: "stroke", color: "#35dfae", width: 0.05 },
       { type: "shadow", property: repeater("0 0 0.07em #35dfae", 2) },
+    ],
+  },
+  redBull: {
+    numberColor: "#f2f2ff",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #0600ef", 4) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "stroke", color: "#ebffff", width: 0 },
+    ],
+  },
+  williams: {
+    numberColor: "#ebffff",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #005aff", 2) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "stroke", color: "#ebffff", width: 0 },
     ],
   },
 };
