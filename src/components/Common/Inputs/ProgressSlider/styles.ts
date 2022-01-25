@@ -62,7 +62,7 @@ ProgressSliderBarHandle.displayName = "ProgressSliderBarHandle";
 type ProgressSliderBarIndicatorProps = {
   left: number,
   disabled: boolean,
-  onBarColor?: string,
+  color?: string,
 };
 export const ProgressSliderBarIndicator = styled.span<ProgressSliderBarIndicatorProps>`
   display: block;
@@ -72,11 +72,11 @@ export const ProgressSliderBarIndicator = styled.span<ProgressSliderBarIndicator
 
   font-family: ${p => p.theme.fonts.f1Regular};
   font-size: 0.9em;
-  color: ${({ onBarColor, left, disabled }) => (
+  color: ${({ color, left, disabled }) => (
     left < 0
       ? disabled
         ? (p => p.theme.colors.darkGrey)
-        : onBarColor ?? "white"
+        : color ?? "white"
       : (p => p.theme.colors.darkGrey)
   )};
 

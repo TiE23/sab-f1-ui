@@ -23,3 +23,22 @@ export function findPrefixCount(strings: Array<string>, caseSensitive = true): n
   }
   return maskLength;
 }
+
+/**
+ * Basic function repeats the given string a set number of times and allows for
+ * a delimiter.
+ * @param value the string to repeat
+ * @param count the number of times to repeat
+ * @param delimiter the string to place between repeated strings
+ * @returns
+ */
+export function repeater(value: string, count: number, delimiter = ", "): string {
+  let output = "";
+  for (let x = 0; x < count; ++x) {
+    output += value;
+    if (delimiter.length !== 0 && x < count - 1) {
+      output += delimiter;
+    }
+  }
+  return output;
+}

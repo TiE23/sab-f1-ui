@@ -14,6 +14,10 @@ export const OverlayImage = styled.img.attrs<OverlayImageProps>(({
   src,
 }))<OverlayImageProps>`
   width: ${({ scale = 100 }) => `${scale}%`};
+  &:active {
+    outline: 2px solid red;
+    outline-offset: -2px;
+  }
 `;
 OverlayImage.displayName = "OverlayImage";
 

@@ -5,7 +5,7 @@ import { WorkspaceListBox } from "./styles";
 import { Stack } from "@bedrock-layout/stack";
 import { MenuItem } from "../../Common/MenuItem.styled";
 
-import { workspaces } from "../workspaces";
+import { workspaces } from "../../../domain/data/workspaces";
 
 type WorkspaceListProps = {
   headerOffset?: number,

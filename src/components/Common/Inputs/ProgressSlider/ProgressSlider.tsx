@@ -77,7 +77,7 @@ export function ProgressSlider({
             ) ? -1 : value > 0.1 ? 4 : 3  // Tuned fitting considerations.
           }
           disabled={disabled}
-          onBarColor={labelColor}
+          color={labelColor}
         >
           {formatter(value)}
         </ProgressSliderBarIndicator>
