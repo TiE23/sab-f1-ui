@@ -20,7 +20,6 @@ import { theme } from "../../../../shared/theme";
 export function ChyronDriver() {
   // TODO - Get driver details from Redux.
   const driver = drivers["hamilton"];
-
   const baseWidth = 582;
   const baseHeight = 72;
 
@@ -49,14 +48,14 @@ export function ChyronDriver() {
       </TextContainer>
       <FlagContainer
         height={baseHeight * 0.9}
-        width={250}
+        width={baseHeight * 3}
+        right={-baseHeight * 0.6}
       >
         <AngledFlag
           flagMode="country"
           flag={driver.nationality}
-          flagHeight={64}
+          flagHeight={baseHeight * 0.9}
         />
-
       </FlagContainer>
     </BaseBackground>
   );

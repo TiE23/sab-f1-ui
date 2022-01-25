@@ -121,10 +121,11 @@ Spacer.displayName = "Spacer";
 type FlagContainerProps = {
   height: Px,
   width: Px,
+  right: Px,
 };
 export const FlagContainer = styled.div<FlagContainerProps>`
   position: absolute;
-  right: -65px;
+  right: ${({ right }) => `${right}px`};
 
   display: flex;
   align-items: center;

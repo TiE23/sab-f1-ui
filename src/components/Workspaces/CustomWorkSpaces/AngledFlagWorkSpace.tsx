@@ -6,7 +6,7 @@ export function AngledFlagWorkSpace() {
     <BasicBlock width={400} height={400} color="rgba(30, 30, 30, .7)">
       <AngledFlag
         flagMode="country"
-        flag="JPN"
+        flag="GBR"
         flagHeight={64}
       />
     </BasicBlock>

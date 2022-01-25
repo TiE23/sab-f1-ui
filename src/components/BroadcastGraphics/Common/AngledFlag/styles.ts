@@ -24,6 +24,7 @@ export const Container = styled.div<ContainerProps>`
     transparent 100%
   );
 `;
+Container.displayName = "Container";
 
 type NationalFlagProps = {
   height: Px,
@@ -31,19 +32,12 @@ type NationalFlagProps = {
 export const NationalFlag = styled.img<NationalFlagProps>`
   max-inline-size: unset;
   height: ${({ height }) => `${height}px`};
-  clip-path: polygon(50% 0, 100% 0, 100% 30%, 60% 100%, 0 100%, 0 100%);
+  clip-path: polygon(50% 0, 100% 0, 100% 30%, 66% 100%, 0 100%, 0 100%);
   mask-image: linear-gradient(
-    to right,
+    60deg,
     transparent 0%,
     black 15%,
     black 85%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    circle at center,
-    black 0%,
-    black 80%,
-    transparent 96%,
     transparent 100%
   );
 `;
@@ -60,19 +54,19 @@ export const Sheen = styled.div<SlashProps>`
   width: ${({ girth }) => `${girth}px`};
 
   background: linear-gradient(
-    to top,
-    transparent 0%,
-    transparent 20%,
+    25deg,
+    black 0%,
+    black 25%,
     rgba(255, 255, 255, 0.15) 45%,
     rgba(255, 255, 255, 0.15) 55%,
-    transparent 80%,
-    transparent 100%
+    black 75%,
+    black 100%
   );
   font-size: ${({ height }) => `${height}px`};  // Hack to let me use em.
 
   box-shadow:
     0.02em 0 0.005em 0.015em rgba(0, 0, 0, 0.2),
-    1em 0 0 1em rgba(0, 0, 0, 0.1);
+    1em 0 0 1em rgba(0, 0, 0, 0.5);
   transform: skew(-45deg, 0deg) translateX(${({ x }) => `${x}px`});
 
   border-left: 0.015em solid rgba(255, 255, 255, 0.25);
