@@ -38,7 +38,7 @@ export const workspaces: WorkspaceObject = {
       "angled-flag-gbr.png",
     ],
     previewWindowDimensions: {
-      width: 500,
+      width: 800,
       height: 500,
     },
   },

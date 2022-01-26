@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Px } from "../../../../types/style";
 
 type ContainerProps = {
@@ -26,25 +26,68 @@ export const Container = styled.div<ContainerProps>`
 `;
 Container.displayName = "Container";
 
-type NationalFlagProps = {
+type FlagContainerProps = {
   height: Px,
+  width: Px,
+  collapsedWidth: Px,
+  topFlag?: boolean,
+  masked?: boolean,
 };
-export const NationalFlag = styled.img<NationalFlagProps>`
-  max-inline-size: unset;
+export const FlagContainer = styled.div<FlagContainerProps>`
+  position: absolute;
   height: ${({ height }) => `${height}px`};
-  clip-path: polygon(50% 0, 100% 0, 100% 30%, 66% 100%, 0 100%, 0 100%);
-  mask-image: linear-gradient(
-    60deg,
-    transparent 0%,
-    black 15%,
-    black 85%,
-    transparent 100%
-  );
+  width: ${({ width }) => `${width}px`};
+  ${({ masked = false }) => masked && css`
+    mask-image: linear-gradient(
+      60deg,
+      transparent 0%,
+      black 15%,
+      black 85%,
+      transparent 100%
+    );
+  `}
+
+  ${({ width, collapsedWidth, topFlag = false }) => topFlag
+    ? css`
+      clip-path: polygon(
+        ${((collapsedWidth * .5) / width) * 100}% 0,
+        95% 0,
+        ${((1 - ((collapsedWidth * .55) / width)) * 100)}% 100%,
+        0 100%
+      );
+    `
+    : css`
+      clip-path: polygon(
+        ${((collapsedWidth * .5) / width) * 100}% 0,
+        100% 0,
+        100% 30%,
+        ${((1 - ((collapsedWidth * .34) / width)) * 100)}% 100%,
+        0 100%
+      );
+    `}
 `;
-NationalFlag.displayName = "NationalFlag";
+FlagContainer.displayName = "FlagContainer";
+
+type CountryFlagDivProps = {
+  src: string,
+  height: Px,
+  width: Px,
+  xOffset?: Px,
+};
+export const CountryFlagDiv = styled.div<CountryFlagDivProps>`
+  height: ${({ height }) => `${height}px`};
+  width: ${({ width }) => `${width}px`};
+  background-image: url(${({ src }) => src});
+  background-size: ${({ width, height }) => `${width}px ${height}px`};
+  background-repeat: no-repeat;
+  ${({ xOffset }) => xOffset == null
+    ? css`background-position: center;`
+    : css`background-position-x: ${xOffset}px`}
+`;
+CountryFlagDiv.displayName = "CountryFlagDiv";
 
 type SlashProps = {
-  x: Px,
+  x?: Px,
   height: Px,
   girth: Px,
 };
@@ -67,9 +110,9 @@ export const Sheen = styled.div<SlashProps>`
   box-shadow:
     0.02em 0 0.005em 0.015em rgba(0, 0, 0, 0.2),
     1em 0 0 1em rgba(0, 0, 0, 0.5);
-  transform: skew(-45deg, 0deg) translateX(${({ x }) => `${x}px`});
+  transform: skew(-45deg, 0deg) translateX(${({ x = 0 }) => `${x}px`});
 
-  border-left: 0.015em solid rgba(255, 255, 255, 0.25);
+  border-left: 0.015em solid rgba(255, 255, 255, 0.1);
 `;
 Sheen.displayName = "Sheen";
 
@@ -79,18 +122,18 @@ export const Slant = styled.div<SlashProps>`
   width: ${({ girth }) => `${girth}px`};
 
   background: #1a1a28;
-  transform: skewX(-45deg) translateX(${({ x }) => `${x}px`});
+  transform: skewX(-45deg) translateX(${({ x = 0 }) => `${x}px`});
 `;
 Slant.displayName = "Slant";
 
-export const NationalFlagEdge = styled.div<SlashProps>`
+export const CountryFlagEdge = styled.div<SlashProps>`
   position: absolute;
   height: ${({ height }) => `${height}px`};
   width: ${({ girth }) => `${girth}px`};
 
   background: ${p => p.theme.colors.lightGrey};
   opacity: 0.5;
-  transform: skewX(-45deg) translateX(${({ x }) => `${x}px`});
+  transform: skewX(-45deg) translateX(${({ x = 0 }) => `${x}px`});
 
   mask-image: linear-gradient(
     to top,
@@ -99,3 +142,4 @@ export const NationalFlagEdge = styled.div<SlashProps>`
     black 100%
   );
 `;
+CountryFlagEdge.displayName = "CountryFlagEdge";
