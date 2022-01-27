@@ -2,13 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { findIndex } from "lodash";
 
 import { RootState, Car } from "../../../types/state";
+import { Optional } from "../../../types/util";
+import { carMatch } from "../../../utils/comparators";
 
 const initialState: RootState["broadcastDirector"] = {
   selectedCars: [],
 };
-
-const carMatch = (targetCar: Car) => (checkedCar: Car) =>
-  checkedCar.driver.id === targetCar.driver.id;
 
 export const broadcastDirectorSlice = createSlice({
   name: "broadcastDirector",
@@ -31,8 +30,16 @@ export const broadcastDirectorSlice = createSlice({
         state.selectedCars.slice(index + 1),
       );
     },
-    selectedCarsClear: (state) => {
-      state.selectedCars = [];
+    /**
+     * Shortcut to clear out selected cars. There is also a trick - if you
+     * @param action Car (optional) - if provided, it'll clear all and add this.
+     */
+    selectedCarsClear: (state, action: PayloadAction<Optional<Car>>) => {
+      if (action.payload == null) {
+        state.selectedCars = [];
+      } else {
+        state.selectedCars = [action.payload];
+      }
     },
   },
 });

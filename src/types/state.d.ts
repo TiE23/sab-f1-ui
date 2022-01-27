@@ -22,6 +22,7 @@ export interface Workspace {
   workspaceId: WorkspaceId;
   animatedBG: boolean;
   workspaceProperties: WorkspaceProperties;
+  prototypeState: Optional<PrototypeState>;
 }
 
 export type WorkspaceId = string;
@@ -29,6 +30,12 @@ export interface WorkspaceProperties {
   name: string;
   overlayIds: OverlayIds;
   previewWindowDimensions: Dimensions;
+}
+export interface PrototypeState {
+  angledFlag?: {
+    flagA: string;
+    flagB: string;
+  };
 }
 
 // Overlay Tool
