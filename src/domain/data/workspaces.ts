@@ -29,7 +29,7 @@ export const workspaces: WorkspaceObject = {
     ],
     previewWindowDimensions: {
       width: 750,
-      height: 200,
+      height: 300,
     },
   },
   angledFlag: {
@@ -44,11 +44,11 @@ export const workspaces: WorkspaceObject = {
   },
 };
 
-export function fetchBroadcastGraphic(workspaceId: WorkspaceId): ReactNode {
+export function fetchBroadcastGraphic(workspaceId: WorkspaceId): [ReactNode, ReactNode] {
   switch(workspaceId) {
-  case "chyronDriver": return ChyronDriver();
-  case "angledFlag": return AngledFlagWorkSpace();
-  default: return null;
+  case "chyronDriver": return [ChyronDriver(), null];
+  case "angledFlag": return [AngledFlagWorkSpace(), null];
+  default: return [null, null];
   }
 }
 

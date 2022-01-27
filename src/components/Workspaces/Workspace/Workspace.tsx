@@ -41,6 +41,7 @@ export const Workspace = () => {
 
   if (workspaceId == null) return null;
 
+  const [graphic, controls] = fetchBroadcastGraphic(workspaceId);
   return (
     <Stack
       gutter="lg"
@@ -53,13 +54,14 @@ export const Workspace = () => {
         dimensions={workspaceProperties.previewWindowDimensions}
         animatedBG={animatedBG}
       >
-        {fetchBroadcastGraphic(workspaceId)}
+        {graphic}
         <OverlayDisplay
           containerDimensions={workspaceProperties.previewWindowDimensions}
         />
       </PreviewWindow>
       <ControlsContainer>
         <WorkspaceControls />
+        {controls}
       </ControlsContainer>
     </Stack>
   );
