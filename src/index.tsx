@@ -28,7 +28,7 @@ ReactDOM.render(
               <Route path="broadcast" element={<Broadcast />} />
               <Route path="workspaces" element={<Workspaces />}>
                 <Route index element={<h1>Workspaces Home</h1>} />
-                <Route path=":workspaceId" element={<Workspace />} />
+                <Route path="s/*" element={<Workspace />} />
               </Route>
             </Route>
             <Route path="*" element={<h1>Page Not Found</h1>} />

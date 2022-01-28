@@ -22,7 +22,7 @@ export function SlotSelector({
   const [prefixMask, setPrefixMask] = useState(0);
   const [formattedItems, setFormattedItems] = useState<Array<string>>([]);
 
-  // useMemo makes these functions only run once when mounting. Not ever re-render.
+  // useMemo makes these functions only run once when mounting. Not every re-render.
   useMemo(() => {
     const tempFormattedItems = items.map(item => formatter(item));
     setFormattedItems(tempFormattedItems);
@@ -39,7 +39,7 @@ export function SlotSelector({
     formattedItems.length &&
       removePrefix &&
       formattedItems[0].length !== prefixMask ?
-      formattedItems[i].slice(prefixMask) :
+      formattedItems[i]?.slice(prefixMask) ?? undefined :
       formattedItems[i];
 
   const transRef = useSpringRef();

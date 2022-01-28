@@ -11,6 +11,7 @@ const countries = [
   "GBR", "NLD", "FIN", "JPN", "FRA", "DEU", "MEX", "POL", "MCO", "CHN", "THA",
   "CAN", "RUS", "RAF", "AUS", "ESP", "ITA",
 ];
+
 export function AngledFlagPrototypeControls() {
   const dispatch = useDispatch();
   const { prototypeState } = useSelector(workspaceSelector);
