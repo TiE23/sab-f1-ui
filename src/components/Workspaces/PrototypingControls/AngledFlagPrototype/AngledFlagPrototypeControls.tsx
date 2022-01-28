@@ -16,11 +16,11 @@ export function AngledFlagPrototypeControls() {
   const dispatch = useDispatch();
   const { prototypeState } = useSelector(workspaceSelector);
 
-  const onChange = (flag: "flagA" | "flagB") => (value: string) => {
+  const onChange = (flag: "flagA" | "flagB") => (index: number) => {
     dispatch(setPrototypeState({
       angledFlag: {
-        flagA: flag === "flagA" ? value : prototypeState?.angledFlag?.flagA ?? "GBR",
-        flagB: flag === "flagB" ? value : prototypeState?.angledFlag?.flagB ?? "GBR",
+        flagA: flag === "flagA" ? countries[index] : prototypeState?.angledFlag?.flagA ?? "GBR",
+        flagB: flag === "flagB" ? countries[index] : prototypeState?.angledFlag?.flagB ?? "GBR",
       },
     }));
   };

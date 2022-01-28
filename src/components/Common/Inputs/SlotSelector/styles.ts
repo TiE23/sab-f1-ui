@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-export const SlotWindow = styled.div`
+type SlotWindowProps = {
+  disabled: boolean,
+};
+export const SlotWindow = styled.div<SlotWindowProps>`
   position: relative;
   height: 1.5em;
   width: auto;
 
   border-radius: 0.6em;
-  background-color: white;
+  background-color: ${({ disabled }) => disabled
+    ? p => p.theme.colors.lightGrey : "white"};
   box-shadow: inset 0 0 50px -50px ${p => p.theme.colors.darkGrey};
   border: 1px solid ${p => p.theme.colors.darkGrey};
 
