@@ -20,13 +20,21 @@ export const SlotWindow = styled.div<SlotWindowProps>`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
+SlotWindow.displayName = "SlotWindow";
 
 export const SlotText = styled.span`
   position: absolute;
   display: block;
   margin-left: .4em;
   font-family: ${p => p.theme.fonts.f1Regular};
-  font-size: 0.9em;
+  font-size: ${p => p.theme.fontSizes.selector};
   color: ${p => p.theme.colors.darkGrey};
   user-select: none;
 `;
+SlotText.displayName = "SlotText";
+
+export const SelectorLabel = styled.span`
+  font-family: ${p => p.theme.fonts.f1Regular};
+  font-size: ${p => p.theme.fontSizes.label};
+`;
+SelectorLabel.displayName = "SelectorLabel";

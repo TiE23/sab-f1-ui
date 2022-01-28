@@ -195,7 +195,7 @@ export interface BGBaseState {
   openState: OpenState;
 }
 /**
- * -1 closing, 0 closed, 1 open, 2... different states
+ * -1 closing, 0 closed, 1 open, 2... different states (for progressive anims)
  */
 export type OpenState = number;
 
@@ -209,40 +209,24 @@ export interface BroadcastGraphics {
 }
 
 // Chyrons
-export type FlagMode = "country" | "team";
-export type BGChyronMode =
-  | "driver-basic-small"
-  | "driver-basic-medium"
-  | "driver-basic-large";
+export type BGChyronMode = string;
+export type BGChyronSubMode = string;
 export interface BGChyron extends BGBaseState {
   mode: BGChyronMode;
-  car: Car;
-  flagMode: FlagMode;
-  showPosFlag: boolean;
-  showDriverNumber: boolean;
-  dimensions: Dimensions;
-  props?: unknown;
 }
 export interface BGChyrons {
   primary: BGChyron;
   secondary: Optional<BGChyron>;
   // sponsorGem: BGSponsorGem;
 }
-export interface BGChyronMedium extends BGChyron {
-  mode: "driver-basic-medium";
-  dimensions: {
-    width: 582;
-    height: 72;
-  }
-  props: {
-    showPortrait: boolean;
-  }
-}
-export interface BGChyronLarge extends BGChyron {
-  mode: "driver-basic-large";
-  dimensions: {
-    width: 638;
-    height: 98;
-  }
-}
 
+export type FlagMode = "country" | "team" | "none";
+export interface BGChyronDriver extends BGChyron {
+  car: Car;
+  subMode: BGChyronSubMode;
+  baseDimensions: Dimensions;
+  flagMode: FlagMode;
+  showPosFlag: boolean;
+  showDriverNumber: boolean;
+  showPortrait: boolean;
+}

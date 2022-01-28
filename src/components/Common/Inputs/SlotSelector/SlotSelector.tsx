@@ -2,19 +2,26 @@ import { useEffect, useMemo, useState } from "react";
 import { animated, useSpringRef, useTransition } from "@react-spring/web";
 
 import { findPrefixCount } from "../../../../utils/strings";
-import { SlotText, SlotWindow } from "./styles";
+import { SelectorLabel, SlotText, SlotWindow } from "./styles";
+import { Inline } from "@bedrock-layout/inline";
 
 type SlotSelectorProps = {
   items: Array<string>,
   onChange: (index: number) => void,
+  label?: string,
   removePrefix?: boolean,
   formatter?: (value: string) => string,
   initialIndex?: number,
   disabled?: boolean,
 };
+/**
+ * If items are defined in a component make sure they are stateful to prevent
+ * random resets of the index during changes.
+ */
 export function SlotSelector({
   items,
   onChange,
+  label,
   removePrefix = false,
   formatter = (x) => x,
   initialIndex = 0,
@@ -63,10 +70,15 @@ export function SlotSelector({
   }, [index]);
 
   return (
-    <SlotWindow onClick={onClick} disabled={disabled}>
-      {transitions((style, i) => (
-        <SlotText as={animated.span} style={style}>{getItem(i)}</SlotText>
-      ))}
-    </SlotWindow>
+    <Inline gutter="sm" stretch="end" align="end">
+      {(label ?? null) && (
+        <SelectorLabel>{label}</SelectorLabel>
+      )}
+      <SlotWindow onClick={onClick} disabled={disabled}>
+        {transitions((style, i) => (
+          <SlotText as={animated.span} style={style}>{getItem(i)}</SlotText>
+        ))}
+      </SlotWindow>
+    </Inline>
   );
 }
