@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import useMeasure from "react-use-measure";
 
 import { mainMenuDimensionsSelector } from "../../features/pageDimensions/pageDimensionsSelector";
@@ -9,6 +9,12 @@ import { setDimensions } from "../../features/pageDimensions/pageDimensionsSlice
 import { FullScreenContainer } from "../Common/FullScreenContainer.styled";
 import { WorkspaceList } from "./WorkspaceList";
 import { LayoutGrid, LayoutGridItem } from "../Common/LayoutGrid.styled";
+
+import { Workspace } from "./Workspace";
+import { ChyronDriver } from "../BroadcastGraphics/Chyrons/Driver";
+import { ChyronPrototypeControls } from "./PrototypingControls/ChyronPrototype";
+import { AngledFlagWorkSpace } from "./CustomWorkSpaces/AngledFlagWorkSpace";
+import { AngledFlagPrototypeControls } from "./PrototypingControls/AngledFlagPrototype";
 
 const WORKSPACE_LIST_WIDTH = 180;
 
@@ -41,7 +47,24 @@ export default function Workspaces() {
           heightCutoff={mainMenuHeight}
           widthCutoff={WORKSPACE_LIST_WIDTH}
         >
-          <Outlet />
+          <Routes>
+            <Route index element={<h1>Workspaces Home</h1>} />
+            <Route path="chyronDriver" element={
+              <Workspace
+                workspaceId="chyronDriver"
+                previewContent={<ChyronDriver />}
+                prototypeControls={<ChyronPrototypeControls />}
+              />
+            } />
+            <Route path="angledFlag" element={
+              <Workspace
+                workspaceId="angledFlag"
+                previewContent={<AngledFlagWorkSpace />}
+                prototypeControls={<AngledFlagPrototypeControls />}
+              />
+            } />
+            <Route path="*" element={<h1>Unknown Workspace</h1>} />
+          </Routes>
         </FullScreenContainer>
       </LayoutGridItem>
     </LayoutGrid>

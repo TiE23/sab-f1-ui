@@ -26,10 +26,7 @@ ReactDOM.render(
             <Route path="/" element={<App />}>
               <Route index element={<h1>Home</h1>} />
               <Route path="broadcast" element={<Broadcast />} />
-              <Route path="workspaces" element={<Workspaces />}>
-                <Route index element={<h1>Workspaces Home</h1>} />
-                <Route path="s/*" element={<Workspace />} />
-              </Route>
+              <Route path="workspaces/*" element={<Workspaces />} />
             </Route>
             <Route path="*" element={<h1>Page Not Found</h1>} />
           </Routes>

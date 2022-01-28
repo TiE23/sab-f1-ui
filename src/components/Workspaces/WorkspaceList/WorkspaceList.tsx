@@ -18,7 +18,7 @@ export const WorkspaceList = ({ headerOffset }: WorkspaceListProps) => {
         {workspaceList.map((id) => (
           <WorkspaceListNavLink
             key={id}
-            to={`s/${id}`}
+            to={id}
             label={workspaces[id].name}
           />
         ))}
