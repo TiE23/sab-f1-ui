@@ -6,10 +6,11 @@ import { SlotText, SlotWindow } from "./styles";
 
 type SlotSelectorProps = {
   items: Array<string>,
-  onChange: (value: string) => void,
+  onChange: (index: number) => void,
   removePrefix?: boolean,
   formatter?: (value: string) => string,
   initialIndex?: number,
+  disabled?: boolean,
 };
 export function SlotSelector({
   items,
@@ -17,10 +18,15 @@ export function SlotSelector({
   removePrefix = false,
   formatter = (x) => x,
   initialIndex = 0,
+  disabled = false,
 }: SlotSelectorProps) {
   const [index, setIndex] = useState(initialIndex);
   const [prefixMask, setPrefixMask] = useState(0);
   const [formattedItems, setFormattedItems] = useState<Array<string>>([]);
+
+  useEffect(() => {
+    setIndex(initialIndex);
+  }, [items]);
 
   // useMemo makes these functions only run once when mounting. Not every re-render.
   useMemo(() => {
@@ -30,9 +36,10 @@ export function SlotSelector({
   }, [items]);
 
   const onClick = () => {
+    if (disabled) return;
     const nextIndex = (index + 1) % items.length;
     setIndex(nextIndex);
-    onChange(items[nextIndex]);
+    onChange(nextIndex);
   };
 
   const getItem = (i: number) =>
@@ -56,7 +63,7 @@ export function SlotSelector({
   }, [index]);
 
   return (
-    <SlotWindow onClick={onClick}>
+    <SlotWindow onClick={onClick} disabled={disabled}>
       {transitions((style, i) => (
         <SlotText as={animated.span} style={style}>{getItem(i)}</SlotText>
       ))}
