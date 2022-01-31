@@ -1,16 +1,11 @@
-import { ReactNode } from "react";
 import { WorkspaceId, WorkspaceProperties } from "../../types/state";
-
-// Broadcast Graphics
-import { ChyronDriver } from "../../components/BroadcastGraphics/Chyrons/Driver";
-import { AngledFlagWorkSpace } from "../../components/Workspaces/CustomWorkSpaces/AngledFlagWorkSpace";
 
 type WorkspaceObject = {
   [id: WorkspaceId]: WorkspaceProperties,
 };
 export const workspaces: WorkspaceObject = {
-  chyronDriver: {
-    name: "Chyron Driver",
+  chyron: {
+    name: "Chyron",
     overlayIds: [
       "chyron-driver-medium-full-ham.png",
       "chyron-driver-medium-full-alo.png",
@@ -29,11 +24,21 @@ export const workspaces: WorkspaceObject = {
     ],
     previewWindowDimensions: {
       width: 750,
-      height: 200,
+      height: 400,
     },
   },
-  angledFlag: {
-    name: "Angled Flag",
+  chyronWide: {
+    name: "Chyron (Wide)",
+    overlayIds: [
+      "chyron-driver-medium-full-sai-ric.png",
+    ],
+    previewWindowDimensions: {
+      width: 1200,
+      height: 150,
+    },
+  },
+  angledFlagCountry: {
+    name: "Angled Flag (Country)",
     overlayIds: [
       "angled-flag-gbr.png",
     ],
@@ -43,12 +48,3 @@ export const workspaces: WorkspaceObject = {
     },
   },
 };
-
-export function fetchBroadcastGraphic(workspaceId: WorkspaceId): ReactNode {
-  switch(workspaceId) {
-  case "chyronDriver": return ChyronDriver();
-  case "angledFlag": return AngledFlagWorkSpace();
-  default: return null;
-  }
-}
-

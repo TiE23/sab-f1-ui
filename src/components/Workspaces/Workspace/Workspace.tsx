@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { ReactNode, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Center } from "@bedrock-layout/center";
 import { Stack } from "@bedrock-layout/stack";
@@ -10,20 +9,27 @@ import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSe
 import { newWorkspace } from "../../../features/overlayTool/overlayToolSlice";
 
 import { PreviewWindow, H2, ControlsContainer } from "./styles";
-import { WorkspaceControls } from "./WorkspaceControls/WorkspaceControls";
+import { WorkspaceControls } from "../WorkspaceControls";
 import { OverlayDisplay } from "../../OverlayTool";
 
-import { fetchBroadcastGraphic, workspaces } from "../../../domain/data/workspaces";
+import { workspaces } from "../../../domain/data/workspaces";
+import { WorkspaceId } from "../../../types/state";
 
-export const Workspace = () => {
+type WorkspaceProps = {
+  workspaceId: WorkspaceId,
+  previewContent: ReactNode,
+  prototypeControls: ReactNode,
+};
+export const Workspace = ({
+  workspaceId,
+  previewContent,
+  prototypeControls,
+}: WorkspaceProps) => {
   const dispatch = useDispatch();
-  const { workspaceId } = useParams();
   const { animatedBG, workspaceProperties } = useSelector(workspaceSelector);
   const { currentWorkspaceId: overlayWorkspaceId } = useSelector(overlayToolSelector);
 
   useEffect(() => {
-    if (workspaceId == null) return;
-
     // Update workspace store for ID.
     dispatch(updateWorkspace({
       workspaceId,
@@ -39,8 +45,6 @@ export const Workspace = () => {
     }
   }, [workspaceId]);
 
-  if (workspaceId == null) return null;
-
   return (
     <Stack
       gutter="lg"
@@ -53,13 +57,14 @@ export const Workspace = () => {
         dimensions={workspaceProperties.previewWindowDimensions}
         animatedBG={animatedBG}
       >
-        {fetchBroadcastGraphic(workspaceId)}
+        {previewContent}
         <OverlayDisplay
           containerDimensions={workspaceProperties.previewWindowDimensions}
         />
       </PreviewWindow>
       <ControlsContainer>
         <WorkspaceControls />
+        {prototypeControls}
       </ControlsContainer>
     </Stack>
   );

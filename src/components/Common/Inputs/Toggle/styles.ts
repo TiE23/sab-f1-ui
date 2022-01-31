@@ -5,7 +5,7 @@ type ToggleContainerProps = {
 }
 export const ToggleContainer = styled.div<ToggleContainerProps>`
   display: flex;
-  justify-content: center;
+  align-items: flex-end;
   font-size: ${({ fontSize = "inherit" }) => fontSize};
 `;
 ToggleContainer.displayName = "ToggleContainer";
@@ -24,7 +24,10 @@ ToggleInput.displayName = "ToggleInput";
 
 export const ToggleLabelText = styled.span`
   margin-right: 1ch;
+  font-family: ${p => p.theme.fonts.f1Regular};
+  font-size: ${p => p.theme.fontSizes.label};
 `;
+ToggleLabelText.displayName = "ToggleLabelText";
 
 export const ToggleLabel = styled.label`
   display: block;
@@ -95,4 +98,3 @@ export const ToggleCircle = styled.div<ToggleCircleProps>`
   ${({ toggled }) => toggled ? css`right: 0;` : css`left: 0;`}
 `;
 ToggleCircle.displayName = "ToggleCircle";
-

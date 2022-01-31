@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, WorkspaceId, WorkspaceProperties } from "../../types/state";
+import { PrototypeState, RootState, WorkspaceId, WorkspaceProperties } from "../../types/state";
 
 const initialState: RootState["workspace"] = {
   workspaceId: "",
@@ -9,6 +9,7 @@ const initialState: RootState["workspace"] = {
     overlayIds: [],
     previewWindowDimensions: { width: 0, height: 0 },
   },
+  prototypeState: null,
 };
 
 export type UpdateWorkspaceAction = {
@@ -30,6 +31,9 @@ export const workspaceSlice = createSlice({
       state.workspaceId = action.payload.workspaceId;
       state.workspaceProperties = action.payload.workspaceProperties;
     },
+    setPrototypeState: (state, action: PayloadAction<PrototypeState>) => {
+      state.prototypeState = action.payload;
+    },
   },
 });
 
@@ -37,5 +41,6 @@ export const {
   setWorkspaceId,
   setAnimatedBG,
   updateWorkspace,
+  setPrototypeState,
 } = workspaceSlice.actions;
 export default workspaceSlice.reducer;

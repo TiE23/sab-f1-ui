@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 import { drivers, teams, teamNumberStyles, NumberStyle } from "../domain/data/teams";
 import { Driver, DriverId, Team, TeamId } from "../types/state";
 
@@ -11,9 +12,15 @@ import { Driver, DriverId, Team, TeamId } from "../types/state";
 export function getDriver(driverId: DriverId): Driver {
   return drivers[driverId];
 }
+export function cloneDriver(driverId: DriverId): Driver {
+  return cloneDeep(drivers[driverId]);
+}
 
 export function getTeam(teamId: TeamId): Team {
   return teams[teamId];
+}
+export function cloneTeam(teamId: TeamId): Team {
+  return cloneDeep(teams[teamId]);
 }
 
 export function getTeamNumberStyle(teamId: TeamId): NumberStyle {

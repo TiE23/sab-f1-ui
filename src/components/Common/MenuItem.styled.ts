@@ -12,7 +12,7 @@ type MenuItemProps = {
 };
 export const MenuItem = styled(PadBox).attrs(() => ({
   padding: ["sm", "lg"],
-})) <MenuItemProps>`
+}))<MenuItemProps>`
   border-radius: ${p => p.theme.design.button.borderRadius};
   color: ${p => p.theme.colors.darkGrey};
   font-family: ${p => p.theme.fonts.f1Regular};

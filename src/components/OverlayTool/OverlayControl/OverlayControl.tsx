@@ -46,9 +46,10 @@ export function OverlayControl() {
         />
         <SlotSelector
           items={overlayIds}
-          onChange={(value) => dispatch(setCurrentOverlayId(value))}
+          onChange={(index) => dispatch(setCurrentOverlayId(overlayIds[index]))}
           removePrefix
           formatter={(value) => value.replace(/(\.png)|(\.jpg)$/, "")}
+          disabled={!visible}
         />
       </Inline>
       <ProgressSlider

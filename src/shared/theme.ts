@@ -15,6 +15,9 @@ export const theme = {
     blue: "#387af5",
     pink: "#eb57a3",
     activeGreen: "#65c466",
+    disabledGreen: "#b1d3b2",
+    activeRed: "#e63746",
+    disabledRed: "#e08a91",
     grey: "#aaa",
     lightGrey: "#ddd",
     faintGrey: "#eee",
@@ -32,6 +35,10 @@ export const theme = {
       redBull: "#0600ef",
       williams: "#005aff",
     },
+  },
+  fontSizes: {
+    label: "0.9em",
+    selector: "0.9em",
   },
   design: {
     button: {

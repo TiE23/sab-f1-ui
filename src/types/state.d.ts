@@ -1,7 +1,12 @@
+import { Milliseconds, Optional } from "./util";
+
 export interface RootState {
   pageDimensions: PageDimensions;
   workspace: Workspace;
   overlayTool: OverlayTool;
+  event: Event,
+  broadcastDirector: BroadcastDirector;
+  broadcastGraphics: BroadcastGraphics;
 }
 
 // Page Dimensions
@@ -17,6 +22,7 @@ export interface Workspace {
   workspaceId: WorkspaceId;
   animatedBG: boolean;
   workspaceProperties: WorkspaceProperties;
+  prototypeState: Optional<PrototypeState>;
 }
 
 export type WorkspaceId = string;
@@ -24,6 +30,12 @@ export interface WorkspaceProperties {
   name: string;
   overlayIds: OverlayIds;
   previewWindowDimensions: Dimensions;
+}
+export interface PrototypeState {
+  angledFlag?: {
+    flagA: string;
+    flagB: string;
+  };
 }
 
 // Overlay Tool
@@ -42,14 +54,54 @@ export interface OverlayItem {
   opacity: number;
 }
 
-// Race State.
+// Event State
+export interface Event {
+  trackName: string;
+  courseStatus: CourseStatus;
+  mode: EventMode;
+  progress: EventProgress;
+  grid: Grid;
+}
+export interface EventProgress {
+  startTime: Milliseconds;
+  timeLimit: Milliseconds;
+  currentLap: number;
+  lapCount: number;
+}
+export type EventMode =
+  | "race"
+  | "sprint"
+  | "p1"
+  | "p2"
+  | "p3"
+  | "q1"
+  | "q2"
+  | "q3";
+export interface CourseStatus {
+  courseFlag: CourseFlags;
+  sectorFlags: Array<CourseFlag>;
+  safetyCar: SafetyCarStatus;
+  virtualSafetyCar: VirtualSafetyCarStatus;
+}
+export type CourseFlag =
+  | "green"
+  | "yellow"
+  | "doubleYellow"
+  | "chequered"
+  | "red"
+  | "white"
+  | "redYellow";
+export type SafetyCarStatus = "clear" | "starting" | "out" | "ending";
+export type VirtualSafetyCarStatus = "clear" | "out" | "ending";
+export type Grid = Array<Car>;  // Grid order does not change.
 export interface Car {
   position: number;
   driver: Driver;
-  // status: ???;
+  // status: ???; // retired
+  // flags: ???, // blue, red, meatball, black/white, black
+  // notices: ???; // Penalties, warnings, investigations, blue flags, etc
   // distance: number;
 }
-export type Grid = Array<Car>;
 export interface Driver {
   id: DriverId;
   firstName: string;
@@ -126,6 +178,11 @@ export type TeamFullName =
   | "Red Bull Racing"
   | "Williams Racing";
 
+// Broadcast Director
+export interface BroadcastDirector {
+  selectedCars: Array<Car>;
+}
+
 // Broadcast Graphics
 export interface BGRelativePos {
   top?: string;
@@ -133,34 +190,42 @@ export interface BGRelativePos {
   bottom?: string;
   left?: string;
 }
+export interface BGBaseState {
+  relativePos: BGRelativePos;
+  openState: OpenState;
+}
+/**
+ * -1 closing, 0 closed, 1 open, 2... different states (for progressive anims)
+ */
+export type OpenState = number;
+
 export interface BroadcastGraphics {
   // timingBoard: BGTimingBoard;
   // statusIndicator: BGStatusIndicator;
   // indicators: BGIndicators
-  chyrons: BGChyrons;
+  chyrons: Optional<BGChyrons>;
   // gems: BGGems
   // toasts: BGToasts;
 }
 
-export interface BGChyrons {
-  primary: BGChyron;
-  secondary: BGChyron;
+// Chyrons
+export type BGChyronMode = string;
+export type BGChyronSubMode = string;
+export interface BGChyrons extends BGBaseState {
+  mode: BGChyronMode;
+  subMode: BGChyronSubMode;
+  driver?: {
+    primary: BGChyronDriver;
+    secondary: Optional<BGChyronDriver>;
+  }
   // sponsorGem: BGSponsorGem;
 }
 
-export type FlagMode = "country" | "team";
-export type BGChyronMode =
-  | "driver-basic-small"
-  | "driver-basic-medium"
-  | "driver-basic-large";
-export interface BGChyron extends BGRelativePos {
-  mode: BGChyronMode;
-  cars: Array<Car>;
-}
-export interface BGChyronMedium extends BGChyron {
-  mode: "driver-basic-medium";
-  flag: FlagMode;
+export interface BGChyronDriver extends BGChyron {
+  car: Car;
+  flagMode: FlagMode;
   showPosFlag: boolean;
   showDriverNumber: boolean;
+  showPortrait: boolean;
 }
-
+export type FlagMode = "country" | "team" | "none";
