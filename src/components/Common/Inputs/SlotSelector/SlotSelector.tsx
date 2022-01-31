@@ -13,6 +13,7 @@ type SlotSelectorProps = {
   formatter?: (value: string) => string,
   initialIndex?: number,
   disabled?: boolean,
+  slotWidth?: string,
 };
 /**
  * If items are defined in a component make sure they are stateful to prevent
@@ -26,6 +27,7 @@ export function SlotSelector({
   formatter = (x) => x,
   initialIndex = 0,
   disabled = false,
+  slotWidth = "6ch",
 }: SlotSelectorProps) {
   const [index, setIndex] = useState(initialIndex);
   const [prefixMask, setPrefixMask] = useState(0);
@@ -74,7 +76,7 @@ export function SlotSelector({
       {(label ?? null) && (
         <SelectorLabel>{label}</SelectorLabel>
       )}
-      <SlotWindow onClick={onClick} disabled={disabled}>
+      <SlotWindow onClick={onClick} disabled={disabled} width={slotWidth}>
         {transitions((style, i) => (
           <SlotText as={animated.span} style={style}>{getItem(i)}</SlotText>
         ))}

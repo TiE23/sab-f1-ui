@@ -11,6 +11,8 @@ import { BGChyronMode, BGChyronSubMode, FlagMode } from "../../../../types/state
 import { SlotSelector } from "../../../Common/Inputs/SlotSelector";
 import { Button, CloseButton, OpenButton, SlotContainer, Title } from "./styles";
 import { Toggle } from "../../../Common/Inputs/Toggle";
+import { Stack } from "@bedrock-layout/stack";
+import { Inline } from "@bedrock-layout/inline";
 
 export function ChyronsDirectorControls() {
   // Use state to prevent unnecessary resetting on re-renders.
@@ -37,36 +39,17 @@ export function ChyronsDirectorControls() {
     return x;
   };
 
-  return (
+  const controlSelector = (mode: BGChyronMode, subMode: BGChyronSubMode) => {
+    if (mode === "driver") {
+      return driverMode(subMode);
+    } else {
+      return null;
+    }
+  };
+
+  const driverMode = (subMode: BGChyronSubMode) => (
+
     <InlineCluster gutter="md">
-      <Title>Chyrons</Title>
-      <SlotContainer width={100}>
-        <SlotSelector
-          items={chyronModes}
-          onChange={index => setChyronMode(chyronModes[index])}
-        />
-      </SlotContainer>
-      <SlotContainer width={100}>
-        <SlotSelector
-          items={chyronSubModes}
-          onChange={index => setChyronSubMode(chyronSubModes[index])}
-        />
-      </SlotContainer>
-      <OpenButton
-        disabled={false}
-      >
-        <FaPlay size="0.8em" />
-      </OpenButton>
-      <Button
-        disabled={false}
-      >
-        <FaStepForward size="0.8em" />
-      </Button>
-      <CloseButton
-        disabled={false}
-      >
-        <FaStop size="0.8em" />
-      </CloseButton>
       <Toggle
         label="Pos. Flag"
         toggled={posFlag}
@@ -77,18 +60,55 @@ export function ChyronsDirectorControls() {
         toggled={driverNum}
         onToggle={setDriverNum}
       />
-      <Toggle
-        label="Portrait"
-        toggled={portrait}
-        onToggle={setPortrait}
-      />
-      <SlotContainer width={200}>
-        <SlotSelector
-          label="Flag Mode"
-          items={flagModeList}
-          onChange={index => setFlagMode(flagModeList[index])}
+      {subMode === "medium" && (
+        <Toggle
+          label="Portrait"
+          toggled={portrait}
+          onToggle={setPortrait}
         />
-      </SlotContainer>
+      )}
+      <SlotSelector
+        label="Flag Mode"
+        items={flagModeList}
+        onChange={index => setFlagMode(flagModeList[index])}
+        slotWidth="12ch"
+      />
     </InlineCluster>
+  );
+
+  return (
+    <Stack gutter="md">
+      <Inline gutter="md" stretch={1}>
+        <Title>Chyrons</Title>
+        <Inline gutter="md" stretch="all">
+          <SlotSelector
+            items={chyronModes}
+            onChange={index => setChyronMode(chyronModes[index])}
+          />
+          <SlotSelector
+            items={chyronSubModes}
+            onChange={index => setChyronSubMode(chyronSubModes[index])}
+          />
+        </Inline>
+        <Inline gutter="sm">
+          <OpenButton
+            disabled={false}
+          >
+            <FaPlay size="0.8em" />
+          </OpenButton>
+          <Button
+            disabled={false}
+          >
+            <FaStepForward size="0.8em" />
+          </Button>
+          <CloseButton
+            disabled={false}
+          >
+            <FaStop size="0.8em" />
+          </CloseButton>
+        </Inline>
+      </Inline>
+      {controlSelector(chyronMode, chyronSubMode)}
+    </Stack>
   );
 }

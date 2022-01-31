@@ -8,7 +8,7 @@ import { ChyronControlsContainer } from "./styles";
 export function ChyronPrototypeControls() {
   return (
     <Split gutter="md">
-      <PadBox padding="md">
+      <PadBox padding={["lg", "md", "md"]}>
         <ChyronControlsContainer>
           <ChyronsDirectorControls />
         </ChyronControlsContainer>

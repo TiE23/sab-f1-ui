@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 type SlotWindowProps = {
   disabled: boolean,
+  width?: string,
 };
 export const SlotWindow = styled.div<SlotWindowProps>`
   position: relative;
   height: 1.5em;
-  width: auto;
+  width: ${({ width = "auto" }) => width};
+  min-width: 6ch;
 
   border-radius: 0.6em;
   background-color: ${({ disabled }) => disabled
