@@ -26,8 +26,8 @@ export function AngledFlagPrototypeControls() {
   };
   return (
     <Split as={PadBox} gutter="md" padding="md">
-      <SlotSelector items={countries} onChange={onChange("flagA")}/>
-      <SlotSelector items={countries} onChange={onChange("flagB")}/>
+      <SlotSelector label="64px" items={countries} onChange={onChange("flagA")}/>
+      <SlotSelector label="128px" items={countries} onChange={onChange("flagB")}/>
     </Split>
   );
 }

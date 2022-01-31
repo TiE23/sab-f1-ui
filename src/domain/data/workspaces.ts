@@ -4,8 +4,8 @@ type WorkspaceObject = {
   [id: WorkspaceId]: WorkspaceProperties,
 };
 export const workspaces: WorkspaceObject = {
-  chyronDriver: {
-    name: "Chyron Driver",
+  chyron: {
+    name: "Chyron",
     overlayIds: [
       "chyron-driver-medium-full-ham.png",
       "chyron-driver-medium-full-alo.png",
@@ -24,11 +24,21 @@ export const workspaces: WorkspaceObject = {
     ],
     previewWindowDimensions: {
       width: 750,
-      height: 300,
+      height: 400,
     },
   },
-  angledFlag: {
-    name: "Angled Flag",
+  chyronWide: {
+    name: "Chyron (Wide)",
+    overlayIds: [
+      "chyron-driver-medium-full-sai-ric.png",
+    ],
+    previewWindowDimensions: {
+      width: 1200,
+      height: 150,
+    },
+  },
+  angledFlagCountry: {
+    name: "Angled Flag (Country)",
     overlayIds: [
       "angled-flag-gbr.png",
     ],

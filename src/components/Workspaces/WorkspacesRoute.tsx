@@ -11,10 +11,10 @@ import { WorkspaceList } from "./WorkspaceList";
 import { LayoutGrid, LayoutGridItem } from "../Common/LayoutGrid.styled";
 
 import { Workspace } from "./Workspace";
-import { ChyronDriver } from "../BroadcastGraphics/Chyrons/Driver";
 import { ChyronPrototypeControls } from "./PrototypingControls/ChyronPrototype";
 import { AngledFlagWorkSpace } from "./CustomWorkSpaces/AngledFlagWorkSpace";
 import { AngledFlagPrototypeControls } from "./PrototypingControls/AngledFlagPrototype";
+import { ChyronContainer } from "../BroadcastGraphics/Chyrons/Container";
 
 const WORKSPACE_LIST_WIDTH = 180;
 
@@ -49,17 +49,24 @@ export default function Workspaces() {
         >
           <Routes>
             <Route index element={<h1>Workspaces Home</h1>} />
-            <Route path="chyronDriver" element={
+            <Route path="chyron" element={
               <Workspace
-                workspaceId="chyronDriver"
-                previewContent={<ChyronDriver />}
+                workspaceId="chyron"
+                previewContent={<ChyronContainer />}
                 prototypeControls={<ChyronPrototypeControls />}
               />
             } />
-            <Route path="angledFlag" element={
+            <Route path="chyronWide" element={
               <Workspace
-                workspaceId="angledFlag"
-                previewContent={<AngledFlagWorkSpace />}
+                workspaceId="chyronWide"
+                previewContent={<ChyronContainer />}
+                prototypeControls={<ChyronPrototypeControls />}
+              />
+            } />
+            <Route path="angledFlagCountry" element={
+              <Workspace
+                workspaceId="angledFlagCountry"
+                previewContent={<AngledFlagWorkSpace flagMode="country"/>}
                 prototypeControls={<AngledFlagPrototypeControls />}
               />
             } />

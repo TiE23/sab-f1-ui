@@ -1,3 +1,7 @@
+import { BGChyronDriver, BGChyronSubMode } from "../../../../types/state";
+
+import { theme } from "../../../../shared/theme";
+
 import { DriverNumber } from "../../Common/DriverNumber";
 import { AngledFlag } from "../../Common/AngledFlag";
 import {
@@ -14,37 +18,46 @@ import {
   TextContainer,
   FlagContainer,
 } from "./styles";
-import { drivers } from "../../../../domain/data/teams";
-import { theme } from "../../../../shared/theme";
 
-export function ChyronDriver() {
-  // TODO - Get driver details from Redux.
-  const driver = drivers["hamilton"];
-  const baseWidth = 582;
-  const baseHeight = 72;
+type ChyronDriverProps = {
+  chyronData: BGChyronDriver,
+  subMode: BGChyronSubMode,
+};
+export function ChyronDriver({ chyronData, subMode }: ChyronDriverProps) {
+  const [baseWidth, baseHeight] = subMode === "medium" ? [582, 72]
+    : subMode === "large" ? [638, 98]
+      : [0, 0];
+
+  const { car, flagMode, showPosFlag, showDriverNumber } = chyronData;
 
   return (
     <BaseBackground width={baseWidth} height={baseHeight}>
       <Spacer width="6px" />
-      <PositionFlag containerHeight={baseHeight}>
-        <PositionNumber containerHeight={baseHeight}>1</PositionNumber>
-      </PositionFlag>
+      {showPosFlag && (
+        <PositionFlag containerHeight={baseHeight}>
+          <PositionNumber containerHeight={baseHeight}>
+            {car.position}
+          </PositionNumber>
+        </PositionFlag>
+      )}
       <Spacer width="8px" />
-      <TeamColorBar color={theme.colors.teams[driver.team.id]} />
+      <TeamColorBar color={theme.colors.teams[car.driver.team.id]} />
       <Spacer width="8px" />
       <TextContainer>
         <NameContainer>
-          <FirstName>{driver.firstName}</FirstName>
-          <LastName>{driver.lastName}</LastName>
-          <NumberContainer>
-            <DriverNumber
-              teamId={driver.team.id}
-              fontSize="29px"
-              number={driver.number}
-            />
-          </NumberContainer>
+          <FirstName>{car.driver.firstName}</FirstName>
+          <LastName>{car.driver.lastName}</LastName>
+          {showDriverNumber && (
+            <NumberContainer>
+              <DriverNumber
+                teamId={car.driver.team.id}
+                fontSize="29px"
+                number={car.driver.number}
+              />
+            </NumberContainer>
+          )}
         </NameContainer>
-        <TeamName>{driver.team.shortName}</TeamName>
+        <TeamName>{car.driver.team.shortName}</TeamName>
       </TextContainer>
       <FlagContainer
         height={baseHeight * 0.9}
@@ -52,15 +65,11 @@ export function ChyronDriver() {
         right={-baseHeight * 0.6}
       >
         <AngledFlag
-          flagMode="country"
-          flag={driver.nationality}
+          flagMode={flagMode}
+          flag={car.driver.nationality}
           flagHeight={baseHeight * 0.9}
         />
       </FlagContainer>
     </BaseBackground>
   );
 }
-
-// export function ChyronDriverStateContainer() {
-
-// }

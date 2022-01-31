@@ -1,18 +1,9 @@
 import styled from "styled-components";
-import { Px } from "../../../../types/style";
 
 export const Title = styled.h4`
   font-family: ${p => p.theme.fonts.f1Italic};
 `;
 Title.displayName = "Title";
-
-type SlotContainerProps = {
-  width: Px,
-};
-export const SlotContainer = styled.div<SlotContainerProps>`
-  width: ${({ width }) => `${width}px`};
-`;
-SlotContainer.displayName = "SlotContainer";
 
 type ButtonProps = {
   disabled: boolean,
@@ -27,6 +18,13 @@ export const Button = styled.button<ButtonProps>`
   border: 1px black solid;
 
   cursor: pointer;
+
+  &:hover {
+    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  }
+  &:active {
+    box-shadow: inset 0px 0px 10px 4px rgba(255, 255, 255, 0.8);
+  }
 `;
 Button.displayName = "Button";
 

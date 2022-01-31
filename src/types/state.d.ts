@@ -211,22 +211,21 @@ export interface BroadcastGraphics {
 // Chyrons
 export type BGChyronMode = string;
 export type BGChyronSubMode = string;
-export interface BGChyron extends BGBaseState {
+export interface BGChyrons extends BGBaseState {
   mode: BGChyronMode;
-}
-export interface BGChyrons {
-  primary: BGChyron;
-  secondary: Optional<BGChyron>;
+  subMode: BGChyronSubMode;
+  driver?: {
+    primary: BGChyronDriver;
+    secondary: Optional<BGChyronDriver>;
+  }
   // sponsorGem: BGSponsorGem;
 }
 
-export type FlagMode = "country" | "team" | "none";
 export interface BGChyronDriver extends BGChyron {
   car: Car;
-  subMode: BGChyronSubMode;
-  baseDimensions: Dimensions;
   flagMode: FlagMode;
   showPosFlag: boolean;
   showDriverNumber: boolean;
   showPortrait: boolean;
 }
+export type FlagMode = "country" | "team" | "none";

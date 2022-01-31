@@ -20,8 +20,8 @@ const initialState: RootState["event"] = {
   },
   grid: [
     { position: 1, driver: cloneDriver("verstappen") },
-    { position: 3, driver: cloneDriver("hamilton") },
-    { position: 2, driver: cloneDriver("bottas") },
+    { position: 2, driver: cloneDriver("hamilton") },
+    { position: 3, driver: cloneDriver("bottas") },
     { position: 4, driver: cloneDriver("perez") },
     { position: 5, driver: cloneDriver("sainz") },
     { position: 6, driver: cloneDriver("norris") },

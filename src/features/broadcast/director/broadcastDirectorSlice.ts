@@ -32,7 +32,9 @@ export const broadcastDirectorSlice = createSlice({
     },
     /**
      * Shortcut to clear out selected cars. There is also a trick - if you
-     * @param action Car (optional) - if provided, it'll clear all and add this.
+     * provide a single Car it'll replace all selected cars with that single
+     * car.
+     * @param action Car (optional)
      */
     selectedCarsClear: (state, action: PayloadAction<Optional<Car>>) => {
       if (action.payload == null) {
