@@ -67,7 +67,14 @@ export default function Workspaces() {
               <Workspace
                 workspaceId="angledFlagCountry"
                 previewContent={<AngledFlagWorkSpace flagMode="country"/>}
-                prototypeControls={<AngledFlagPrototypeControls />}
+                prototypeControls={<AngledFlagPrototypeControls flagMode="country" />}
+              />
+            } />
+            <Route path="angledFlagTeam" element={
+              <Workspace
+                workspaceId="angledFlagTeam"
+                previewContent={<AngledFlagWorkSpace flagMode="team"/>}
+                prototypeControls={<AngledFlagPrototypeControls flagMode="team"/>}
               />
             } />
             <Route path="*" element={<h1>Unknown Workspace</h1>} />

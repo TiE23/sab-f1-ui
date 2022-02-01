@@ -11,17 +11,18 @@ type AngledFlagWorkSpaceProps = {
 };
 export function AngledFlagWorkSpace({ flagMode }: AngledFlagWorkSpaceProps) {
   const { prototypeState } = useSelector(workspaceSelector);
+  const defaultFlag = flagMode === "country" ? "GBR" : flagMode === "team" ? "alpine" : "";
 
   return (
     <BasicBlock width={750} height={450} color="rgba(30, 30, 30, .7)">
       <AngledFlag
         flagMode={flagMode}
-        flag={prototypeState?.angledFlag?.flagA ?? "GBR"}
+        flag={prototypeState?.angledFlag?.flagA ?? defaultFlag}
         flagHeight={64}
       />
       <AngledFlag
         flagMode={flagMode}
-        flag={prototypeState?.angledFlag?.flagB ?? "GBR"}
+        flag={prototypeState?.angledFlag?.flagB ?? defaultFlag}
         flagHeight={128}
       />
     </BasicBlock>

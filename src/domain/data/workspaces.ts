@@ -47,4 +47,14 @@ export const workspaces: WorkspaceObject = {
       height: 500,
     },
   },
+  angledFlagTeam: {
+    name: "Angled Flag (Team)",
+    overlayIds: [
+      "angled-flag-ferrari.png",
+    ],
+    previewWindowDimensions: {
+      width: 800,
+      height: 500,
+    },
+  },
 };
