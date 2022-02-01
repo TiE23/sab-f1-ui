@@ -324,15 +324,6 @@ export type NumberStyle = {
  * Do not grab directly!
  */
 export const teamNumberStyles: { [teamId: string]: NumberStyle } = {
-  alpine: {
-    numberColor: "#ddffff",
-    fontFamily: theme.fonts.f1Italic,
-    rules: [
-      { type: "shadow", property: repeater("0 0 0.2em #4B7B9E", 4) },
-      { type: "stroke", color: "#000", width: 0.13 },
-      { type: "shadow", property: repeater("0 0 0.07em #65A6D6", 2) },
-    ],
-  },
   alfaRomeo: {
     numberColor: "#ffe9f4",
     fontFamily: theme.fonts.f1Italic,
@@ -348,6 +339,15 @@ export const teamNumberStyles: { [teamId: string]: NumberStyle } = {
     fontFamily: theme.fonts.f1Italic,
     rules: [
       { type: "stroke", color: "#2b4562", width: 0.03 },
+    ],
+  },
+  alpine: {
+    numberColor: "#ddffff",
+    fontFamily: theme.fonts.f1Italic,
+    rules: [
+      { type: "shadow", property: repeater("0 0 0.2em #4B7B9E", 4) },
+      { type: "stroke", color: "#000", width: 0.13 },
+      { type: "shadow", property: repeater("0 0 0.07em #65A6D6", 2) },
     ],
   },
   astonMartin: {
@@ -422,63 +422,77 @@ export const teamNumberStyles: { [teamId: string]: NumberStyle } = {
 
 
 export type TeamFlagStyle = {
-  backgroundColor?: string,
-  backgroundImage?: string,
+  backgroundColor: string,
   imageSize: Percent,
   imagePos: {
-    x: Percent,
-    y: Percent,
+    x: number,
+    y: number,
+  },
+  subFlagModifier: {
+    x: number,
+    y: number,
+    scale: number,
   },
 };
 export const teamFlagStyles: { [teamId: string]: TeamFlagStyle } = {
-  alpine: {
-    backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
-  },
   alfaRomeo: {
-    backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
+    backgroundColor: "#660000",
+    imageSize: 41,
+    imagePos: { x: .32, y: .08 },
+    subFlagModifier: { x: .99, y: .97, scale: .99 },
   },
   alphaTauri: {
+    backgroundColor: "#232c3b",
+    imageSize: 58,
+    imagePos: { x: .25, y: -.15 },
+    subFlagModifier: { x: 1, y: .9, scale: .99 },
+  },
+  alpine: {
     backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
+    imageSize: 51,
+    imagePos: { x: .23, y: -.12 },
+    subFlagModifier: { x: 1.02, y: .98, scale: .98 },
   },
   astonMartin: {
-    backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
-  },
-  haas: {
-    backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
+    backgroundColor: "#037356",
+    imageSize: 109,
+    imagePos: { x: .05, y: -.75 },
+    subFlagModifier: { x: 1.05, y: .9, scale: .95 },
   },
   ferrari: {
     backgroundColor: "#dc0000",
-    imageSize: 55,
-    imagePos: { x: 80, y: -40 },
+    imageSize: 50,
+    imagePos: { x: .3, y: .04 },
+    subFlagModifier: { x: 1, y: 1, scale: .98 },
+  },
+  haas: {
+    backgroundColor: "#f0f0f0",
+    imageSize: 46,
+    imagePos: { x: .3, y: -.04 },
+    subFlagModifier: { x: 1, y: .98, scale: .98 },
   },
   mclaren: {
-    backgroundColor: "black",
+    backgroundColor: "#545459",
     imageSize: 50,
-    imagePos: { x: 50, y: 50 },
+    imagePos: { x: .25, y: -.1 },
+    subFlagModifier: { x: .98, y: 1.03, scale: 1.03 },
   },
   mercedes: {
-    backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
+    backgroundColor: "#1ee0ad",
+    imageSize: 40,
+    imagePos: { x: .33, y: .05 },
+    subFlagModifier: { x: 1, y: 1, scale: .98 },
   },
   redBull: {
-    backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
+    backgroundColor: "#413ae2",
+    imageSize: 88,
+    imagePos: { x: .33, y: 0 },
+    subFlagModifier: { x: 1.04, y: .2, scale: .92 },
   },
   williams: {
-    backgroundColor: "black",
-    imageSize: 50,
-    imagePos: { x: 50, y: 50 },
+    backgroundColor: "#12a0cb",
+    imageSize: 40,
+    imagePos: { x: .35, y: .1 },
+    subFlagModifier: { x: 1, y: 1, scale: .98 },
   },
 };

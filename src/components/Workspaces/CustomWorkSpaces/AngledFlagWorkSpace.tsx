@@ -13,7 +13,7 @@ export function AngledFlagWorkSpace({ flagMode }: AngledFlagWorkSpaceProps) {
   const { prototypeState } = useSelector(workspaceSelector);
   if (flagMode === "none") return null;
 
-  const defaultTeam: TeamId = "alpine";
+  const defaultTeam: TeamId = "alfaRomeo";
 
   return (
     <BasicBlock width={750} height={450} color="rgba(30, 30, 30, .7)">

@@ -33,6 +33,7 @@ type FlagContainerProps = {
   collapsedWidth: Px,
   topFlag?: boolean,
   masked?: boolean,
+  teamFlag?: boolean,
 };
 export const FlagContainer = styled.div<FlagContainerProps>`
   position: absolute;
@@ -40,28 +41,28 @@ export const FlagContainer = styled.div<FlagContainerProps>`
   width: ${({ width }) => `${width}px`};
   ${({ masked = false }) => masked && css`
     mask-image: linear-gradient(
-      60deg,
+      to right,
       transparent 0%,
       black 15%,
-      black 85%,
-      transparent 100%
+      black 70%,
+      transparent 95%
     );
   `}
 
-  ${({ width, collapsedWidth, topFlag = false }) => topFlag
+  ${({ width, collapsedWidth, topFlag = false, teamFlag = false }) => topFlag
     ? css`
       clip-path: polygon(
-        ${((collapsedWidth * .5) / width) * 100}% 0,
-        95% 0,
+        ${((collapsedWidth * (teamFlag ? .415 : .5)) / width) * 100}% 0,
+        ${teamFlag ? 87.7 : 95}% 0,
         ${((1 - ((collapsedWidth * .55) / width)) * 100)}% 100%,
         0 100%
       );
     `
     : css`
       clip-path: polygon(
-        ${((collapsedWidth * .5) / width) * 100}% 0,
-        100% 0,
-        100% 30%,
+        ${((collapsedWidth * (teamFlag ? .415 : .5)) / width) * 100}% 0,
+        ${teamFlag ? 90 : 95}% 0,
+        ${teamFlag ? 90 : 95}% 40%,
         ${((1 - ((collapsedWidth * .34) / width)) * 100)}% 100%,
         0 100%
       );
@@ -77,6 +78,7 @@ type FlagDivBaseProps = {
 const FlagDivBase = styled.div<FlagDivBaseProps>`
   height: ${({ height }) => `${height}px`};
   width: ${({ width }) => `${width}px`};
+  background-color: white;
   background-image: url(${({ src }) => src});
   background-repeat: no-repeat;
 `;
@@ -94,21 +96,36 @@ CountryFlagDiv.displayName = "CountryFlagDiv";
 
 type TeamFlagDivProps = {
   style: TeamFlagStyle,
+  bottomFlag?: boolean,
 };
 export const TeamFlagDiv = styled(FlagDivBase) <TeamFlagDivProps>`
   height: ${({ height }) => `${height}px`};
   width: ${({ width }) => `${width}px`};
 
-  background-image: url(${({ src }) => src})
-    ${({ style: { backgroundImage } }) => backgroundImage
-    && `, background-image: ${backgroundImage}`};
-  background-size: ${({ style: { imageSize } }) => `${imageSize}%`};
-  background-position: ${({ style: { imagePos: { x, y } } }) => `${x}% ${y}%`};
+  background-image: url(${({ src }) => src});
+  ${({ style: { backgroundColor } }) => css`background-color: ${backgroundColor};`}
 
-  ${({ style: { backgroundColor } }) => backgroundColor &&
-    css`background-color: ${backgroundColor};`}
-  ${({ style: { backgroundImage } }) => backgroundImage &&
-    css`background-image: ${backgroundImage};`}
+  ${({
+    bottomFlag,
+    height,
+    width,
+    style: {
+      imageSize,
+      imagePos: { x, y },
+      subFlagModifier: { x: subX, y: subY, scale: subScale },
+    },
+  }) => bottomFlag
+    ? css`
+      background-size: ${imageSize * subScale}%;
+      background-position:
+      ${`${width * (x === 0 ? .1 : x) * subX}px
+        ${height * (y === 0 ? .1 : y) * subY}px`};
+    `
+    : css`
+      background-size: ${imageSize}%;
+      background-position:
+      ${`${width * x}px ${height * y}px`};
+    `}
 `;
 
 type SlashProps = {

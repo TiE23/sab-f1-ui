@@ -13,9 +13,12 @@ const countries = [
   "CAN", "RUS", "RAF", "AUS", "ESP", "ITA",
 ];
 const teams: Array<TeamId> = [
-  "alpine", "alfaRomeo", "alphaTauri", "astonMartin", "haas", "ferrari",
+  "alfaRomeo", "alphaTauri", "alpine", "astonMartin", "ferrari", "haas",
   "mclaren", "mercedes", "redBull", "williams",
 ];
+
+const DEFAULT_COUNTRY = "GBR";
+const DEFAULT_TEAM: TeamId = "alfaRomeo";
 
 type AngledFlagPrototypeControlsProps = {
   flagMode: FlagMode,
@@ -29,15 +32,23 @@ export function AngledFlagPrototypeControls({ flagMode }: AngledFlagPrototypeCon
     if (flagMode === "country") {
       dispatch(setPrototypeState({
         angledFlagCountry: {
-          flagA: flag === "flagA" ? countries[index] : prototypeState?.angledFlagCountry?.flagA ?? "GBR",
-          flagB: flag === "flagB" ? countries[index] : prototypeState?.angledFlagCountry?.flagB ?? "GBR",
+          flagA: flag === "flagA"
+            ? countries[index]
+            : prototypeState?.angledFlagCountry?.flagA ?? DEFAULT_COUNTRY,
+          flagB: flag === "flagB"
+            ? countries[index]
+            : prototypeState?.angledFlagCountry?.flagB ?? DEFAULT_COUNTRY,
         },
       }));
     } else if (flagMode === "team") {
       dispatch(setPrototypeState({
         angledFlagTeam: {
-          flagA: flag === "flagA" ? teams[index] : prototypeState?.angledFlagTeam?.flagA ?? "alpine",
-          flagB: flag === "flagB" ? teams[index] : prototypeState?.angledFlagTeam?.flagB ?? "alpine",
+          flagA: flag === "flagA"
+            ? teams[index]
+            : prototypeState?.angledFlagTeam?.flagA ?? DEFAULT_TEAM,
+          flagB: flag === "flagB"
+            ? teams[index]
+            : prototypeState?.angledFlagTeam?.flagB ?? DEFAULT_TEAM,
         },
       }));
 
