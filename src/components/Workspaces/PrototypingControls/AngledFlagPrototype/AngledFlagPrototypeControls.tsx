@@ -26,12 +26,22 @@ export function AngledFlagPrototypeControls({ flagMode }: AngledFlagPrototypeCon
   const flagList = flagMode === "country" ? countries : flagMode === "team" ? teams : [];
 
   const onChange = (flag: "flagA" | "flagB") => (index: number) => {
-    dispatch(setPrototypeState({
-      angledFlag: {
-        flagA: flag === "flagA" ? flagList[index] : prototypeState?.angledFlag?.flagA ?? "GBR",
-        flagB: flag === "flagB" ? flagList[index] : prototypeState?.angledFlag?.flagB ?? "GBR",
-      },
-    }));
+    if (flagMode === "country") {
+      dispatch(setPrototypeState({
+        angledFlagCountry: {
+          flagA: flag === "flagA" ? countries[index] : prototypeState?.angledFlagCountry?.flagA ?? "GBR",
+          flagB: flag === "flagB" ? countries[index] : prototypeState?.angledFlagCountry?.flagB ?? "GBR",
+        },
+      }));
+    } else if (flagMode === "team") {
+      dispatch(setPrototypeState({
+        angledFlagTeam: {
+          flagA: flag === "flagA" ? teams[index] : prototypeState?.angledFlagTeam?.flagA ?? "alpine",
+          flagB: flag === "flagB" ? teams[index] : prototypeState?.angledFlagTeam?.flagB ?? "alpine",
+        },
+      }));
+
+    }
   };
   return (
     <Split as={PadBox} gutter="md" padding="md">

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { TeamFlagStyle } from "../../../../domain/data/teams";
 import { Px } from "../../../../types/style";
 
 type ContainerProps = {
@@ -68,23 +69,47 @@ export const FlagContainer = styled.div<FlagContainerProps>`
 `;
 FlagContainer.displayName = "FlagContainer";
 
-type CountryFlagDivProps = {
+type FlagDivBaseProps = {
   src: string,
   height: Px,
   width: Px,
-  xOffset?: Px,
 };
-export const CountryFlagDiv = styled.div<CountryFlagDivProps>`
+const FlagDivBase = styled.div<FlagDivBaseProps>`
   height: ${({ height }) => `${height}px`};
   width: ${({ width }) => `${width}px`};
   background-image: url(${({ src }) => src});
-  background-size: ${({ width, height }) => `${width}px ${height}px`};
   background-repeat: no-repeat;
+`;
+
+type CountryFlagDivProps = {
+  xOffset?: Px,
+};
+export const CountryFlagDiv = styled(FlagDivBase)<CountryFlagDivProps>`
+  background-size: ${({ width, height }) => `${width}px ${height}px`};
   ${({ xOffset }) => xOffset == null
     ? css`background-position: center;`
     : css`background-position-x: ${xOffset}px`}
 `;
 CountryFlagDiv.displayName = "CountryFlagDiv";
+
+type TeamFlagDivProps = {
+  style: TeamFlagStyle,
+};
+export const TeamFlagDiv = styled(FlagDivBase) <TeamFlagDivProps>`
+  height: ${({ height }) => `${height}px`};
+  width: ${({ width }) => `${width}px`};
+
+  background-image: url(${({ src }) => src})
+    ${({ style: { backgroundImage } }) => backgroundImage
+    && `, background-image: ${backgroundImage}`};
+  background-size: ${({ style: { imageSize } }) => `${imageSize}%`};
+  background-position: ${({ style: { imagePos: { x, y } } }) => `${x}% ${y}%`};
+
+  ${({ style: { backgroundColor } }) => backgroundColor &&
+    css`background-color: ${backgroundColor};`}
+  ${({ style: { backgroundImage } }) => backgroundImage &&
+    css`background-image: ${backgroundImage};`}
+`;
 
 type SlashProps = {
   x?: Px,
@@ -126,7 +151,7 @@ export const Slant = styled.div<SlashProps>`
 `;
 Slant.displayName = "Slant";
 
-export const CountryFlagEdge = styled.div<SlashProps>`
+export const FlagEdge = styled.div<SlashProps>`
   position: absolute;
   height: ${({ height }) => `${height}px`};
   width: ${({ girth }) => `${girth}px`};
@@ -142,4 +167,4 @@ export const CountryFlagEdge = styled.div<SlashProps>`
     black 100%
   );
 `;
-CountryFlagEdge.displayName = "CountryFlagEdge";
+FlagEdge.displayName = "FlagEdge";

@@ -1,5 +1,6 @@
 import { theme } from "../../shared/theme";
 import { Driver, Team } from "../../types/state";
+import { Percent } from "../../types/style";
 import { repeater } from "../../utils/strings";
 
 /**
@@ -416,5 +417,68 @@ export const teamNumberStyles: { [teamId: string]: NumberStyle } = {
       { type: "stroke", color: "#000", width: 0.13 },
       { type: "stroke", color: "#ebffff", width: 0 },
     ],
+  },
+};
+
+
+export type TeamFlagStyle = {
+  backgroundColor?: string,
+  backgroundImage?: string,
+  imageSize: Percent,
+  imagePos: {
+    x: Percent,
+    y: Percent,
+  },
+};
+export const teamFlagStyles: { [teamId: string]: TeamFlagStyle } = {
+  alpine: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  alfaRomeo: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  alphaTauri: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  astonMartin: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  haas: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  ferrari: {
+    backgroundColor: "#dc0000",
+    imageSize: 55,
+    imagePos: { x: 80, y: -40 },
+  },
+  mclaren: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  mercedes: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  redBull: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
+  },
+  williams: {
+    backgroundColor: "black",
+    imageSize: 50,
+    imagePos: { x: 50, y: 50 },
   },
 };
