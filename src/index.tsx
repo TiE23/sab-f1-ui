@@ -9,7 +9,6 @@ import "./clear.css";
 import App from "./App";
 import Broadcast from "./components/Broadcast/BroadcastRoute";
 import Workspaces from "./components/Workspaces/WorkspacesRoute";
-import { Workspace } from "./components/Workspaces/Workspace";
 
 import { GlobalStyle, theme } from "./shared/theme";
 import { GlobalFonts } from "./fonts";

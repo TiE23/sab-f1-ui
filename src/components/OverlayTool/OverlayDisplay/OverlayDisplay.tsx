@@ -5,7 +5,12 @@ import useMeasure from "react-use-measure";
 
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { setPosition } from "../../../features/overlayTool/overlayToolSlice";
-import { OverlayImage, OverlayImageContainer, OverlayImageSubContainer } from "./styles";
+import {
+  OverlayImage,
+  OverlayImageContainer,
+  OverlayImageSize,
+  OverlayImageSubContainer,
+} from "./styles";
 
 const overlayImages = require.context("../../../public/images/overlays", true);
 
@@ -60,7 +65,6 @@ export function OverlayDisplay({
     return null;
   }
 
-
   return transition((style, visible) =>
     visible ? (
       <animated.div
@@ -69,12 +73,17 @@ export function OverlayDisplay({
           left: xPos,
           top: yPos,
           position: "absolute",
-          touchAction: "none",
           zIndex: 1,
         }}
       >
-        <animated.div style={{ ...style, position: "absolute" }}>
+        <animated.div style={{
+          ...style,
+          position: "absolute",
+        }}>
           <OverlayImageContainer opacity={currentOverlayItem?.opacity ?? 1}>
+            <OverlayImageSize>
+              {overlayItemWidth} x {overlayItemHeight}
+            </OverlayImageSize>
             <OverlayImageSubContainer>
               <OverlayImage
                 ref={overlayItemImageRef}
