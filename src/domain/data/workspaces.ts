@@ -7,6 +7,7 @@ export const workspaces: WorkspaceObject = {
   chyron: {
     name: "Chyron",
     overlayIds: [
+      "chyron-driver-portrait-maz.png",
       "chyron-driver-medium-full-ham.png",
       "chyron-driver-medium-full-alo.png",
       "chyron-driver-medium-full-lec.png",
