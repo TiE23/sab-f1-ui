@@ -173,7 +173,7 @@ export const drivers: {[lastName: string]: Driver} = {
     team: teams.haas,
     yellowTCam: false,
     initials: "MAZ",
-    nationality: "RUS", // RAF SUPPORT MAYBE LATER...
+    nationality: "RAF",
   },
   norris: {
     id: "norris",

@@ -1,14 +1,21 @@
 import styled from "styled-components";
 import { Px } from "../../../../types/style";
 
-type BaseBackgroundProps = {
+type BaseContainerProps = {
   width: Px,
   height: Px,
 };
-export const BaseBackground = styled.div<BaseBackgroundProps>`
+export const BaseContainer = styled.div<BaseContainerProps>`
   position: relative;
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
+`;
+BaseContainer.displayName = "BaseContainer";
+
+export const BaseBackground = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
 
   display: flex;
   align-items: center;
@@ -107,7 +114,6 @@ export const TeamName = styled.div`
 `;
 TeamName.displayName = "TeamName";
 
-
 type SpacerProps = {
   width?: string,
   height?: string;
@@ -137,3 +143,24 @@ export const FlagContainer = styled.div<FlagContainerProps>`
   overflow: hidden;
 `;
 FlagContainer.displayName = "FlagContainer";
+
+type PortraitDivProps = {
+  src: string,
+  height: Px,
+  rightMargin: Px,
+};
+export const PortraitDiv = styled.div<PortraitDivProps>`
+  position: absolute;
+
+  height: ${({ height }) => `${height}px`};
+  width: ${({ height }) => `${height * 1.4}px`};
+
+  bottom: 0;
+  right: ${({ rightMargin }) => `${rightMargin}px`};
+
+  background-image: url(${({ src }) => src});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center ${({ height }) => `${height * .18}px`};
+`;
+PortraitDiv.displayName = "PortraitDiv";
