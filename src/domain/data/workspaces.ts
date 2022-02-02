@@ -47,4 +47,23 @@ export const workspaces: WorkspaceObject = {
       height: 500,
     },
   },
+  angledFlagTeam: {
+    name: "Angled Flag (Team)",
+    overlayIds: [
+      "angled-flag-alfaRomeo.png",
+      "angled-flag-alphaTauri.png",
+      "angled-flag-alpine.png",
+      "angled-flag-astonMartin.png",
+      "angled-flag-ferrari.png",
+      "angled-flag-haas.png",
+      "angled-flag-mclaren.png",
+      "angled-flag-mercedes.png",
+      "angled-flag-redBull.png",
+      "angled-flag-williams.png",
+    ],
+    previewWindowDimensions: {
+      width: 800,
+      height: 500,
+    },
+  },
 };

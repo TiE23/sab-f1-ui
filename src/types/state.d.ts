@@ -32,9 +32,13 @@ export interface WorkspaceProperties {
   previewWindowDimensions: Dimensions;
 }
 export interface PrototypeState {
-  angledFlag?: {
+  angledFlagCountry?: {
     flagA: string;
     flagB: string;
+  };
+  angledFlagTeam?: {
+    flagA: TeamId;
+    flagB: TeamId;
   };
 }
 

@@ -29,6 +29,9 @@ export function ChyronDriver({ chyronData, subMode }: ChyronDriverProps) {
       : [0, 0];
 
   const { car, flagMode, showPosFlag, showDriverNumber } = chyronData;
+  const flagProps = flagMode === "country"
+    ? { flagMode, flag: car.driver.nationality }
+    : flagMode === "team" ? { flagMode, flag: car.driver.team.id } : undefined;
 
   return (
     <BaseBackground width={baseWidth} height={baseHeight}>
@@ -64,11 +67,12 @@ export function ChyronDriver({ chyronData, subMode }: ChyronDriverProps) {
         width={baseHeight * 3}
         right={-baseHeight * 0.6}
       >
-        <AngledFlag
-          flagMode={flagMode}
-          flag={car.driver.nationality}
-          flagHeight={baseHeight * 0.9}
-        />
+        {flagProps != null && (
+          <AngledFlag
+            flagHeight={baseHeight * 0.9}
+            flagProps={flagProps}
+          />
+        )}
       </FlagContainer>
     </BaseBackground>
   );
