@@ -15,6 +15,7 @@ import { ChyronPrototypeControls } from "./PrototypingControls/ChyronPrototype";
 import { AngledFlagWorkSpace } from "./CustomWorkSpaces/AngledFlagWorkSpace";
 import { AngledFlagPrototypeControls } from "./PrototypingControls/AngledFlagPrototype";
 import { ChyronContainer } from "../BroadcastGraphics/Chyrons/Container";
+import { IndexHeading } from "../Common/IndexHeading.styled";
 
 const WORKSPACE_LIST_WIDTH = 180;
 
@@ -48,7 +49,7 @@ export default function Workspaces() {
           widthCutoff={WORKSPACE_LIST_WIDTH}
         >
           <Routes>
-            <Route index element={<h1>Workspaces Home</h1>} />
+            <Route index element={<IndexHeading>Workspaces Home</IndexHeading>} />
             <Route path="chyron" element={
               <Workspace
                 workspaceId="chyron"

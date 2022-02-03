@@ -14,6 +14,8 @@ import { GlobalStyle, theme } from "./shared/theme";
 import { GlobalFonts } from "./fonts";
 import { store } from "./store";
 
+import { IndexHeading } from "./components/Common/IndexHeading.styled";
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -23,11 +25,11 @@ ReactDOM.render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />}>
-              <Route index element={<h1>Home</h1>} />
+              <Route index element={<IndexHeading>Home</IndexHeading>} />
               <Route path="broadcast" element={<Broadcast />} />
               <Route path="workspaces/*" element={<Workspaces />} />
+              <Route path="*" element={<IndexHeading>Page Not Found</IndexHeading>} />
             </Route>
-            <Route path="*" element={<h1>Page Not Found</h1>} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
