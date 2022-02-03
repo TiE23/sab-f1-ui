@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { animated, useSpringRef, useTransition } from "@react-spring/web";
+import { useSpringRef, useTransition } from "@react-spring/web";
 
 import { findPrefixCount } from "../../../../utils/strings";
-import { SelectorLabel, SlotText, SlotWindow } from "./styles";
+import { SelectorLabel, AnimatedSlotText, SlotWindow } from "./styles";
 import { Inline } from "@bedrock-layout/inline";
 
 type SlotSelectorProps = {
@@ -78,7 +78,7 @@ export function SlotSelector({
       )}
       <SlotWindow onClick={onClick} disabled={disabled} width={slotWidth}>
         {transitions((style, i) => (
-          <SlotText as={animated.span} style={style}>{getItem(i)}</SlotText>
+          <AnimatedSlotText style={style}>{getItem(i)}</AnimatedSlotText>
         ))}
       </SlotWindow>
     </Inline>

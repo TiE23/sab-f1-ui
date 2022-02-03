@@ -1,3 +1,4 @@
+import { animated } from "@react-spring/web";
 import styled from "styled-components";
 
 export const ProgressSliderBody = styled.div`
@@ -32,6 +33,9 @@ export const ProgressSliderBar = styled.div<ProgressSliderBarProps>`
   transition: background-color 0.2s ease;
 `;
 ProgressSliderBar.displayName = "ProgressSliderBar";
+
+export const AnimatedProgressSliderBar = animated(ProgressSliderBar);
+AnimatedProgressSliderBar.displayName = "AnimatedProgressSliderBar";
 
 type ProgressSliderBarHandleProps = {
   color?: string,

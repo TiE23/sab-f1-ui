@@ -1,10 +1,10 @@
-import { animated, useSpring } from "@react-spring/web";
+import { useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
 import { clamp } from "lodash";
 
 import {
-  ProgressSliderBar,
+  AnimatedProgressSliderBar,
   ProgressSliderBarHandle,
   ProgressSliderBarIndicator,
   ProgressSliderBody,
@@ -54,8 +54,6 @@ export function ProgressSlider({
     barPos.x.set(newPos);
     onChange(newValue);
   }, { enabled: !disabled });
-
-  const AnimatedProgressSliderBar = animated(ProgressSliderBar);
 
   return (
     <ProgressSliderBody ref={bodyRef}>

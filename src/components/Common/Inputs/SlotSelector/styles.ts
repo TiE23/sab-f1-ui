@@ -1,3 +1,4 @@
+import { animated } from "@react-spring/web";
 import styled from "styled-components";
 
 type SlotWindowProps = {
@@ -34,6 +35,9 @@ export const SlotText = styled.span`
   user-select: none;
 `;
 SlotText.displayName = "SlotText";
+
+export const AnimatedSlotText = animated(SlotText);
+AnimatedSlotText.displayName = "AnimatedSlotText";
 
 export const SelectorLabel = styled.span`
   font-family: ${p => p.theme.fonts.f1Regular};
