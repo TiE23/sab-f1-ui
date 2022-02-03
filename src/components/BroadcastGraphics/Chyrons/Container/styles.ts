@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Spacer = styled.div`
-  width: 32px;
+export const DoubleChyronContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 1196px;
 `;
-Spacer.displayName = "Spacer";
+DoubleChyronContainer.displayName = "DoubleChyronContainer";
