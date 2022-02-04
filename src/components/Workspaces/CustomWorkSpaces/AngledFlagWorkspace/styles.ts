@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Px } from "../../../types/style";
+import { Px } from "../../../../types/style";
 
 type BasicBlockProps = {
   width: Px,

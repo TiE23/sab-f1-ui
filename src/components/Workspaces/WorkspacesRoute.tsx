@@ -12,7 +12,7 @@ import { LayoutGrid, LayoutGridItem } from "../Common/LayoutGrid.styled";
 
 import { Workspace } from "./Workspace";
 import { ChyronPrototypeControls } from "./PrototypingControls/ChyronPrototype";
-import { AngledFlagWorkSpace } from "./CustomWorkSpaces/AngledFlagWorkSpace";
+import { AngledFlagWorkspace } from "./CustomWorkSpaces/AngledFlagWorkspace";
 import { AngledFlagPrototypeControls } from "./PrototypingControls/AngledFlagPrototype";
 import { ChyronContainer } from "../BroadcastGraphics/Chyrons/Container";
 import { IndexHeading } from "../Common/IndexHeading.styled";
@@ -67,18 +67,25 @@ export default function Workspaces() {
             <Route path="angledFlagCountry" element={
               <Workspace
                 workspaceId="angledFlagCountry"
-                previewContent={<AngledFlagWorkSpace flagMode="country"/>}
+                previewContent={<AngledFlagWorkspace flagMode="country"/>}
                 prototypeControls={<AngledFlagPrototypeControls flagMode="country" />}
               />
             } />
             <Route path="angledFlagTeam" element={
               <Workspace
                 workspaceId="angledFlagTeam"
-                previewContent={<AngledFlagWorkSpace flagMode="team"/>}
+                previewContent={<AngledFlagWorkspace flagMode="team"/>}
                 prototypeControls={<AngledFlagPrototypeControls flagMode="team"/>}
               />
             } />
-            <Route path="*" element={<h1>Unknown Workspace</h1>} />
+            <Route path="venetianTransitionPosFlag" element={
+              <Workspace
+                workspaceId="venetianTransitionPosFlag"
+                previewContent={null}
+                prototypeControls={null}
+              />
+            } />
+            <Route path="*" element={<IndexHeading>Unknown Workspace</IndexHeading>} />
           </Routes>
         </FullScreenContainer>
       </LayoutGridItem>

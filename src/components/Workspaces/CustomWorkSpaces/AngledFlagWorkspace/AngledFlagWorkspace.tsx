@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
 
-import { workspaceSelector } from "../../../features/workspace/workspaceSelector";
-import { FlagMode, TeamId } from "../../../types/state";
+import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
+import { FlagMode, TeamId } from "../../../../types/state";
 
-import { AngledFlag } from "../../BroadcastGraphics/Common/AngledFlag";
+import { AngledFlag } from "../../../BroadcastGraphics/Common/AngledFlag";
 import { BasicBlock } from "./styles";
 
-type AngledFlagWorkSpaceProps = {
+type AngledFlagWorkspaceProps = {
   flagMode: FlagMode,
 };
-export function AngledFlagWorkSpace({ flagMode }: AngledFlagWorkSpaceProps) {
+export function AngledFlagWorkspace({ flagMode }: AngledFlagWorkspaceProps) {
   const { prototypeState } = useSelector(workspaceSelector);
   if (flagMode === "none") return null;
 
