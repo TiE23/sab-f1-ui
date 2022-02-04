@@ -27,33 +27,6 @@ export const BaseBackground = styled.div`
 `;
 BaseBackground.displayName = "BaseBackground";
 
-type PositionFlagProps = {
-  containerHeight: Px,
-};
-export const PositionFlag = styled.div<PositionFlagProps>`
-  position: relative;
-  height: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
-  width: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
-
-  border-bottom-right-radius: 9px;
-  background-color: #f4f3ee;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-PositionFlag.displayName = "PositionFlag";
-
-type PositionNumberProps = {
-  containerHeight: Px,
-};
-export const PositionNumber = styled.span<PositionNumberProps>`
-  font-family: ${p => p.theme.fonts.f1Regular};
-  font-size: ${({ containerHeight }) => `${containerHeight * 0.85 * 0.64}px`};
-  margin-top: 2px;
-`;
-PositionNumber.displayName = "PositionNumber";
-
 type TeamColorBarProps = {
   color: string,
 };

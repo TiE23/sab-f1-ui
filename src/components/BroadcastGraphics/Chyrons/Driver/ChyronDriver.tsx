@@ -4,14 +4,13 @@ import { theme } from "../../../../shared/theme";
 
 import { DriverNumber } from "../../Common/DriverNumber";
 import { AngledFlag } from "../../Common/AngledFlag";
+import { PositionFlag } from "../../Common/PositionFlag";
 import {
   BaseBackground,
   FirstName,
-  PositionNumber,
   LastName,
   NameContainer,
   NumberContainer,
-  PositionFlag,
   Spacer,
   TeamColorBar,
   TeamName,
@@ -42,11 +41,7 @@ export function ChyronDriver({ chyronData, subMode }: ChyronDriverProps) {
       <BaseBackground >
         <Spacer width="6px" />
         {showPosFlag && (
-          <PositionFlag containerHeight={baseHeight}>
-            <PositionNumber containerHeight={baseHeight}>
-              {car.position}
-            </PositionNumber>
-          </PositionFlag>
+          <PositionFlag size={baseHeight * 0.85} number={car.position} />
         )}
         <Spacer width="8px" />
         <TeamColorBar color={theme.colors.teams[car.driver.team.id]} />
