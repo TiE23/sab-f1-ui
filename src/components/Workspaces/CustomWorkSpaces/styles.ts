@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Px } from "../../../../types/style";
+import { Px } from "../../../types/style";
 
 type BasicBlockProps = {
   width: Px,
@@ -19,3 +19,4 @@ export const BasicBlock = styled.div<BasicBlockProps>`
 
   border-radius: 15px;
 `;
+BasicBlock.displayName = "BasicBlock";

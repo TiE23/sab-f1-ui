@@ -7,6 +7,7 @@ import { mainMenuDimensionsSelector } from "../../features/pageDimensions/pageDi
 import { setDimensions } from "../../features/pageDimensions/pageDimensionsSlice";
 
 import { FullScreenContainer } from "../Common/FullScreenContainer.styled";
+import { IndexHeading } from "../Common/IndexHeading.styled";
 import { WorkspaceList } from "./WorkspaceList";
 import { LayoutGrid, LayoutGridItem } from "../Common/LayoutGrid.styled";
 
@@ -15,7 +16,8 @@ import { ChyronPrototypeControls } from "./PrototypingControls/ChyronPrototype";
 import { AngledFlagWorkspace } from "./CustomWorkSpaces/AngledFlagWorkspace";
 import { AngledFlagPrototypeControls } from "./PrototypingControls/AngledFlagPrototype";
 import { ChyronContainer } from "../BroadcastGraphics/Chyrons/Container";
-import { IndexHeading } from "../Common/IndexHeading.styled";
+import { VenetianBlindsWorkspace } from "./CustomWorkSpaces/VenetianBlindsWorkspace";
+import { VenetianBlindsPrototypeControls } from "./PrototypingControls/VenetianBlindsPrototype";
 
 const WORKSPACE_LIST_WIDTH = 180;
 
@@ -78,11 +80,11 @@ export default function Workspaces() {
                 prototypeControls={<AngledFlagPrototypeControls flagMode="team"/>}
               />
             } />
-            <Route path="venetianTransitionPosFlag" element={
+            <Route path="venetianTransition" element={
               <Workspace
-                workspaceId="venetianTransitionPosFlag"
-                previewContent={null}
-                prototypeControls={null}
+                workspaceId="venetianTransition"
+                previewContent={<VenetianBlindsWorkspace />}
+                prototypeControls={<VenetianBlindsPrototypeControls />}
               />
             } />
             <Route path="*" element={<IndexHeading>Unknown Workspace</IndexHeading>} />

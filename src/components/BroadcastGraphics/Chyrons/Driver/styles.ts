@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Px } from "../../../../types/style";
+import { Placement, Px } from "../../../../types/style";
+import { placementStyleRules } from "../../../../utils/styling";
 
 type BaseContainerProps = {
   width: Px,
@@ -117,23 +118,12 @@ export const FlagContainer = styled.div<FlagContainerProps>`
 `;
 FlagContainer.displayName = "FlagContainer";
 
-type PortraitDivProps = {
-  src: string,
-  height: Px,
-  rightMargin: Px,
+type DriverPortraitContainerProps = {
+  placement: Placement,
 };
-export const PortraitDiv = styled.div<PortraitDivProps>`
+export const DriverPortraitContainer = styled.div<DriverPortraitContainerProps>`
   position: absolute;
 
-  height: ${({ height }) => `${height}px`};
-  width: ${({ height }) => `${height * 1.4}px`};
-
-  bottom: 0;
-  right: ${({ rightMargin }) => `${rightMargin}px`};
-
-  background-image: url(${({ src }) => src});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center ${({ height }) => `${height * .18}px`};
+  ${({ placement }) => placementStyleRules(placement)}
 `;
-PortraitDiv.displayName = "PortraitDiv";
+DriverPortraitContainer.displayName = "DriverPortraitContainer";

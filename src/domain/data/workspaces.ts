@@ -67,8 +67,8 @@ export const workspaces: WorkspaceObject = {
       height: 500,
     },
   },
-  venetianTransitionPosFlag: {
-    name: "Venetian Transition (Pos Flag)",
+  venetianTransition: {
+    name: "Venetian Transition",
     overlayIds: [
       "venetian-pos-1.png",
       "venetian-pos-2.png",
@@ -79,8 +79,8 @@ export const workspaces: WorkspaceObject = {
       "venetian-pos-7.png",
     ],
     previewWindowDimensions: {
-      width: 300,
-      height: 300,
+      width: 700,
+      height: 500,
     },
   },
 };
