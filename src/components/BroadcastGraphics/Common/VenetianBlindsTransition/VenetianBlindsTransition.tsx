@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSpring, animated, config } from "@react-spring/web";
+import { useSpring, animated } from "@react-spring/web";
 import useMeasure from "react-use-measure";
 
 import { VenetianBlindsFilter } from "./styles";
@@ -8,15 +8,17 @@ import { Corner } from "../../../../types/style";
 
 type VenetianBlindsTransitionProps = {
   blindsColor: string,
-  degrees: number,
-  duration: number,
+  blindsAngle: number,
+  wipeAngle: number,
+  wipeDuration: number,
   wipeStartingCorner: Corner,
 };
 export const VenetianBlindsTransition = (
   {
     blindsColor,
-    degrees,
-    duration,
+    blindsAngle,
+    wipeAngle,
+    wipeDuration,
     wipeStartingCorner,
     children,
   }: React.PropsWithChildren<VenetianBlindsTransitionProps>,
@@ -28,30 +30,30 @@ export const VenetianBlindsTransition = (
 
   const [state, toggle] = useState(true);
 
-  const { x } = useSpring({
-    from: { x: 0 },
-    x: state ? 1 : 0,
-    config: { duration },
+  const { wipe } = useSpring({
+    from: { wipe: 0 },
+    wipe: state ? 1 : 0,
+    config: { duration: wipeDuration },
   });
 
   return (
     <div onClick={() => toggle(!state)}>
       <animated.div
         style={{
-          clipPath: x.to(x => {
+          clipPath: wipe.to(wipeProgress => {
             const [a1, a2, b1, b2, c1, c2] = wipeCustomDegClip(
               childWidth,
               childHeight,
-              x,
+              wipeProgress,
               wipeStartingCorner,
-              degrees,
+              wipeAngle,
             );
             return `polygon(${a1}px ${a2}px, ${b1}px ${b2}px, ${c1}px ${c2}px)`;
           }),
         }}
       >
         <VenetianBlindsFilter
-          deg={-45}
+          deg={blindsAngle}
           transparentWidth={3}
           opaqueWidth={5}
           opaqueColor={blindsColor}

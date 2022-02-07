@@ -17,8 +17,9 @@ export function VenetianBlindsWorkspace() {
       {prototypeState?.venetianTransition?.mode === "driverPortrait" ? (
         <VenetianBlindsTransition
           blindsColor={theme.colors.teams.mercedes + "b5"}
-          degrees={35}
-          duration={500}
+          blindsAngle={-45}
+          wipeAngle={45}
+          wipeDuration={500}
           wipeStartingCorner="topLeft"
         >
           <DriverPortrait
@@ -29,8 +30,9 @@ export function VenetianBlindsWorkspace() {
       ) : (
         <VenetianBlindsTransition
           blindsColor="#f60d0db5"
-          degrees={45}
-          duration={350}
+          blindsAngle={-45}
+          wipeAngle={35}
+          wipeDuration={350}
           wipeStartingCorner="bottomRight"
         >
           <PositionFlag size={122} number={1} />

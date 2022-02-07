@@ -1,8 +1,9 @@
 import { InlineCluster } from "@bedrock-layout/inline-cluster";
 import { PadBox } from "@bedrock-layout/padbox";
 import { useDispatch, useSelector } from "react-redux";
+
 import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
-import { setPrototypeState } from "../../../../features/workspace/workspaceSlice";
+import { updateVenetianTransition } from "../../../../features/workspace/workspaceSlice";
 import { VenetianTransitionWorkspaceMode } from "../../../../types/state";
 
 import { SlotSelector } from "../../../Common/Inputs/SlotSelector";
@@ -18,20 +19,14 @@ export function VenetianBlindsPrototypeControls() {
   const { prototypeState } = useSelector(workspaceSelector);
 
   const onChange = (index: number) => {
-    dispatch(setPrototypeState({
-      venetianTransition: {
-        mode: modes[index],
-        showBG: prototypeState?.venetianTransition?.showBG ?? false,
-      },
+    dispatch(updateVenetianTransition({
+      mode: modes[index],
     }));
   };
 
   const onToggle = (value: boolean) => {
-    dispatch(setPrototypeState({
-      venetianTransition: {
-        mode: prototypeState?.venetianTransition?.mode ?? "positionFlag",
-        showBG: value,
-      },
+    dispatch(updateVenetianTransition({
+      showBG: value,
     }));
   };
 
@@ -44,7 +39,7 @@ export function VenetianBlindsPrototypeControls() {
         slotWidth="200px"
       />
       <Toggle
-        toggled={prototypeState?.venetianTransition?.showBG ?? false}
+        toggled={prototypeState?.venetianTransition?.showBG ?? true}
         onToggle={onToggle}
         label="Show BG"
       />

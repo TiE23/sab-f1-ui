@@ -1,4 +1,5 @@
 import { Milliseconds, Optional } from "./util";
+import { Corner } from "./style";
 
 export interface RootState {
   pageDimensions: PageDimensions;
@@ -22,7 +23,7 @@ export interface Workspace {
   workspaceId: WorkspaceId;
   animatedBG: boolean;
   workspaceProperties: WorkspaceProperties;
-  prototypeState: Optional<PrototypeState>;
+  prototypeState: PrototypeState;
 }
 
 export type WorkspaceId = string;
@@ -43,6 +44,8 @@ export interface PrototypeState {
   venetianTransition?: {
     mode: VenetianTransitionWorkspaceMode;
     showBG: boolean;
+    timing: number,
+    startingCorner: Corner,
   };
 }
 export type VenetianTransitionWorkspaceMode = "positionFlag" | "driverPortrait";
