@@ -9,20 +9,30 @@ import { BasicBlock } from "../styles";
 export function VenetianBlindsWorkspace() {
   const { prototypeState } = useSelector(workspaceSelector);
 
-  const bgColor = prototypeState?.venetianTransition?.showBG
+  const bgColor = prototypeState?.venetianTransition?.showBG ?? true
     ? "black" : "transparent";
 
   return (
     <BasicBlock width={450} height={450} color={bgColor} >
       {prototypeState?.venetianTransition?.mode === "driverPortrait" ? (
-        <VenetianBlindsTransition color={theme.colors.teams.mercedes + "b5"}>
+        <VenetianBlindsTransition
+          blindsColor={theme.colors.teams.mercedes + "b5"}
+          degrees={35}
+          duration={500}
+          wipeStartingCorner="topLeft"
+        >
           <DriverPortrait
             driverId="hamilton"
             height={150}
           />
         </VenetianBlindsTransition>
       ) : (
-        <VenetianBlindsTransition color="#f60d0db5">
+        <VenetianBlindsTransition
+          blindsColor="#f60d0db5"
+          degrees={45}
+          duration={350}
+          wipeStartingCorner="bottomRight"
+        >
           <PositionFlag size={122} number={1} />
         </VenetianBlindsTransition>
       )}

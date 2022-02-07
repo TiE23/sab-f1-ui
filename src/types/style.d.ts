@@ -22,3 +22,8 @@ export interface Placement {
   bottom?: string;
   left?: string;
 }
+
+/**
+ * Useful to initialize movements from.
+ */
+export type Corner = "topLeft" | "topRight" | "bottomRight" | "bottomLeft";

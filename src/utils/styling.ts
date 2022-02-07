@@ -1,6 +1,7 @@
 import { css }from "styled-components";
+import { clamp } from "lodash";
 
-import { Fraction, Placement, Px } from "../types/style";
+import { Corner, Fraction, Placement, Px } from "../types/style";
 
 export function placementStyleRules(pos: Placement) {
   return css`
@@ -15,46 +16,47 @@ export function placementStyleRules(pos: Placement) {
 /**
  * Provides the x, y coordinates of a three point polygon for use in a clip-path
  * mask. By taking a fraction to indicate the progress through the animation it
- * will return the six coordinates that will generate a 45 degree wipe effect.
+ * will return the six coordinates that will generate a wipe effect.
  * @param width element width in pixels
  * @param height element height in pixels
  * @param progress fraction from 0 to 1
  * @param startingCorner Which corner the wipe originates from
+ * @param degrees The angle in degrees of the wipe
  * @returns Array of six numbers representing pixel values of the clip-path
  */
-export function wipe45DegClip(
+export function wipeCustomDegClip(
   width: Px,
   height: Px,
   progress: Fraction,
-  startingCorner: "topLeft" | "topRight" | "bottomRight" | "bottomLeft",
+  startingCorner: Corner,
+  degrees: number,
 ): [Px, Px, Px, Px, Px, Px] {
-  // Long edge multiplied by 2.
-  const l = Math.max(width, height) * 2;
+  const tangent = Math.tan(clamp(degrees, 0.01, 90) * Math.PI / 180);
 
-  switch(startingCorner) {
+  switch (startingCorner) {
   case "topLeft":
     return [
       0, 0,
-      l * progress, 0,
-      0, l * progress,
+      (width + height / tangent) * progress, 0,
+      0, (height + width * tangent) * progress ,
     ];
   case "topRight":
     return [
       width, 0,
-      width, l * progress,
-      width - l * progress, 0,
+      width, (height + width * tangent) * progress,
+      width - (width + height / tangent) * progress, 0,
     ];
   case "bottomRight":
     return [
       width, height,
-      width, height - l * progress,
-      width - l * progress, height,
+      width, height - (height + width * tangent) * progress,
+      width - (width + height / tangent) * progress, height,
     ];
   case "bottomLeft":
     return [
       0, height,
-      0, height - l * progress,
-      l * progress, height,
+      0, height - (height + width * tangent) * progress,
+      (width + height / tangent) * progress, height,
     ];
   }
 }
