@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Px } from "../../../../types/style";
+import { Placement, Px } from "../../../../types/style";
+import { placementStyleRules } from "../../../../utils/styling";
 
 type BaseContainerProps = {
   width: Px,
@@ -26,33 +27,6 @@ export const BaseBackground = styled.div`
   overflow: hidden;
 `;
 BaseBackground.displayName = "BaseBackground";
-
-type PositionFlagProps = {
-  containerHeight: Px,
-};
-export const PositionFlag = styled.div<PositionFlagProps>`
-  position: relative;
-  height: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
-  width: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
-
-  border-bottom-right-radius: 9px;
-  background-color: #f4f3ee;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-PositionFlag.displayName = "PositionFlag";
-
-type PositionNumberProps = {
-  containerHeight: Px,
-};
-export const PositionNumber = styled.span<PositionNumberProps>`
-  font-family: ${p => p.theme.fonts.f1Regular};
-  font-size: ${({ containerHeight }) => `${containerHeight * 0.85 * 0.64}px`};
-  margin-top: 2px;
-`;
-PositionNumber.displayName = "PositionNumber";
 
 type TeamColorBarProps = {
   color: string,
@@ -144,23 +118,12 @@ export const FlagContainer = styled.div<FlagContainerProps>`
 `;
 FlagContainer.displayName = "FlagContainer";
 
-type PortraitDivProps = {
-  src: string,
-  height: Px,
-  rightMargin: Px,
+type DriverPortraitContainerProps = {
+  placement: Placement,
 };
-export const PortraitDiv = styled.div<PortraitDivProps>`
+export const DriverPortraitContainer = styled.div<DriverPortraitContainerProps>`
   position: absolute;
 
-  height: ${({ height }) => `${height}px`};
-  width: ${({ height }) => `${height * 1.4}px`};
-
-  bottom: 0;
-  right: ${({ rightMargin }) => `${rightMargin}px`};
-
-  background-image: url(${({ src }) => src});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center ${({ height }) => `${height * .18}px`};
+  ${({ placement }) => placementStyleRules(placement)}
 `;
-PortraitDiv.displayName = "PortraitDiv";
+DriverPortraitContainer.displayName = "DriverPortraitContainer";

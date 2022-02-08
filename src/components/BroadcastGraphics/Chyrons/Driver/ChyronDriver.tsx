@@ -4,24 +4,22 @@ import { theme } from "../../../../shared/theme";
 
 import { DriverNumber } from "../../Common/DriverNumber";
 import { AngledFlag } from "../../Common/AngledFlag";
+import { PositionFlag } from "../../Common/PositionFlag";
+import { DriverPortrait } from "../../Common/DriverPortrait";
 import {
   BaseBackground,
   FirstName,
-  PositionNumber,
   LastName,
   NameContainer,
   NumberContainer,
-  PositionFlag,
   Spacer,
   TeamColorBar,
   TeamName,
   TextContainer,
   FlagContainer,
-  PortraitDiv,
   BaseContainer,
+  DriverPortraitContainer,
 } from "./styles";
-
-const driverPortraits = require.context("../../../../public/images/drivers/front", true);
 
 type ChyronDriverProps = {
   chyronData: BGChyronDriver,
@@ -42,11 +40,7 @@ export function ChyronDriver({ chyronData, subMode }: ChyronDriverProps) {
       <BaseBackground >
         <Spacer width="6px" />
         {showPosFlag && (
-          <PositionFlag containerHeight={baseHeight}>
-            <PositionNumber containerHeight={baseHeight}>
-              {car.position}
-            </PositionNumber>
-          </PositionFlag>
+          <PositionFlag size={baseHeight * 0.85} number={car.position} />
         )}
         <Spacer width="8px" />
         <TeamColorBar color={theme.colors.teams[car.driver.team.id]} />
@@ -81,11 +75,13 @@ export function ChyronDriver({ chyronData, subMode }: ChyronDriverProps) {
         </FlagContainer>
       </BaseBackground>
       {showPortrait && (
-        <PortraitDiv
-          src={driverPortraits(`./${car.driver.id}.png`)}
-          height={baseHeight * 2.5}
-          rightMargin={-5}
-        />
+        <DriverPortraitContainer placement={{ right: "-5px", bottom: "0" }}>
+          <DriverPortrait
+            driverId={car.driver.id}
+            height={baseHeight * 2.5}
+            verticalOffsetPercentage={18}
+          />
+        </DriverPortraitContainer>
       )}
     </BaseContainer>
   );

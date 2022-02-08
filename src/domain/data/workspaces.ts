@@ -67,4 +67,20 @@ export const workspaces: WorkspaceObject = {
       height: 500,
     },
   },
+  venetianTransition: {
+    name: "Venetian Transition",
+    overlayIds: [
+      "venetian-pos-1.png",
+      "venetian-pos-2.png",
+      "venetian-pos-3.png",
+      "venetian-pos-4.png",
+      "venetian-pos-5.png",
+      "venetian-pos-6.png",
+      "venetian-pos-7.png",
+    ],
+    previewWindowDimensions: {
+      width: 700,
+      height: 500,
+    },
+  },
 };

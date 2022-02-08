@@ -9,7 +9,7 @@ const initialState: RootState["workspace"] = {
     overlayIds: [],
     previewWindowDimensions: { width: 0, height: 0 },
   },
-  prototypeState: null,
+  prototypeState: {},
 };
 
 export type UpdateWorkspaceAction = {
@@ -31,8 +31,54 @@ export const workspaceSlice = createSlice({
       state.workspaceId = action.payload.workspaceId;
       state.workspaceProperties = action.payload.workspaceProperties;
     },
-    setPrototypeState: (state, action: PayloadAction<PrototypeState>) => {
-      state.prototypeState = action.payload;
+
+    // Prototype States
+    updateAngledFlagCountry: (
+      state,
+      action: PayloadAction<Partial<PrototypeState["angledFlagCountry"]>>,
+    ) => {
+      if (state.prototypeState.angledFlagCountry == null) {
+        state.prototypeState.angledFlagCountry = {
+          flagA: "GBR",
+          flagB: "GBR",
+        };
+      }
+      state.prototypeState.angledFlagCountry = Object.assign(
+        state.prototypeState.angledFlagCountry,
+        action.payload,
+      );
+    },
+    updateAngledFlagTeam: (
+      state,
+      action: PayloadAction<Partial<PrototypeState["angledFlagTeam"]>>,
+    ) => {
+      if (state.prototypeState.angledFlagTeam == null) {
+        state.prototypeState.angledFlagTeam = {
+          flagA: "alfaRomeo",
+          flagB: "alfaRomeo",
+        };
+      }
+      state.prototypeState.angledFlagTeam = Object.assign(
+        state.prototypeState.angledFlagTeam,
+        action.payload,
+      );
+    },
+    updateVenetianTransition: (
+      state,
+      action: PayloadAction<Partial<PrototypeState["venetianTransition"]>>,
+    ) => {
+      if (state.prototypeState.venetianTransition == null) {
+        state.prototypeState.venetianTransition = {
+          mode: "portraitFlag",
+          subMode: "1",
+          showBG: true,
+          wipeStartingCorner: "bottomRight",
+        };
+      }
+      state.prototypeState.venetianTransition = Object.assign(
+        state.prototypeState?.venetianTransition,
+        action.payload,
+      );
     },
   },
 });
@@ -41,6 +87,8 @@ export const {
   setWorkspaceId,
   setAnimatedBG,
   updateWorkspace,
-  setPrototypeState,
+  updateAngledFlagCountry,
+  updateAngledFlagTeam,
+  updateVenetianTransition,
 } = workspaceSlice.actions;
 export default workspaceSlice.reducer;

@@ -3,6 +3,8 @@ import { useDrag } from "@use-gesture/react";
 import useMeasure from "react-use-measure";
 import { clamp } from "lodash";
 
+import { Fraction } from "../../../../types/style";
+
 import {
   AnimatedProgressSliderBar,
   ProgressSliderBarHandle,
@@ -19,7 +21,7 @@ const MARGIN_WIDTH = 15;
 const percentage = (value: number) => `${Math.floor(value * 100)}%`;
 
 type ProgressSliderProps = {
-  value: number,  // Fraction of 1 (0.0 to 1.0)
+  value: Fraction,
   onChange: (value: number) => void,
   disabled?: boolean,
   formatter?: (value: number) => string,

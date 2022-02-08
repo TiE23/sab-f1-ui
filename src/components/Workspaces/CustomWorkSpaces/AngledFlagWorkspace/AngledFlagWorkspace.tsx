@@ -4,7 +4,7 @@ import { workspaceSelector } from "../../../../features/workspace/workspaceSelec
 import { FlagMode, TeamId } from "../../../../types/state";
 
 import { AngledFlag } from "../../../BroadcastGraphics/Common/AngledFlag";
-import { BasicBlock } from "./styles";
+import { BasicBlock } from "../styles";
 
 type AngledFlagWorkspaceProps = {
   flagMode: FlagMode,

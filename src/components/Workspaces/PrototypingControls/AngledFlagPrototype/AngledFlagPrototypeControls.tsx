@@ -1,9 +1,8 @@
 import { PadBox } from "@bedrock-layout/padbox";
 import { Split } from "@bedrock-layout/split";
-import { useDispatch, useSelector } from "react-redux";
-import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
+import { useDispatch } from "react-redux";
 
-import { setPrototypeState } from "../../../../features/workspace/workspaceSlice";
+import { updateAngledFlagCountry, updateAngledFlagTeam } from "../../../../features/workspace/workspaceSlice";
 import { FlagMode, TeamId } from "../../../../types/state";
 
 import { SlotSelector } from "../../../Common/Inputs/SlotSelector";
@@ -17,41 +16,22 @@ const teams: Array<TeamId> = [
   "mclaren", "mercedes", "redBull", "williams",
 ];
 
-const DEFAULT_COUNTRY = "GBR";
-const DEFAULT_TEAM: TeamId = "alfaRomeo";
-
 type AngledFlagPrototypeControlsProps = {
   flagMode: FlagMode,
 };
 export function AngledFlagPrototypeControls({ flagMode }: AngledFlagPrototypeControlsProps) {
   const dispatch = useDispatch();
-  const { prototypeState } = useSelector(workspaceSelector);
   const flagList = flagMode === "country" ? countries : flagMode === "team" ? teams : [];
 
   const onChange = (flag: "flagA" | "flagB") => (index: number) => {
     if (flagMode === "country") {
-      dispatch(setPrototypeState({
-        angledFlagCountry: {
-          flagA: flag === "flagA"
-            ? countries[index]
-            : prototypeState?.angledFlagCountry?.flagA ?? DEFAULT_COUNTRY,
-          flagB: flag === "flagB"
-            ? countries[index]
-            : prototypeState?.angledFlagCountry?.flagB ?? DEFAULT_COUNTRY,
-        },
+      dispatch(updateAngledFlagCountry({
+        [flag]: countries[index],
       }));
     } else if (flagMode === "team") {
-      dispatch(setPrototypeState({
-        angledFlagTeam: {
-          flagA: flag === "flagA"
-            ? teams[index]
-            : prototypeState?.angledFlagTeam?.flagA ?? DEFAULT_TEAM,
-          flagB: flag === "flagB"
-            ? teams[index]
-            : prototypeState?.angledFlagTeam?.flagB ?? DEFAULT_TEAM,
-        },
+      dispatch(updateAngledFlagTeam({
+        [flag]: teams[index],
       }));
-
     }
   };
   return (
