@@ -21,6 +21,7 @@ type VenetianBlindsTransitionProps = {
   opacityStart?: Fraction,
   opacityDuration?: Milliseconds,
   opacityDelay?: Milliseconds,
+  spanBlinkDuration?: Milliseconds,
 };
 export const VenetianBlindsTransition = (
   {
@@ -37,6 +38,7 @@ export const VenetianBlindsTransition = (
     opacityStart = 1,
     opacityDuration = wipeDuration,
     opacityDelay = 0,
+    spanBlinkDuration,
     children,
   }: React.PropsWithChildren<VenetianBlindsTransitionProps>,
 ) => {
@@ -90,7 +92,8 @@ export const VenetianBlindsTransition = (
           blindsColor={blindsColor}
           blindsColorFadeDuration={blindsColorFadeDuration}
           blindsColorFadeDelay={blindsColorFadeDelay}
-          blindsClosed={!!state}
+          blindsClosing={!!state}
+          spanBlinkDuration={spanBlinkDuration}
           mirror={true}  // Mirror version provides the opposite blinds.
         >
           {children}
@@ -102,7 +105,8 @@ export const VenetianBlindsTransition = (
           blindsColor={blindsColor}
           blindsColorFadeDuration={blindsColorFadeDuration}
           blindsColorFadeDelay={blindsColorFadeDelay}
-          blindsClosed={!!state}
+          blindsClosing={!!state}
+          spanBlinkDuration={spanBlinkDuration}
           mirror={false}
         >
           {children}

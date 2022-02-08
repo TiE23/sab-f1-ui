@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
+
 import { theme } from "../../../../shared/theme";
+import { BasicBlock } from "../styles";
+
 import { DriverPortrait } from "../../../BroadcastGraphics/Common/DriverPortrait";
 import { PositionFlag } from "../../../BroadcastGraphics/Common/PositionFlag";
 import { VenetianBlindsTransition } from "../../../BroadcastGraphics/Common/VenetianBlindsTransition";
-import { BasicBlock } from "../styles";
 
 export function VenetianBlindsWorkspace() {
   const { prototypeState } = useSelector(workspaceSelector);
@@ -35,8 +37,8 @@ export function VenetianBlindsWorkspace() {
       ) : (
         <VenetianBlindsTransition
           blindsColor="#f60d0d"
-          blindsColorFadeDuration={200}
-          blindsColorFadeDelay={100}
+          blindsColorFadeDuration={300}
+          blindsColorFadeDelay={200}
           blindsAngle={-45}
           blindsOpenDuration={100}
           blindsOpenDelay={100}
@@ -47,6 +49,7 @@ export function VenetianBlindsWorkspace() {
           opacityStart={0.1}
           opacityDuration={200}
           opacityDelay={100}
+          spanBlinkDuration={500}
         >
           <PositionFlag size={122} number={1} />
         </VenetianBlindsTransition>

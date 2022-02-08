@@ -1,8 +1,17 @@
 import { animated } from "@react-spring/web";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 import { Degrees, Px } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
+
+const spanBlinkAnimation = keyframes`
+  0% { opacity: 0 }
+  62% { opacity: 1 }
+  72% { opacity: 0 }
+  81% { opacity: 1 }
+  91% { opacity: 0 }
+  100% { opacity: 1 }
+`;
 
 type VenetianBlindsFilterProps = {
   blindsAngle: Degrees,
@@ -11,8 +20,10 @@ type VenetianBlindsFilterProps = {
   blindsColor: string,
   blindsColorFadeDuration: Milliseconds,
   blindsColorFadeDelay?: Milliseconds,
-  blindsClosed: boolean,
+  blindsClosing: boolean,
   mirror?: boolean,
+  spanBlinkDuration?: Milliseconds,
+  spanBlinkDelay?: Milliseconds,
 };
 export const VenetianBlindsFilter = styled.div<VenetianBlindsFilterProps>`
   position: ${({ mirror }) => mirror ? "absolute" : null};
@@ -29,13 +40,23 @@ export const VenetianBlindsFilter = styled.div<VenetianBlindsFilterProps>`
   );
 
   > * {
-    box-shadow: inset 0 0 0 99999px ${({ blindsColor, blindsClosed }) =>
-    `${blindsColor}${blindsClosed ? "00" : "cc"}`};
+    box-shadow: inset 0 0 0 99999px ${({ blindsColor, blindsClosing }) =>
+    `${blindsColor}${blindsClosing ? "00" : "cc"}`};
     transition: box-shadow
     ${({ blindsColorFadeDuration }) => blindsColorFadeDuration}ms
     cubic-bezier(0.88, 0.18, 0.96, 0.75)
     ${({ blindsColorFadeDelay = 0 }) => blindsColorFadeDelay}ms;
   }
+
+  ${({ blindsClosing, spanBlinkDuration }) => (
+    blindsClosing && spanBlinkDuration
+      ? css`
+        span {
+          animation: ${spanBlinkAnimation} ${spanBlinkDuration}ms step-end;
+        };
+      `
+      : null)
+}
 `;
 VenetianBlindsFilter.displayName = "VenetianBlindsFilter";
 
