@@ -14,6 +14,11 @@ export type Percent = number;
 export type Fraction = number;
 
 /**
+ * Type to remind you that we're dealing with degrees (0-360, etc).
+ */
+export type Degrees = number;
+
+/**
  * Object to cleanly define relative/absolute placement for a styled component.
  */
 export interface Placement {

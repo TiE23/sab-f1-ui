@@ -2,21 +2,32 @@ import { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import useMeasure from "react-use-measure";
 
-import { VenetianBlindsFilter } from "./styles";
+import { AnimatedVenetianBlindsFilter, VenetianBlindsFilter } from "./styles";
 import { wipeCustomDegClip } from "../../../../utils/styling";
-import { Corner } from "../../../../types/style";
+import { Corner, Degrees, Px } from "../../../../types/style";
+import { Milliseconds } from "../../../../types/util";
 
 type VenetianBlindsTransitionProps = {
   blindsColor: string,
-  blindsAngle: number,
-  wipeAngle: number,
-  wipeDuration: number,
+  blindsColorFadeDuration: Milliseconds,
+  blindsColorFadeDelay?: Milliseconds,
+  blindsAngle: Degrees,
+  blindsOpenDuration: Milliseconds,
+  blindsOpenDelay?: Milliseconds,
+  blindsSize: { opaque: Px, transparent: Px },
+  wipeAngle: Degrees,
+  wipeDuration: Milliseconds,
   wipeStartingCorner: Corner,
 };
 export const VenetianBlindsTransition = (
   {
     blindsColor,
+    blindsColorFadeDuration,
+    blindsColorFadeDelay = 0,
     blindsAngle,
+    blindsOpenDuration,
+    blindsOpenDelay = 0,
+    blindsSize,
     wipeAngle,
     wipeDuration,
     wipeStartingCorner,
@@ -31,9 +42,14 @@ export const VenetianBlindsTransition = (
   const [state, toggle] = useState(true);
 
   const { wipe } = useSpring({
-    from: { wipe: 0 },
     wipe: state ? 1 : 0,
     config: { duration: wipeDuration },
+  });
+
+  const blindsSpring = useSpring({
+    opacity: state ? 1 : 0,
+    config: { duration: blindsOpenDuration },
+    delay: blindsOpenDelay,
   });
 
   return (
@@ -51,13 +67,30 @@ export const VenetianBlindsTransition = (
             return `polygon(${a1}px ${a2}px, ${b1}px ${b2}px, ${c1}px ${c2}px)`;
           }),
         }}
+        ref={childRef}
       >
+        <AnimatedVenetianBlindsFilter
+          style={blindsSpring}
+          blindsAngle={blindsAngle}
+          transparentWidth={blindsSize.transparent}
+          opaqueWidth={blindsSize.opaque}
+          blindsColor={blindsColor}
+          blindsColorFadeDuration={blindsColorFadeDuration}
+          blindsColorFadeDelay={blindsColorFadeDelay}
+          blindsClosed={!!state}
+          mirror={true}  // Mirror version provides the opposite blinds.
+        >
+          {children}
+        </AnimatedVenetianBlindsFilter>
         <VenetianBlindsFilter
-          deg={blindsAngle}
-          transparentWidth={3}
-          opaqueWidth={5}
-          opaqueColor={blindsColor}
-          ref={childRef}
+          blindsAngle={blindsAngle}
+          transparentWidth={blindsSize.transparent}
+          opaqueWidth={blindsSize.opaque}
+          blindsColor={blindsColor}
+          blindsColorFadeDuration={blindsColorFadeDuration}
+          blindsColorFadeDelay={blindsColorFadeDelay}
+          blindsClosed={!!state}
+          mirror={false}
         >
           {children}
         </VenetianBlindsFilter>

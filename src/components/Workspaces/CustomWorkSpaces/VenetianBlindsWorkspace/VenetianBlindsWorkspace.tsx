@@ -16,23 +16,31 @@ export function VenetianBlindsWorkspace() {
     <BasicBlock width={450} height={450} color={bgColor} >
       {prototypeState?.venetianTransition?.mode === "driverPortrait" ? (
         <VenetianBlindsTransition
-          blindsColor={theme.colors.teams.mercedes + "b5"}
+          blindsColor={theme.colors.teams.redBull}
+          blindsColorFadeDuration={600}
+          blindsColorFadeDelay={300}
           blindsAngle={-45}
+          blindsOpenDuration={600}
+          blindsOpenDelay={600}
+          blindsSize={{ transparent: 2, opaque: 5 }}
           wipeAngle={45}
-          wipeDuration={500}
+          wipeDuration={600}
           wipeStartingCorner="topLeft"
         >
           <DriverPortrait
-            driverId="hamilton"
-            height={150}
+            driverId="verstappen"
+            height={250}
           />
         </VenetianBlindsTransition>
       ) : (
         <VenetianBlindsTransition
-          blindsColor="#f60d0db5"
+          blindsColor="#f60d0d"
+          blindsColorFadeDuration={400}
           blindsAngle={-45}
-          wipeAngle={35}
-          wipeDuration={350}
+          blindsOpenDuration={120}
+          blindsSize={{ transparent: 3, opaque: 6 }}
+          wipeAngle={40}
+          wipeDuration={200}
           wipeStartingCorner="bottomRight"
         >
           <PositionFlag size={122} number={1} />
