@@ -69,10 +69,10 @@ export const workspaceSlice = createSlice({
     ) => {
       if (state.prototypeState.venetianTransition == null) {
         state.prototypeState.venetianTransition = {
-          mode: "positionFlag",
+          mode: "portraitFlag",
+          subMode: "1",
           showBG: true,
-          timing: 500,
-          startingCorner: "topLeft",
+          wipeStartingCorner: "bottomRight",
         };
       }
       state.prototypeState.venetianTransition = Object.assign(

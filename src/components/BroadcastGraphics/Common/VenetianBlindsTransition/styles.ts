@@ -48,11 +48,11 @@ export const VenetianBlindsFilter = styled.div<VenetianBlindsFilterProps>`
     ${({ blindsColorFadeDelay = 0 }) => blindsColorFadeDelay}ms;
   }
 
-  ${({ blindsClosing, spanBlinkDuration }) => (
+  ${({ blindsClosing, spanBlinkDuration, spanBlinkDelay = 0 }) => (
     blindsClosing && spanBlinkDuration
       ? css`
         span {
-          animation: ${spanBlinkAnimation} ${spanBlinkDuration}ms step-end;
+          animation: ${spanBlinkAnimation} ${spanBlinkDuration}ms step-end ${spanBlinkDelay}ms;
         };
       `
       : null)

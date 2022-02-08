@@ -8,6 +8,7 @@ import { Milliseconds } from "../../../../types/util";
 
 type VenetianBlindsTransitionProps = {
   visible: boolean,
+  delay?: Milliseconds,
   blindsColor: string,
   blindsColorFadeDuration: Milliseconds,
   blindsColorFadeDelay?: Milliseconds,
@@ -26,6 +27,7 @@ type VenetianBlindsTransitionProps = {
 export const VenetianBlindsTransition = (
   {
     visible,
+    delay = 0,
     blindsColor,
     blindsColorFadeDuration,
     blindsColorFadeDelay = 0,
@@ -51,18 +53,19 @@ export const VenetianBlindsTransition = (
   const { wipe } = useSpring({
     wipe: visible ? 1 : 0,
     config: { duration: wipeDuration },
+    delay: 0 + delay,
   });
 
   const { opacity } = useSpring({
     opacity: visible ? 1 : opacityStart,
     config: { duration: opacityDuration },
-    delay: opacityDelay,
+    delay: opacityDelay + delay,
   });
 
   const blindsSpring = useSpring({
     opacity: visible ? 1 : 0,
     config: { duration: blindsOpenDuration },
-    delay: blindsOpenDelay,
+    delay: blindsOpenDelay + delay,
   });
 
   return (
@@ -92,6 +95,7 @@ export const VenetianBlindsTransition = (
         blindsColorFadeDelay={blindsColorFadeDelay}
         blindsClosing={visible}
         spanBlinkDuration={spanBlinkDuration}
+        spanBlinkDelay={delay}
         mirror={true}  // Mirror version provides the opposite blinds.
       >
         {children}
@@ -105,6 +109,7 @@ export const VenetianBlindsTransition = (
         blindsColorFadeDelay={blindsColorFadeDelay}
         blindsClosing={visible}
         spanBlinkDuration={spanBlinkDuration}
+        spanBlinkDelay={delay}
         mirror={false}
       >
         {children}

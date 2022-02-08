@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
 import { theme } from "../../../../shared/theme";
 import { BasicBlock } from "../styles";
+import { DriverId } from "../../../../types/state";
+import { getDriver } from "../../../../utils/dataLookup";
 
 import { DriverPortrait } from "../../../BroadcastGraphics/Common/DriverPortrait";
 import { PositionFlag } from "../../../BroadcastGraphics/Common/PositionFlag";
@@ -22,7 +24,11 @@ export function VenetianBlindsWorkspace() {
       {prototypeState?.venetianTransition?.mode === "driverPortrait" ? (
         <VenetianBlindsTransition
           visible={visible}
-          blindsColor={theme.colors.teams.redBull}
+          blindsColor={theme.colors.teams[
+            getDriver(  // This is very sus. This would not fly in production.
+              prototypeState?.venetianTransition?.subMode as DriverId ?? "hamilton",
+            ).team.id
+          ]}
           blindsColorFadeDuration={600}
           blindsColorFadeDelay={300}
           blindsAngle={-45}
@@ -31,10 +37,12 @@ export function VenetianBlindsWorkspace() {
           blindsSize={{ transparent: 2, opaque: 5 }}
           wipeAngle={45}
           wipeDuration={600}
-          wipeStartingCorner="topLeft"
+          wipeStartingCorner={
+            prototypeState?.venetianTransition?.wipeStartingCorner ?? "bottomRight"
+          }
         >
           <DriverPortrait
-            driverId="verstappen"
+            driverId={prototypeState?.venetianTransition?.subMode as DriverId ?? "hamilton"}
             height={250}
           />
         </VenetianBlindsTransition>
@@ -46,17 +54,19 @@ export function VenetianBlindsWorkspace() {
           blindsColorFadeDelay={200}
           blindsAngle={-45}
           blindsOpenDuration={100}
-          blindsOpenDelay={100}
+          blindsOpenDelay={150}
           blindsSize={{ transparent: 3, opaque: 6 }}
           wipeAngle={40}
           wipeDuration={300}
-          wipeStartingCorner="bottomRight"
+          wipeStartingCorner={
+            prototypeState?.venetianTransition?.wipeStartingCorner ?? "bottomRight"
+          }
           opacityStart={0.1}
           opacityDuration={200}
           opacityDelay={100}
           spanBlinkDuration={500}
         >
-          <PositionFlag size={122} number={1} />
+          <PositionFlag size={122} number={parseInt(prototypeState?.venetianTransition?.subMode ?? "1")} />
         </VenetianBlindsTransition>
       )}
     </BasicBlock>

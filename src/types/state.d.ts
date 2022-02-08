@@ -42,13 +42,12 @@ export interface PrototypeState {
     flagB: TeamId;
   };
   venetianTransition?: {
-    mode: VenetianTransitionWorkspaceMode;
+    mode: string,
+    subMode: string,
     showBG: boolean;
-    timing: number,
-    startingCorner: Corner,
+    wipeStartingCorner: Corner,
   };
 }
-export type VenetianTransitionWorkspaceMode = "positionFlag" | "driverPortrait";
 
 // Overlay Tool
 export interface OverlayTool {
