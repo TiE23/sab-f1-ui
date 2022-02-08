@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
 
+import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
 import { theme } from "../../../../shared/theme";
 import { BasicBlock } from "../styles";
 
@@ -14,10 +15,13 @@ export function VenetianBlindsWorkspace() {
   const bgColor = prototypeState?.venetianTransition?.showBG ?? true
     ? "black" : "transparent";
 
+  const [visible, setVisible] = useState(true);
+
   return (
-    <BasicBlock width={450} height={450} color={bgColor} >
+    <BasicBlock width={450} height={450} color={bgColor} onClick={() => setVisible(!visible)} >
       {prototypeState?.venetianTransition?.mode === "driverPortrait" ? (
         <VenetianBlindsTransition
+          visible={visible}
           blindsColor={theme.colors.teams.redBull}
           blindsColorFadeDuration={600}
           blindsColorFadeDelay={300}
@@ -36,6 +40,7 @@ export function VenetianBlindsWorkspace() {
         </VenetianBlindsTransition>
       ) : (
         <VenetianBlindsTransition
+          visible={visible}
           blindsColor="#f60d0d"
           blindsColorFadeDuration={300}
           blindsColorFadeDelay={200}
