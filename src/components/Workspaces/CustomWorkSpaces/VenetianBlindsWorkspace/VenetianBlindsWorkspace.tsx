@@ -35,13 +35,18 @@ export function VenetianBlindsWorkspace() {
       ) : (
         <VenetianBlindsTransition
           blindsColor="#f60d0d"
-          blindsColorFadeDuration={400}
+          blindsColorFadeDuration={200}
+          blindsColorFadeDelay={100}
           blindsAngle={-45}
-          blindsOpenDuration={120}
+          blindsOpenDuration={100}
+          blindsOpenDelay={100}
           blindsSize={{ transparent: 3, opaque: 6 }}
           wipeAngle={40}
-          wipeDuration={200}
+          wipeDuration={300}
           wipeStartingCorner="bottomRight"
+          opacityStart={0.1}
+          opacityDuration={200}
+          opacityDelay={100}
         >
           <PositionFlag size={122} number={1} />
         </VenetianBlindsTransition>

@@ -4,7 +4,7 @@ import useMeasure from "react-use-measure";
 
 import { AnimatedVenetianBlindsFilter, VenetianBlindsFilter } from "./styles";
 import { wipeCustomDegClip } from "../../../../utils/styling";
-import { Corner, Degrees, Px } from "../../../../types/style";
+import { Corner, Degrees, Fraction, Px } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
 
 type VenetianBlindsTransitionProps = {
@@ -18,6 +18,9 @@ type VenetianBlindsTransitionProps = {
   wipeAngle: Degrees,
   wipeDuration: Milliseconds,
   wipeStartingCorner: Corner,
+  opacityStart?: Fraction,
+  opacityDuration?: Milliseconds,
+  opacityDelay?: Milliseconds,
 };
 export const VenetianBlindsTransition = (
   {
@@ -31,6 +34,9 @@ export const VenetianBlindsTransition = (
     wipeAngle,
     wipeDuration,
     wipeStartingCorner,
+    opacityStart = 1,
+    opacityDuration = wipeDuration,
+    opacityDelay = 0,
     children,
   }: React.PropsWithChildren<VenetianBlindsTransitionProps>,
 ) => {
@@ -46,6 +52,12 @@ export const VenetianBlindsTransition = (
     config: { duration: wipeDuration },
   });
 
+  const { opacity } = useSpring({
+    opacity: state ? 1 : opacityStart,
+    config: { duration: opacityDuration },
+    delay: opacityDelay,
+  });
+
   const blindsSpring = useSpring({
     opacity: state ? 1 : 0,
     config: { duration: blindsOpenDuration },
@@ -56,6 +68,7 @@ export const VenetianBlindsTransition = (
     <div onClick={() => toggle(!state)}>
       <animated.div
         style={{
+          opacity,
           clipPath: wipe.to(wipeProgress => {
             const [a1, a2, b1, b2, c1, c2] = wipeCustomDegClip(
               childWidth,
