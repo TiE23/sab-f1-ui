@@ -14,6 +14,7 @@ export function ChyronContainer() {
     <ChyronDriver
       chyronData={chyrons.driver.primary}
       subMode={chyrons.subMode}
+      openState={chyrons.openState}
     />
   );
   if (chyrons.subMode === "medium" && chyrons.driver.secondary) {
@@ -23,6 +24,7 @@ export function ChyronContainer() {
         <ChyronDriver
           chyronData={chyrons.driver.secondary}
           subMode={chyrons.subMode}
+          openState={chyrons.openState}
         />
       </DoubleChyronContainer>
     );

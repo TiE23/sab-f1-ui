@@ -1,42 +1,99 @@
+import { animated } from "@react-spring/web";
 import styled from "styled-components";
-import { Placement, Px } from "../../../../types/style";
-import { placementStyleRules } from "../../../../utils/styling";
 
-type BaseContainerProps = {
+import { Placement, Px, TransitionArgs } from "../../../../types/style";
+import { commonTransition, placementStyleRules } from "../../../../utils/styling";
+
+type TransitionProps = {
+  open: boolean,
+  transitionProps: TransitionArgs[],
+};
+
+type AnimatedBaseContainerProps = {
   width: Px,
   height: Px,
 };
-export const BaseContainer = styled.div<BaseContainerProps>`
-  position: relative;
-  width: ${({ width }) => `${width}px`};
-  height: ${({ height }) => `${height}px`};
-`;
-BaseContainer.displayName = "BaseContainer";
+export const AnimatedBaseContainer = animated(
+  styled.div<AnimatedBaseContainerProps>`
+    position: relative;
+    width: ${({ width }) => `${width}px`};
+    height: ${({ height }) => `${height}px`};
+  `,
+);
+AnimatedBaseContainer.displayName = "AnimatedBaseContainer";
 
-export const BaseBackground = styled.div`
-  position: relative;
+const BaseShape = styled.div`
+  position: absolute;
+  height: 100%;
+  border-bottom-right-radius: 11px;
+`;
+
+export const BaseOutline = styled(BaseShape)<TransitionProps>`
+  width: 100%;
+  opacity: ${({ open }) => open ? 1 : 0};
+  outline: ${({ open }) => open
+    ? "2px solid #ffffff00"
+    : "5px solid #ffffffff"};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)};
+`;
+BaseOutline.displayName = "BaseOutline";
+
+export const BaseBlack = styled(BaseShape)<TransitionProps>`
+  opacity: ${({ open }) => open ? 1 : 0.1};
+  width: ${({ open }) => open ? 100 : 0}%;
+
+  background-color: black;
+
+  ${({ transitionProps }) => commonTransition(transitionProps)};
+`;
+BaseBlack.displayName = "BaseBlack";
+
+type BaseBackgroundColorProps = {
+  teamColor: string,
+};
+export const BaseBackgroundColor = styled(BaseShape)<BaseBackgroundColorProps & TransitionProps>`
+  width: 100%;
+
+  background-color: ${({ teamColor }) => teamColor};
+  opacity: ${({ open }) => open ? 0 : 1};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)};
+`;
+BaseBackgroundColor.displayName = "BaseBackgroundColor";
+
+export const BaseLayout = styled(BaseShape)<TransitionProps>`
+  position: absolute;
   height: 100%;
   width: 100%;
 
   display: flex;
   align-items: center;
 
-  border-bottom-right-radius: 11px;
-  background-color: #000;
-
   overflow: hidden;
+
+  clip-path: ${({ open }) => open
+    ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+    : "polygon(0 0, 0 0, -50% 100%, -50% 100%)"};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)};
 `;
-BaseBackground.displayName = "BaseBackground";
 
 type TeamColorBarProps = {
   color: string,
 };
-export const TeamColorBar = styled.div<TeamColorBarProps>`
+export const TeamColorBar = styled.div<TeamColorBarProps & TransitionProps>`
   position: relative;
   width: 1%;  // 6px;
   height: 63%;
 
   background-color: ${({ color }) => color};
+
+  clip-path: ${({ open }) => open
+    ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+    : "polygon(0 0, 100% 0, 100% 0, 0 0)"};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)};
 `;
 TeamColorBar.displayName = "TeamColorBar";
 
@@ -103,7 +160,7 @@ type FlagContainerProps = {
   width: Px,
   right: Px,
 };
-export const FlagContainer = styled.div<FlagContainerProps>`
+export const FlagContainer = styled.div<FlagContainerProps & TransitionProps>`
   position: absolute;
   right: ${({ right }) => `${right}px`};
 
@@ -115,6 +172,10 @@ export const FlagContainer = styled.div<FlagContainerProps>`
   width: ${({ width }) => `${width}px`};
 
   overflow: hidden;
+
+  opacity: ${({ open }) => open ? 1 : 0};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)};
 `;
 FlagContainer.displayName = "FlagContainer";
 

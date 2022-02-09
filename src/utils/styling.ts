@@ -1,7 +1,7 @@
 import { css }from "styled-components";
 import { clamp } from "lodash";
 
-import { Corner, Fraction, Placement, Px } from "../types/style";
+import { Corner, Fraction, Placement, Px, TransitionArgs } from "../types/style";
 
 export function placementStyleRules(pos: Placement) {
   return css`
@@ -59,4 +59,14 @@ export function wipeCustomDegClip(
       (width + height / tangent) * progress, height,
     ];
   }
+}
+
+export function commonTransition(propsArray: TransitionArgs[]) {
+  return (
+    "transition: "
+    + propsArray.map(p => `
+      ${p?.property ?? "all"} ${p?.duration ?? 1000}ms ${p?.timing ?? ""} ${p?.delay ?? 0}ms
+    `).join(", ")
+    + ";"
+  );
 }

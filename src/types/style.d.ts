@@ -32,3 +32,11 @@ export interface Placement {
  * Useful to initialize movements from.
  */
 export type Corner = "topLeft" | "topRight" | "bottomRight" | "bottomLeft";
+
+
+export interface TransitionArgs {
+  property?: string,
+  duration?: Milliseconds,
+  timing?: string
+  delay?: Milliseconds,
+}
