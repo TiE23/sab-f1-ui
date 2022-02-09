@@ -8,9 +8,9 @@ import { FaPlay, FaStepForward, FaStop } from "react-icons/fa";
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
 import {
-  chyronsClear,
-  chyronsOpenStateIncrement,
-  chyronsSet,
+  clearChyrons,
+  incrementChyronsOpenState,
+  setChyrons,
 } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { flagModeList, getChyronModesList, getChyronSubModesList } from "../../../../domain/data/broadcastGraphics";
 import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, Car, FlagMode } from "../../../../types/state";
@@ -63,16 +63,16 @@ export function ChyronsDirectorControls() {
           secondary: secondaryCar != null ? buildDriverChyron(secondaryCar) : null,
         },
       };
-      dispatch(chyronsSet(newChyrons));
+      dispatch(setChyrons(newChyrons));
     }
   };
 
   const onNext = () => {
-    dispatch(chyronsOpenStateIncrement());
+    dispatch(incrementChyronsOpenState());
   };
 
   const onClose = () => {
-    dispatch(chyronsClear());
+    dispatch(clearChyrons());
   };
 
   const buildDriverChyron = (car: Car): BGChyronDriver => ({

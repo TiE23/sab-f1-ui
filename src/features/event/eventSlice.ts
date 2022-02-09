@@ -46,13 +46,13 @@ export const eventSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
-    courseFlagSet: (state, action: PayloadAction<CourseFlag>) => {
+    setCourseFlag: (state, action: PayloadAction<CourseFlag>) => {
       state.courseStatus.courseFlag = action.payload;
     },
   },
 });
 
 export const {
-  courseFlagSet,
+  setCourseFlag,
 } = eventSlice.actions;
 export default eventSlice.reducer;

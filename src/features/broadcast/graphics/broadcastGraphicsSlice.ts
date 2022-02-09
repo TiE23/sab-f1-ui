@@ -10,10 +10,10 @@ export const broadcastGraphicsSlice = createSlice({
   name: "broadcastGraphics",
   initialState,
   reducers: {
-    chyronsSet: (state, action: PayloadAction<BGChyrons>) => {
+    setChyrons: (state, action: PayloadAction<BGChyrons>) => {
       state.chyrons = action.payload;
     },
-    chyronsOpenStateSet: (state, action: PayloadAction<OpenState>) => {
+    setChyronsOpenState: (state, action: PayloadAction<OpenState>) => {
       if (state.chyrons == null) return;
       state.chyrons.openState = action.payload;
 
@@ -21,7 +21,7 @@ export const broadcastGraphicsSlice = createSlice({
         state.chyrons.openState = action.payload;
       }
     },
-    chyronsOpenStateIncrement: (state) => {
+    incrementChyronsOpenState: (state) => {
       if (state.chyrons == null) return;
       ++state.chyrons.openState;
 
@@ -29,16 +29,16 @@ export const broadcastGraphicsSlice = createSlice({
         ++state.chyrons.openState;
       }
     },
-    chyronsClear: (state) => {
+    clearChyrons: (state) => {
       state.chyrons = null;
     },
   },
 });
 
 export const {
-  chyronsSet,
-  chyronsOpenStateSet,
-  chyronsOpenStateIncrement,
-  chyronsClear,
+  setChyrons,
+  setChyronsOpenState,
+  incrementChyronsOpenState,
+  clearChyrons,
 } = broadcastGraphicsSlice.actions;
 export default broadcastGraphicsSlice.reducer;
