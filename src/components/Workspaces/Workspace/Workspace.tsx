@@ -26,7 +26,7 @@ export const Workspace = ({
   prototypeControls,
 }: WorkspaceProps) => {
   const dispatch = useDispatch();
-  const { animatedBG, workspaceProperties } = useSelector(workspaceSelector);
+  const { animatedBG, darkBG, workspaceProperties } = useSelector(workspaceSelector);
   const { currentWorkspaceId: overlayWorkspaceId } = useSelector(overlayToolSelector);
 
   useEffect(() => {
@@ -56,6 +56,7 @@ export const Workspace = ({
       <PreviewWindow
         dimensions={workspaceProperties.previewWindowDimensions}
         animatedBG={animatedBG}
+        darkBG={darkBG}
       >
         {previewContent}
         <OverlayDisplay

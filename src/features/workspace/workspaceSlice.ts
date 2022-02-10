@@ -4,6 +4,7 @@ import { PrototypeState, RootState, WorkspaceId, WorkspaceProperties } from "../
 const initialState: RootState["workspace"] = {
   workspaceId: "",
   animatedBG: true,
+  darkBG: false,
   workspaceProperties: {
     name: "undefined",
     overlayIds: [],
@@ -26,6 +27,9 @@ export const workspaceSlice = createSlice({
     },
     setAnimatedBG: (state, action: PayloadAction<boolean>) => {
       state.animatedBG = action.payload;
+    },
+    setDarkBG: (state, action: PayloadAction<boolean>) => {
+      state.darkBG = action.payload;
     },
     updateWorkspace: (state, action: PayloadAction<UpdateWorkspaceAction>) => {
       state.workspaceId = action.payload.workspaceId;
@@ -86,6 +90,7 @@ export const workspaceSlice = createSlice({
 export const {
   setWorkspaceId,
   setAnimatedBG,
+  setDarkBG,
   updateWorkspace,
   updateAngledFlagCountry,
   updateAngledFlagTeam,

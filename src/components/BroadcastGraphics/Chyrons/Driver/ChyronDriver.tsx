@@ -68,7 +68,7 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
         open={openState !== 0}
         transitionProps={[{
           property: "outline",
-          duration: 1000,
+          duration: 1167,
         }]}
       />
       <BaseBlack
@@ -79,25 +79,26 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
           timing: "ease-in",
         }, {
           property: "width",
-          duration: 400,
+          duration: 667,
           timing: "ease-out",
-          delay: 100,
+          delay: 0,
         }]}
       />
       <BaseLayout
         open={openState !== 0}
         transitionProps={[{
           property: "clip-path",
-          duration: 800,
+          duration: 400,
           timing: "ease-in",
+          delay: 333,
         }]}
       >
         <BaseBackgroundColor
           open={openState !== 0}
           transitionProps={[{
             property: "opacity",
-            duration: 600,
-            delay: 900,
+            duration: 566,
+            delay: 600,
           }]}
           teamColor={teamColor}
         />
@@ -129,9 +130,9 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
           open={openState !== 0}
           transitionProps={[{
             property: "clip-path",
-            duration: 750,
+            duration: 667,
             timing: "ease-in-out",
-            delay: 750,
+            delay: 733,
           }]}
           color={teamColor}
         />
@@ -150,7 +151,9 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
               </NumberContainer>
             )}
           </NameContainer>
-          <TeamName>{car.driver.team.shortName}</TeamName>
+          <TeamName open={openState !== 0}>
+            {car.driver.team.shortName}
+          </TeamName>
         </TextContainer>
         <FlagContainer
           open={openState !== 0}

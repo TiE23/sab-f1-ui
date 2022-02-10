@@ -1,8 +1,10 @@
 import styled, { css, keyframes } from "styled-components";
 import { PadBox } from "@bedrock-layout/padbox";
 
-import bg from "../../../public/images/misc/checker-40x40.png";
 import { Dimensions } from "../../../types/state";
+
+import bgLight from "../../../public/images/misc/checker-40x40-light.png";
+import bgDark from "../../../public/images/misc/checker-40x40-dark.png";
 
 const scrollAnimation = keyframes`
   from { background-position: 0 0; }
@@ -12,6 +14,7 @@ const scrollAnimation = keyframes`
 export type PreviewWindowProps = {
   dimensions: Dimensions,
   animatedBG?: boolean,
+  darkBG?: boolean,
 };
 export const PreviewWindow = styled.div<PreviewWindowProps>`
   position: relative;
@@ -24,7 +27,7 @@ export const PreviewWindow = styled.div<PreviewWindowProps>`
 
   border-radius: 1em;
 
-  background-image: url("${bg}");
+  background-image: url("${({ darkBG }) => darkBG ? bgDark : bgLight}");
   background-position: 0px 0px;
   background-repeat: repeat;
 

@@ -22,6 +22,7 @@ export interface Dimensions { width: number; height: number; }
 export interface Workspace {
   workspaceId: WorkspaceId;
   animatedBG: boolean;
+  darkBG: boolean;
   workspaceProperties: WorkspaceProperties;
   prototypeState: PrototypeState;
 }

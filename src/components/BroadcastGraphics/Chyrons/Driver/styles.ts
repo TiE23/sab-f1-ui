@@ -1,11 +1,13 @@
 import { animated } from "@react-spring/web";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 import { Placement, Px, TransitionArgs } from "../../../../types/style";
 import { commonTransition, placementStyleRules } from "../../../../utils/styling";
 
-type TransitionProps = {
+type OpenProps = {
   open: boolean,
+};
+type TransitionProps = OpenProps & {
   transitionProps: TransitionArgs[],
 };
 
@@ -91,7 +93,9 @@ export const TeamColorBar = styled.div<TeamColorBarProps & TransitionProps>`
 
   clip-path: ${({ open }) => open
     ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
-    : "polygon(0 0, 100% 0, 100% 0, 0 0)"};
+    : "polygon(-100% 0, 200% 0, 200% 0, -100% 0)"};
+
+  outline: ${({ color }) => color} solid 1px;
 
   ${({ transitionProps }) => commonTransition(transitionProps)};
 `;
@@ -137,11 +141,23 @@ export const NumberContainer = styled.div`
 `;
 NumberContainer.displayName = "NumberContainer";
 
-export const TeamName = styled.div`
+const blinkingAnimation = keyframes`
+  0% { opacity: 0.4 }
+  14% { opacity: 0 }
+  42% { opacity: 0.4 }
+  56% { opacity: 0 }
+  86% { opacity: 1 }
+`;
+
+export const TeamName = styled.div<OpenProps>`
   position: relative;
   font-family: ${p => p.theme.fonts.f1Regular};
   color: #d1d1d1;
   font-size: 20px;
+
+  ${({ open }) => open && css`
+    animation: ${blinkingAnimation} 233ms step-end 500ms;
+  `}
 `;
 TeamName.displayName = "TeamName";
 

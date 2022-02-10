@@ -38,29 +38,17 @@ export function ChyronsDirectorControls() {
   const { chyrons } = useSelector(broadcastGraphicsSelector);
   const { selectedCars } = useSelector(broadcastDirectorSelector);
 
-
-
   // Handle changes to the chyron mode so submodes can be changed accordingly.
   useEffect(() => {
     setChyronSubModes(getChyronSubModesList(chyronMode));
   }, [chyronMode]);
 
-  // Handle changes to selected cars
-  // useEffect(() => {
-  //   console.log(selectedCars, chyrons);
-  //   // Do not change chyrons while in a non-closed state.
-  //   if (chyrons != null && chyrons.openState !== 0) {
-  //     return;
-  //   }
-  //   if (chyronMode === "driver") {
-  //     buildDriver();
-  //   }
-  // }, [selectedCars]);
-
-
   const onOpen = () => {
-    // dispatch(setChyronsOpenState(1));
     buildDriver();
+    setTimeout(() => {
+      // Delay a short time and increment the open state so the animation can happen.
+      dispatch(incrementChyronsOpenState());
+    }, 50);
   };
 
   const onNext = () => {
