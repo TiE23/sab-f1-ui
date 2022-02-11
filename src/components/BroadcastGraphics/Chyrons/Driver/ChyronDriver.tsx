@@ -5,6 +5,7 @@ import { BGChyronDriver, BGChyronSubMode, OpenState } from "../../../../types/st
 import { Fraction } from "../../../../types/style";
 import { clearChyrons } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { theme } from "../../../../shared/theme";
+import { outlineClipPath } from "../../../../utils/styling";
 
 import { DriverNumber } from "../../Common/DriverNumber";
 import { AngledFlag } from "../../Common/AngledFlag";
@@ -13,7 +14,7 @@ import { DriverPortrait } from "../../Common/DriverPortrait";
 import {
   AnimatedBaseContainer,
   BaseLayout,
-  BaseOutline,
+  AnimatedBaseOutline,
   BaseBlack,
   BaseBackgroundColor,
   FirstName,
@@ -46,6 +47,7 @@ export function ChyronDriver({
       : [0, 0];
 
   const { car, flagMode, showPosFlag, showDriverNumber, showPortrait } = chyronData;
+
   const flagProps = flagMode === "country"
     ? { flagMode, flag: car.driver.nationality }
     : flagMode === "team" ? { flagMode, flag: car.driver.team.id } : undefined;
@@ -63,6 +65,12 @@ export function ChyronDriver({
     },
   });
 
+  const { outlineClipPathProgress } = useSpring({
+    outlineClipPathProgress: openState !== 0 ? 1 : 0,
+    config: { duration: 500 * DDM },
+    delay: 0,
+  });
+
   const teamColor = theme.colors.teams[car.driver.team.id];
 
   return (
@@ -71,12 +79,27 @@ export function ChyronDriver({
       height={baseHeight}
       style={containerFadeAwaySpring}
     >
-      <BaseOutline
+      <AnimatedBaseOutline
         open={openState !== 0}
+        startThickness={5}
+        endThickness={1}
+        startColor="#ffffffff"
+        endColor="#ffffff00"
         transitionProps={[{
           property: "outline",
           duration: 1167 * DDM,
         }]}
+        style={{
+          clipPath: outlineClipPathProgress.to(progress => {
+            const coordinates = outlineClipPath(
+              baseWidth,
+              baseHeight,
+              progress,
+              5,
+            );
+            return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
+          }),
+        }}
       />
       <BaseBlack
         open={openState !== 0}

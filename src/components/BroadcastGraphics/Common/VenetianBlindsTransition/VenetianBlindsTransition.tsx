@@ -1,4 +1,4 @@
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated, easings } from "@react-spring/web";
 import useMeasure from "react-use-measure";
 
 import { AnimatedVenetianBlindsFilter, VenetianBlindsFilter } from "./styles";
@@ -52,7 +52,10 @@ export const VenetianBlindsTransition = (
 
   const { wipe } = useSpring({
     wipe: visible ? 1 : 0,
-    config: { duration: wipeDuration },
+    config: {
+      duration: wipeDuration,
+      easing: easings.easeInOutQuint,
+    },
     delay: 0 + delay,
   });
 
@@ -73,14 +76,14 @@ export const VenetianBlindsTransition = (
       style={{
         opacity,
         clipPath: wipe.to(wipeProgress => {
-          const [a1, a2, b1, b2, c1, c2] = wipeCustomDegClip(
+          const coordinates = wipeCustomDegClip(
             childWidth,
             childHeight,
             wipeProgress,
             wipeStartingCorner,
             wipeAngle,
           );
-          return `polygon(${a1}px ${a2}px, ${b1}px ${b2}px, ${c1}px ${c2}px)`;
+          return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
         }),
       }}
       ref={childRef}

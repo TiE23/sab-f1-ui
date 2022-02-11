@@ -31,16 +31,22 @@ const BaseShape = styled.div`
   border-bottom-right-radius: 11px;
 `;
 
-export const BaseOutline = styled(BaseShape)<TransitionProps>`
+type AnimatedBaseOutlineProps = TransitionProps & {
+  startThickness: Px,
+  endThickness: Px,
+  startColor: string,
+  endColor: string,
+};
+export const AnimatedBaseOutline = animated(styled(BaseShape)<AnimatedBaseOutlineProps>`
   width: 100%;
   opacity: ${({ open }) => open ? 1 : 0};
-  outline: ${({ open }) => open
-    ? "2px solid #ffffff00"
-    : "5px solid #ffffffff"};
+  outline: ${({ open, startThickness, endThickness, startColor, endColor }) => open
+    ? `${endThickness}px solid ${endColor}`
+    : `${startThickness}px solid ${startColor}`};
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
-`;
-BaseOutline.displayName = "BaseOutline";
+`);
+AnimatedBaseOutline.displayName = "AnimatedBaseOutline";
 
 export const BaseBlack = styled(BaseShape)<TransitionProps>`
   opacity: ${({ open }) => open ? 1 : 0.1};
