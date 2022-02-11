@@ -185,28 +185,36 @@ export function ChyronDriver({
         </FlagContainer>
       </BaseLayout>
       {showPortrait && (
-        <VenetianBlindsTransition
-          visible={openState !== 0}
-          delay={1500 * DDM}
-          blindsColor={teamColor}
-          blindsColorFadeDuration={600 * DDM}
-          blindsColorFadeDelay={300 * DDM}
-          blindsAngle={-45}
-          blindsOpenDuration={600 * DDM}
-          blindsOpenDelay={600 * DDM}
-          blindsSize={{ transparent: 2, opaque: 5 }}
-          wipeAngle={45}
-          wipeDuration={600 * DDM}
-          wipeStartingCorner="bottomRight"
+        <DriverPortraitContainer
+          open={openState !== 0}
+          transitionProps={[{
+            property: "opacity",
+            duration: 500 * DDM,
+            delay: 2000 * DDM,
+          }]}
+          placement={{ right: "-5px", bottom: "0" }}
         >
-          <DriverPortraitContainer placement={{ right: "-5px", bottom: "0" }}>
+          <VenetianBlindsTransition
+            visible={openState !== 0}
+            delay={2000 * DDM}
+            blindsColor={teamColor}
+            blindsColorFadeDuration={600 * DDM}
+            blindsColorFadeDelay={300 * DDM}
+            blindsAngle={-45}
+            blindsOpenDuration={300 * DDM}
+            blindsOpenDelay={300 * DDM}
+            blindsSize={{ transparent: 2, opaque: 5 }}
+            wipeAngle={45}
+            wipeDuration={0 * DDM}
+            wipeStartingCorner="bottomRight"
+          >
             <DriverPortrait
               driverId={car.driver.id}
               height={baseHeight * 2.5}
               verticalOffsetPercentage={18}
             />
-          </DriverPortraitContainer>
-        </VenetianBlindsTransition>
+          </VenetianBlindsTransition>
+        </DriverPortraitContainer>
       )}
     </AnimatedBaseContainer>
   );

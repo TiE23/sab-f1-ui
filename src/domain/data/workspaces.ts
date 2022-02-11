@@ -13,6 +13,7 @@ export const workspaces: WorkspaceObject = {
       "chyron-driver-medium-full-vet.png",
       "chyron-driver-medium-full-per.png",
       "chyron-driver-medium-full-msc.png",
+      "chyron-driver-medium-op0-ham.png",
       "chyron-driver-medium-op1-ham.png",
       "chyron-driver-medium-op2-ham.png",
       "chyron-driver-medium-full-ham.png",

@@ -38,7 +38,7 @@ export const BaseOutline = styled(BaseShape)<TransitionProps>`
     ? "2px solid #ffffff00"
     : "5px solid #ffffffff"};
 
-  ${({ transitionProps }) => commonTransition(transitionProps)};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 BaseOutline.displayName = "BaseOutline";
 
@@ -48,7 +48,7 @@ export const BaseBlack = styled(BaseShape)<TransitionProps>`
 
   background-color: black;
 
-  ${({ transitionProps }) => commonTransition(transitionProps)};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 BaseBlack.displayName = "BaseBlack";
 
@@ -61,7 +61,7 @@ export const BaseBackgroundColor = styled(BaseShape)<BaseBackgroundColorProps & 
   background-color: ${({ teamColor }) => teamColor};
   opacity: ${({ open }) => open ? 0 : 1};
 
-  ${({ transitionProps }) => commonTransition(transitionProps)};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 BaseBackgroundColor.displayName = "BaseBackgroundColor";
 
@@ -77,9 +77,9 @@ export const BaseLayout = styled(BaseShape)<TransitionProps>`
 
   clip-path: ${({ open }) => open
     ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
-    : "polygon(0 0, 0 0, -50% 100%, -50% 100%)"};
+    : "polygon(0 0, 0 0, -40% 100%, -40% 100%)"};
 
-  ${({ transitionProps }) => commonTransition(transitionProps)};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 
 type TeamColorBarProps = {
@@ -98,7 +98,7 @@ export const TeamColorBar = styled.div<TeamColorBarProps & TransitionProps>`
 
   outline: ${({ color }) => color} solid 1px;
 
-  ${({ transitionProps }) => commonTransition(transitionProps)};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 TeamColorBar.displayName = "TeamColorBar";
 
@@ -196,16 +196,19 @@ export const FlagContainer = styled.div<FlagContainerProps & TransitionProps>`
 
   opacity: ${({ open }) => open ? 1 : 0};
 
-  ${({ transitionProps }) => commonTransition(transitionProps)};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 FlagContainer.displayName = "FlagContainer";
 
-type DriverPortraitContainerProps = {
+type DriverPortraitContainerProps = TransitionProps & {
   placement: Placement,
 };
 export const DriverPortraitContainer = styled.div<DriverPortraitContainerProps>`
   position: absolute;
 
   ${({ placement }) => placementStyleRules(placement)}
+
+  opacity: ${({ open }) => open ? 1 : 0};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 DriverPortraitContainer.displayName = "DriverPortraitContainer";
