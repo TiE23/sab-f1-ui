@@ -55,15 +55,17 @@ export default function Workspaces() {
             <Route path="chyron" element={
               <Workspace
                 workspaceId="chyron"
-                previewContent={<ChyronContainer />}
+                previewContent={<ChyronContainer debug />}
                 prototypeControls={<ChyronPrototypeControls />}
+                showAnimationSpeedSelector
               />
             } />
             <Route path="chyronWide" element={
               <Workspace
                 workspaceId="chyronWide"
-                previewContent={<ChyronContainer />}
+                previewContent={<ChyronContainer debug />}
                 prototypeControls={<ChyronPrototypeControls />}
+                showAnimationSpeedSelector
               />
             } />
             <Route path="angledFlagCountry" element={

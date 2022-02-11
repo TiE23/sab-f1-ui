@@ -1,6 +1,9 @@
-import { BGChyronDriver, BGChyronSubMode, OpenState } from "../../../../types/state";
 import { useSpring } from "@react-spring/web";
+import { useDispatch } from "react-redux";
 
+import { BGChyronDriver, BGChyronSubMode, OpenState } from "../../../../types/state";
+import { Fraction } from "../../../../types/style";
+import { clearChyrons } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { theme } from "../../../../shared/theme";
 
 import { DriverNumber } from "../../Common/DriverNumber";
@@ -24,16 +27,20 @@ import {
   FlagContainer,
   DriverPortraitContainer,
 } from "./styles";
-import { useDispatch } from "react-redux";
-import { clearChyrons } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { VenetianBlindsTransition } from "../../Common/VenetianBlindsTransition";
 
 type ChyronDriverProps = {
   chyronData: BGChyronDriver,
   subMode: BGChyronSubMode,
   openState: OpenState,
+  debugDurationMultiplier?: Fraction,
 };
-export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverProps) {
+export function ChyronDriver({
+  chyronData,
+  subMode,
+  openState,
+  debugDurationMultiplier: DDM = 1.0,
+}: ChyronDriverProps) {
   const [baseWidth, baseHeight] = subMode === "medium" ? [582, 72]
     : subMode === "large" ? [638, 98]
       : [0, 0];
@@ -47,7 +54,7 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
 
   const containerFadeAwaySpring = useSpring({
     opacity: openState == -1 ? 0 : 1,
-    config: { duration: 300 },
+    config: { duration: 300 * DDM },
     delay: 0,
     onRest: () => {
       if (openState === -1) {
@@ -68,37 +75,36 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
         open={openState !== 0}
         transitionProps={[{
           property: "outline",
-          duration: 1167,
+          duration: 1167 * DDM,
         }]}
       />
       <BaseBlack
         open={openState !== 0}
         transitionProps={[{
           property: "opacity",
-          duration: 800,
+          duration: 800 * DDM,
           timing: "ease-in",
         }, {
           property: "width",
-          duration: 667,
+          duration: 667 * DDM,
           timing: "ease-out",
-          delay: 0,
         }]}
       />
       <BaseLayout
         open={openState !== 0}
         transitionProps={[{
           property: "clip-path",
-          duration: 400,
+          duration: 400 * DDM,
           timing: "ease-in",
-          delay: 333,
+          delay: 333 * DDM,
         }]}
       >
         <BaseBackgroundColor
           open={openState !== 0}
           transitionProps={[{
             property: "opacity",
-            duration: 566,
-            delay: 600,
+            duration: 566 * DDM,
+            delay: 600 * DDM,
           }]}
           teamColor={teamColor}
         />
@@ -106,21 +112,21 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
         {showPosFlag && (
           <VenetianBlindsTransition
             visible={openState !== 0}
-            delay={500}
+            delay={500 * DDM}
             blindsColor="#f60d0d"
-            blindsColorFadeDuration={300}
-            blindsColorFadeDelay={200}
+            blindsColorFadeDuration={300 * DDM}
+            blindsColorFadeDelay={200 * DDM}
             blindsAngle={-45}
-            blindsOpenDuration={100}
-            blindsOpenDelay={150}
+            blindsOpenDuration={100 * DDM}
+            blindsOpenDelay={150 * DDM}
             blindsSize={{ transparent: 3, opaque: 6 }}
             wipeAngle={40}
-            wipeDuration={300}
+            wipeDuration={333 * DDM}
             wipeStartingCorner="bottomRight"
             opacityStart={0.1}
-            opacityDuration={200}
-            opacityDelay={100}
-            spanBlinkDuration={500}
+            opacityDuration={200 * DDM}
+            opacityDelay={100 * DDM}
+            spanBlinkDuration={500 * DDM}
           >
             <PositionFlag size={baseHeight * 0.85} number={car.position} />
           </VenetianBlindsTransition>
@@ -130,9 +136,9 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
           open={openState !== 0}
           transitionProps={[{
             property: "clip-path",
-            duration: 667,
+            duration: 667 * DDM,
             timing: "ease-in-out",
-            delay: 733,
+            delay: 733 * DDM,
           }]}
           color={teamColor}
         />
@@ -151,7 +157,11 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
               </NumberContainer>
             )}
           </NameContainer>
-          <TeamName open={openState !== 0}>
+          <TeamName
+            open={openState !== 0}
+            duration={233 * DDM}
+            delay={500 * DDM}
+          >
             {car.driver.team.shortName}
           </TeamName>
         </TextContainer>
@@ -159,8 +169,8 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
           open={openState !== 0}
           transitionProps={[{
             property: "opacity",
-            duration: 500,
-            delay: 1000,
+            duration: 500 * DDM,
+            delay: 1000 * DDM,
           }]}
           height={baseHeight * 0.9}
           width={baseHeight * 3}
@@ -177,16 +187,16 @@ export function ChyronDriver({ chyronData, subMode, openState }: ChyronDriverPro
       {showPortrait && (
         <VenetianBlindsTransition
           visible={openState !== 0}
-          delay={1500}
+          delay={1500 * DDM}
           blindsColor={teamColor}
-          blindsColorFadeDuration={600}
-          blindsColorFadeDelay={300}
+          blindsColorFadeDuration={600 * DDM}
+          blindsColorFadeDelay={300 * DDM}
           blindsAngle={-45}
-          blindsOpenDuration={600}
-          blindsOpenDelay={600}
+          blindsOpenDuration={600 * DDM}
+          blindsOpenDelay={600 * DDM}
           blindsSize={{ transparent: 2, opaque: 5 }}
           wipeAngle={45}
-          wipeDuration={600}
+          wipeDuration={600 * DDM}
           wipeStartingCorner="bottomRight"
         >
           <DriverPortraitContainer placement={{ right: "-5px", bottom: "0" }}>

@@ -19,11 +19,13 @@ type WorkspaceProps = {
   workspaceId: WorkspaceId,
   previewContent: ReactNode,
   prototypeControls: ReactNode,
+  showAnimationSpeedSelector?: boolean,
 };
 export const Workspace = ({
   workspaceId,
   previewContent,
   prototypeControls,
+  showAnimationSpeedSelector = false,
 }: WorkspaceProps) => {
   const dispatch = useDispatch();
   const { animatedBG, darkBG, workspaceProperties } = useSelector(workspaceSelector);
@@ -64,7 +66,9 @@ export const Workspace = ({
         />
       </PreviewWindow>
       <ControlsContainer>
-        <WorkspaceControls />
+        <WorkspaceControls
+          showAnimationSpeedSelector={showAnimationSpeedSelector}
+        />
         {prototypeControls}
       </ControlsContainer>
     </Stack>

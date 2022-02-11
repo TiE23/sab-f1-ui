@@ -2,6 +2,7 @@ import { animated } from "@react-spring/web";
 import styled, { css, keyframes } from "styled-components";
 
 import { Placement, Px, TransitionArgs } from "../../../../types/style";
+import { Milliseconds } from "../../../../types/util";
 import { commonTransition, placementStyleRules } from "../../../../utils/styling";
 
 type OpenProps = {
@@ -149,14 +150,18 @@ const blinkingAnimation = keyframes`
   86% { opacity: 1 }
 `;
 
-export const TeamName = styled.div<OpenProps>`
+type TeamNameProps = OpenProps & {
+  duration: Milliseconds,
+  delay: Milliseconds,
+}
+export const TeamName = styled.div<TeamNameProps>`
   position: relative;
   font-family: ${p => p.theme.fonts.f1Regular};
   color: #d1d1d1;
   font-size: 20px;
 
-  ${({ open }) => open && css`
-    animation: ${blinkingAnimation} 233ms step-end 500ms;
+  ${({ open, duration, delay }) => open && css`
+    animation: ${blinkingAnimation} ${duration}ms step-end ${delay}ms;
   `}
 `;
 TeamName.displayName = "TeamName";

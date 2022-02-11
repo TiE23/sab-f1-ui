@@ -8,7 +8,6 @@ import { FaCheck, FaStepForward, FaTimes } from "react-icons/fa";
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
 import {
-  clearChyrons,
   incrementChyronsOpenState,
   setChyrons,
   setChyronsOpenState,
@@ -60,7 +59,6 @@ export function ChyronsDirectorControls() {
   };
 
   const buildDriver = () => {
-    console.log("building driver");
     if (selectedCars.length === 0) return;
     let primaryCar = selectedCars[0];
     let secondaryCar = selectedCars.length > 1 ? selectedCars[1] : null;

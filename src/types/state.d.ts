@@ -1,5 +1,5 @@
 import { Milliseconds, Optional } from "./util";
-import { Corner } from "./style";
+import { Corner, Fraction } from "./style";
 
 export interface RootState {
   pageDimensions: PageDimensions;
@@ -23,6 +23,7 @@ export interface Workspace {
   workspaceId: WorkspaceId;
   animatedBG: boolean;
   darkBG: boolean;
+  debugDurationMultiplier: Fraction,
   workspaceProperties: WorkspaceProperties;
   prototypeState: PrototypeState;
 }

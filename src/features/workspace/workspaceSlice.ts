@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PrototypeState, RootState, WorkspaceId, WorkspaceProperties } from "../../types/state";
+import { Fraction } from "../../types/style";
 
 const initialState: RootState["workspace"] = {
   workspaceId: "",
   animatedBG: true,
   darkBG: false,
+  debugDurationMultiplier: 1.0,
   workspaceProperties: {
     name: "undefined",
     overlayIds: [],
@@ -30,6 +32,9 @@ export const workspaceSlice = createSlice({
     },
     setDarkBG: (state, action: PayloadAction<boolean>) => {
       state.darkBG = action.payload;
+    },
+    setDebugDurationMultiplier: (state, action: PayloadAction<Fraction>) => {
+      state.debugDurationMultiplier = action.payload;
     },
     updateWorkspace: (state, action: PayloadAction<UpdateWorkspaceAction>) => {
       state.workspaceId = action.payload.workspaceId;
@@ -91,6 +96,7 @@ export const {
   setWorkspaceId,
   setAnimatedBG,
   setDarkBG,
+  setDebugDurationMultiplier,
   updateWorkspace,
   updateAngledFlagCountry,
   updateAngledFlagTeam,
