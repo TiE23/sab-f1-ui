@@ -71,6 +71,16 @@ export function commonTransition(propsArray: TransitionArgs[]) {
   );
 }
 
+/**
+ * Provides the x, y coordinates of a six point polygon for use in a clip-path
+ * mask. By taking a fraction to indicate the progress through the animation it
+ * will return the six coordinates that will generate a wipe effect.
+ * @param width element width in pixels
+ * @param height element height in pixels
+ * @param progress fraction from 0 to 1
+ * @param outlineThickness the expected max width of the outline
+ * @returns
+ */
 export function outlineClipPath(
   width: Px,
   height: Px,

@@ -41,7 +41,7 @@ export const WorkspaceControls = (
         />
         {showAnimationSpeedSelector && (
           <SlotSelector
-            label="Animation Speed"
+            label="Animation Duration"
             items={debugMultipliers}
             formatter={value => `x${value}`}
             onChange={index =>

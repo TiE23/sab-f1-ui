@@ -16,13 +16,11 @@ type AnimatedBaseContainerProps = {
   width: Px,
   height: Px,
 };
-export const AnimatedBaseContainer = animated(
-  styled.div<AnimatedBaseContainerProps>`
-    position: relative;
-    width: ${({ width }) => `${width}px`};
-    height: ${({ height }) => `${height}px`};
-  `,
-);
+export const AnimatedBaseContainer = animated(styled.div<AnimatedBaseContainerProps>`
+  position: relative;
+  width: ${({ width }) => `${width}px`};
+  height: ${({ height }) => `${height}px`};
+`);
 AnimatedBaseContainer.displayName = "AnimatedBaseContainer";
 
 const BaseShape = styled.div`
@@ -87,6 +85,7 @@ export const BaseLayout = styled(BaseShape)<TransitionProps>`
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
+BaseLayout.displayName = "BaseLayout";
 
 type TeamColorBarProps = {
   color: string,

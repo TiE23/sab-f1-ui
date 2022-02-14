@@ -219,16 +219,16 @@ export function ChyronDriver({
         >
           <VenetianBlindsTransition
             visible={openState !== 0}
-            delay={2000 * DDM}
+            delay={1700 * DDM}
             blindsColor={teamColor}
             blindsColorFadeDuration={600 * DDM}
-            blindsColorFadeDelay={300 * DDM}
+            blindsColorFadeDelay={0 * DDM}
             blindsAngle={-45}
             blindsOpenDuration={300 * DDM}
-            blindsOpenDelay={300 * DDM}
+            blindsOpenDelay={0 * DDM}
             blindsSize={{ transparent: 2, opaque: 5 }}
             wipeAngle={45}
-            wipeDuration={0 * DDM}
+            wipeDuration={700 * DDM}
             wipeStartingCorner="bottomRight"
           >
             <DriverPortrait
