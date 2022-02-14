@@ -13,16 +13,16 @@ export const broadcastDirectorSlice = createSlice({
   name: "broadcastDirector",
   initialState,
   reducers: {
-    selectedCarsAdd: (state, action: PayloadAction<Car>) => {
+    pushSelectedCars: (state, action: PayloadAction<Car>) => {
       const index = findIndex(state.selectedCars, carMatch(action.payload));
       if (index === -1) {
         state.selectedCars = state.selectedCars.concat(action.payload);
       }
     },
-    selectedCarsSet: (state, action: PayloadAction<Car>) => { // Might be removed.
+    setSelectedCars: (state, action: PayloadAction<Car>) => { // Might be removed.
       state.selectedCars = [action.payload];
     },
-    selectedCarsRemove: (state, action: PayloadAction<Car | number>) => {
+    removeSelectedCars: (state, action: PayloadAction<Car | number>) => {
       const index = typeof action.payload === "number"
         ? action.payload
         : findIndex(state.selectedCars, carMatch(action.payload));
@@ -36,7 +36,7 @@ export const broadcastDirectorSlice = createSlice({
      * car.
      * @param action Car (optional)
      */
-    selectedCarsClear: (state, action: PayloadAction<Optional<Car>>) => {
+    clearSelectedCars: (state, action: PayloadAction<Optional<Car>>) => {
       if (action.payload == null) {
         state.selectedCars = [];
       } else {
@@ -47,9 +47,9 @@ export const broadcastDirectorSlice = createSlice({
 });
 
 export const {
-  selectedCarsAdd,
-  selectedCarsSet,
-  selectedCarsRemove,
-  selectedCarsClear,
+  pushSelectedCars,
+  setSelectedCars,
+  removeSelectedCars,
+  clearSelectedCars,
 } = broadcastDirectorSlice.actions;
 export default broadcastDirectorSlice.reducer;

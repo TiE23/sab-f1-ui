@@ -3,7 +3,7 @@ import { findIndex } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 
 import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
-import { selectedCarsAdd, selectedCarsClear, selectedCarsRemove } from "../../../../features/broadcast/director/broadcastDirectorSlice";
+import { pushSelectedCars, clearSelectedCars, removeSelectedCars } from "../../../../features/broadcast/director/broadcastDirectorSlice";
 import { eventSelector } from "../../../../features/event/eventSelector";
 import { Car } from "../../../../types/state";
 import { carMatch } from "../../../../utils/comparators";
@@ -21,13 +21,13 @@ export function GridSelection() {
 
   const carClick = (car: Car, selected: boolean) => () => {
     if (selected) {
-      dispatch(selectedCarsRemove(car));
+      dispatch(removeSelectedCars(car));
     } else {
-      dispatch(selectedCarsAdd(car));
+      dispatch(pushSelectedCars(car));
     }
   };
   const carDoubleClick = (car: Car) => () => {
-    dispatch(selectedCarsClear(car));
+    dispatch(clearSelectedCars(car));
   };
 
   return (

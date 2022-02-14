@@ -13,6 +13,7 @@ export const workspaces: WorkspaceObject = {
       "chyron-driver-medium-full-vet.png",
       "chyron-driver-medium-full-per.png",
       "chyron-driver-medium-full-msc.png",
+      "chyron-driver-medium-op0-ham.png",
       "chyron-driver-medium-op1-ham.png",
       "chyron-driver-medium-op2-ham.png",
       "chyron-driver-medium-full-ham.png",
@@ -64,6 +65,22 @@ export const workspaces: WorkspaceObject = {
     ],
     previewWindowDimensions: {
       width: 800,
+      height: 500,
+    },
+  },
+  venetianTransition: {
+    name: "Venetian Transition",
+    overlayIds: [
+      "venetian-pos-1.png",
+      "venetian-pos-2.png",
+      "venetian-pos-3.png",
+      "venetian-pos-4.png",
+      "venetian-pos-5.png",
+      "venetian-pos-6.png",
+      "venetian-pos-7.png",
+    ],
+    previewWindowDimensions: {
+      width: 700,
       height: 500,
     },
   },

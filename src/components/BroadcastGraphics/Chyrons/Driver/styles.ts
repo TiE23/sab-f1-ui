@@ -1,68 +1,109 @@
-import styled from "styled-components";
-import { Px } from "../../../../types/style";
+import { animated } from "@react-spring/web";
+import styled, { css, keyframes } from "styled-components";
 
-type BaseContainerProps = {
+import { Placement, Px, TransitionArgs } from "../../../../types/style";
+import { Milliseconds } from "../../../../types/util";
+import { commonTransition, placementStyleRules } from "../../../../utils/styling";
+
+type OpenProps = {
+  open: boolean,
+};
+type TransitionProps = OpenProps & {
+  transitionProps: TransitionArgs[],
+};
+
+type AnimatedBaseContainerProps = {
   width: Px,
   height: Px,
 };
-export const BaseContainer = styled.div<BaseContainerProps>`
+export const AnimatedBaseContainer = animated(styled.div<AnimatedBaseContainerProps>`
   position: relative;
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
-`;
-BaseContainer.displayName = "BaseContainer";
+`);
+AnimatedBaseContainer.displayName = "AnimatedBaseContainer";
 
-export const BaseBackground = styled.div`
-  position: relative;
+const BaseShape = styled.div`
+  position: absolute;
+  height: 100%;
+  border-bottom-right-radius: 11px;
+`;
+
+type AnimatedBaseOutlineProps = TransitionProps & {
+  startThickness: Px,
+  endThickness: Px,
+  startColor: string,
+  endColor: string,
+};
+export const AnimatedBaseOutline = animated(styled(BaseShape)<AnimatedBaseOutlineProps>`
+  width: 100%;
+  opacity: ${({ open }) => open ? 1 : 0};
+  outline: ${({ open, startThickness, endThickness, startColor, endColor }) => open
+    ? `${endThickness}px solid ${endColor}`
+    : `${startThickness}px solid ${startColor}`};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
+`);
+AnimatedBaseOutline.displayName = "AnimatedBaseOutline";
+
+export const BaseBlack = styled(BaseShape)<TransitionProps>`
+  opacity: ${({ open }) => open ? 1 : 0.1};
+  width: ${({ open }) => open ? 100 : 0}%;
+
+  background-color: black;
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
+`;
+BaseBlack.displayName = "BaseBlack";
+
+type BaseBackgroundColorProps = {
+  teamColor: string,
+};
+export const BaseBackgroundColor = styled(BaseShape)<BaseBackgroundColorProps & TransitionProps>`
+  width: 100%;
+
+  background-color: ${({ teamColor }) => teamColor};
+  opacity: ${({ open }) => open ? 0 : 1};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
+`;
+BaseBackgroundColor.displayName = "BaseBackgroundColor";
+
+export const BaseLayout = styled(BaseShape)<TransitionProps>`
+  position: absolute;
   height: 100%;
   width: 100%;
 
   display: flex;
   align-items: center;
 
-  border-bottom-right-radius: 11px;
-  background-color: #000;
-
   overflow: hidden;
+
+  clip-path: ${({ open }) => open
+    ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+    : "polygon(0 0, 0 0, -40% 100%, -40% 100%)"};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-BaseBackground.displayName = "BaseBackground";
-
-type PositionFlagProps = {
-  containerHeight: Px,
-};
-export const PositionFlag = styled.div<PositionFlagProps>`
-  position: relative;
-  height: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
-  width: ${({ containerHeight }) => `${containerHeight * 0.85}px`};
-
-  border-bottom-right-radius: 9px;
-  background-color: #f4f3ee;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-PositionFlag.displayName = "PositionFlag";
-
-type PositionNumberProps = {
-  containerHeight: Px,
-};
-export const PositionNumber = styled.span<PositionNumberProps>`
-  font-family: ${p => p.theme.fonts.f1Regular};
-  font-size: ${({ containerHeight }) => `${containerHeight * 0.85 * 0.64}px`};
-  margin-top: 2px;
-`;
-PositionNumber.displayName = "PositionNumber";
+BaseLayout.displayName = "BaseLayout";
 
 type TeamColorBarProps = {
   color: string,
 };
-export const TeamColorBar = styled.div<TeamColorBarProps>`
+export const TeamColorBar = styled.div<TeamColorBarProps & TransitionProps>`
   position: relative;
   width: 1%;  // 6px;
   height: 63%;
 
   background-color: ${({ color }) => color};
+
+  clip-path: ${({ open }) => open
+    ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+    : "polygon(-100% 0, 200% 0, 200% 0, -100% 0)"};
+
+  outline: ${({ color }) => color} solid 1px;
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 TeamColorBar.displayName = "TeamColorBar";
 
@@ -106,11 +147,27 @@ export const NumberContainer = styled.div`
 `;
 NumberContainer.displayName = "NumberContainer";
 
-export const TeamName = styled.div`
+const blinkingAnimation = keyframes`
+  0% { opacity: 0.4 }
+  14% { opacity: 0 }
+  42% { opacity: 0.4 }
+  56% { opacity: 0 }
+  86% { opacity: 1 }
+`;
+
+type TeamNameProps = OpenProps & {
+  duration: Milliseconds,
+  delay: Milliseconds,
+}
+export const TeamName = styled.div<TeamNameProps>`
   position: relative;
   font-family: ${p => p.theme.fonts.f1Regular};
   color: #d1d1d1;
   font-size: 20px;
+
+  ${({ open, duration, delay }) => open && css`
+    animation: ${blinkingAnimation} ${duration}ms step-end ${delay}ms;
+  `}
 `;
 TeamName.displayName = "TeamName";
 
@@ -129,9 +186,10 @@ type FlagContainerProps = {
   width: Px,
   right: Px,
 };
-export const FlagContainer = styled.div<FlagContainerProps>`
+export const FlagContainer = styled.div<FlagContainerProps & TransitionProps>`
   position: absolute;
-  right: ${({ right }) => `${right}px`};
+  right: ${({ right, open }) => open ? right : right * -3}px;
+  z-index: -1;
 
   display: flex;
   align-items: center;
@@ -141,26 +199,22 @@ export const FlagContainer = styled.div<FlagContainerProps>`
   width: ${({ width }) => `${width}px`};
 
   overflow: hidden;
+
+  opacity: ${({ open }) => open ? 1 : 0};
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 FlagContainer.displayName = "FlagContainer";
 
-type PortraitDivProps = {
-  src: string,
-  height: Px,
-  rightMargin: Px,
+type DriverPortraitContainerProps = TransitionProps & {
+  placement: Placement,
 };
-export const PortraitDiv = styled.div<PortraitDivProps>`
+export const DriverPortraitContainer = styled.div<DriverPortraitContainerProps>`
   position: absolute;
 
-  height: ${({ height }) => `${height}px`};
-  width: ${({ height }) => `${height * 1.4}px`};
+  ${({ placement }) => placementStyleRules(placement)}
 
-  bottom: 0;
-  right: ${({ rightMargin }) => `${rightMargin}px`};
-
-  background-image: url(${({ src }) => src});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center ${({ height }) => `${height * .18}px`};
+  opacity: ${({ open }) => open ? 1 : 0};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-PortraitDiv.displayName = "PortraitDiv";
+DriverPortraitContainer.displayName = "DriverPortraitContainer";

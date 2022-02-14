@@ -1,4 +1,5 @@
 import { Milliseconds, Optional } from "./util";
+import { Corner, Fraction } from "./style";
 
 export interface RootState {
   pageDimensions: PageDimensions;
@@ -21,8 +22,10 @@ export interface Dimensions { width: number; height: number; }
 export interface Workspace {
   workspaceId: WorkspaceId;
   animatedBG: boolean;
+  darkBG: boolean;
+  debugDurationMultiplier: Fraction,
   workspaceProperties: WorkspaceProperties;
-  prototypeState: Optional<PrototypeState>;
+  prototypeState: PrototypeState;
 }
 
 export type WorkspaceId = string;
@@ -39,6 +42,12 @@ export interface PrototypeState {
   angledFlagTeam?: {
     flagA: TeamId;
     flagB: TeamId;
+  };
+  venetianTransition?: {
+    mode: string,
+    subMode: string,
+    showBG: boolean;
+    wipeStartingCorner: Corner,
   };
 }
 

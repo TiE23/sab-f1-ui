@@ -7,15 +7,17 @@ import { mainMenuDimensionsSelector } from "../../features/pageDimensions/pageDi
 import { setDimensions } from "../../features/pageDimensions/pageDimensionsSlice";
 
 import { FullScreenContainer } from "../Common/FullScreenContainer.styled";
+import { IndexHeading } from "../Common/IndexHeading.styled";
 import { WorkspaceList } from "./WorkspaceList";
 import { LayoutGrid, LayoutGridItem } from "../Common/LayoutGrid.styled";
 
 import { Workspace } from "./Workspace";
 import { ChyronPrototypeControls } from "./PrototypingControls/ChyronPrototype";
-import { AngledFlagWorkSpace } from "./CustomWorkSpaces/AngledFlagWorkSpace";
+import { AngledFlagWorkspace } from "./CustomWorkSpaces/AngledFlagWorkspace";
 import { AngledFlagPrototypeControls } from "./PrototypingControls/AngledFlagPrototype";
 import { ChyronContainer } from "../BroadcastGraphics/Chyrons/Container";
-import { IndexHeading } from "../Common/IndexHeading.styled";
+import { VenetianBlindsWorkspace } from "./CustomWorkSpaces/VenetianBlindsWorkspace";
+import { VenetianBlindsPrototypeControls } from "./PrototypingControls/VenetianBlindsPrototype";
 
 const WORKSPACE_LIST_WIDTH = 180;
 
@@ -53,32 +55,41 @@ export default function Workspaces() {
             <Route path="chyron" element={
               <Workspace
                 workspaceId="chyron"
-                previewContent={<ChyronContainer />}
+                previewContent={<ChyronContainer debug />}
                 prototypeControls={<ChyronPrototypeControls />}
+                showAnimationSpeedSelector
               />
             } />
             <Route path="chyronWide" element={
               <Workspace
                 workspaceId="chyronWide"
-                previewContent={<ChyronContainer />}
+                previewContent={<ChyronContainer debug />}
                 prototypeControls={<ChyronPrototypeControls />}
+                showAnimationSpeedSelector
               />
             } />
             <Route path="angledFlagCountry" element={
               <Workspace
                 workspaceId="angledFlagCountry"
-                previewContent={<AngledFlagWorkSpace flagMode="country"/>}
+                previewContent={<AngledFlagWorkspace flagMode="country"/>}
                 prototypeControls={<AngledFlagPrototypeControls flagMode="country" />}
               />
             } />
             <Route path="angledFlagTeam" element={
               <Workspace
                 workspaceId="angledFlagTeam"
-                previewContent={<AngledFlagWorkSpace flagMode="team"/>}
+                previewContent={<AngledFlagWorkspace flagMode="team"/>}
                 prototypeControls={<AngledFlagPrototypeControls flagMode="team"/>}
               />
             } />
-            <Route path="*" element={<h1>Unknown Workspace</h1>} />
+            <Route path="venetianTransition" element={
+              <Workspace
+                workspaceId="venetianTransition"
+                previewContent={<VenetianBlindsWorkspace />}
+                prototypeControls={<VenetianBlindsPrototypeControls />}
+              />
+            } />
+            <Route path="*" element={<IndexHeading>Unknown Workspace</IndexHeading>} />
           </Routes>
         </FullScreenContainer>
       </LayoutGridItem>

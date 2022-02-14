@@ -19,3 +19,4 @@ export const BasicBlock = styled.div<BasicBlockProps>`
 
   border-radius: 15px;
 `;
+BasicBlock.displayName = "BasicBlock";

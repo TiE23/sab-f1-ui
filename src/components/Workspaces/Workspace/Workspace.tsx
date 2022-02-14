@@ -19,14 +19,16 @@ type WorkspaceProps = {
   workspaceId: WorkspaceId,
   previewContent: ReactNode,
   prototypeControls: ReactNode,
+  showAnimationSpeedSelector?: boolean,
 };
 export const Workspace = ({
   workspaceId,
   previewContent,
   prototypeControls,
+  showAnimationSpeedSelector = false,
 }: WorkspaceProps) => {
   const dispatch = useDispatch();
-  const { animatedBG, workspaceProperties } = useSelector(workspaceSelector);
+  const { animatedBG, darkBG, workspaceProperties } = useSelector(workspaceSelector);
   const { currentWorkspaceId: overlayWorkspaceId } = useSelector(overlayToolSelector);
 
   useEffect(() => {
@@ -56,6 +58,7 @@ export const Workspace = ({
       <PreviewWindow
         dimensions={workspaceProperties.previewWindowDimensions}
         animatedBG={animatedBG}
+        darkBG={darkBG}
       >
         {previewContent}
         <OverlayDisplay
@@ -63,7 +66,9 @@ export const Workspace = ({
         />
       </PreviewWindow>
       <ControlsContainer>
-        <WorkspaceControls />
+        <WorkspaceControls
+          showAnimationSpeedSelector={showAnimationSpeedSelector}
+        />
         {prototypeControls}
       </ControlsContainer>
     </Stack>

@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Stack } from "@bedrock-layout/stack";
 import { Inline } from "@bedrock-layout/inline";
-import { FaPlay, FaStepForward, FaStop } from "react-icons/fa";
+import { FaCheck, FaStepForward, FaTimes } from "react-icons/fa";
 
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
 import {
-  chyronsClear,
-  chyronsOpenStateIncrement,
-  chyronsSet,
+  incrementChyronsOpenState,
+  setChyrons,
+  setChyronsOpenState,
 } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { flagModeList, getChyronModesList, getChyronSubModesList } from "../../../../domain/data/broadcastGraphics";
 import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, Car, FlagMode } from "../../../../types/state";
@@ -37,42 +37,49 @@ export function ChyronsDirectorControls() {
   const { chyrons } = useSelector(broadcastGraphicsSelector);
   const { selectedCars } = useSelector(broadcastDirectorSelector);
 
+  // Handle changes to the chyron mode so submodes can be changed accordingly.
   useEffect(() => {
     setChyronSubModes(getChyronSubModesList(chyronMode));
   }, [chyronMode]);
 
   const onOpen = () => {
-    if (chyronMode === "driver") {
-      if (selectedCars.length === 0) return;
-      let primaryCar = selectedCars[0];
-      let secondaryCar = selectedCars.length > 1 ? selectedCars[1] : null;
-
-      // Auto-sort drivers by position so trailing car always appears second.
-      if (chyronSubMode === "medium" && secondaryCar != null
-       && secondaryCar.position < primaryCar.position) {
-        secondaryCar = selectedCars[0];
-        primaryCar = selectedCars[1];
-      }
-      const newChyrons: BGChyrons = {
-        openState: 1,
-        relativePos: { top: "0", right: "0", bottom: "0", left: "0" },
-        mode: chyronMode,
-        subMode: chyronSubMode,
-        driver: {
-          primary: buildDriverChyron(primaryCar),
-          secondary: secondaryCar != null ? buildDriverChyron(secondaryCar) : null,
-        },
-      };
-      dispatch(chyronsSet(newChyrons));
-    }
+    buildDriver();
+    setTimeout(() => {
+      // Delay a short time and increment the open state so the animation can happen.
+      dispatch(incrementChyronsOpenState());
+    }, 50);
   };
 
   const onNext = () => {
-    dispatch(chyronsOpenStateIncrement());
+    dispatch(incrementChyronsOpenState());
   };
 
   const onClose = () => {
-    dispatch(chyronsClear());
+    dispatch(setChyronsOpenState(-1));
+  };
+
+  const buildDriver = () => {
+    if (selectedCars.length === 0) return;
+    let primaryCar = selectedCars[0];
+    let secondaryCar = selectedCars.length > 1 ? selectedCars[1] : null;
+
+    // Auto-sort drivers by position so trailing car always appears second.
+    if (chyronSubMode === "medium" && secondaryCar != null
+      && secondaryCar.position < primaryCar.position) {
+      secondaryCar = selectedCars[0];
+      primaryCar = selectedCars[1];
+    }
+    const newChyrons: BGChyrons = {
+      openState: 0,
+      relativePos: { top: "0", right: "0", bottom: "0", left: "0" },
+      mode: chyronMode,
+      subMode: chyronSubMode,
+      driver: {
+        primary: buildDriverChyron(primaryCar),
+        secondary: secondaryCar != null ? buildDriverChyron(secondaryCar) : null,
+      },
+    };
+    dispatch(setChyrons(newChyrons));
   };
 
   const buildDriverChyron = (car: Car): BGChyronDriver => ({
@@ -136,19 +143,19 @@ export function ChyronsDirectorControls() {
             onClick={onOpen}
             disabled={chyrons != null}
           >
-            <FaPlay size="0.8em" />
+            <FaCheck size="0.8em" />
           </OpenButton>
           <Button
             onClick={onNext}
-            disabled={chyrons == null}
+            disabled={chyrons == null || chyrons.openState === -1}
           >
             <FaStepForward size="0.8em" />
           </Button>
           <CloseButton
             onClick={onClose}
-            disabled={chyrons == null}
+            disabled={chyrons == null || chyrons.openState <= 0}
           >
-            <FaStop size="0.8em" />
+            <FaTimes size="0.8em" />
           </CloseButton>
         </Inline>
       </Inline>
