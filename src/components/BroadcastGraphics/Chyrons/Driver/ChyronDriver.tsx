@@ -50,7 +50,9 @@ export function ChyronDriver({
 
   const flagProps = flagMode === "country"
     ? { flagMode, flag: car.driver.nationality }
-    : flagMode === "team" ? { flagMode, flag: car.driver.team.id } : undefined;
+    : flagMode === "team"
+      ? { flagMode, flag: car.driver.team.id }
+      : undefined;
 
   const dispatch = useDispatch();
 
@@ -192,7 +194,11 @@ export function ChyronDriver({
           open={openState !== 0}
           transitionProps={[{
             property: "opacity",
-            duration: 500 * DDM,
+            duration: 1200 * DDM,
+            delay: 1000 * DDM,
+          }, {
+            property: "right",
+            duration: 2000 * DDM,
             delay: 1000 * DDM,
           }]}
           height={baseHeight * 0.9}

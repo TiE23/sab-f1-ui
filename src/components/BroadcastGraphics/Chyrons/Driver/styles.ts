@@ -188,7 +188,8 @@ type FlagContainerProps = {
 };
 export const FlagContainer = styled.div<FlagContainerProps & TransitionProps>`
   position: absolute;
-  right: ${({ right }) => `${right}px`};
+  right: ${({ right, open }) => open ? right : right * -3}px;
+  z-index: -1;
 
   display: flex;
   align-items: center;
