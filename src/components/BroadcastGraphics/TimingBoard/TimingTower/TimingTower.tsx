@@ -3,6 +3,7 @@ import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphi
 
 import { eventSelector } from "../../../../features/event/eventSelector";
 import { BGTimingTowerModes, Car, CarStatus } from "../../../../types/state";
+import { Fraction } from "../../../../types/style";
 import { orMatch } from "../../../../utils/common";
 import { timeDiff } from "../../../../utils/event";
 import { formatTime } from "../../../../utils/styling";
@@ -49,16 +50,16 @@ export function TimingTower({
     index: number,
     count: number,
   ) => {
+    const firstRow = index === 0;
     const lastRow = index + 1 === count;
+    let rightHalfContent = "";
+    let xScale: Fraction = 1.0;
 
     let leader = false;
     if (forwardCarDistance === -1) {
       leader = true;
       forwardCarDistance = car.distance;
     }
-
-    let rightHalfContent = "";
-    let xScale = 1.0;
     if (leader) {
       rightHalfContent = timingBoard.timingTower.mode === BGTimingTowerModes.Leader
         ? "Leader" : timingBoard.timingTower.mode === BGTimingTowerModes.Interval
@@ -69,7 +70,7 @@ export function TimingTower({
       rightHalfContent = `+${formatTime(timeDiff(
         forwardCarDistance,
         car.distance,
-      ))}`;
+      ), 60)}`;
       xScale = rightHalfContent.includes(".") && rightHalfContent.length > 7 ? 0.75 : 0.9;
     }
 
@@ -80,7 +81,7 @@ export function TimingTower({
     return (
       <RowContainer
         key={car.driver.id}
-        topGap={car.status === CarStatus.Retired && index === 0}
+        topGap={car.status === CarStatus.Retired && firstRow}
         retired={car.status === CarStatus.Retired}
         wide={timingBoard.timingTower.mode !== BGTimingTowerModes.Minimum}
       >

@@ -2,6 +2,7 @@ import { css }from "styled-components";
 import { clamp } from "lodash";
 
 import { Corner, Fraction, Placement, Px, TransitionArgs } from "../types/style";
+import { Seconds } from "../types/util";
 
 export function placementStyleRules(pos: Placement) {
   return css`
@@ -129,11 +130,20 @@ export function outlineClipPath(
   }
 }
 
-export function formatTime(time: number) {
-  if (time < 60) {
+/**
+ * Converts amount of seconds that are over the limit to become a new format:
+ * If limit is 60, then 65.322 will become "1:05.322".
+ * You can set the limit to other than 60 to change the time when the new format
+ * is used.
+ * @param time Time to format given in seconds
+ * @param limit Bounds (exclusive) that will keep the format in seconds.
+ * @returns
+ */
+export function formatTime(time: Seconds, limit: Seconds) {
+  if (time < limit) {
     return String(time.toFixed(3));
   }
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
-  return `${minutes}:${String(seconds.toFixed(3)).padStart(6, "0")}`;
+  return `${minutes}:${seconds.toFixed(3).padStart(6, "0")}`;
 }
