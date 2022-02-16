@@ -60,7 +60,7 @@ export interface OverlayTool {
   visible: boolean;
 }
 export type OverlayId = string;
-export type OverlayIds = Array<OverlayId>;
+export type OverlayIds = OverlayId[];
 export interface OverlayPosition { x: number; y: number; }
 export interface OverlayItem {
   position: OverlayPosition;
@@ -92,7 +92,7 @@ export type EventMode =
   | "q3";
 export interface CourseStatus {
   courseFlag: CourseFlags;
-  sectorFlags: Array<CourseFlag>;
+  sectorFlags: CourseFlag[];
   safetyCar: SafetyCarStatus;
   virtualSafetyCar: VirtualSafetyCarStatus;
 }
@@ -106,11 +106,11 @@ export type CourseFlag =
   | "redYellow";
 export type SafetyCarStatus = "clear" | "starting" | "out" | "ending";
 export type VirtualSafetyCarStatus = "clear" | "out" | "ending";
-export type Grid = Array<Car>;  // Grid order does not change.
+export type Grid = Car[];  // Grid order does not change.
 export interface Car {
   position: number;
   driver: Driver;
-  // status: ???; // retired
+  status: CarStatus;
   // flags: ???, // blue, red, meatball, black/white, black
   // notices: ???; // Penalties, warnings, investigations, blue flags, etc
   // distance: number;
@@ -193,7 +193,7 @@ export type TeamFullName =
 
 // Broadcast Director
 export interface BroadcastDirector {
-  selectedCars: Array<Car>;
+  selectedCars: Car[];
 }
 
 // Broadcast Graphics
@@ -213,13 +213,32 @@ export interface BGBaseState {
 export type OpenState = number;
 
 export interface BroadcastGraphics {
-  // timingBoard: BGTimingBoard;
-  // statusIndicator: BGStatusIndicator;
+  timingBoard: BGTimingBoard;
   // indicators: BGIndicators
   chyrons: Optional<BGChyrons>;
   // gems: BGGems
   // toasts: BGToasts;
 }
+
+// Timing Board
+export interface BGTimingBoard extends BGBaseState {
+  statusIndicator: BGStatusIndicator;
+  timingTower: BGTimingTower;
+}
+
+// Status Indicator
+export interface BGStatusIndicator {
+  mode: BGStatusIndicatorModes;
+}
+
+// Timing Tower
+export interface BGTimingTower {
+  open: OpenState;
+  mode: BGTimingTowerModes;
+  focusedCars: Car[],
+  focusedCarsMode: BGTimingTowerFocusedCarsMode,
+}
+
 
 // Chyrons
 export type BGChyronMode = string;

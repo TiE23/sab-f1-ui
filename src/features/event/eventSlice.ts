@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { CourseFlag, RootState } from "../../types/state";
+import { CourseFlag, CarStatus, RootState } from "../../types/state";
 import { cloneDriver } from "../../utils/dataLookup";
 
 const initialState: RootState["event"] = {
@@ -19,26 +19,26 @@ const initialState: RootState["event"] = {
     lapCount: 10,
   },
   grid: [
-    { position: 1, driver: cloneDriver("verstappen") },
-    { position: 2, driver: cloneDriver("hamilton") },
-    { position: 3, driver: cloneDriver("bottas") },
-    { position: 4, driver: cloneDriver("perez") },
-    { position: 5, driver: cloneDriver("sainz") },
-    { position: 6, driver: cloneDriver("norris") },
-    { position: 7, driver: cloneDriver("leclerc") },
-    { position: 8, driver: cloneDriver("ricciardo") },
-    { position: 9, driver: cloneDriver("gasly") },
-    { position: 10, driver: cloneDriver("alonso") },
-    { position: 11, driver: cloneDriver("ocon") },
-    { position: 12, driver: cloneDriver("vettel") },
-    { position: 13, driver: cloneDriver("stroll") },
-    { position: 14, driver: cloneDriver("tsunoda") },
-    { position: 15, driver: cloneDriver("russell") },
-    { position: 16, driver: cloneDriver("raikkonen") },
-    { position: 17, driver: cloneDriver("latifi") },
-    { position: 18, driver: cloneDriver("giovinazzi") },
-    { position: 19, driver: cloneDriver("schumacher") },
-    { position: 20, driver: cloneDriver("mazepin") },
+    { position: 1, status: CarStatus.Normal, driver: cloneDriver("verstappen") },
+    { position: 2, status: CarStatus.Normal, driver: cloneDriver("hamilton") },
+    { position: 3, status: CarStatus.Normal, driver: cloneDriver("bottas") },
+    { position: 4, status: CarStatus.Retired, driver: cloneDriver("perez") },
+    { position: 5, status: CarStatus.Normal, driver: cloneDriver("sainz") },
+    { position: 6, status: CarStatus.Retired, driver: cloneDriver("norris") },
+    { position: 7, status: CarStatus.Normal, driver: cloneDriver("leclerc") },
+    { position: 8, status: CarStatus.Normal, driver: cloneDriver("ricciardo") },
+    { position: 9, status: CarStatus.Normal, driver: cloneDriver("gasly") },
+    { position: 10, status: CarStatus.Normal, driver: cloneDriver("alonso") },
+    { position: 11, status: CarStatus.Normal, driver: cloneDriver("ocon") },
+    { position: 12, status: CarStatus.Normal, driver: cloneDriver("vettel") },
+    { position: 13, status: CarStatus.Normal, driver: cloneDriver("stroll") },
+    { position: 14, status: CarStatus.Normal, driver: cloneDriver("tsunoda") },
+    { position: 15, status: CarStatus.Normal, driver: cloneDriver("russell") },
+    { position: 16, status: CarStatus.Normal, driver: cloneDriver("raikkonen") },
+    { position: 17, status: CarStatus.Normal, driver: cloneDriver("latifi") },
+    { position: 18, status: CarStatus.Normal, driver: cloneDriver("giovinazzi") },
+    { position: 19, status: CarStatus.Normal, driver: cloneDriver("schumacher") },
+    { position: 20, status: CarStatus.Normal, driver: cloneDriver("mazepin") },
   ],
 };
 

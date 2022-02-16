@@ -1,9 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { BGChyrons, OpenState, RootState } from "../../../types/state";
+import {
+  BGChyrons,
+  BGStatusIndicatorModes,
+  BGTimingTowerFocusedCarsMode,
+  BGTimingTowerModes,
+  OpenState,
+  RootState,
+} from "../../../types/state";
 
 const initialState: RootState["broadcastGraphics"] = {
   chyrons: null,
+  timingBoard: {
+    relativePos: {},
+    openState: 0,
+    statusIndicator: {
+      mode: BGStatusIndicatorModes.NormalNarrow,
+    },
+    timingTower: {
+      open: 1,
+      mode: BGTimingTowerModes.Leader,
+      focusedCars: [],
+      focusedCarsMode: BGTimingTowerFocusedCarsMode.None,
+    },
+  },
 };
 
 export const broadcastGraphicsSlice = createSlice({
