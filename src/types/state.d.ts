@@ -1,4 +1,4 @@
-import { Milliseconds, Optional } from "./util";
+import { Meters, Milliseconds, Optional } from "./util";
 import { Corner, Fraction } from "./style";
 
 export interface RootState {
@@ -113,7 +113,7 @@ export interface Car {
   status: CarStatus;
   // flags: ???, // blue, red, meatball, black/white, black
   // notices: ???; // Penalties, warnings, investigations, blue flags, etc
-  // distance: number;
+  distance: Meters;
 }
 export interface Driver {
   id: DriverId;

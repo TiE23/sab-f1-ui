@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { Fraction, Px } from "../../../../types/style";
+
 export const RowsContainer = styled.div`
 display: flex;
 flex-direction: column;
@@ -25,14 +27,18 @@ export const RowContainer = styled.div<RowContainerProps>`
 
   ${({ topGap }) => topGap && css`margin-top: 3px;`}
   ${({ bottomGap }) => bottomGap && css`margin-bottom: 3px;`}
-  ${({ retired }) => retired && css`opacity: 0.4;`}
+  ${({ retired }) => retired && css`opacity: 0.7;`}
 `;
 
 type RoundedProp = {
-  roundedCorner?: boolean;
+  roundedCornerTop?: Px,
+  roundedCornerBottom?: Px,
 };
 const Rounded = styled.div<RoundedProp>`
-  ${({ roundedCorner }) => roundedCorner && css`border-bottom-right-radius: 5px;`}
+  ${({ roundedCornerTop }) =>
+    roundedCornerTop && css`border-top-right-radius: ${roundedCornerTop}px;`}
+  ${({ roundedCornerBottom }) =>
+    roundedCornerBottom && css`border-bottom-right-radius: ${roundedCornerBottom}px;`}
 `;
 
 export const RowLeftHalf = styled(Rounded)`
@@ -43,7 +49,7 @@ export const RowLeftHalf = styled(Rounded)`
   width: 147px; // Future will be animated.
   height: 36px;
 
-  background-color: #000000cb
+  background-color: #000000e5
 `;
 
 export const RowLeftHalfLayout = styled.div`
@@ -77,10 +83,26 @@ export const RowRightHalfLayout = styled.div`
 
   align-items: center;
   justify-content: flex-end;
+  padding-right: 8px;
 `;
 
 export const DriverName = styled.span`
   color: white;
   font-family: ${p => p.theme.fonts.f1Bold};
   font-size: 20px;
+`;
+
+type TimeDiffProps = {
+  xScale: Fraction,
+};
+export const TimeDiff = styled.span<TimeDiffProps>`
+  color: white;
+  font-family: ${p => p.theme.fonts.f1Regular};
+  font-size: 20px;
+
+  text-align: end;
+
+  font-feature-settings: 'tnum' 1;
+  transform-origin: right;
+  transform: scaleX(${({ xScale }) => xScale});
 `;

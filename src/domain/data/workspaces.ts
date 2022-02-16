@@ -92,8 +92,8 @@ export const workspaces: WorkspaceObject = {
       "timing-board-intervals-yellow-flag.png",
     ],
     previewWindowDimensions: {
-      width: 350,
-      height: 820,
+      width: 700,
+      height: 900,
     },
   },
   timingBoardShort: {
@@ -102,8 +102,8 @@ export const workspaces: WorkspaceObject = {
       "timing-board-portrait-gap.png",
     ],
     previewWindowDimensions: {
-      width: 350,
-      height: 410,
+      width: 700,
+      height: 450,
     },
   },
 };

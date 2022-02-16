@@ -4,6 +4,8 @@ import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphi
 import { eventSelector } from "../../../../features/event/eventSelector";
 import { BGTimingTowerModes, Car, CarStatus } from "../../../../types/state";
 import { orMatch } from "../../../../utils/common";
+import { timeDiff } from "../../../../utils/event";
+import { formatTime } from "../../../../utils/styling";
 import { PositionFlag } from "../../Common/PositionFlag";
 import { Spacer } from "../../Common/Spacer.styled";
 
@@ -15,6 +17,7 @@ import {
   RowRightHalf,
   RowRightHalfLayout,
   RowsContainer,
+  TimeDiff,
 } from "./styles";
 
 type TimingTowerProps = {
@@ -39,12 +42,40 @@ export function TimingTower({
     }
   });
 
+  let forwardCarDistance = -1;
+
   const buildRow = (
     car: Car,
     index: number,
     count: number,
   ) => {
     const lastRow = index + 1 === count;
+
+    let leader = false;
+    if (forwardCarDistance === -1) {
+      leader = true;
+      forwardCarDistance = car.distance;
+    }
+
+    let rightHalfContent = "";
+    let xScale = 1.0;
+    if (leader) {
+      rightHalfContent = timingBoard.timingTower.mode === BGTimingTowerModes.Leader
+        ? "Leader" : timingBoard.timingTower.mode === BGTimingTowerModes.Interval
+          ? "Interval" : "";
+    } else if (car.status === CarStatus.Retired) {
+      rightHalfContent = "OUT";
+    } else {
+      rightHalfContent = `+${formatTime(timeDiff(
+        forwardCarDistance,
+        car.distance,
+      ))}`;
+      xScale = rightHalfContent.includes(".") && rightHalfContent.length > 7 ? 0.75 : 0.9;
+    }
+
+    if (timingBoard.timingTower.mode === BGTimingTowerModes.Interval) {
+      forwardCarDistance = car.distance;
+    }
 
     return (
       <RowContainer
@@ -54,11 +85,13 @@ export function TimingTower({
         wide={timingBoard.timingTower.mode !== BGTimingTowerModes.Minimum}
       >
         <RowLeftHalf
-          roundedCorner={lastRow && orMatch(
-            timingBoard.timingTower.mode,
-            BGTimingTowerModes.Minimum,
-            BGTimingTowerModes.FullName,
-          )}
+          roundedCornerBottom={
+            lastRow && orMatch(
+              timingBoard.timingTower.mode,
+              BGTimingTowerModes.Minimum,
+              BGTimingTowerModes.FullName,
+            ) ? 5 : undefined
+          }
         >
           <RowLeftHalfLayout>
             <Spacer width="3px" />
@@ -75,14 +108,22 @@ export function TimingTower({
           </RowLeftHalfLayout>
         </RowLeftHalf>
         <RowRightHalf
-          roundedCorner={lastRow && orMatch(
-            timingBoard.timingTower.mode,
-            BGTimingTowerModes.Leader,
-            BGTimingTowerModes.Interval,
-          )}
+          roundedCornerTop={
+            index === 0 && car.status !== CarStatus.Retired
+              ? 5 : undefined
+          }
+          roundedCornerBottom={
+            lastRow && orMatch(
+              timingBoard.timingTower.mode,
+              BGTimingTowerModes.Leader,
+              BGTimingTowerModes.Interval,
+            ) ? 5 : undefined
+          }
         >
           <RowRightHalfLayout>
-
+            <TimeDiff xScale={xScale}>
+              {rightHalfContent}
+            </TimeDiff>
           </RowRightHalfLayout>
         </RowRightHalf>
       </RowContainer>

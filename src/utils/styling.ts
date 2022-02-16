@@ -127,9 +127,13 @@ export function outlineClipPath(
       [0, height + outlineThickness],
     ];
   }
+}
 
-
-  // return [
-
-  // ]
+export function formatTime(time: number) {
+  if (time < 60) {
+    return String(time.toFixed(3));
+  }
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${minutes}:${String(seconds.toFixed(3)).padStart(6, "0")}`;
 }
