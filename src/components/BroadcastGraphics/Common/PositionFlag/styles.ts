@@ -23,7 +23,7 @@ type PositionNumberProps = {
 };
 export const PositionNumber = styled.span<PositionNumberProps>`
   font-family: ${p => p.theme.fonts.f1Regular};
-  font-size: ${({ size }) => `${size * 0.64}px`};
+  font-size: ${({ size }) => size}px;
   margin-top: 2px;
 `;
 PositionNumber.displayName = "PositionNumber";

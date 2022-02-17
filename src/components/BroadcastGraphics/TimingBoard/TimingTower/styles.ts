@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 
 import { Fraction, Px } from "../../../../types/style";
 
+const ROW_HEIGHT = 36.5;
+
 export const RowsContainer = styled.div`
 display: flex;
 flex-direction: column;
@@ -11,7 +13,7 @@ flex-wrap: nowrap;
 justify-content: flex-start;
 align-items: stretch;
 `;
-
+RowsContainer.displayName = "RowsContainer";
 
 type RowContainerProps = {
   topGap?: boolean,
@@ -23,12 +25,13 @@ type RowContainerProps = {
 export const RowContainer = styled.div<RowContainerProps>`
   position: relative;
   width: ${({ wide }) => wide ? 255 : 147}px;
-  height: 36px; // Future will be animated.
+  height: ${ROW_HEIGHT}px; // Future will be animated.
 
   ${({ topGap }) => topGap && css`margin-top: 3px;`}
   ${({ bottomGap }) => bottomGap && css`margin-bottom: 3px;`}
   ${({ retired }) => retired && css`opacity: 0.7;`}
 `;
+RowContainer.displayName = "RowContainer";
 
 type RoundedProp = {
   roundedCornerTop?: Px,
@@ -47,20 +50,32 @@ export const RowLeftHalf = styled(Rounded)`
   top: 0;
 
   width: 147px; // Future will be animated.
-  height: 36px;
+  height: ${ROW_HEIGHT}px;
 
   background-color: #000000e5
 `;
+RowLeftHalf.displayName = "RowLeftHalf";
 
 export const RowLeftHalfLayout = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
 
   display: flex;
+  padding-left: 3px;
 
   align-items: center;
   justify-content: flex-start;
 `;
+RowLeftHalfLayout.displayName = "RowLeftHalfLayout";
+
+export const RowLeftHalfGemContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 2px;
+`;
+RowLeftHalfGemContainer.displayName = "RowLeftHalfGemContainer";
 
 export const RowRightHalf = styled(Rounded)`
   position: absolute;
@@ -68,12 +83,13 @@ export const RowRightHalf = styled(Rounded)`
   top: 0;
 
   width: 108px; // Future will be animated.
-  height: 36px;
+  height: ${ROW_HEIGHT}px;
 
   overflow-x: hidden;
 
   background-color: #0000007e
 `;
+RowRightHalf.displayName = "RowRightHalf";
 
 export const RowRightHalfLayout = styled.div`
   width: 100%;
@@ -85,15 +101,19 @@ export const RowRightHalfLayout = styled.div`
   justify-content: flex-end;
   padding-right: 8px;
 `;
+RowRightHalfLayout.displayName = "RowRightHalfLayout";
 
 export const DriverName = styled.span`
   color: white;
   font-family: ${p => p.theme.fonts.f1Bold};
   font-size: 20px;
+  margin-left: 14px;
 `;
+DriverName.displayName = "DriverName";
 
 type TimeDiffProps = {
   xScale: Fraction,
+  yScale: Fraction,
 };
 export const TimeDiff = styled.span<TimeDiffProps>`
   color: white;
@@ -103,6 +123,7 @@ export const TimeDiff = styled.span<TimeDiffProps>`
   text-align: end;
 
   font-feature-settings: 'tnum' 1;
-  transform-origin: right;
-  transform: scaleX(${({ xScale }) => xScale});
+  transform-origin: top right;
+  transform: scale(${({ xScale, yScale }) => `${xScale}, ${yScale}`});
 `;
+TimeDiff.displayName = "TimeDiff";

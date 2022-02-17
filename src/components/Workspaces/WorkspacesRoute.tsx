@@ -103,6 +103,7 @@ export default function Workspaces() {
                 workspaceId="timingBoardShort"
                 previewContent={<TimingTower carsToDisplay={6} />}
                 prototypeControls={<div>Timing Tower Short</div>}
+                bleedover={250}
               />
             } />
             <Route path="*" element={<IndexHeading>Unknown Workspace</IndexHeading>} />

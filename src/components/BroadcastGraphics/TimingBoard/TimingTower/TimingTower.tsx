@@ -8,12 +8,13 @@ import { orMatch } from "../../../../utils/common";
 import { timeDiff } from "../../../../utils/event";
 import { formatTime } from "../../../../utils/styling";
 import { PositionFlag } from "../../Common/PositionFlag";
-import { Spacer } from "../../Common/Spacer.styled";
+import { TeamGem } from "../../Common/TeamGem";
 
 import {
   DriverName,
   RowContainer,
   RowLeftHalf,
+  RowLeftHalfGemContainer,
   RowLeftHalfLayout,
   RowRightHalf,
   RowRightHalfLayout,
@@ -35,7 +36,7 @@ export function TimingTower({
   const retiredCars: Car[] = [];
 
   grid.forEach((car, index) => {
-    if (index >= carsToDisplay) return;
+    if (index >= carsToDisplay || car.status === CarStatus.DidNotStart) return;
     if (car.status === CarStatus.Retired) {
       retiredCars.push(car);
     } else {
@@ -54,6 +55,7 @@ export function TimingTower({
     const lastRow = index + 1 === count;
     let rightHalfContent = "";
     let xScale: Fraction = 1.0;
+    let yScale: Fraction = 1.0;
 
     let leader = false;
     if (forwardCarDistance === -1) {
@@ -72,6 +74,7 @@ export function TimingTower({
         car.distance,
       ), 60)}`;
       xScale = rightHalfContent.includes(".") && rightHalfContent.length > 7 ? 0.75 : 0.9;
+      yScale = rightHalfContent.includes(".") ? 1.1 : 1.0;
     }
 
     if (timingBoard.timingTower.mode === BGTimingTowerModes.Interval) {
@@ -95,18 +98,20 @@ export function TimingTower({
           }
         >
           <RowLeftHalfLayout>
-            <Spacer width="3px" />
             {car.status !== CarStatus.Retired && (
               <PositionFlag
                 size={32}
                 number={index + 1}  // Not using car.position...
+                numberSizeFraction={.6}
               />
             )}
-            <Spacer width="14px" />
             <DriverName>
               {car.driver.initials}
             </DriverName>
           </RowLeftHalfLayout>
+          <RowLeftHalfGemContainer>
+            <TeamGem team={car.driver.team.id} height={30} />
+          </RowLeftHalfGemContainer>
         </RowLeftHalf>
         <RowRightHalf
           roundedCornerTop={
@@ -122,7 +127,7 @@ export function TimingTower({
           }
         >
           <RowRightHalfLayout>
-            <TimeDiff xScale={xScale}>
+            <TimeDiff xScale={xScale} yScale={yScale}>
               {rightHalfContent}
             </TimeDiff>
           </RowRightHalfLayout>

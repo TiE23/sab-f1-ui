@@ -5,6 +5,8 @@ import useMeasure from "react-use-measure";
 
 import { overlayToolSelector } from "../../../features/overlayTool/overlayToolSelector";
 import { setPosition } from "../../../features/overlayTool/overlayToolSlice";
+import { Px } from "../../../types/style";
+
 import {
   OverlayImage,
   OverlayImageContainer,
@@ -16,10 +18,10 @@ const overlayImages = require.context("../../../public/images/overlays", true);
 
 type OverlayDisplayProps = {
   containerDimensions: {
-    width: number,
-    height: number,
+    width: Px,
+    height: Px,
   },
-  bleedover?: number,
+  bleedover?: Px,
 };
 export function OverlayDisplay({
   containerDimensions: { width: containerWidth, height: containerHeight },
