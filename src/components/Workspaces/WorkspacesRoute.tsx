@@ -95,6 +95,7 @@ export default function Workspaces() {
                 workspaceId="timingBoardFull"
                 previewContent={<TimingTower />}
                 prototypeControls={<div>Timing Tower Full</div>}
+                bleedover={500}
               />
             } />
             <Route path="timingBoardShort" element={
