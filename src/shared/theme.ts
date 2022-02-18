@@ -23,17 +23,40 @@ export const theme = {
     faintGrey: "#eee",
     darkGrey: "#303030",
     videoFrameBG: "#333",
-    teams: {
+    teams: {  // 2021 Season
       alfaRomeo: "#900000",
       alphaTauri: "#2b4562",
       alpine: "#0090ff",
       astonMartin: "#006f62",
       ferrari: "#dc0000",
-      haas: "#fff",
+      haas: "#ffffff",
       mclaren: "#ff9800",
       mercedes: "#00d2be",
       redBull: "#0600ef",
       williams: "#005aff",
+    },
+    logos: {  // Colors provided by https://www.f1.daavs.org/credits
+      f1Red: "#ff1801",
+      dhlYellow: "#ffcc00",
+      dhlRed: "#d40511",
+      rolexGreen: "#006039",
+      rolexGold: "#a37e2c",
+      emiratesRed: "#d71a21",
+      pirelliRed: "#d52b1e",
+      pirelliYellow: "#fed100",
+    },
+    laps: {   // Colors provided by https://www.f1.daavs.org/credits
+      purple: "#a700ff",
+      green: "#44d745",
+      yellow: "#f8d500",
+      red: "#be2c30",
+    },
+    tyres: {  // Colors provided by https://www.f1.daavs.org/credits
+      soft: "#e93324",
+      medium: "#f3fd54",
+      hard: "#ffffff",
+      wet: "#518ed4",
+      intermediate: "#6ebe4f",
     },
   },
   fontSizes: {
@@ -41,6 +64,9 @@ export const theme = {
     selector: "0.9em",
   },
   design: {
+    timingTower: {
+      rowHeightPx: 36.5,
+    },
     button: {
       borderRadius: "0.25rem",
     },

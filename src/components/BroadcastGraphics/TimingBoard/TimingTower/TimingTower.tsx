@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 
 import { eventSelector } from "../../../../features/event/eventSelector";
-import { BGTimingTowerModes, Car, CarStatus } from "../../../../types/state";
+import { BGTimingTowerModes, Car, CarNotice, CarStatus } from "../../../../types/state";
 import { Fraction } from "../../../../types/style";
 import { orMatch } from "../../../../utils/common";
 import { timeDiff } from "../../../../utils/event";
@@ -12,6 +12,7 @@ import { TeamGem } from "../../Common/TeamGem";
 
 import {
   DriverName,
+  FastestLapGem,
   RowContainer,
   RowLeftHalf,
   RowLeftHalfGemContainer,
@@ -88,6 +89,9 @@ export function TimingTower({
         retired={car.status === CarStatus.Retired}
         wide={timingBoard.timingTower.mode !== BGTimingTowerModes.Minimum}
       >
+        {car.notices.includes(CarNotice.FastestLap) && (
+          <FastestLapGem />
+        )}
         <RowLeftHalf
           roundedCornerBottom={
             lastRow && orMatch(

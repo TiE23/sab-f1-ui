@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 
 import { Fraction, Px } from "../../../../types/style";
 
-const ROW_HEIGHT = 36.5;
-
 export const RowsContainer = styled.div`
 display: flex;
 flex-direction: column;
@@ -25,7 +23,7 @@ type RowContainerProps = {
 export const RowContainer = styled.div<RowContainerProps>`
   position: relative;
   width: ${({ wide }) => wide ? 255 : 147}px;
-  height: ${ROW_HEIGHT}px; // Future will be animated.
+  height: ${p => p.theme.design.timingTower.rowHeightPx}px; // Future will be animated.
 
   ${({ topGap }) => topGap && css`margin-top: 3px;`}
   ${({ bottomGap }) => bottomGap && css`margin-bottom: 3px;`}
@@ -50,7 +48,7 @@ export const RowLeftHalf = styled(Rounded)`
   top: 0;
 
   width: 147px; // Future will be animated.
-  height: ${ROW_HEIGHT}px;
+  height: ${p => p.theme.design.timingTower.rowHeightPx}px;
 
   background-color: #000000e5
 `;
@@ -83,7 +81,7 @@ export const RowRightHalf = styled(Rounded)`
   top: 0;
 
   width: 108px; // Future will be animated.
-  height: ${ROW_HEIGHT}px;
+  height: ${p => p.theme.design.timingTower.rowHeightPx}px;
 
   overflow-x: hidden;
 
@@ -127,3 +125,20 @@ export const TimeDiff = styled.span<TimeDiffProps>`
   transform: scale(${({ xScale, yScale }) => `${xScale}, ${yScale}`});
 `;
 TimeDiff.displayName = "TimeDiff";
+
+import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
+export const FastestLapGem = styled.div`
+  position: absolute;
+
+  height: ${p => p.theme.design.timingTower.rowHeightPx}px;
+  width: ${p => p.theme.design.timingTower.rowHeightPx - 2}px;
+
+  left: ${p => -p.theme.design.timingTower.rowHeightPx + 2}px;
+  top: 0;
+
+  background-color: ${p => p.theme.colors.laps.purple};
+  background-image: url(${fastestLapIcon});
+  background-repeat: no-repeat;
+  background-size: 89%;
+  background-position: center 40%;
+`;
