@@ -70,9 +70,11 @@ export interface OverlayItem {
 // Event State
 export interface Event {
   trackName: string;
+  trackLength: Meters;
   courseStatus: CourseStatus;
   mode: EventMode;
   progress: EventProgress;
+  leaderGridSpot: GridSpot;
   grid: Grid;
 }
 export interface EventProgress {
@@ -107,6 +109,7 @@ export type CourseFlag =
 export type SafetyCarStatus = "clear" | "starting" | "out" | "ending";
 export type VirtualSafetyCarStatus = "clear" | "out" | "ending";
 export type Grid = Car[];  // Grid order does not change.
+export type GridSpot = number;
 export interface Car {
   position: number;
   driver: Driver;

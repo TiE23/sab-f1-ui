@@ -142,3 +142,4 @@ export const FastestLapGem = styled.div`
   background-size: 89%;
   background-position: center 40%;
 `;
+FastestLapGem.displayName = "FastestLapGem";

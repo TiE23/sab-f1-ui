@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
-import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 
+import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { eventSelector } from "../../../../features/event/eventSelector";
 import { BGTimingTowerModes, Car, CarNotice, CarStatus } from "../../../../types/state";
 import { Fraction } from "../../../../types/style";
 import { orMatch } from "../../../../utils/common";
 import { timeDiff } from "../../../../utils/event";
 import { formatTime } from "../../../../utils/styling";
+
 import { PositionFlag } from "../../Common/PositionFlag";
 import { TeamGem } from "../../Common/TeamGem";
 
@@ -30,7 +31,7 @@ export function TimingTower({
   carsToDisplay = 20,
 }: TimingTowerProps) {
 
-  const { grid } = useSelector(eventSelector);
+  const { grid, trackLength, leaderGridSpot } = useSelector(eventSelector);
   const { timingBoard } = useSelector(broadcastGraphicsSelector);
 
   const runningCars: Car[] = [];
@@ -58,24 +59,25 @@ export function TimingTower({
     let xScale: Fraction = 1.0;
     let yScale: Fraction = 1.0;
 
-    let leader = false;
+    let isLeader = false;
     if (forwardCarDistance === -1) {
-      leader = true;
+      isLeader = true;
       forwardCarDistance = car.distance;
     }
-    if (leader) {
+    if (isLeader) {
       rightHalfContent = timingBoard.timingTower.mode === BGTimingTowerModes.Leader
         ? "Leader" : timingBoard.timingTower.mode === BGTimingTowerModes.Interval
           ? "Interval" : "";
     } else if (car.status === CarStatus.Retired) {
       rightHalfContent = "OUT";
     } else {
-      rightHalfContent = `+${formatTime(timeDiff(
-        forwardCarDistance,
-        car.distance,
-      ), 60)}`;
-      xScale = rightHalfContent.includes(".") && rightHalfContent.length > 7 ? 0.75 : 0.9;
-      yScale = rightHalfContent.includes(".") ? 1.1 : 1.0;
+      const plusLaps = Math.floor((grid[leaderGridSpot].distance - car.distance) / trackLength);
+      rightHalfContent =
+      timingBoard.timingTower.mode === BGTimingTowerModes.Leader && plusLaps > 0
+        ? `+${plusLaps} LAP${plusLaps > 1 ? "S" : ""}`
+        : `+${formatTime(timeDiff(forwardCarDistance, car.distance), 60)}`;
+      xScale = rightHalfContent.includes(":") ? 0.75 : 0.9;
+      yScale = rightHalfContent.includes("+") ? 1.1 : 1.0;
     }
 
     if (timingBoard.timingTower.mode === BGTimingTowerModes.Interval) {
