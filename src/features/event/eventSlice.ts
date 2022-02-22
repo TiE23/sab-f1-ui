@@ -93,7 +93,7 @@ const initialState: RootState["event"] = {
     },
     {
       position: 9,
-      status: CarStatus.Normal,
+      status: CarStatus.DidNotStart,
       tyre: DEFAULT_TYRE,
       notices: [],
       distance: 1200 * 4,
@@ -206,10 +206,18 @@ export const eventSlice = createSlice({
         status: car.status,
       }));
 
+      const add = (status: CarStatus) => {
+        if (status === CarStatus.Retired) {
+          return 1000000;
+        } else if (status === CarStatus.DidNotStart) {
+          return 2000000;
+        }
+        return 0;
+      };
+
       sortingGrid.sort((a, b) =>
         // Retired cars go to the end but still maintain their own order.
-        (b.distance - (b.status === CarStatus.Retired ? 1000000 : 0))
-        - (a.distance - (a.status === CarStatus.Retired ? 1000000 : 0)),
+        (b.distance - add(b.status)) - (a.distance - add(a.status)),
       );
 
       sortingGrid.forEach((entry, sortedPosition) => {

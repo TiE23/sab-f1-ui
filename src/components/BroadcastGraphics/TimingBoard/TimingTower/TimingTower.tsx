@@ -40,42 +40,51 @@ export function TimingTower() {
     broadcastGraphicsSelector,
   );
 
-  const [retiredCarsPresent, setRetiredCarsPresent] = useState(0);
+  const [startingCarsCount, setStartingCarsCount] = useState(0);
+  const [retiredCarsCount, setRetiredCarsCount] = useState(0);
   const [rows, setRows] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
-    let anyRetired = 0;
+    // Filter away cars that are marked as not starting so they don't appear.
+    const startingGrid = grid.filter(car => car.status !== CarStatus.DidNotStart);
+    setStartingCarsCount(startingGrid.length);
 
-    setRows(grid.map((car, index, cars) => {
+    let retiredCount = 0;
+    startingGrid.forEach(car => {
       if (car.status === CarStatus.Retired) {
-        ++anyRetired;
+        ++retiredCount;
       }
-      return buildRow(car, index, cars.length);
-    }));
-    setRetiredCarsPresent(anyRetired);
+    });
+    setRetiredCarsCount(retiredCount);
+
+    setRows(startingGrid.map((car, index, grid) =>
+      buildRow(car, index, startingGrid.length, retiredCount)));
   }, [lastUpdate, splitsMode]);
 
 
   const buildRow = (
     car: Car,
     index: number,
-    count: number,
+    startingCarsCount: number,
+    retiredCarsCount: number,
   ) => {
-    const lastRow = index + 1 === count;
+    const bottomRounded = car.status === CarStatus.Retired ? (
+      car.position === startingCarsCount
+    ) : (
+      car.position === startingCarsCount - retiredCarsCount
+    );
+
     let rightHalfContent = "";
     let xScale: Fraction = 1.0;
     let yScale: Fraction = 1.0;
 
-    if (index === leaderGridSpot) {
-      // Leading car shows "Leader" or "Interval".
+    if (car.position === 1) {
       rightHalfContent = splitsMode === BGTimingTowerSplitsMode.Leader
         ? "Leader" : splitsMode === BGTimingTowerSplitsMode.Interval
           ? "Interval" : "";
     } else if (car.status === CarStatus.Retired) {
-      // Retired car shows "OUT".
       rightHalfContent = "OUT";
     } else {
-      // Other cars show gaps.
       const deltaCar = getCarAtPos(
         grid,
         splitsMode === BGTimingTowerSplitsMode.Leader ? 1 : car.position - 1,
@@ -104,7 +113,7 @@ export function TimingTower() {
         )}
         <RowLeftHalf
           roundedCornerBottom={
-            lastRow && orMatch(
+            bottomRounded && orMatch(
               timingTower.displayMode,
               BGTimingTowerDisplayModes.LeftOnly,
               BGTimingTowerDisplayModes.FullLeft,
@@ -128,12 +137,9 @@ export function TimingTower() {
           </RowLeftHalfGemContainer>
         </RowLeftHalf>
         <RowRightHalf
-          roundedCornerTop={
-            index === 0 && car.status !== CarStatus.Retired
-              ? 5 : undefined
-          }
+          roundedCornerTop={car.position === 1 ? 5 : undefined}
           roundedCornerBottom={
-            lastRow && orMatch(
+            bottomRounded && orMatch(
               timingTower.splitsMode,
               BGTimingTowerSplitsMode.Leader,
               BGTimingTowerSplitsMode.Interval,
@@ -151,7 +157,10 @@ export function TimingTower() {
   };
 
   return (
-    <RowsContainer carsToDisplay={grid.length} retiredCarsPresent={!!retiredCarsPresent}>
+    <RowsContainer
+      carsToDisplay={startingCarsCount}
+      retiredCarsPresent={retiredCarsCount > 0}
+    >
       {rows}
     </RowsContainer>
   );
