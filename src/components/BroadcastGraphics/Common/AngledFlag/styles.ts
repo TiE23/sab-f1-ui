@@ -98,7 +98,7 @@ type TeamFlagDivProps = {
   style: TeamFlagStyle,
   bottomFlag?: boolean,
 };
-export const TeamFlagDiv = styled(FlagDivBase) <TeamFlagDivProps>`
+export const TeamFlagDiv = styled(FlagDivBase)<TeamFlagDivProps>`
   height: ${({ height }) => `${height}px`};
   width: ${({ width }) => `${width}px`};
 

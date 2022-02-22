@@ -21,7 +21,6 @@ import {
   LastName,
   NameContainer,
   NumberContainer,
-  Spacer,
   TeamColorBar,
   TeamName,
   TextContainer,
@@ -29,6 +28,7 @@ import {
   DriverPortraitContainer,
 } from "./styles";
 import { VenetianBlindsTransition } from "../../Common/VenetianBlindsTransition";
+import { Spacer } from "../../Common/Spacer.styled";
 
 type ChyronDriverProps = {
   chyronData: BGChyronDriver,

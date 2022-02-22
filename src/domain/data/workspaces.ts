@@ -84,4 +84,17 @@ export const workspaces: WorkspaceObject = {
       height: 500,
     },
   },
+  timingBoard: {
+    name: "Timing Board",
+    overlayIds: [
+      "timing-board-leader-19.png",
+      "timing-board-leader-20-out-1.png",
+      "timing-board-intervals-yellow-flag.png",
+      "timing-board-portrait-gap.png",
+    ],
+    previewWindowDimensions: {
+      width: 700,
+      height: 900,
+    },
+  },
 };

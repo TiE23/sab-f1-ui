@@ -171,16 +171,6 @@ export const TeamName = styled.div<TeamNameProps>`
 `;
 TeamName.displayName = "TeamName";
 
-type SpacerProps = {
-  width?: string,
-  height?: string;
-};
-export const Spacer = styled.div<SpacerProps>`
-  width: ${({ width = "0" }) => width};
-  height: ${({ height = "0" }) => height};
-`;
-Spacer.displayName = "Spacer";
-
 type FlagContainerProps = {
   height: Px,
   width: Px,

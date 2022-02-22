@@ -496,3 +496,64 @@ export const teamFlagStyles: { [teamId: string]: TeamFlagStyle } = {
     subFlagModifier: { x: 1, y: 1, scale: .98 },
   },
 };
+
+export type TeamGemStyle = {
+  backgroundColor: string,
+  imageSize: Percent,
+  imagePos: {
+    x: number,
+    y: number,
+  },
+};
+export const teamGemStyles: { [teamId: string]: TeamGemStyle } = {
+  alfaRomeo: {
+    backgroundColor: "#660000",
+    imageSize: 65,
+    imagePos: { x: .28, y: .15 },
+  },
+  alphaTauri: {
+    backgroundColor: "#232c3b",
+    imageSize: 75,
+    imagePos: { x: .26, y: .07 },
+  },
+  alpine: {
+    backgroundColor: "black",
+    imageSize: 82,
+    imagePos: { x: .13, y: 0 },
+  },
+  astonMartin: {
+    backgroundColor: "#037356",
+    imageSize: 130,
+    imagePos: { x: .05, y: -.22 },
+  },
+  ferrari: {
+    backgroundColor: "#dc0000",
+    imageSize: 65,
+    imagePos: { x: .3, y: .18 },
+  },
+  haas: {
+    backgroundColor: "#f0f0f0",
+    imageSize: 65,
+    imagePos: { x: .25, y: .12 },
+  },
+  mclaren: {
+    backgroundColor: "#545459",
+    imageSize: 67,
+    imagePos: { x: .25, y: .1 },
+  },
+  mercedes: {
+    backgroundColor: "#1ee0ad",
+    imageSize: 63,
+    imagePos: { x: .31, y: .16 },
+  },
+  redBull: {
+    backgroundColor: "#413ae2",
+    imageSize: 130,
+    imagePos: { x: .20, y: .05 },
+  },
+  williams: {
+    backgroundColor: "#12a0cb",
+    imageSize: 65,
+    imagePos: { x: .3, y: .12 },
+  },
+};

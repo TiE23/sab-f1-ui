@@ -18,6 +18,8 @@ import { AngledFlagPrototypeControls } from "./PrototypingControls/AngledFlagPro
 import { ChyronContainer } from "../BroadcastGraphics/Chyrons/Container";
 import { VenetianBlindsWorkspace } from "./CustomWorkSpaces/VenetianBlindsWorkspace";
 import { VenetianBlindsPrototypeControls } from "./PrototypingControls/VenetianBlindsPrototype";
+import { TimingTower } from "../BroadcastGraphics/TimingBoard/TimingTower";
+import { TimingTowerPrototypeControls } from "./PrototypingControls/TimingTowerPrototype";
 
 const WORKSPACE_LIST_WIDTH = 180;
 
@@ -87,6 +89,14 @@ export default function Workspaces() {
                 workspaceId="venetianTransition"
                 previewContent={<VenetianBlindsWorkspace />}
                 prototypeControls={<VenetianBlindsPrototypeControls />}
+              />
+            } />
+            <Route path="timingBoard" element={
+              <Workspace
+                workspaceId="timingBoard"
+                previewContent={<TimingTower />}
+                prototypeControls={<TimingTowerPrototypeControls />}
+                bleedover={500}
               />
             } />
             <Route path="*" element={<IndexHeading>Unknown Workspace</IndexHeading>} />
