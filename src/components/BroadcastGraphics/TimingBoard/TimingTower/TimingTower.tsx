@@ -57,14 +57,12 @@ export function TimingTower() {
     });
     setRetiredCarsCount(retiredCount);
 
-    setRows(startingGrid.map((car, index, grid) =>
-      buildRow(car, index, startingGrid.length, retiredCount)));
+    setRows(startingGrid.map(car => buildRow(car, startingGrid.length, retiredCount)));
   }, [lastUpdate, splitsMode]);
 
 
   const buildRow = (
     car: Car,
-    index: number,
     startingCarsCount: number,
     retiredCarsCount: number,
   ) => {

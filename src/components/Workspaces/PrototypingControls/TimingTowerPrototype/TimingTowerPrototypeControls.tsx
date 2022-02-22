@@ -14,17 +14,11 @@ export function TimingTowerPrototypeControls() {
 
   return (
     <InlineCluster gutter="md">
-      <ClickSpan
-        onClick={() => {
-          console.log("refreshRunningOrder");
-          dispatch(refreshRunningOrder());
-        }}
-      >
+      <ClickSpan onClick={() => dispatch(refreshRunningOrder())}>
       Refresh Running Order
       </ClickSpan>
       <ClickSpan
         onClick={() => {
-          console.log("Swap Interval");
           if (splitsMode === BGTimingTowerSplitsMode.Interval) {
             dispatch(setTimingTowerSplitsMode(BGTimingTowerSplitsMode.Leader));
           } else {
