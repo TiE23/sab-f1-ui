@@ -1,11 +1,19 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { eventSelector } from "../../../../features/event/eventSelector";
-import { BGTimingTowerModes, Car, CarNotice, CarStatus } from "../../../../types/state";
+import { theme } from "../../../../shared/theme";
+import {
+  BGTimingTowerDisplayModes,
+  BGTimingTowerSplitsMode,
+  Car,
+  CarNotice,
+  CarStatus,
+} from "../../../../types/state";
 import { Fraction } from "../../../../types/style";
 import { orMatch } from "../../../../utils/common";
-import { timeDiff } from "../../../../utils/event";
+import { getCarAtPos, timeDiff } from "../../../../utils/event";
 import { formatTime } from "../../../../utils/styling";
 
 import { PositionFlag } from "../../Common/PositionFlag";
@@ -14,7 +22,7 @@ import { TeamGem } from "../../Common/TeamGem";
 import {
   DriverName,
   FastestLapGem,
-  RowContainer,
+  AnimatedRowContainer,
   RowLeftHalf,
   RowLeftHalfGemContainer,
   RowLeftHalfLayout,
@@ -24,72 +32,72 @@ import {
   TimeDiff,
 } from "./styles";
 
-type TimingTowerProps = {
-  carsToDisplay?: number,
-}
-export function TimingTower({
-  carsToDisplay = 20,
-}: TimingTowerProps) {
 
-  const { grid, trackLength, leaderGridSpot } = useSelector(eventSelector);
-  const { timingBoard } = useSelector(broadcastGraphicsSelector);
+export function TimingTower() {
 
-  const runningCars: Car[] = [];
-  const retiredCars: Car[] = [];
+  const { lastUpdate, grid, trackLength, leaderGridSpot } = useSelector(eventSelector);
+  const { timingBoard: { timingTower }, timingBoard: { timingTower: { splitsMode } } } = useSelector(
+    broadcastGraphicsSelector,
+  );
 
-  grid.forEach((car, index) => {
-    if (index >= carsToDisplay || car.status === CarStatus.DidNotStart) return;
-    if (car.status === CarStatus.Retired) {
-      retiredCars.push(car);
-    } else {
-      runningCars.push(car);
-    }
-  });
+  const [retiredCarsPresent, setRetiredCarsPresent] = useState(0);
+  const [rows, setRows] = useState<JSX.Element[]>([]);
 
-  let forwardCarDistance = -1;
+  useEffect(() => {
+    let anyRetired = 0;
+
+    setRows(grid.map((car, index, cars) => {
+      if (car.status === CarStatus.Retired) {
+        ++anyRetired;
+      }
+      return buildRow(car, index, cars.length);
+    }));
+    setRetiredCarsPresent(anyRetired);
+  }, [lastUpdate, splitsMode]);
+
 
   const buildRow = (
     car: Car,
     index: number,
     count: number,
   ) => {
-    const firstRow = index === 0;
     const lastRow = index + 1 === count;
     let rightHalfContent = "";
     let xScale: Fraction = 1.0;
     let yScale: Fraction = 1.0;
 
-    let isLeader = false;
-    if (forwardCarDistance === -1) {
-      isLeader = true;
-      forwardCarDistance = car.distance;
-    }
-    if (isLeader) {
-      rightHalfContent = timingBoard.timingTower.mode === BGTimingTowerModes.Leader
-        ? "Leader" : timingBoard.timingTower.mode === BGTimingTowerModes.Interval
+    if (index === leaderGridSpot) {
+      // Leading car shows "Leader" or "Interval".
+      rightHalfContent = splitsMode === BGTimingTowerSplitsMode.Leader
+        ? "Leader" : splitsMode === BGTimingTowerSplitsMode.Interval
           ? "Interval" : "";
     } else if (car.status === CarStatus.Retired) {
+      // Retired car shows "OUT".
       rightHalfContent = "OUT";
     } else {
-      const plusLaps = Math.floor((grid[leaderGridSpot].distance - car.distance) / trackLength);
+      // Other cars show gaps.
+      const deltaCar = getCarAtPos(
+        grid,
+        splitsMode === BGTimingTowerSplitsMode.Leader ? 1 : car.position - 1,
+      );
+
+      const plusLaps = Math.floor((deltaCar.distance - car.distance) / trackLength);
+
       rightHalfContent =
-      timingBoard.timingTower.mode === BGTimingTowerModes.Leader && plusLaps > 0
+      splitsMode === BGTimingTowerSplitsMode.Leader && plusLaps > 0
         ? `+${plusLaps} LAP${plusLaps > 1 ? "S" : ""}`
-        : `+${formatTime(timeDiff(forwardCarDistance, car.distance), 60)}`;
+        : `+${formatTime(timeDiff(deltaCar.distance, car.distance), 60)}`;
+
       xScale = rightHalfContent.includes(":") ? 0.75 : 0.9;
       yScale = rightHalfContent.includes("+") ? 1.1 : 1.0;
     }
 
-    if (timingBoard.timingTower.mode === BGTimingTowerModes.Interval) {
-      forwardCarDistance = car.distance;
-    }
-
     return (
-      <RowContainer
+      <AnimatedRowContainer
         key={car.driver.id}
-        topGap={car.status === CarStatus.Retired && firstRow}
         retired={car.status === CarStatus.Retired}
-        wide={timingBoard.timingTower.mode !== BGTimingTowerModes.Minimum}
+        wide={timingTower.displayMode !== BGTimingTowerDisplayModes.LeftOnly}
+        top={(car.position - 1) * theme.design.timingTower.rowHeightPx}
       >
         {car.notices.includes(CarNotice.FastestLap) && (
           <FastestLapGem />
@@ -97,9 +105,9 @@ export function TimingTower({
         <RowLeftHalf
           roundedCornerBottom={
             lastRow && orMatch(
-              timingBoard.timingTower.mode,
-              BGTimingTowerModes.Minimum,
-              BGTimingTowerModes.FullName,
+              timingTower.displayMode,
+              BGTimingTowerDisplayModes.LeftOnly,
+              BGTimingTowerDisplayModes.FullLeft,
             ) ? 5 : undefined
           }
         >
@@ -107,7 +115,7 @@ export function TimingTower({
             {car.status !== CarStatus.Retired && (
               <PositionFlag
                 size={32}
-                number={index + 1}  // Not using car.position...
+                number={car.position}
                 numberSizeFraction={.6}
               />
             )}
@@ -126,9 +134,9 @@ export function TimingTower({
           }
           roundedCornerBottom={
             lastRow && orMatch(
-              timingBoard.timingTower.mode,
-              BGTimingTowerModes.Leader,
-              BGTimingTowerModes.Interval,
+              timingTower.splitsMode,
+              BGTimingTowerSplitsMode.Leader,
+              BGTimingTowerSplitsMode.Interval,
             ) ? 5 : undefined
           }
         >
@@ -138,16 +146,12 @@ export function TimingTower({
             </TimeDiff>
           </RowRightHalfLayout>
         </RowRightHalf>
-      </RowContainer>
+      </AnimatedRowContainer>
     );
   };
 
-
-  const rows = runningCars.map((car, index, cars) => buildRow(car, index, cars.length));
-  rows.push(...retiredCars.map((car, index, cars) => buildRow(car, index, cars.length)));
-
   return (
-    <RowsContainer>
+    <RowsContainer carsToDisplay={grid.length} retiredCarsPresent={!!retiredCarsPresent}>
       {rows}
     </RowsContainer>
   );

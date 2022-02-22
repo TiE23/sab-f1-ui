@@ -19,6 +19,7 @@ import { ChyronContainer } from "../BroadcastGraphics/Chyrons/Container";
 import { VenetianBlindsWorkspace } from "./CustomWorkSpaces/VenetianBlindsWorkspace";
 import { VenetianBlindsPrototypeControls } from "./PrototypingControls/VenetianBlindsPrototype";
 import { TimingTower } from "../BroadcastGraphics/TimingBoard/TimingTower";
+import { TimingTowerPrototypeControls } from "./PrototypingControls/TimingTowerPrototype";
 
 const WORKSPACE_LIST_WIDTH = 180;
 
@@ -90,20 +91,12 @@ export default function Workspaces() {
                 prototypeControls={<VenetianBlindsPrototypeControls />}
               />
             } />
-            <Route path="timingBoardFull" element={
+            <Route path="timingBoard" element={
               <Workspace
-                workspaceId="timingBoardFull"
+                workspaceId="timingBoard"
                 previewContent={<TimingTower />}
-                prototypeControls={<div>Timing Tower Full</div>}
+                prototypeControls={<TimingTowerPrototypeControls />}
                 bleedover={500}
-              />
-            } />
-            <Route path="timingBoardShort" element={
-              <Workspace
-                workspaceId="timingBoardShort"
-                previewContent={<TimingTower carsToDisplay={6} />}
-                prototypeControls={<div>Timing Tower Short</div>}
-                bleedover={250}
               />
             } />
             <Route path="*" element={<IndexHeading>Unknown Workspace</IndexHeading>} />

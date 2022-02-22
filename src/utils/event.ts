@@ -1,4 +1,5 @@
 import { random } from "lodash";
+import { Car, Grid } from "../types/state";
 
 import { Meters } from "../types/util";
 
@@ -13,4 +14,16 @@ export function timeDiff(
    */
 
   return random(0.95, 1.05) * ((front - back) / 61.015);
+}
+
+
+export function getCarAtPos(
+  grid: Grid,
+  targetPosition: number,
+): Car {
+  const foundCar = grid.find(car => car.position === targetPosition);
+  if (!foundCar) {
+    return grid[0];
+  }
+  return foundCar;
 }

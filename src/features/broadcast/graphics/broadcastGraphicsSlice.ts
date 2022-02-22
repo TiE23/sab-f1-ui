@@ -3,8 +3,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   BGChyrons,
   BGStatusIndicatorModes,
+  BGTimingTowerDisplayModes,
   BGTimingTowerFocusedCarsMode,
-  BGTimingTowerModes,
+  BGTimingTowerSplitsMode,
   OpenState,
   RootState,
 } from "../../../types/state";
@@ -19,7 +20,8 @@ const initialState: RootState["broadcastGraphics"] = {
     },
     timingTower: {
       open: 1,
-      mode: BGTimingTowerModes.Leader,
+      displayMode: BGTimingTowerDisplayModes.LeftAndRight,
+      splitsMode: BGTimingTowerSplitsMode.Leader,
       focusedCars: [],
       focusedCarsMode: BGTimingTowerFocusedCarsMode.None,
     },
@@ -52,6 +54,11 @@ export const broadcastGraphicsSlice = createSlice({
     clearChyrons: (state) => {
       state.chyrons = null;
     },
+
+    // Timing Board
+    setTimingTowerSplitsMode: (state, action: PayloadAction<BGTimingTowerSplitsMode>) => {
+      state.timingBoard.timingTower.splitsMode = action.payload;
+    },
   },
 });
 
@@ -60,5 +67,6 @@ export const {
   setChyronsOpenState,
   incrementChyronsOpenState,
   clearChyrons,
+  setTimingTowerSplitsMode,
 } = broadcastGraphicsSlice.actions;
 export default broadcastGraphicsSlice.reducer;

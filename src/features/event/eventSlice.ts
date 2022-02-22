@@ -188,6 +188,7 @@ const initialState: RootState["event"] = {
       driver: cloneDriver("mazepin"),
     },
   ],
+  lastUpdate: Date.now(),
 };
 
 export const eventSlice = createSlice({
@@ -196,23 +197,32 @@ export const eventSlice = createSlice({
   reducers: {
     setCourseFlag: (state, action: PayloadAction<CourseFlag>) => {
       state.courseStatus.courseFlag = action.payload;
+      state.lastUpdate = Date.now();
     },
-    calculateLeader: (state) => {
-      let leader = 0;
-      let greatestDistance = Number.MIN_SAFE_INTEGER;
-      for (let p = 0; p < state.grid.length; ++p) {
-        if (state.grid[p].distance > greatestDistance) {
-          leader = p;
-          greatestDistance = state.grid[p].distance;
-        }
-      }
-      state.leaderGridSpot = leader;
+    refreshRunningOrder: (state) => {
+      const sortingGrid = state.grid.map((car, index) => ({
+        gridSpot: index,
+        distance: car.distance,
+        status: car.status,
+      }));
+
+      sortingGrid.sort((a, b) =>
+        // Retired cars go to the end but still maintain their own order.
+        (b.distance - (b.status === CarStatus.Retired ? 1000000 : 0))
+        - (a.distance - (a.status === CarStatus.Retired ? 1000000 : 0)),
+      );
+
+      sortingGrid.forEach((entry, sortedPosition) => {
+        state.grid[entry.gridSpot].position = sortedPosition + 1;
+      });
+      state.leaderGridSpot = sortingGrid[0].gridSpot;
+      state.lastUpdate = Date.now();
     },
   },
 });
 
 export const {
   setCourseFlag,
-  calculateLeader,
+  refreshRunningOrder,
 } = eventSlice.actions;
 export default eventSlice.reducer;

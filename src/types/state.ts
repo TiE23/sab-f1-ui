@@ -76,6 +76,8 @@ export interface Event {
   progress: EventProgress;
   leaderGridSpot: GridSpot;
   grid: Grid;
+  // gridPositions: GridSpot[];
+  lastUpdate: number;
 }
 export interface EventProgress {
   startTime: Milliseconds;
@@ -280,16 +282,20 @@ export enum BGStatusIndicatorModes {
 // Timing Tower
 export interface BGTimingTower {
   open: OpenState;
-  mode: BGTimingTowerModes;
+  displayMode: BGTimingTowerDisplayModes;
+  splitsMode: BGTimingTowerSplitsMode,
   focusedCars: Car[],
   focusedCarsMode: BGTimingTowerFocusedCarsMode,
 }
-export enum BGTimingTowerModes {
-  Hidden,   // Not on display.
-  Minimum,  // Just the driver name abbrv.
+export enum BGTimingTowerDisplayModes {
+  Hidden,
+  LeftOnly,
+  LeftAndRight,
+  FullLeft,
+}
+export enum BGTimingTowerSplitsMode {
   Leader,   // Leader timing.
   Interval, // Interval timing.
-  FullName, // Displays full name.
 }
 export enum BGTimingTowerFocusedCarsMode {
   None,     // When no special treatments are made.

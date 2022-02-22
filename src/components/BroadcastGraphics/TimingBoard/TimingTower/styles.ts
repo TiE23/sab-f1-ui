@@ -1,35 +1,51 @@
 import styled, { css } from "styled-components";
+import { animated } from "@react-spring/web";
 
 import { Fraction, Px } from "../../../../types/style";
 
-export const RowsContainer = styled.div`
-display: flex;
-flex-direction: column;
+import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
 
-flex-wrap: nowrap;
+type RowsContainerProps = {
+  carsToDisplay: number,
+  retiredCarsPresent: boolean,
+};
+export const RowsContainer = styled.div<RowsContainerProps>`
+  position: relative;
 
-justify-content: flex-start;
-align-items: stretch;
+  width: ${p =>
+    p.theme.design.timingTower.rowLeftHalfWidthPx
+      + p.theme.design.timingTower.rowRightHalfWidthPx}px;
+  height: ${({ theme, carsToDisplay, retiredCarsPresent }) =>
+    theme.design.timingTower.rowHeightPx * carsToDisplay + (retiredCarsPresent ? 3 : 0)}px;
+
+  overflow-y: clip; // hidden doesn't work for some reason.
 `;
 RowsContainer.displayName = "RowsContainer";
 
-type RowContainerProps = {
-  topGap?: boolean,
-  bottomGap?: boolean,
+type AnimatedRowContainerProps = {
   retired?: boolean,
   wide?: boolean,
-}
+  top: Px,
+};
 // All the elements in a row should go in here.
-export const RowContainer = styled.div<RowContainerProps>`
-  position: relative;
+export const AnimatedRowContainer = animated(styled.div.attrs<AnimatedRowContainerProps>(({
+  top,
+  retired,
+}) => ({
+  style: {
+    top: `${top + (retired ? 3 : 0)}px`,
+  },
+}))<AnimatedRowContainerProps>`
+  position: absolute;
+  left: 0;
+  transition: top 500ms;
+
   width: ${({ wide }) => wide ? 255 : 147}px;
   height: ${p => p.theme.design.timingTower.rowHeightPx}px; // Future will be animated.
 
-  ${({ topGap }) => topGap && css`margin-top: 3px;`}
-  ${({ bottomGap }) => bottomGap && css`margin-bottom: 3px;`}
   ${({ retired }) => retired && css`opacity: 0.7;`}
-`;
-RowContainer.displayName = "RowContainer";
+`);
+AnimatedRowContainer.displayName = "AnimatedRowContainer";
 
 type RoundedProp = {
   roundedCornerTop?: Px,
@@ -47,7 +63,7 @@ export const RowLeftHalf = styled(Rounded)`
   left: 0;
   top: 0;
 
-  width: 147px; // Future will be animated.
+  width: ${p => p.theme.design.timingTower.rowLeftHalfWidthPx}px; // Future will be animated.
   height: ${p => p.theme.design.timingTower.rowHeightPx}px;
 
   background-color: #000000e5
@@ -80,7 +96,7 @@ export const RowRightHalf = styled(Rounded)`
   right: 0;
   top: 0;
 
-  width: 108px; // Future will be animated.
+  width: ${p => p.theme.design.timingTower.rowRightHalfWidthPx}px; // Future will be animated.
   height: ${p => p.theme.design.timingTower.rowHeightPx}px;
 
   overflow-x: hidden;
@@ -126,7 +142,6 @@ export const TimeDiff = styled.span<TimeDiffProps>`
 `;
 TimeDiff.displayName = "TimeDiff";
 
-import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
 export const FastestLapGem = styled.div`
   position: absolute;
 

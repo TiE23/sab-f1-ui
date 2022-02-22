@@ -66,6 +66,9 @@ export const theme = {
   design: {
     timingTower: {
       rowHeightPx: 36.5,
+      rowLeftHalfWidthPx: 147,
+      rowRightHalfWidthPx: 108,
+      retiredTopGapPx: 3,
     },
     button: {
       borderRadius: "0.25rem",
