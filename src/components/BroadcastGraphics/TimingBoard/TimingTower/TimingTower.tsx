@@ -35,7 +35,7 @@ import {
 
 export function TimingTower() {
 
-  const { lastUpdate, grid, trackLength, leaderGridSpot } = useSelector(eventSelector);
+  const { lastUpdate, grid, trackLength } = useSelector(eventSelector);
   const { timingBoard: { timingTower }, timingBoard: { timingTower: { splitsMode } } } = useSelector(
     broadcastGraphicsSelector,
   );

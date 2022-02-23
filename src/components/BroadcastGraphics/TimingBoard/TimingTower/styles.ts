@@ -56,6 +56,7 @@ const Rounded = styled.div<RoundedProp>`
     roundedCornerTop && css`border-top-right-radius: ${roundedCornerTop}px;`}
   ${({ roundedCornerBottom }) =>
     roundedCornerBottom && css`border-bottom-right-radius: ${roundedCornerBottom}px;`}
+  transition: border-top-right-radius 500ms, border-bottom-right-radius 500ms;
 `;
 
 export const RowLeftHalf = styled(Rounded)`

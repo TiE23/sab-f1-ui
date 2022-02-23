@@ -74,7 +74,7 @@ export interface Event {
   courseStatus: CourseStatus;
   mode: EventMode;
   progress: EventProgress;
-  leaderGridSpot: GridSpot;
+  leaderGridSpot: GridSpot; // Might be removed.
   grid: Grid;
   // gridPositions: GridSpot[];
   lastUpdate: number;
@@ -85,39 +85,49 @@ export interface EventProgress {
   currentLap: number;
   lapCount: number;
 }
-export type EventMode =
-  | "race"
-  | "sprint"
-  | "p1"
-  | "p2"
-  | "p3"
-  | "q1"
-  | "q2"
-  | "q3";
+export enum EventMode {
+  Race,
+  Sprint,
+  Practice1,
+  Practice2,
+  Practice3,
+  Qualifying1,
+  Qualifying2,
+  Qualifying3,
+}
 export interface CourseStatus {
   courseFlag: CourseFlag;
-  sectorFlags: CourseFlag[];
+  sectorFlags: SectorFlag[];
   safetyCar: SafetyCarStatus;
   virtualSafetyCar: VirtualSafetyCarStatus;
 }
-export type CourseFlag =
-  | "green"
-  | "yellow"
-  | "doubleYellow"
-  | "chequered"
-  | "red"
-  | "white"
-  | "redYellow";
-export type SafetyCarStatus = "clear" | "starting" | "out" | "ending";
-export type VirtualSafetyCarStatus = "clear" | "out" | "ending";
+
+export enum CourseFlag {
+  Green,
+  Yellow,
+  Chequered,
+  Red,
+}
+
+export enum SectorFlag {
+  Green,
+  Yellow,
+  DoubleYellow,
+  White,
+  RedYellow,
+}
+
+export enum SafetyCarStatus { Clear, Starting, Out, Ending }
+export enum VirtualSafetyCarStatus { Clear, Active, Ending }
 export type Grid = Car[];  // Grid order does not change.
 export type GridSpot = number;
 export interface Car {
-  position: number;
+  position: number; // Position is DERIVED from distance and status.
   driver: Driver;
   status: CarStatus;
   tyre: Tyre;
-  // flags: ???, // blue, red, meatball, black/white, black
+  // tyreHistory: Tyre[];
+  // pitsCompleted: number;
   notices: CarNotice[];
   distance: Meters;
 }
@@ -130,6 +140,7 @@ export interface Driver {
   yellowTCam: boolean;
   initials: string;
   nationality: string;  // ISO 3166-1 alpha-3 codes
+  performance: Fraction;  // Versus teammate
 }
 export type DriverId =
   | "albon"
@@ -199,6 +210,7 @@ export interface Team {
   shortName: TeamShortName;
   fullName: TeamFullName;
   nationality: string;  // ISO 3166-1 alpha-3 codes
+  performance: Fraction;
   // logo: string;
 }
 export type TeamId =
@@ -275,8 +287,8 @@ export interface BGStatusIndicator {
   mode: BGStatusIndicatorModes;
 }
 export enum BGStatusIndicatorModes {
-  NormalNarrow, // "LAP" above "##/##" lap count.
-  NormalWide, // "LAP" to the left of "##/##" lap count.
+  LapNarrow, // "LAP" above "##/##" lap count.
+  LapWide, // "LAP" to the left of "##/##" lap count.
 }
 
 // Timing Tower

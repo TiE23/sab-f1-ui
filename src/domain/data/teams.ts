@@ -13,60 +13,70 @@ export const teams: {[id: string]: Team} = {
     shortName: "Alfa Romeo",
     fullName: "Alfa Romeo F1 Team ORLEN",
     nationality: "CHE",
+    performance: 1.007,
   },
   alphaTauri: {
     id: "alphaTauri",
     shortName: "AlphaTauri",
     fullName: "Scuderia AlphaTauri",
     nationality: "ITA",
+    performance: 1.016,
   },
   alpine: {
     id: "alpine",
     shortName: "Alpine",
     fullName: "Alpine F1 Team",
     nationality: "FRA",
+    performance: 1.014,
   },
   astonMartin: {
     id: "astonMartin",
     shortName: "Aston Martin",
     fullName: "Aston Martin Cognizant Formula One Team",
     nationality: "GBR",
+    performance: 1.012,
   },
   ferrari: {
     id: "ferrari",
     shortName: "Ferrari",
     fullName: "Scuderia Ferrari",
     nationality: "ITA",
+    performance: 1.021,
   },
   haas: {
     id: "haas",
     shortName: "Haas F1 Team",
     fullName: "Uralkali Haas F1 Team",
     nationality: "USA",
+    performance: 1.000,
   },
   mclaren: {
     id: "mclaren",
     shortName: "McLaren",
     fullName: "McLaren F1 Team",
     nationality: "GBR",
+    performance: 1.020,
   },
   mercedes: {
     id: "mercedes",
     shortName: "Mercedes",
     fullName: "Mercedes-AMG Petronas Formula One Team",
     nationality: "DEU",
+    performance: 1.025,
   },
   redBull: {
     id: "redBull",
     shortName: "Red Bull Racing",
     fullName: "Red Bull Racing",
     nationality: "AUT",
+    performance: 1.024,
   },
   williams: {
     id: "williams",
     shortName: "Williams",
     fullName: "Williams Racing",
     nationality: "GBR",
+    performance: 1.008,
   },
 };
 
@@ -84,6 +94,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,  // TBD
     initials: "ALB",
     nationality: "THA",
+    performance: 1.000,
   },
   alonso: {
     id: "alonso",
@@ -94,6 +105,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "ALO",
     nationality: "ESP",
+    performance: 1.003,
   },
   bottas: {
     id: "bottas",
@@ -104,6 +116,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "BOT",
     nationality: "FIN",
+    performance: 1.000,
   },
   gasly: {
     id: "gasly",
@@ -114,6 +127,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "GAS",
     nationality: "FRA",
+    performance: 1.020,
   },
   giovinazzi: {
     id: "giovinazzi",
@@ -124,6 +138,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "GIO",
     nationality: "ITA",
+    performance: 1.000,
   },
   hamilton: {
     id: "hamilton",
@@ -134,6 +149,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "HAM",
     nationality: "GBR",
+    performance: 1.010,
   },
   kubica: {
     id: "kubica",
@@ -144,6 +160,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "KUB",
     nationality: "POL",
+    performance: 0.980,
   },
   latifi: {
     id: "latifi",
@@ -154,6 +171,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "LAT",
     nationality: "CAN",
+    performance: 1.000,
   },
   leclerc: {
     id: "leclerc",
@@ -164,6 +182,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "LEC",
     nationality: "MCO",
+    performance: 1.005,
   },
   mazepin: {
     id: "mazepin",
@@ -174,6 +193,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "MAZ",
     nationality: "RAF",
+    performance: 1.000,
   },
   norris: {
     id: "norris",
@@ -184,6 +204,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "NOR",
     nationality: "GBR",
+    performance: 1.009,
   },
   ocon: {
     id: "ocon",
@@ -194,6 +215,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "OCO",
     nationality: "FRA",
+    performance: 1.000,
   },
   perez: {
     id: "perez",
@@ -204,6 +226,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "PER",
     nationality: "MEX",
+    performance: 1.000,
   },
   raikkonen: {
     id: "raikkonen",
@@ -214,6 +237,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "RAI",
     nationality: "FIN",
+    performance: 1.002,
   },
   ricciardo: {
     id: "ricciardo",
@@ -224,6 +248,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "RIC",
     nationality: "AUS",
+    performance: 1.000,
   },
   russell: {
     id: "russell",
@@ -234,6 +259,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "RUS",
     nationality: "GBR",
+    performance: 1.016,
   },
   sainz: {
     id: "sainz",
@@ -244,6 +270,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "SAI",
     nationality: "ESP",
+    performance: 1.000,
   },
   schumacher: {
     id: "schumacher",
@@ -254,6 +281,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "MSC",
     nationality: "DEU",
+    performance: 1.025,
   },
   stroll: {
     id: "stroll",
@@ -264,6 +292,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "STR",
     nationality: "CAN",
+    performance: 1.000,
   },
   tsunoda: {
     id: "tsunoda",
@@ -274,6 +303,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "TSU",
     nationality: "JPN",
+    performance: 1.000,
   },
   verstappen: {
     id: "verstappen",
@@ -284,6 +314,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: false,
     initials: "VER",
     nationality: "NLD",
+    performance: 1.020,
   },
   vettel: {
     id: "vettel",
@@ -294,6 +325,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "VET",
     nationality: "DEU",
+    performance: 1.003,
   },
   zhou: {
     id: "zhou",
@@ -304,6 +336,7 @@ export const drivers: {[lastName: string]: Driver} = {
     yellowTCam: true,
     initials: "ZHO",
     nationality: "CHN",
+    performance: 1.000,
   },
 };
 

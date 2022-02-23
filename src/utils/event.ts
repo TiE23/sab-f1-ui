@@ -1,4 +1,3 @@
-import { random } from "lodash";
 import { Car, Grid } from "../types/state";
 
 import { Meters } from "../types/util";
@@ -13,7 +12,7 @@ export function timeDiff(
    * 61.015 m/s average. So, let's do that.
    */
 
-  return random(0.95, 1.05) * ((front - back) / 61.015);
+  return (front - back) / 61.015;
 }
 
 
@@ -26,4 +25,19 @@ export function getCarAtPos(
     return grid[0];
   }
   return foundCar;
+}
+
+/**
+ * Helper function returns a map of driver ids to their index in the Grid. This
+ * removes the need for repeating find functions over and over again when making
+ * bulk changes to a list of cars.
+ * @param grid Master list of cars
+ * @returns
+ */
+export function driverToGridMap(grid: Grid) {
+  const gridMap: { [driverId: string]: number } = {};
+  grid.forEach((car, index) => {
+    gridMap[car.driver.id] = index;
+  });
+  return gridMap;
 }

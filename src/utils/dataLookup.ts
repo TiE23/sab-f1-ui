@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 import { drivers, teams, teamNumberStyles, teamFlagStyles, teamGemStyles } from "../domain/data/teams";
-import { DriverId, Team, TeamId } from "../types/state";
+import { DriverId, TeamId } from "../types/state";
 
 /**
  * Prefer getting data from teams.ts through these simple getter functions.

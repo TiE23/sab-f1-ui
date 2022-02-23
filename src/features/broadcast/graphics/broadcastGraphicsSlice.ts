@@ -16,7 +16,7 @@ const initialState: RootState["broadcastGraphics"] = {
     relativePos: {},
     openState: 0,
     statusIndicator: {
-      mode: BGStatusIndicatorModes.NormalNarrow,
+      mode: BGStatusIndicatorModes.LapNarrow,
     },
     timingTower: {
       open: 1,
