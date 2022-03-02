@@ -294,12 +294,12 @@ export enum BGStatusIndicatorModes {
 // Timing Tower
 export interface BGTimingTower {
   open: OpenState;
-  displayMode: BGTimingTowerDisplayModes;
+  displayMode: BGTimingTowerDisplayMode;
   splitsMode: BGTimingTowerSplitsMode,
   focusedCars: Car[],
   focusedCarsMode: BGTimingTowerFocusedCarsMode,
 }
-export enum BGTimingTowerDisplayModes {
+export enum BGTimingTowerDisplayMode {
   Hidden,
   LeftOnly,
   LeftAndRight,
