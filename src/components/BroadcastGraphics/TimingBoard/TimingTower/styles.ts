@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { animated } from "@react-spring/web";
 
 import { Fraction, Px } from "../../../../types/style";
+import { Milliseconds } from "../../../../types/util";
 
 import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
 
@@ -26,6 +27,7 @@ type AnimatedRowContainerProps = {
   retired?: boolean,
   wide?: boolean,
   top: Px,
+  transitionTime: Milliseconds,
 };
 // All the elements in a row should go in here.
 export const AnimatedRowContainer = animated(styled.div.attrs<AnimatedRowContainerProps>(({
@@ -38,7 +40,7 @@ export const AnimatedRowContainer = animated(styled.div.attrs<AnimatedRowContain
 }))<AnimatedRowContainerProps>`
   position: absolute;
   left: 0;
-  transition: top 500ms;
+  transition: top ${({ transitionTime }) => transitionTime}ms;
 
   width: ${({ wide }) => wide ? 255 : 147}px;
   height: ${p => p.theme.design.timingTower.rowHeightPx}px; // Future will be animated.
@@ -83,6 +85,33 @@ export const RowLeftHalfLayout = styled.div`
   justify-content: flex-start;
 `;
 RowLeftHalfLayout.displayName = "RowLeftHalfLayout";
+
+type RowLeftHalfPosFlagContainerProps = {
+  size: Px,
+};
+export const RowLeftHalfPosFlagContainer = styled.div<RowLeftHalfPosFlagContainerProps>`
+  position: relative;
+  height: ${({ size }) => size}px;
+  width: ${({ size }) => size}px;
+`;
+RowLeftHalfPosFlagContainer.displayName = "RowLeftHalfPosFlagContainer";
+
+type RowLeftHalfPosFlagChangeContainerProps = {
+  size: Px,
+  visible: boolean,
+  transitionTime: Milliseconds,
+};
+export const RowLeftHalfPosFlagChangeContainer = styled.div<RowLeftHalfPosFlagChangeContainerProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: ${({ size }) => size}px;
+  width: ${({ size }) => size}px;
+
+  opacity: ${({ visible }) => visible ? 1 : 0};
+  transition: opacity ${({ transitionTime }) => transitionTime}ms;
+`;
+RowLeftHalfPosFlagChangeContainer.displayName = "RowLeftHalfPosFlagChangeContainer";
 
 export const RowLeftHalfGemContainer = styled.div`
   position: absolute;

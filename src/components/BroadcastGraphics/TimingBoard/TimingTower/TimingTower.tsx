@@ -8,9 +8,7 @@ import { CarStatus } from "../../../../types/state";
 import { RowsContainer } from "./styles";
 import { TimingTowerRow } from "./TimingTowerRow";
 
-
 export function TimingTower() {
-
   const { lastUpdate, grid, trackLength } = useSelector(eventSelector);
   const { timingBoard: { timingTower: { splitsMode, displayMode } } } = useSelector(
     broadcastGraphicsSelector,

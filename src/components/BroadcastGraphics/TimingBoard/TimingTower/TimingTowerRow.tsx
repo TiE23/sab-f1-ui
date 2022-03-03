@@ -1,7 +1,13 @@
+import { useEffect, useState } from "react";
+import useTimeoutWhen from "@rooks/use-timeout-when";
+
 import { theme } from "../../../../shared/theme";
 import { orMatch } from "../../../../utils/common";
 import { getCarAtPos, timeDiff } from "../../../../utils/event";
 import { formatTime } from "../../../../utils/styling";
+
+import { Fraction } from "../../../../types/style";
+import { Meters, Milliseconds } from "../../../../types/util";
 import {
   BGTimingTowerDisplayMode,
   BGTimingTowerSplitsMode,
@@ -10,22 +16,26 @@ import {
   CarStatus,
   Grid,
 } from "../../../../types/state";
-import { Fraction } from "../../../../types/style";
-import { Meters } from "../../../../types/util";
 
 import { PositionFlag } from "../../Common/PositionFlag";
 import { TeamGem } from "../../Common/TeamGem";
+import { WipeTransition } from "../../Common/WipeTransition";
 import {
   AnimatedRowContainer,
   DriverName,
   FastestLapGem,
   RowLeftHalf,
+  RowLeftHalfPosFlagContainer,
   RowLeftHalfGemContainer,
   RowLeftHalfLayout,
   RowRightHalf,
   RowRightHalfLayout,
   TimeDiff,
+  RowLeftHalfPosFlagChangeContainer,
 } from "./styles";
+
+const WIPE_DELAY: Milliseconds = 3500;
+const WIPE_DURATION: Milliseconds = 400;
 
 interface TimingTowerRowProps {
   car: Car;
@@ -45,6 +55,25 @@ export function TimingTowerRow({
   displayMode,
   trackLength,
 }: TimingTowerRowProps) {
+  const [pastPos, setPastPos] = useState(car.position);
+  const [posChange, setPosChange] = useState(0);
+
+  // Using timeouts and boolean states I can manipulate visiblity of the position
+  // change effects. wipeVisible is true for only 1ms before being switched back off.
+  const [showChange, setShowChange] = useState(false);
+  const [wipeVisible, setWipeVisible] = useState(false);
+  useTimeoutWhen(() => setShowChange(false), WIPE_DELAY + WIPE_DURATION, showChange);
+  useTimeoutWhen(() => setWipeVisible(false), 1, wipeVisible);
+
+  useEffect(() => {
+    if (car.position !== pastPos) {
+      setPastPos(car.position);
+      setPosChange(pastPos - car.position);
+      setShowChange(true);
+      setWipeVisible(true);
+    }
+  }, [car.position]);
+
   const bottomRounded = car.status === CarStatus.Retired ? (
     car.position === startingCarsCount
   ) : (
@@ -84,6 +113,7 @@ export function TimingTowerRow({
       retired={car.status === CarStatus.Retired}
       wide={displayMode !== BGTimingTowerDisplayMode.LeftOnly}
       top={(car.position - 1) * theme.design.timingTower.rowHeightPx}
+      transitionTime={750}
     >
       {car.notices.includes(CarNotice.FastestLap) && (
         <FastestLapGem />
@@ -99,11 +129,39 @@ export function TimingTowerRow({
       >
         <RowLeftHalfLayout>
           {car.status !== CarStatus.Retired && (
-            <PositionFlag
-              size={32}
-              number={car.position}
-              numberSizeFraction={.6}
-            />
+            <RowLeftHalfPosFlagContainer size={32}>
+              <PositionFlag
+                size={32}
+                number={car.position}
+                numberSizeFraction={.6}
+              />
+              <RowLeftHalfPosFlagChangeContainer
+                size={32}
+                visible={showChange}
+                transitionTime={167}
+              >
+                {showChange && (
+                  <WipeTransition
+                    visible={wipeVisible}
+                    delay={WIPE_DELAY}
+                    angle={45}
+                    duration={WIPE_DURATION}
+                    startingCorner="topLeft"
+                  >
+                    <PositionFlag
+                      size={32}
+                      number={car.position}
+                      numberSizeFraction={.6}
+                      color={posChange > 0
+                        ? theme.colors.posGainedGreen
+                        : theme.colors.posLostRed}
+                    />
+                  </WipeTransition>
+
+                )}
+              </RowLeftHalfPosFlagChangeContainer>
+
+            </RowLeftHalfPosFlagContainer>
           )}
           <DriverName>
             {car.driver.initials}
@@ -132,3 +190,4 @@ export function TimingTowerRow({
     </AnimatedRowContainer>
   );
 }
+

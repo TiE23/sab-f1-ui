@@ -15,6 +15,7 @@ import {
   Car,
 } from "../../types/state";
 import { Meters } from "../../types/util";
+import { orMatch } from "../../utils/common";
 import { cloneDriver, getTeam } from "../../utils/dataLookup";
 import { driverToGridMap } from "../../utils/event";
 
@@ -262,6 +263,12 @@ export const eventSlice = createSlice({
       const { cars, distance, randomness, usePerformance } = action.payload;
 
       cars.forEach(car => {
+        // Do not update cars that are DNS, retired, or finished.
+        // This does remind me that Finished cars must be treated and reported
+        // differently...
+        if (orMatch(car.status, CarStatus.DidNotStart, CarStatus.Finished, CarStatus.Retired)) {
+          return;
+        }
         let addedDistance = distance;
 
         if (randomness !== 0){
