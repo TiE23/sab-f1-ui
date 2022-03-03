@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import useTimeoutWhen from "@rooks/use-timeout-when";
+import { useSpring } from "@react-spring/web";
 
 import { theme } from "../../../../shared/theme";
 import { orMatch } from "../../../../utils/common";
 import { getCarAtPos, timeDiff } from "../../../../utils/event";
-import { formatTime } from "../../../../utils/styling";
+import { formatTime, outlineClipPath } from "../../../../utils/styling";
 
 import { Fraction } from "../../../../types/style";
 import { Meters, Milliseconds } from "../../../../types/util";
@@ -32,10 +33,13 @@ import {
   RowRightHalfLayout,
   TimeDiff,
   RowLeftHalfPosFlagChangeContainer,
+  AnimatedRowLeftHalfOutline,
 } from "./styles";
+import useMeasure from "react-use-measure";
 
 const WIPE_DELAY: Milliseconds = 3500;
 const WIPE_DURATION: Milliseconds = 400;
+const TRAVEL_DURATION: Milliseconds = 750;
 
 interface TimingTowerRowProps {
   car: Car;
@@ -45,6 +49,7 @@ interface TimingTowerRowProps {
   splitsMode: BGTimingTowerSplitsMode;
   displayMode: BGTimingTowerDisplayMode;
   trackLength: Meters;
+  debugDurationMultiplier?: Fraction,
 }
 export function TimingTowerRow({
   car,
@@ -54,25 +59,40 @@ export function TimingTowerRow({
   splitsMode,
   displayMode,
   trackLength,
+  debugDurationMultiplier: DDM = 1.0,
 }: TimingTowerRowProps) {
   const [pastPos, setPastPos] = useState(car.position);
   const [posChange, setPosChange] = useState(0);
 
   // Using timeouts and boolean states I can manipulate visiblity of the position
   // change effects. wipeVisible is true for only 1ms before being switched back off.
-  const [showChange, setShowChange] = useState(false);
+  const [showPosChange, setshowPosChange] = useState(false);
+  const [showOutline, setShowOutline] = useState(false);
   const [wipeVisible, setWipeVisible] = useState(false);
-  useTimeoutWhen(() => setShowChange(false), WIPE_DELAY + WIPE_DURATION, showChange);
+  useTimeoutWhen(() => setshowPosChange(false), (WIPE_DELAY + WIPE_DURATION) * DDM, showPosChange);
+  useTimeoutWhen(() => setShowOutline(false), TRAVEL_DURATION * DDM, showOutline);
   useTimeoutWhen(() => setWipeVisible(false), 1, wipeVisible);
 
   useEffect(() => {
     if (car.position !== pastPos) {
       setPastPos(car.position);
       setPosChange(pastPos - car.position);
-      setShowChange(true);
+      setshowPosChange(true);
+      setShowOutline(true);
       setWipeVisible(true);
     }
   }, [car.position]);
+
+  const { outlineClipPathProgress } = useSpring({
+    outlineClipPathProgress: showPosChange ? 1 : 0,
+    config: { duration: 333 * DDM },
+    delay: 0 * DDM,
+  });
+
+  const [leftHalfRef, {
+    height: leftHalfHeight,
+    width: leftHalfWidth,
+  }] = useMeasure();
 
   const bottomRounded = car.status === CarStatus.Retired ? (
     car.position === startingCarsCount
@@ -113,7 +133,7 @@ export function TimingTowerRow({
       retired={car.status === CarStatus.Retired}
       wide={displayMode !== BGTimingTowerDisplayMode.LeftOnly}
       top={(car.position - 1) * theme.design.timingTower.rowHeightPx}
-      transitionTime={750}
+      transitionTime={TRAVEL_DURATION * DDM}
     >
       {car.notices.includes(CarNotice.FastestLap) && (
         <FastestLapGem />
@@ -126,6 +146,8 @@ export function TimingTowerRow({
             BGTimingTowerDisplayMode.FullLeft,
           ) ? 5 : undefined
         }
+        transitionTime={TRAVEL_DURATION * DDM}
+        ref={leftHalfRef}
       >
         <RowLeftHalfLayout>
           {car.status !== CarStatus.Retired && (
@@ -137,15 +159,15 @@ export function TimingTowerRow({
               />
               <RowLeftHalfPosFlagChangeContainer
                 size={32}
-                visible={showChange}
-                transitionTime={167}
+                visible={showPosChange}
+                transitionTime={167 * DDM}
               >
-                {showChange && (
+                {showPosChange && (
                   <WipeTransition
                     visible={wipeVisible}
-                    delay={WIPE_DELAY}
+                    delay={WIPE_DELAY * DDM}
                     angle={45}
-                    duration={WIPE_DURATION}
+                    duration={WIPE_DURATION * DDM}
                     startingCorner="topLeft"
                   >
                     <PositionFlag
@@ -170,7 +192,36 @@ export function TimingTowerRow({
         <RowLeftHalfGemContainer>
           <TeamGem team={car.driver.team.id} height={30} />
         </RowLeftHalfGemContainer>
+
+        <AnimatedRowLeftHalfOutline
+          open={showOutline}
+          startThickness={1.5}
+          endThickness={1.5}
+          startColor={posChange > 0
+            ? theme.colors.posGainedGreen
+            : theme.colors.posLostRed}
+          endColor={posChange > 0
+            ? theme.colors.posGainedGreen
+            : theme.colors.posLostRed}
+          transitionProps={[{
+            property: "opacity",
+            duration: 333 * DDM,
+          }]}
+          style={{
+            clipPath: outlineClipPathProgress.to(progress => {
+              const coordinates = outlineClipPath(
+                leftHalfWidth,
+                leftHalfHeight,
+                progress,
+                3,
+                3,
+              );
+              return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
+            }),
+          }}
+        />
       </RowLeftHalf>
+
       <RowRightHalf
         roundedCornerTop={car.position === 1 ? 5 : undefined}
         roundedCornerBottom={
@@ -180,6 +231,7 @@ export function TimingTowerRow({
             BGTimingTowerSplitsMode.Interval,
           ) ? 5 : undefined
         }
+        transitionTime={TRAVEL_DURATION * DDM}
       >
         <RowRightHalfLayout>
           <TimeDiff xScale={xScale} yScale={yScale}>

@@ -4,11 +4,16 @@ import { useSelector } from "react-redux";
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { eventSelector } from "../../../../features/event/eventSelector";
 import { CarStatus } from "../../../../types/state";
+import { Fraction } from "../../../../types/style";
 
 import { RowsContainer } from "./styles";
 import { TimingTowerRow } from "./TimingTowerRow";
 
-export function TimingTower() {
+type TimingTowerProps = {
+  debugDurationMultiplier?: Fraction,
+};
+
+export function TimingTower({ debugDurationMultiplier: DDM }: TimingTowerProps) {
   const { lastUpdate, grid, trackLength } = useSelector(eventSelector);
   const { timingBoard: { timingTower: { splitsMode, displayMode } } } = useSelector(
     broadcastGraphicsSelector,
@@ -41,6 +46,7 @@ export function TimingTower() {
         splitsMode={splitsMode}
         displayMode={displayMode}
         trackLength={trackLength}
+        debugDurationMultiplier={DDM}
       />));
   }, [lastUpdate, splitsMode]);
 

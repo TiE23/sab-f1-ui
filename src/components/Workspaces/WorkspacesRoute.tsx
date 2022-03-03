@@ -97,6 +97,7 @@ export default function Workspaces() {
                 previewContent={<TimingBoard />}
                 prototypeControls={<TimingTowerPrototypeControls />}
                 bleedover={500}
+                showAnimationSpeedSelector
               />
             } />
             <Route path="*" element={<IndexHeading>Unknown Workspace</IndexHeading>} />

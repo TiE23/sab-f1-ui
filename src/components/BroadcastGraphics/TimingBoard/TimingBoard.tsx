@@ -1,9 +1,14 @@
+import { useSelector } from "react-redux";
+
+import { workspaceSelector } from "../../../features/workspace/workspaceSelector";
 import { theme } from "../../../shared/theme";
-import { MockupBlock } from "../../Common/MockupBlock.styled";
+
 import { TimingBoardLayout } from "./styles";
+import { MockupBlock } from "../../Common/MockupBlock.styled";
 import { TimingTower } from "./TimingTower";
 
 export function TimingBoard() {
+  const { debugDurationMultiplier } = useSelector(workspaceSelector);
   return (
     <TimingBoardLayout>
       <MockupBlock
@@ -11,7 +16,9 @@ export function TimingBoard() {
         width={`${theme.design.timingTower.rowLeftHalfWidthPx}px`}
         color="black"
       />
-      <TimingTower />
+      <TimingTower
+        debugDurationMultiplier={debugDurationMultiplier}
+      />
     </TimingBoardLayout>
   );
 }
