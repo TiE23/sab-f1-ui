@@ -1,9 +1,19 @@
 import styled, { css } from "styled-components";
 import { animated } from "@react-spring/web";
 
-import { Fraction, Px } from "../../../../types/style";
+import { Fraction, Px, TransitionArgs } from "../../../../types/style";
+import { Milliseconds } from "../../../../types/util";
+import { commonTransition } from "../../../../utils/styling";
 
 import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
+
+
+type OpenProps = {
+  open: boolean,
+};
+type TransitionProps = OpenProps & {
+  transitionProps: TransitionArgs[],
+};
 
 type RowsContainerProps = {
   carsToDisplay: number,
@@ -26,6 +36,7 @@ type AnimatedRowContainerProps = {
   retired?: boolean,
   wide?: boolean,
   top: Px,
+  transitionTime: Milliseconds,
 };
 // All the elements in a row should go in here.
 export const AnimatedRowContainer = animated(styled.div.attrs<AnimatedRowContainerProps>(({
@@ -38,7 +49,7 @@ export const AnimatedRowContainer = animated(styled.div.attrs<AnimatedRowContain
 }))<AnimatedRowContainerProps>`
   position: absolute;
   left: 0;
-  transition: top 500ms;
+  transition: top ${({ transitionTime }) => transitionTime}ms;
 
   width: ${({ wide }) => wide ? 255 : 147}px;
   height: ${p => p.theme.design.timingTower.rowHeightPx}px; // Future will be animated.
@@ -50,12 +61,15 @@ AnimatedRowContainer.displayName = "AnimatedRowContainer";
 type RoundedProp = {
   roundedCornerTop?: Px,
   roundedCornerBottom?: Px,
+  transitionTime: Milliseconds,
 };
 const Rounded = styled.div<RoundedProp>`
   ${({ roundedCornerTop }) =>
     roundedCornerTop && css`border-top-right-radius: ${roundedCornerTop}px;`}
   ${({ roundedCornerBottom }) =>
     roundedCornerBottom && css`border-bottom-right-radius: ${roundedCornerBottom}px;`}
+  transition: border-top-right-radius ${({ transitionTime }) => transitionTime}ms,
+  border-bottom-right-radius ${({ transitionTime }) => transitionTime}ms;
 `;
 
 export const RowLeftHalf = styled(Rounded)`
@@ -70,6 +84,29 @@ export const RowLeftHalf = styled(Rounded)`
 `;
 RowLeftHalf.displayName = "RowLeftHalf";
 
+type AnimatedRowLeftHalfOutlineProps = TransitionProps & {
+  startThickness: Px,
+  endThickness: Px,
+  startColor: string,
+  endColor: string,
+};
+export const AnimatedRowLeftHalfOutline = animated(styled(Rounded) <AnimatedRowLeftHalfOutlineProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: ${({ open }) => open ? 1 : 0};
+  outline: ${({ open, startThickness, endThickness, startColor, endColor }) => open
+    ? `${endThickness}px solid ${endColor}`
+    : `${startThickness}px solid ${startColor}`};
+  outline-offset: ${({ startThickness }) => -startThickness}px;
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
+`);
+AnimatedRowLeftHalfOutline.displayName = "AnimatedRowLeftHalfOutline";
+
 export const RowLeftHalfLayout = styled.div`
   position: relative;
   width: 100%;
@@ -82,6 +119,33 @@ export const RowLeftHalfLayout = styled.div`
   justify-content: flex-start;
 `;
 RowLeftHalfLayout.displayName = "RowLeftHalfLayout";
+
+type RowLeftHalfPosFlagContainerProps = {
+  size: Px,
+};
+export const RowLeftHalfPosFlagContainer = styled.div<RowLeftHalfPosFlagContainerProps>`
+  position: relative;
+  height: ${({ size }) => size}px;
+  width: ${({ size }) => size}px;
+`;
+RowLeftHalfPosFlagContainer.displayName = "RowLeftHalfPosFlagContainer";
+
+type RowLeftHalfPosFlagChangeContainerProps = {
+  size: Px,
+  visible: boolean,
+  transitionTime: Milliseconds,
+};
+export const RowLeftHalfPosFlagChangeContainer = styled.div<RowLeftHalfPosFlagChangeContainerProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: ${({ size }) => size}px;
+  width: ${({ size }) => size}px;
+
+  opacity: ${({ visible }) => visible ? 1 : 0};
+  transition: opacity ${({ transitionTime }) => transitionTime}ms;
+`;
+RowLeftHalfPosFlagChangeContainer.displayName = "RowLeftHalfPosFlagChangeContainer";
 
 export const RowLeftHalfGemContainer = styled.div`
   position: absolute;

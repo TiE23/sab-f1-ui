@@ -1,7 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { random } from "lodash";
 
-import { CourseFlag, CarStatus, RootState, Tyre, TyreCompound, CarNotice } from "../../types/state";
-import { cloneDriver } from "../../utils/dataLookup";
+import {
+  CourseFlag,
+  CarStatus,
+  RootState,
+  Tyre,
+  TyreCompound,
+  CarNotice,
+  EventMode,
+  SectorFlag,
+  SafetyCarStatus,
+  VirtualSafetyCarStatus,
+  Car,
+} from "../../types/state";
+import { Meters } from "../../types/util";
+import { orMatch } from "../../utils/common";
+import { cloneDriver, getTeam } from "../../utils/dataLookup";
+import { driverToGridMap } from "../../utils/event";
 
 const DEFAULT_TYRE: Tyre = {
   compound: TyreCompound.Medium,
@@ -9,16 +25,19 @@ const DEFAULT_TYRE: Tyre = {
   new: true,
 };
 
+const GRID_POSITION_GAP: Meters = 8;
+const POLE_TO_START: Meters = 10;
+
 const initialState: RootState["event"] = {
   trackName: "Circuit de Spa-Franchorchamps",
   trackLength: 7004,
   courseStatus: {
-    courseFlag: "green",
-    sectorFlags: ["green", "green", "green"],
-    safetyCar: "clear",
-    virtualSafetyCar: "clear",
+    courseFlag: CourseFlag.Green,
+    sectorFlags: [SectorFlag.Green, SectorFlag.Green, SectorFlag.Green],
+    safetyCar: SafetyCarStatus.Clear,
+    virtualSafetyCar: VirtualSafetyCarStatus.Clear,
   },
-  mode: "race",
+  mode: EventMode.Race,
   progress: {
     startTime: Date.now(),
     timeLimit: 60 * 60 * 2 * 1000,
@@ -32,7 +51,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [CarNotice.FastestLap],
-      distance: 2000 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 0,
       driver: cloneDriver("verstappen"),
     },
     {
@@ -40,7 +59,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1900 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 1,
       driver: cloneDriver("hamilton"),
     },
     {
@@ -48,7 +67,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1800 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 2,
       driver: cloneDriver("bottas"),
     },
     {
@@ -56,7 +75,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Retired,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1700 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 3,
       driver: cloneDriver("perez"),
     },
     {
@@ -64,7 +83,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1600 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 4,
       driver: cloneDriver("sainz"),
     },
     {
@@ -72,7 +91,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Retired,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1500 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 5,
       driver: cloneDriver("norris"),
     },
     {
@@ -80,7 +99,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1400 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 6,
       driver: cloneDriver("leclerc"),
     },
     {
@@ -88,15 +107,15 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1300 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 7,
       driver: cloneDriver("ricciardo"),
     },
     {
       position: 9,
-      status: CarStatus.DidNotStart,
+      status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1200 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 8,
       driver: cloneDriver("gasly"),
     },
     {
@@ -104,7 +123,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1100 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 9,
       driver: cloneDriver("alonso"),
     },
     {
@@ -112,7 +131,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 1000 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 10,
       driver: cloneDriver("ocon"),
     },
     {
@@ -120,7 +139,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 900 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 11,
       driver: cloneDriver("vettel"),
     },
     {
@@ -128,7 +147,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 800 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 12,
       driver: cloneDriver("stroll"),
     },
     {
@@ -136,7 +155,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 700 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 13,
       driver: cloneDriver("tsunoda"),
     },
     {
@@ -144,7 +163,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 600 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 14,
       driver: cloneDriver("russell"),
     },
     {
@@ -152,7 +171,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 500 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 15,
       driver: cloneDriver("raikkonen"),
     },
     {
@@ -160,7 +179,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 400 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 16,
       driver: cloneDriver("latifi"),
     },
     {
@@ -168,7 +187,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 300 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 17,
       driver: cloneDriver("giovinazzi"),
     },
     {
@@ -176,7 +195,7 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 200 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 18,
       driver: cloneDriver("schumacher"),
     },
     {
@@ -184,12 +203,24 @@ const initialState: RootState["event"] = {
       status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
-      distance: 100 * 4,
+      distance: POLE_TO_START - GRID_POSITION_GAP * 19,
       driver: cloneDriver("mazepin"),
     },
   ],
   lastUpdate: Date.now(),
 };
+
+interface IncreaseDistanceAction {
+  cars: Car[];
+  distance: Meters;
+  randomness: number;
+  usePerformance: boolean;
+}
+
+interface SetCarStatusAction {
+  cars: Car[];
+  status: CarStatus;
+}
 
 export const eventSlice = createSlice({
   name: "event",
@@ -226,11 +257,63 @@ export const eventSlice = createSlice({
       state.leaderGridSpot = sortingGrid[0].gridSpot;
       state.lastUpdate = Date.now();
     },
+    increaseDistance: (state, action: PayloadAction<IncreaseDistanceAction>) => {
+      const gridMap = driverToGridMap(state.grid);
+
+      const { cars, distance, randomness, usePerformance } = action.payload;
+
+      cars.forEach(car => {
+        // Do not update cars that are DNS, retired, or finished.
+        // This does remind me that Finished cars must be treated and reported
+        // differently...
+        if (orMatch(car.status, CarStatus.DidNotStart, CarStatus.Finished, CarStatus.Retired)) {
+          return;
+        }
+        let addedDistance = distance;
+
+        if (randomness !== 0){
+          addedDistance *= random(1 - randomness, 1 + randomness);
+        }
+        if (usePerformance) {
+          addedDistance *=
+            getTeam(car.driver.team.id).performance + car.driver.performance;
+        }
+        state.grid[gridMap[car.driver.id]].distance += addedDistance;
+      });
+      state.lastUpdate = Date.now();
+    },
+    awardFastestLap: (state, action: PayloadAction<Car>) => {
+      // Awards fastest lap to provided car. Removes fastest lap from anyone else.
+      state.grid.forEach((car, index) => {
+        const fastestLapNoticeIndex = car.notices.findIndex(
+          notice => notice === CarNotice.FastestLap,
+        );
+        if (car.driver.id === action.payload.driver.id) {
+          if (fastestLapNoticeIndex === -1) {
+            state.grid[index].notices.push(CarNotice.FastestLap);
+          }
+        } else if (fastestLapNoticeIndex !== -1) {
+          state.grid[index].notices.splice(fastestLapNoticeIndex, 1);
+        }
+      });
+      state.lastUpdate = Date.now();
+    },
+    setCarStatus: (state, action: PayloadAction<SetCarStatusAction>) => {
+      const gridMap = driverToGridMap(state.grid);
+      const { cars, status } = action.payload;
+      cars.forEach(car => {
+        state.grid[gridMap[car.driver.id]].status = status;
+      });
+      state.lastUpdate = Date.now();
+    },
   },
 });
 
 export const {
   setCourseFlag,
   refreshRunningOrder,
+  increaseDistance,
+  awardFastestLap,
+  setCarStatus,
 } = eventSlice.actions;
 export default eventSlice.reducer;

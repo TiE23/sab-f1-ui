@@ -18,6 +18,7 @@
     "@react-hook/resize-observer": "^1.2.5",
     "@react-spring/web": "^9.4.1",
     "@reduxjs/toolkit": "^1.7.1",
+    "@rooks/use-timeout-when": "^4.11.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",

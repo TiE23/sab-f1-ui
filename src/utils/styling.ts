@@ -80,6 +80,7 @@ export function commonTransition(propsArray: TransitionArgs[]) {
  * @param height element height in pixels
  * @param progress fraction from 0 to 1
  * @param outlineThickness the expected max width of the outline
+ * @param interiorThickness the expected max width of the outline internally
  * @returns
  */
 export function outlineClipPath(
@@ -87,6 +88,7 @@ export function outlineClipPath(
   height: Px,
   progress: Fraction,
   outlineThickness: Px,
+  interiorThickness: Px = 0,
 ): [[Px, Px], [Px, Px], [Px, Px], [Px, Px], [Px, Px], [Px, Px]] {
   const travelDistance = width * 2 + height;
   const pt1End = width / travelDistance;
@@ -96,10 +98,10 @@ export function outlineClipPath(
   if (progress <= pt1End) {
     const x = width * progress / pt1End;
     return [
-      [0, height],
-      [0, height],
-      [0, height],
-      [x, height],
+      [0, height - interiorThickness],
+      [0, height - interiorThickness],
+      [0, height - interiorThickness],
+      [x, height - interiorThickness],
       [x, height + outlineThickness],
       [0, height + outlineThickness],
     ];
@@ -108,9 +110,9 @@ export function outlineClipPath(
   } else if (progress > pt1End && progress <= pt2End) {
     const y = height - (height + outlineThickness) * ((progress - pt1End) / (pt2End - pt1End));
     return [
-      [0, height],
-      [width - 10, height],
-      [width, y],
+      [0, height - interiorThickness],
+      [width - Math.max(10, interiorThickness), height - interiorThickness],
+      [width - interiorThickness, y],
       [width + outlineThickness, y],
       [width + outlineThickness, height + outlineThickness],
       [0, height + outlineThickness],
@@ -120,9 +122,9 @@ export function outlineClipPath(
   } else {
     const x = width - width * ((progress - pt2End) / (1 - pt2End));
     return [
-      [0, height],
-      [x - 10, height],
-      [x, -outlineThickness],
+      [0, height - interiorThickness],
+      [x - Math.max(10, interiorThickness), height - interiorThickness],
+      [x - interiorThickness, -outlineThickness],
       [width + outlineThickness, -outlineThickness],
       [width + outlineThickness, height + outlineThickness],
       [0, height + outlineThickness],

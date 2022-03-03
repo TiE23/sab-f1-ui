@@ -3,6 +3,7 @@ import { Px } from "../../../../types/style";
 
 type PositionFlagBoxProps = {
   size: Px,
+  color: string,
 };
 export const PositionFlagBox = styled.div<PositionFlagBoxProps>`
   position: relative;
@@ -10,7 +11,7 @@ export const PositionFlagBox = styled.div<PositionFlagBoxProps>`
   width: ${({ size }) => `${size}px`};
 
   border-bottom-right-radius: 15%;
-  background-color: #f4f3ee;
+  background-color: ${({ color }) => color};
 
   display: flex;
   align-items: center;

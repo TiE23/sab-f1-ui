@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   BGChyrons,
   BGStatusIndicatorModes,
-  BGTimingTowerDisplayModes,
+  BGTimingTowerDisplayMode,
   BGTimingTowerFocusedCarsMode,
   BGTimingTowerSplitsMode,
   OpenState,
@@ -16,11 +16,11 @@ const initialState: RootState["broadcastGraphics"] = {
     relativePos: {},
     openState: 0,
     statusIndicator: {
-      mode: BGStatusIndicatorModes.NormalNarrow,
+      mode: BGStatusIndicatorModes.LapNarrow,
     },
     timingTower: {
       open: 1,
-      displayMode: BGTimingTowerDisplayModes.LeftAndRight,
+      displayMode: BGTimingTowerDisplayMode.LeftAndRight,
       splitsMode: BGTimingTowerSplitsMode.Leader,
       focusedCars: [],
       focusedCarsMode: BGTimingTowerFocusedCarsMode.None,

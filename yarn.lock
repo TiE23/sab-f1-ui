@@ -1585,6 +1585,11 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@rooks/use-timeout-when@^4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@rooks/use-timeout-when/-/use-timeout-when-4.11.2.tgz#12441395abd754ccd4aa93d38598981c26274ef0"
+  integrity sha512-ytSqN4KyDdLtMS69RbiQ/Y4Tc1vyCh508FkLMnEAMF2AQZo/C/7sEL2WnLTz04/fD9AbEgSIpfB28XOourDaNg==
+
 "@rushstack/eslint-patch@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz"

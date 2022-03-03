@@ -1,10 +1,9 @@
-import { useSpring, animated, easings } from "@react-spring/web";
-import useMeasure from "react-use-measure";
+import { useSpring } from "@react-spring/web";
 
 import { AnimatedVenetianBlindsFilter, VenetianBlindsFilter } from "./styles";
-import { wipeCustomDegClip } from "../../../../utils/styling";
 import { Corner, Degrees, Fraction, Px } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
+import { WipeTransition } from "../WipeTransition";
 
 type VenetianBlindsTransitionProps = {
   visible: boolean,
@@ -24,7 +23,7 @@ type VenetianBlindsTransitionProps = {
   opacityDelay?: Milliseconds,
   spanBlinkDuration?: Milliseconds,
 };
-export const VenetianBlindsTransition = (
+export function VenetianBlindsTransition(
   {
     visible,
     delay = 0,
@@ -44,27 +43,7 @@ export const VenetianBlindsTransition = (
     spanBlinkDuration,
     children,
   }: React.PropsWithChildren<VenetianBlindsTransitionProps>,
-) => {
-  const [childRef, {
-    height: childHeight,
-    width: childWidth,
-  }] = useMeasure();
-
-  const { wipe } = useSpring({
-    wipe: visible ? 1 : 0,
-    config: {
-      duration: wipeDuration,
-      easing: easings.easeInOutQuint,
-    },
-    delay: 0 + delay,
-  });
-
-  const { opacity } = useSpring({
-    opacity: visible ? 1 : opacityStart,
-    config: { duration: opacityDuration },
-    delay: opacityDelay + delay,
-  });
-
+) {
   const blindsSpring = useSpring({
     opacity: visible ? 1 : 0,
     config: { duration: blindsOpenDuration },
@@ -72,21 +51,15 @@ export const VenetianBlindsTransition = (
   });
 
   return (
-    <animated.div
-      style={{
-        opacity,
-        clipPath: wipe.to(wipeProgress => {
-          const coordinates = wipeCustomDegClip(
-            childWidth,
-            childHeight,
-            wipeProgress,
-            wipeStartingCorner,
-            wipeAngle,
-          );
-          return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
-        }),
-      }}
-      ref={childRef}
+    <WipeTransition
+      visible={visible}
+      delay={delay}
+      angle={wipeAngle}
+      duration={wipeDuration}
+      startingCorner={wipeStartingCorner}
+      opacityStart={opacityStart}
+      opacityDuration={opacityDuration}
+      opacityDelay={opacityDelay}
     >
       <AnimatedVenetianBlindsFilter
         style={blindsSpring}
@@ -117,6 +90,6 @@ export const VenetianBlindsTransition = (
       >
         {children}
       </VenetianBlindsFilter>
-    </animated.div>
+    </WipeTransition>
   );
-};
+}
