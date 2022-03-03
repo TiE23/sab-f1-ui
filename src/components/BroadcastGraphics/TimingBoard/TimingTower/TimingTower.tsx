@@ -48,7 +48,7 @@ export function TimingTower({ debugDurationMultiplier: DDM }: TimingTowerProps) 
         trackLength={trackLength}
         debugDurationMultiplier={DDM}
       />));
-  }, [lastUpdate, splitsMode]);
+  }, [lastUpdate, splitsMode, displayMode]);
 
   return (
     <RowsContainer

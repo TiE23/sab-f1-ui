@@ -11,7 +11,7 @@ import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
 type OpenProps = {
   open: boolean,
 };
-type TransitionProps = OpenProps & {
+type TransitionProps = {
   transitionProps: TransitionArgs[],
 };
 
@@ -61,30 +61,38 @@ AnimatedRowContainer.displayName = "AnimatedRowContainer";
 type RoundedProp = {
   roundedCornerTop?: Px,
   roundedCornerBottom?: Px,
-  transitionTime: Milliseconds,
+  cornerTransitionTime: Milliseconds,
 };
 const Rounded = styled.div<RoundedProp>`
   ${({ roundedCornerTop }) =>
     roundedCornerTop && css`border-top-right-radius: ${roundedCornerTop}px;`}
   ${({ roundedCornerBottom }) =>
     roundedCornerBottom && css`border-bottom-right-radius: ${roundedCornerBottom}px;`}
-  transition: border-top-right-radius ${({ transitionTime }) => transitionTime}ms,
-  border-bottom-right-radius ${({ transitionTime }) => transitionTime}ms;
+  transition: border-top-right-radius ${({ cornerTransitionTime }) => cornerTransitionTime}ms,
+  border-bottom-right-radius ${({ cornerTransitionTime }) => cornerTransitionTime}ms;
 `;
 
-export const RowLeftHalf = styled(Rounded)`
+type RowLeftHalfProps = TransitionProps & {
+  wide: boolean,
+};
+export const RowLeftHalf = styled(Rounded)<RowLeftHalfProps>`
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 1;
+  overflow-x: clip;
 
-  width: ${p => p.theme.design.timingTower.rowLeftHalfWidthPx}px; // Future will be animated.
+  width: ${({ theme: { design: { timingTower } }, wide }) =>
+    (wide ? timingTower.rowRightHalfWidthPx : 0) + timingTower.rowLeftHalfWidthPx}px;
   height: ${p => p.theme.design.timingTower.rowHeightPx}px;
 
-  background-color: #000000e5
+  background-color: #000000e5;
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 RowLeftHalf.displayName = "RowLeftHalf";
 
-type AnimatedRowLeftHalfOutlineProps = TransitionProps & {
+type AnimatedRowLeftHalfOutlineProps = OpenProps & TransitionProps & {
   startThickness: Px,
   endThickness: Px,
   startColor: string,
@@ -115,7 +123,7 @@ export const RowLeftHalfLayout = styled.div`
   display: flex;
   padding-left: 3px;
 
-  align-items: center;
+  /* align-items: center; */
   justify-content: flex-start;
 `;
 RowLeftHalfLayout.displayName = "RowLeftHalfLayout";
@@ -155,17 +163,27 @@ export const RowLeftHalfGemContainer = styled.div`
 `;
 RowLeftHalfGemContainer.displayName = "RowLeftHalfGemContainer";
 
-export const RowRightHalf = styled(Rounded)`
+type RowRightHalfProps = TransitionProps & {
+  collapsed: boolean,
+  hugRight: boolean,
+};
+export const RowRightHalf = styled(Rounded)<RowRightHalfProps>`
   position: absolute;
-  right: 0;
+  ${({ hugRight }) => hugRight
+    ? css`right: 0;` : css`
+    left: ${p => p.theme.design.timingTower.rowLeftHalfWidthPx}px;
+  `}
   top: 0;
 
-  width: ${p => p.theme.design.timingTower.rowRightHalfWidthPx}px; // Future will be animated.
+  width: ${({ theme: { design: { timingTower } }, collapsed }) =>
+    collapsed ? 0 : timingTower.rowRightHalfWidthPx}px;
   height: ${p => p.theme.design.timingTower.rowHeightPx}px;
 
-  overflow-x: hidden;
+  overflow-x: clip;
 
-  background-color: #0000007e
+  background-color: #0000007e;
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 RowRightHalf.displayName = "RowRightHalf";
 
@@ -181,13 +199,32 @@ export const RowRightHalfLayout = styled.div`
 `;
 RowRightHalfLayout.displayName = "RowRightHalfLayout";
 
-export const DriverName = styled.span`
+type DriverNameProps = {
+  visible: boolean,
+};
+export const DriverName = styled.span<DriverNameProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  opacity: ${({ visible }) => visible ? 1 : 0};
+
   color: white;
   font-family: ${p => p.theme.fonts.f1Bold};
   font-size: 20px;
-  margin-left: 14px;
+  text-transform: uppercase;
 `;
 DriverName.displayName = "DriverName";
+
+export const DriverNameContainer = styled.div<TransitionProps>`
+  position: relative;
+  margin-left: 14px;
+
+  > span {
+    ${({ transitionProps }) => commonTransition(transitionProps)}
+  }
+`;
+DriverNameContainer.displayName = "DriverNameContainer";
 
 type TimeDiffProps = {
   xScale: Fraction,

@@ -62,6 +62,13 @@ export function wipeCustomDegClip(
   }
 }
 
+/**
+ * Takes in an array of transition properties, durations, delays, and timings
+ * in a special interface and returns them into a format understood by CSS.
+ * Includes a semi-colon as well.
+ * @param propsArray
+ * @returns
+ */
 export function commonTransition(propsArray: TransitionArgs[]) {
   return (
     "transition: "

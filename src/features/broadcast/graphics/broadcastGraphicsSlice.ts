@@ -59,6 +59,9 @@ export const broadcastGraphicsSlice = createSlice({
     setTimingTowerSplitsMode: (state, action: PayloadAction<BGTimingTowerSplitsMode>) => {
       state.timingBoard.timingTower.splitsMode = action.payload;
     },
+    setTimingTowerDisplayMode: (state, action: PayloadAction<BGTimingTowerDisplayMode>) => {
+      state.timingBoard.timingTower.displayMode = action.payload;
+    },
   },
 });
 
@@ -68,5 +71,6 @@ export const {
   incrementChyronsOpenState,
   clearChyrons,
   setTimingTowerSplitsMode,
+  setTimingTowerDisplayMode,
 } = broadcastGraphicsSlice.actions;
 export default broadcastGraphicsSlice.reducer;

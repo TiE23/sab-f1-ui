@@ -220,7 +220,8 @@ export const drivers: {[lastName: string]: Driver} = {
   perez: {
     id: "perez",
     firstName: "Sergio",
-    lastName: "Pérez",
+    // lastName: "Pérez",
+    lastName: "Perez",
     number: 11,
     team: teams.redBull,
     yellowTCam: true,
@@ -231,7 +232,8 @@ export const drivers: {[lastName: string]: Driver} = {
   raikkonen: {
     id: "raikkonen",
     firstName: "Kimi",
-    lastName: "Räikkönen",
+    // lastName: "Räikkönen",
+    lastName: "Raikkonen",
     number: 7,
     team: teams.alfaRomeo,
     yellowTCam: false,

@@ -34,12 +34,14 @@ import {
   TimeDiff,
   RowLeftHalfPosFlagChangeContainer,
   AnimatedRowLeftHalfOutline,
+  DriverNameContainer,
 } from "./styles";
 import useMeasure from "react-use-measure";
 
 const WIPE_DELAY: Milliseconds = 3500;
 const WIPE_DURATION: Milliseconds = 400;
 const TRAVEL_DURATION: Milliseconds = 750;
+const FULL_WIDTH_DURATION: Milliseconds = 750;
 
 interface TimingTowerRowProps {
   car: Car;
@@ -63,13 +65,15 @@ export function TimingTowerRow({
 }: TimingTowerRowProps) {
   const [pastPos, setPastPos] = useState(car.position);
   const [posChange, setPosChange] = useState(0);
+  const [pastDisplayMode, setPastDisplayMode] = useState(displayMode);
+  const [hugRight, setHugRight] = useState(true);
 
   // Using timeouts and boolean states I can manipulate visiblity of the position
   // change effects. wipeVisible is true for only 1ms before being switched back off.
-  const [showPosChange, setshowPosChange] = useState(false);
+  const [showPosChange, setShowPosChange] = useState(false);
   const [showOutline, setShowOutline] = useState(false);
   const [wipeVisible, setWipeVisible] = useState(false);
-  useTimeoutWhen(() => setshowPosChange(false), (WIPE_DELAY + WIPE_DURATION) * DDM, showPosChange);
+  useTimeoutWhen(() => setShowPosChange(false), (WIPE_DELAY + WIPE_DURATION) * DDM, showPosChange);
   useTimeoutWhen(() => setShowOutline(false), TRAVEL_DURATION * DDM, showOutline);
   useTimeoutWhen(() => setWipeVisible(false), 1, wipeVisible);
 
@@ -77,11 +81,27 @@ export function TimingTowerRow({
     if (car.position !== pastPos) {
       setPastPos(car.position);
       setPosChange(pastPos - car.position);
-      setshowPosChange(true);
+      setShowPosChange(true);
       setShowOutline(true);
       setWipeVisible(true);
     }
   }, [car.position]);
+
+  useEffect(() => {
+    if (pastDisplayMode !== displayMode) {
+      if ((pastDisplayMode === BGTimingTowerDisplayMode.LeftAndRight
+        && displayMode === BGTimingTowerDisplayMode.FullLeft) || (
+        pastDisplayMode === BGTimingTowerDisplayMode.FullLeft
+          && displayMode === BGTimingTowerDisplayMode.LeftAndRight
+      )
+      ) {
+        setHugRight(true);
+      } else {
+        setHugRight(false);
+      }
+      setPastDisplayMode(displayMode);
+    }
+  }, [displayMode]);
 
   const { outlineClipPathProgress } = useSpring({
     outlineClipPathProgress: showPosChange ? 1 : 0,
@@ -146,7 +166,12 @@ export function TimingTowerRow({
             BGTimingTowerDisplayMode.FullLeft,
           ) ? 5 : undefined
         }
-        transitionTime={TRAVEL_DURATION * DDM}
+        cornerTransitionTime={TRAVEL_DURATION * DDM}
+        transitionProps={[{
+          property: "width",
+          duration: FULL_WIDTH_DURATION * DDM,
+        }]}
+        wide={displayMode === BGTimingTowerDisplayMode.FullLeft}
         ref={leftHalfRef}
       >
         <RowLeftHalfLayout>
@@ -182,12 +207,21 @@ export function TimingTowerRow({
 
                 )}
               </RowLeftHalfPosFlagChangeContainer>
-
             </RowLeftHalfPosFlagContainer>
           )}
-          <DriverName>
-            {car.driver.initials}
-          </DriverName>
+          <DriverNameContainer
+            transitionProps={[{
+              property: "opacity",
+              duration: 1000,
+            }]}
+          >
+            <DriverName visible={displayMode !== BGTimingTowerDisplayMode.FullLeft}>
+              {car.driver.initials}
+            </DriverName>
+            <DriverName visible={displayMode === BGTimingTowerDisplayMode.FullLeft}>
+              {car.driver.lastName}
+            </DriverName>
+          </DriverNameContainer>
         </RowLeftHalfLayout>
         <RowLeftHalfGemContainer>
           <TeamGem team={car.driver.team.id} height={30} />
@@ -231,7 +265,13 @@ export function TimingTowerRow({
             BGTimingTowerSplitsMode.Interval,
           ) ? 5 : undefined
         }
-        transitionTime={TRAVEL_DURATION * DDM}
+        cornerTransitionTime={TRAVEL_DURATION * DDM}
+        collapsed={displayMode !== BGTimingTowerDisplayMode.LeftAndRight}
+        transitionProps={[{
+          property: "width",
+          duration: FULL_WIDTH_DURATION * DDM,
+        }]}
+        hugRight={hugRight}
       >
         <RowRightHalfLayout>
           <TimeDiff xScale={xScale} yScale={yScale}>
