@@ -147,12 +147,14 @@ export function TimingTowerRow({
     yScale = rightHalfContent.includes("+") ? 1.1 : 1.0;
   }
 
+  const { design: { timingTower: timingTowerTheme } } = theme;
+
   return (
     <AnimatedRowContainer
       key={car.driver.id}
       retired={car.status === CarStatus.Retired}
       wide={displayMode !== BGTimingTowerDisplayMode.LeftOnly}
-      top={(car.position - 1) * theme.design.timingTower.rowHeightPx}
+      top={(car.position - 1) * timingTowerTheme.rowHeightPx}
       transitionTime={TRAVEL_DURATION * DDM}
     >
       {car.notices.includes(CarNotice.FastestLap) && (
@@ -185,14 +187,14 @@ export function TimingTowerRow({
       >
         <RowLeftHalfLayout>
           {car.status !== CarStatus.Retired && (
-            <RowLeftHalfPosFlagContainer size={32}>
+            <RowLeftHalfPosFlagContainer size={timingTowerTheme.posFlagSize}>
               <PositionFlag
-                size={32}
+                size={timingTowerTheme.posFlagSize}
                 number={car.position}
                 numberSizeFraction={.6}
               />
               <RowLeftHalfPosFlagChangeContainer
-                size={32}
+                size={timingTowerTheme.posFlagSize}
                 visible={showPosChange}
                 transitionTime={167 * DDM}
               >
@@ -205,7 +207,7 @@ export function TimingTowerRow({
                     startingCorner="topLeft"
                   >
                     <PositionFlag
-                      size={32}
+                      size={timingTowerTheme.posFlagSize}
                       number={car.position}
                       numberSizeFraction={.6}
                       color={posChange > 0
@@ -221,19 +223,35 @@ export function TimingTowerRow({
           <DriverNameContainer
             transitionProps={[{
               property: "opacity",
-              duration: FULL_WIDTH_DURATION * DDM,
+              duration: (FULL_WIDTH_DURATION - 333) * DDM,
+              delay: 333,
             }]}
           >
             <DriverName visible={displayMode !== BGTimingTowerDisplayMode.FullLeft}>
               {car.driver.initials}
             </DriverName>
-            <DriverName visible={displayMode === BGTimingTowerDisplayMode.FullLeft}>
-              {car.driver.lastName}
-            </DriverName>
+            <WipeTransition
+              visible={displayMode === BGTimingTowerDisplayMode.FullLeft}
+              angle={89}
+              duration={(FULL_WIDTH_DURATION + 333) * DDM}
+              startingCorner={"topLeft"}
+              manualDimensions={{
+                height: timingTowerTheme.rowHeightPx,
+                width: timingTowerTheme.rowLeftHalfWidthPx
+                  + timingTowerTheme.rowRightHalfWidthPx
+                  - timingTowerTheme.teamGemSize
+                  - timingTowerTheme.posFlagSize
+                  - timingTowerTheme.nameLeftMargin,
+              }}
+            >
+              <DriverName visible={true}>
+                {car.driver.lastName}
+              </DriverName>
+            </WipeTransition>
           </DriverNameContainer>
         </RowLeftHalfLayout>
         <RowLeftHalfGemContainer>
-          <TeamGem team={car.driver.team.id} height={30} />
+          <TeamGem team={car.driver.team.id} height={timingTowerTheme.teamGemSize} />
         </RowLeftHalfGemContainer>
 
         <AnimatedRowLeftHalfOutline

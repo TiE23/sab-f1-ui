@@ -1,7 +1,7 @@
 import { animated, easings, useSpring } from "@react-spring/web";
 import useMeasure from "react-use-measure";
 
-import { Corner, Degrees, Fraction } from "../../../../types/style";
+import { Corner, Degrees, Fraction, Px } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
 import { wipeCustomDegClip } from "../../../../utils/styling";
 
@@ -14,6 +14,10 @@ type WipeTransitionProps = {
   opacityStart?: Fraction,
   opacityDuration?: Milliseconds,
   opacityDelay?: Milliseconds,
+  manualDimensions?: {
+    height: Px,
+    width: Px,
+  },
 }
 
 export function WipeTransition({
@@ -25,6 +29,7 @@ export function WipeTransition({
   opacityStart = 1,
   opacityDuration = duration,
   opacityDelay = 0,
+  manualDimensions,
   children,
 }: React.PropsWithChildren<WipeTransitionProps>) {
   const [childRef, {
@@ -53,8 +58,8 @@ export function WipeTransition({
         opacity,
         clipPath: wipe.to(wipeProgress => {
           const coordinates = wipeCustomDegClip(
-            childWidth,
-            childHeight,
+            (manualDimensions?.width ?? 0) || childWidth,
+            (manualDimensions?.height ?? 0) || childHeight,
             wipeProgress,
             startingCorner,
             angle,

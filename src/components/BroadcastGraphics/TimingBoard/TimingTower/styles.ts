@@ -213,7 +213,7 @@ DriverName.displayName = "DriverName";
 
 export const DriverNameContainer = styled.div<TransitionProps>`
   position: relative;
-  margin-left: 14px;
+  margin-left: ${p => p.theme.design.timingTower.nameLeftMargin}px;
 
   > span {
     ${({ transitionProps }) => commonTransition(transitionProps)}
