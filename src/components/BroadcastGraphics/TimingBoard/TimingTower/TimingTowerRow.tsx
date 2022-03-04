@@ -159,17 +159,26 @@ export function TimingTowerRow({
         <FastestLapGem />
       )}
       <RowLeftHalf
+        roundedCornerTop={
+          (displayMode === BGTimingTowerDisplayMode.FullLeft &&
+          car.position === 1) ? 5 : 0
+        }
         roundedCornerBottom={
           bottomRounded && orMatch(
             displayMode,
             BGTimingTowerDisplayMode.LeftOnly,
             BGTimingTowerDisplayMode.FullLeft,
-          ) ? 5 : undefined
+          ) ? 5 : 0
         }
-        cornerTransitionTime={TRAVEL_DURATION * DDM}
         transitionProps={[{
           property: "width",
           duration: FULL_WIDTH_DURATION * DDM,
+        }, {
+          property: "border-top-right-radius",
+          duration: TRAVEL_DURATION * DDM,
+        }, {
+          property: "border-bottom-right-radius",
+          duration: TRAVEL_DURATION * DDM,
         }]}
         wide={displayMode === BGTimingTowerDisplayMode.FullLeft}
         ref={leftHalfRef}
@@ -212,7 +221,7 @@ export function TimingTowerRow({
           <DriverNameContainer
             transitionProps={[{
               property: "opacity",
-              duration: 1000,
+              duration: FULL_WIDTH_DURATION * DDM,
             }]}
           >
             <DriverName visible={displayMode !== BGTimingTowerDisplayMode.FullLeft}>
@@ -257,24 +266,37 @@ export function TimingTowerRow({
       </RowLeftHalf>
 
       <RowRightHalf
-        roundedCornerTop={car.position === 1 ? 5 : undefined}
+        roundedCornerTop={car.position === 1 ? 5 : 0}
         roundedCornerBottom={
           bottomRounded && orMatch(
             splitsMode,
             BGTimingTowerSplitsMode.Leader,
             BGTimingTowerSplitsMode.Interval,
-          ) ? 5 : undefined
+          ) ? 5 : 0
         }
-        cornerTransitionTime={TRAVEL_DURATION * DDM}
         collapsed={displayMode !== BGTimingTowerDisplayMode.LeftAndRight}
         transitionProps={[{
           property: "width",
           duration: FULL_WIDTH_DURATION * DDM,
+        }, {
+          property: "border-top-right-radius",
+          duration: TRAVEL_DURATION * DDM,
+        }, {
+          property: "border-bottom-right-radius",
+          duration: TRAVEL_DURATION * DDM,
         }]}
         hugRight={hugRight}
       >
         <RowRightHalfLayout>
-          <TimeDiff xScale={xScale} yScale={yScale}>
+          <TimeDiff
+            xScale={xScale}
+            yScale={yScale}
+            visible={displayMode === BGTimingTowerDisplayMode.LeftAndRight}
+            transitionProps={[{
+              property: "opacity",
+              duration: FULL_WIDTH_DURATION * DDM,
+            }]}
+          >
             {rightHalfContent}
           </TimeDiff>
         </RowRightHalfLayout>

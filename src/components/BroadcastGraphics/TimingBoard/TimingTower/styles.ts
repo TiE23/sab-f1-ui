@@ -61,15 +61,10 @@ AnimatedRowContainer.displayName = "AnimatedRowContainer";
 type RoundedProp = {
   roundedCornerTop?: Px,
   roundedCornerBottom?: Px,
-  cornerTransitionTime: Milliseconds,
 };
 const Rounded = styled.div<RoundedProp>`
-  ${({ roundedCornerTop }) =>
-    roundedCornerTop && css`border-top-right-radius: ${roundedCornerTop}px;`}
-  ${({ roundedCornerBottom }) =>
-    roundedCornerBottom && css`border-bottom-right-radius: ${roundedCornerBottom}px;`}
-  transition: border-top-right-radius ${({ cornerTransitionTime }) => cornerTransitionTime}ms,
-  border-bottom-right-radius ${({ cornerTransitionTime }) => cornerTransitionTime}ms;
+  border-top-right-radius: ${({ roundedCornerTop = 0 }) => roundedCornerTop}px;
+  border-bottom-right-radius: ${({ roundedCornerBottom = 0 }) => roundedCornerBottom}px;
 `;
 
 type RowLeftHalfProps = TransitionProps & {
@@ -226,9 +221,10 @@ export const DriverNameContainer = styled.div<TransitionProps>`
 `;
 DriverNameContainer.displayName = "DriverNameContainer";
 
-type TimeDiffProps = {
+type TimeDiffProps = TransitionProps & {
   xScale: Fraction,
   yScale: Fraction,
+  visible: boolean,
 };
 export const TimeDiff = styled.span<TimeDiffProps>`
   color: white;
@@ -240,6 +236,9 @@ export const TimeDiff = styled.span<TimeDiffProps>`
   font-feature-settings: 'tnum' 1;
   transform-origin: top right;
   transform: scale(${({ xScale, yScale }) => `${xScale}, ${yScale}`});
+
+  opacity: ${({ visible }) => visible ? 1 : 0};
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 TimeDiff.displayName = "TimeDiff";
 
