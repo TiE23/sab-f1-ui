@@ -40,3 +40,14 @@ export interface TransitionArgs {
   timing?: string
   delay?: Milliseconds,
 }
+
+export type OpenProps = {
+  open: boolean,
+};
+export type TransitionProps = OpenProps & {
+  transitionProps?: TransitionArgs[],
+};
+export type DirectionalTransitionProps = TransitionProps & {
+  transitionOpeningProps?: TransitionArgs[],
+  transitionClosingProps?: TransitionArgs[],
+}

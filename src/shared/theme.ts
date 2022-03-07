@@ -72,6 +72,9 @@ export const theme = {
       rowLeftHalfWidthPx: 147,
       rowRightHalfWidthPx: 108,
       retiredTopGapPx: 3,
+      teamGemSize: 30,
+      posFlagSize: 32,
+      nameLeftMargin: 14,
     },
     button: {
       borderRadius: "0.25rem",

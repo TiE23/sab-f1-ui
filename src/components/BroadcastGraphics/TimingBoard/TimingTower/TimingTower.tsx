@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { eventSelector } from "../../../../features/event/eventSelector";
-import { CarStatus } from "../../../../types/state";
+import { BGTimingTowerDisplayMode, CarStatus } from "../../../../types/state";
 import { Fraction } from "../../../../types/style";
 
 import { RowsContainer } from "./styles";
@@ -48,12 +48,17 @@ export function TimingTower({ debugDurationMultiplier: DDM }: TimingTowerProps) 
         trackLength={trackLength}
         debugDurationMultiplier={DDM}
       />));
-  }, [lastUpdate, splitsMode]);
+  }, [lastUpdate, splitsMode, displayMode]);
 
   return (
     <RowsContainer
       carsToDisplay={startingCarsCount}
       retiredCarsPresent={retiredCarsCount > 0}
+      open={displayMode !== BGTimingTowerDisplayMode.Hidden}
+      transitionProps={[{
+        property: "opacity",
+        duration: 1000,
+      }]}
     >
       {rows}
     </RowsContainer>
