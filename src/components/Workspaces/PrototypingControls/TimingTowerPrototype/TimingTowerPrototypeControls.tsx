@@ -10,7 +10,6 @@ import { setTimingTowerDisplayMode, setTimingTowerSplitsMode } from "../../../..
 import { eventSelector } from "../../../../features/event/eventSelector";
 import { increaseDistance, refreshRunningOrder, setCarStatus } from "../../../../features/event/eventSlice";
 import { BGTimingTowerDisplayMode, BGTimingTowerSplitsMode, CarStatus } from "../../../../types/state";
-import { SlotSelector } from "../../../Common/Inputs/SlotSelector";
 import { GridSelection } from "../GridSelection";
 
 import { ClickSpan } from "./styles";

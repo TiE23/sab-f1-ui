@@ -35,6 +35,7 @@ import {
   RowLeftHalfPosFlagChangeContainer,
   AnimatedRowLeftHalfOutline,
   DriverNameContainer,
+  DriverNameWipe,
 } from "./styles";
 import useMeasure from "react-use-measure";
 
@@ -42,6 +43,7 @@ const WIPE_DELAY: Milliseconds = 3500;
 const WIPE_DURATION: Milliseconds = 400;
 const TRAVEL_DURATION: Milliseconds = 750;
 const FULL_WIDTH_DURATION: Milliseconds = 750;
+const FULL_WIDTH_CLOSE_DELAY: Milliseconds = 333;
 
 interface TimingTowerRowProps {
   car: Car;
@@ -172,7 +174,8 @@ export function TimingTowerRow({
             BGTimingTowerDisplayMode.FullLeft,
           ) ? 5 : 0
         }
-        transitionProps={[{
+        open={displayMode === BGTimingTowerDisplayMode.FullLeft}
+        transitionOpeningProps={[{
           property: "width",
           duration: FULL_WIDTH_DURATION * DDM,
         }, {
@@ -182,7 +185,19 @@ export function TimingTowerRow({
           property: "border-bottom-right-radius",
           duration: TRAVEL_DURATION * DDM,
         }]}
-        wide={displayMode === BGTimingTowerDisplayMode.FullLeft}
+        transitionClosingProps={[{
+          property: "width",
+          duration: FULL_WIDTH_DURATION * DDM,
+          delay: FULL_WIDTH_CLOSE_DELAY * DDM,
+        }, {
+          property: "border-top-right-radius",
+          duration: TRAVEL_DURATION * DDM,
+          delay: FULL_WIDTH_CLOSE_DELAY * DDM,
+        }, {
+          property: "border-bottom-right-radius",
+          duration: TRAVEL_DURATION * DDM,
+          delay: FULL_WIDTH_CLOSE_DELAY * DDM,
+        }]}
         ref={leftHalfRef}
       >
         <RowLeftHalfLayout>
@@ -220,34 +235,47 @@ export function TimingTowerRow({
               </RowLeftHalfPosFlagChangeContainer>
             </RowLeftHalfPosFlagContainer>
           )}
-          <DriverNameContainer
-            transitionProps={[{
-              property: "opacity",
-              duration: (FULL_WIDTH_DURATION - 333) * DDM,
-              delay: 333,
-            }]}
-          >
-            <DriverName visible={displayMode !== BGTimingTowerDisplayMode.FullLeft}>
+          <DriverNameContainer>
+            <DriverName
+              open={displayMode !== BGTimingTowerDisplayMode.FullLeft}
+              transitionOpeningProps={[{
+                property: "opacity",
+                duration: 333 * DDM,
+                delay: (FULL_WIDTH_DURATION - 333) * DDM,
+              }]}
+              transitionClosingProps={[{
+                property: "opacity",
+                duration: 333 * DDM,
+                delay: 0 * DDM,
+              }]}
+            >
               {car.driver.initials}
             </DriverName>
-            <WipeTransition
-              visible={displayMode === BGTimingTowerDisplayMode.FullLeft}
-              angle={89}
-              duration={(FULL_WIDTH_DURATION + 333) * DDM}
-              startingCorner={"topLeft"}
-              manualDimensions={{
-                height: timingTowerTheme.rowHeightPx,
-                width: timingTowerTheme.rowLeftHalfWidthPx
-                  + timingTowerTheme.rowRightHalfWidthPx
-                  - timingTowerTheme.teamGemSize
-                  - timingTowerTheme.posFlagSize
-                  - timingTowerTheme.nameLeftMargin,
-              }}
+            <DriverNameWipe
+              open={displayMode === BGTimingTowerDisplayMode.FullLeft}
+              transitionOpeningProps={[{
+                property: "width",
+                duration: FULL_WIDTH_DURATION * 2 * DDM,
+                delay: 0 * DDM,
+              }, {
+                property: "opacity",
+                duration: 333 * DDM,
+                delay: 0 * DDM,
+              }]}
+              transitionClosingProps={[{
+                property: "width",
+                duration: FULL_WIDTH_DURATION * DDM,
+                delay: 0 * DDM,
+              }, {
+                property: "opacity",
+                duration: 333 * DDM,
+                delay: (FULL_WIDTH_DURATION - 333) * DDM,
+              }]}
             >
-              <DriverName visible={true}>
+              <DriverName open>
                 {car.driver.lastName}
               </DriverName>
-            </WipeTransition>
+            </DriverNameWipe>
           </DriverNameContainer>
         </RowLeftHalfLayout>
         <RowLeftHalfGemContainer>
@@ -292,16 +320,22 @@ export function TimingTowerRow({
             BGTimingTowerSplitsMode.Interval,
           ) ? 5 : 0
         }
-        collapsed={displayMode !== BGTimingTowerDisplayMode.LeftAndRight}
+        open={displayMode === BGTimingTowerDisplayMode.LeftAndRight}
         transitionProps={[{
-          property: "width",
-          duration: FULL_WIDTH_DURATION * DDM,
-        }, {
           property: "border-top-right-radius",
           duration: TRAVEL_DURATION * DDM,
         }, {
           property: "border-bottom-right-radius",
           duration: TRAVEL_DURATION * DDM,
+        }]}
+        transitionClosingProps={[{
+          property: "width",
+          duration: FULL_WIDTH_DURATION * DDM,
+        }]}
+        transitionOpeningProps={[{
+          property: "width",
+          duration: FULL_WIDTH_DURATION * DDM,
+          delay: FULL_WIDTH_CLOSE_DELAY * DDM,
         }]}
         hugRight={hugRight}
       >
@@ -309,8 +343,13 @@ export function TimingTowerRow({
           <TimeDiff
             xScale={xScale}
             yScale={yScale}
-            visible={displayMode === BGTimingTowerDisplayMode.LeftAndRight}
-            transitionProps={[{
+            open={displayMode === BGTimingTowerDisplayMode.LeftAndRight}
+            transitionOpeningProps={[{
+              property: "opacity",
+              duration: FULL_WIDTH_DURATION * DDM,
+              delay: FULL_WIDTH_CLOSE_DELAY * DDM,
+            }]}
+            transitionClosingProps={[{
               property: "opacity",
               duration: FULL_WIDTH_DURATION * DDM,
             }]}
