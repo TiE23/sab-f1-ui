@@ -12,7 +12,7 @@ import { commonDirectionalTransition } from "../../../../utils/styling";
 import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
 
 
-type RowsContainerProps = {
+type RowsContainerProps = DirectionalTransitionProps & {
   carsToDisplay: number,
   retiredCarsPresent: boolean,
 };
@@ -26,6 +26,10 @@ export const RowsContainer = styled.div<RowsContainerProps>`
     theme.design.timingTower.rowHeightPx * carsToDisplay + (retiredCarsPresent ? 3 : 0)}px;
 
   overflow-y: clip; // hidden doesn't work for some reason.
+
+  opacity: ${({ open }) => open ? 1 : 0};
+  ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
+    commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
 RowsContainer.displayName = "RowsContainer";
 
