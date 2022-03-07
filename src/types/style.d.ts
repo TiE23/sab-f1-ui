@@ -41,6 +41,9 @@ export interface TransitionArgs {
   delay?: Milliseconds,
 }
 
+export type DebugDurationProps = {
+  debugDurationMultiplier?: Fraction,
+};
 export type OpenProps = {
   open: boolean,
 };

@@ -7,7 +7,7 @@ import { orMatch } from "../../../../utils/common";
 import { getCarAtPos, timeDiff } from "../../../../utils/event";
 import { formatTime, outlineClipPath } from "../../../../utils/styling";
 
-import { Fraction } from "../../../../types/style";
+import { DebugDurationProps, Fraction } from "../../../../types/style";
 import { Meters, Milliseconds } from "../../../../types/util";
 import {
   BGTimingTowerDisplayMode,
@@ -45,7 +45,7 @@ const TRAVEL_DURATION: Milliseconds = 750;
 const FULL_WIDTH_DURATION: Milliseconds = 750;
 const FULL_WIDTH_CLOSE_DELAY: Milliseconds = 333;
 
-interface TimingTowerRowProps {
+type TimingTowerRowProps = DebugDurationProps & {
   car: Car;
   grid: Grid;
   startingCarsCount: number;
@@ -53,7 +53,6 @@ interface TimingTowerRowProps {
   splitsMode: BGTimingTowerSplitsMode;
   displayMode: BGTimingTowerDisplayMode;
   trackLength: Meters;
-  debugDurationMultiplier?: Fraction,
 }
 export function TimingTowerRow({
   car,
@@ -165,14 +164,14 @@ export function TimingTowerRow({
       <RowLeftHalf
         roundedCornerTop={
           (displayMode === BGTimingTowerDisplayMode.FullLeft &&
-          car.position === 1) ? 5 : 0
+          car.position === 1) ? timingTowerTheme.rowRoundedCornerRadiusPx : 0
         }
         roundedCornerBottom={
           bottomRounded && orMatch(
             displayMode,
             BGTimingTowerDisplayMode.LeftOnly,
             BGTimingTowerDisplayMode.FullLeft,
-          ) ? 5 : 0
+          ) ? timingTowerTheme.rowRoundedCornerRadiusPx : 0
         }
         open={displayMode === BGTimingTowerDisplayMode.FullLeft}
         transitionOpeningProps={[{
@@ -312,13 +311,14 @@ export function TimingTowerRow({
       </RowLeftHalf>
 
       <RowRightHalf
-        roundedCornerTop={car.position === 1 ? 5 : 0}
+        roundedCornerTop={car.position === 1
+          ? timingTowerTheme.rowRoundedCornerRadiusPx : 0}
         roundedCornerBottom={
           bottomRounded && orMatch(
             splitsMode,
             BGTimingTowerSplitsMode.Leader,
             BGTimingTowerSplitsMode.Interval,
-          ) ? 5 : 0
+          ) ? timingTowerTheme.rowRoundedCornerRadiusPx : 0
         }
         open={displayMode === BGTimingTowerDisplayMode.LeftAndRight}
         transitionProps={[{

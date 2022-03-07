@@ -94,7 +94,7 @@ export default function Workspaces() {
             <Route path="timingBoard" element={
               <Workspace
                 workspaceId="timingBoard"
-                previewContent={<TimingBoard />}
+                previewContent={<TimingBoard debug />}
                 prototypeControls={<TimingTowerPrototypeControls />}
                 bleedover={500}
                 showAnimationSpeedSelector

@@ -67,6 +67,10 @@ export const theme = {
     selector: "0.9em",
   },
   design: {
+    statusIndicator: {
+      heightNormalPx: 73,
+      roundedCornerRadiusPx: 8,
+    },
     timingTower: {
       rowHeightPx: 36.5,
       rowLeftHalfWidthPx: 147,
@@ -75,6 +79,7 @@ export const theme = {
       teamGemSize: 30,
       posFlagSize: 32,
       nameLeftMargin: 14,
+      rowRoundedCornerRadiusPx: 5,
     },
     button: {
       borderRadius: "0.25rem",
