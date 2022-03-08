@@ -60,6 +60,11 @@ export const broadcastGraphicsSlice = createSlice({
       state.timingBoard.timingTower.splitsMode = action.payload;
     },
     setTimingTowerDisplayMode: (state, action: PayloadAction<BGTimingTowerDisplayMode>) => {
+      if (action.payload === BGTimingTowerDisplayMode.FullLeft) {
+        state.timingBoard.statusIndicator.mode = BGStatusIndicatorModes.LapWide;
+      } else {
+        state.timingBoard.statusIndicator.mode = BGStatusIndicatorModes.LapNarrow;
+      }
       state.timingBoard.timingTower.displayMode = action.payload;
     },
   },

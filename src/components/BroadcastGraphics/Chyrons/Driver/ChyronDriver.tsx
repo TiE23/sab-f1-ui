@@ -2,7 +2,7 @@ import { useSpring } from "@react-spring/web";
 import { useDispatch } from "react-redux";
 
 import { BGChyronDriver, BGChyronSubMode, OpenState } from "../../../../types/state";
-import { DebugDurationProps, Fraction } from "../../../../types/style";
+import { DebugDurationProps } from "../../../../types/style";
 import { clearChyrons } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { theme } from "../../../../shared/theme";
 import { outlineClipPath } from "../../../../utils/styling";

@@ -197,7 +197,7 @@ RowRightHalfLayout.displayName = "RowRightHalfLayout";
 
 export const DriverNameContainer = styled.div`
   position: relative;
-  margin-left: ${p => p.theme.design.timingTower.nameLeftMargin}px;
+  margin-left: ${p => p.theme.design.timingTower.nameLeftMarginPx}px;
 `;
 DriverNameContainer.displayName = "DriverNameContainer";
 
