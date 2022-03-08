@@ -63,17 +63,16 @@ If you ever want to contribute to this code you'll need to get your feet wet in 
 1) Unpack the zip file's contents in a very easy-to-find location on your computer. I recommend creating a "git" directory in your personal files folder and making it located at "`<My Home Directory>/git/sab-f1-ui`". (Also, I really recommend AGAINST placing it in any Dropbox or other cloud storage directory you might have location).
 1) Open VSCode and open the `sab-f1-ui` directory as a new project.
 1) In VSCode open a terminal (look around the menus at the top of VSCode).
-1) Install NodeJS v16.13.0. For MacOS, use "nvm" and follow [this guide](https://github.com/nvm-sh/nvm#installing-and-updating) and [these steps](https://github.com/nvm-sh/nvm#installing-and-updating). For Windows follow [this guide](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-1) Enable `yarn` by running `corepack enable` (more details [here](https://yarnpkg.com/getting-started/install)).
-1) With the terminal for VSCode open in the `sab-f1-ui` directory run `yarn`.
-1) If everything installed correctly, now run `yarn start`.
+1) Install NodeJS v16.13.0. For MacOS, use "nvm" and follow [this guide](https://github.com/nvm-sh/nvm#installing-and-updating) and [these steps](https://github.com/nvm-sh/nvm#installing-and-updating). For Windows follow [this guide](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows) - if you get errors about "access denied" [try this fix](https://stackoverflow.com/a/63084419); if you get errors about "script execution" [try this fix](https://stackoverflow.com/a/67420296).
+1) Run `node -v` and make sure it works and says v16.13.0.
+1) Enable `yarn` by running `corepack enable` (more details [here](https://yarnpkg.com/getting-started/install)). If for some reason this isn't working, you can skip it.
+1) With the terminal for VSCode open in the `sab-f1-ui` directory run `yarn` (if you didn't get yarn, run `npm install`). This will download all the open source code needed to run my code (expect 300-800 MB download, it's hard to predict).
+1) If everything installed correctly, now run `yarn start` (if you didn't get yarn, run `npm start`).
 1) If a browser window doesn't open for you automatically, open up a new browser tab and go to [localhost:3000](http://localhost:3000/).
 
 Currently 95% of the content of my project is under the "Workspaces" segment. Take a look a play around!
 
-If you get bad performance or flashing text its because you're in developer mode. If you want you can try to build the project and serve it in production mode. Run `yarn build` and then follow [this guide](https://create-react-app.dev/docs/deployment/#static-server) to find how to install the command line program `serve` and host the static site with `serve -s build`.
-
-
+If you get bad performance or flashing text its because you're in developer mode. If you want you can try to build the project and serve it in production mode. Run `yarn build` (or `npm build`) and then follow [this guide](https://create-react-app.dev/docs/deployment/#static-server) to find how to install the command line program `serve` and host the static site with `serve -s build`.
 
 # My Previous Work
 ## Accretive Technology Group (2013-2018)
