@@ -26,7 +26,7 @@ const DEFAULT_TYRE: Tyre = {
 };
 
 const GRID_POSITION_GAP: Meters = 8;
-const POLE_TO_START: Meters = 10;
+const POLE_TO_START: Meters = -10;
 
 const initialState: RootState["event"] = {
   trackName: "Circuit de Spa-Franchorchamps",
@@ -41,8 +41,8 @@ const initialState: RootState["event"] = {
   progress: {
     startTime: Date.now(),
     timeLimit: 60 * 60 * 2 * 1000,
-    currentLap: 1,
-    lapCount: 10,
+    lapCount: 1,
+    scheduledLaps: 44,
   },
   leaderGridSpot: 0,
   grid: [
@@ -255,6 +255,9 @@ export const eventSlice = createSlice({
         state.grid[entry.gridSpot].position = sortedPosition + 1;
       });
       state.leaderGridSpot = sortingGrid[0].gridSpot;
+      state.progress.lapCount =
+        Math.max(1, Math.floor(sortingGrid[0].distance / state.trackLength) + 1);
+
       state.lastUpdate = Date.now();
     },
     increaseDistance: (state, action: PayloadAction<IncreaseDistanceAction>) => {

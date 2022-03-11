@@ -91,6 +91,7 @@ export const workspaces: WorkspaceObject = {
       "timing-board-leader-20-out-1.png",
       "timing-board-intervals-yellow-flag.png",
       "timing-board-portrait-gap.png",
+      "timing-board-fastest-lap-wide.png",
     ],
     previewWindowDimensions: {
       width: 700,

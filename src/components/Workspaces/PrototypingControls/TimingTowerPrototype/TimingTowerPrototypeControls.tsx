@@ -57,6 +57,19 @@ export function TimingTowerPrototypeControls() {
             </ClickSpan>
             <ClickSpan
               onClick={() => {
+                dispatch(increaseDistance({
+                  cars: grid,
+                  distance: 1000,
+                  randomness: 0.05,
+                  usePerformance: true,
+                }));
+                dispatch(refreshRunningOrder());
+              }}
+            >
+              +1000m performance to all
+            </ClickSpan>
+            <ClickSpan
+              onClick={() => {
                 dispatch(setCarStatus({
                   cars: selectedCars,
                   status: CarStatus.Retired,

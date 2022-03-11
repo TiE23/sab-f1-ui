@@ -197,7 +197,7 @@ RowRightHalfLayout.displayName = "RowRightHalfLayout";
 
 export const DriverNameContainer = styled.div`
   position: relative;
-  margin-left: ${p => p.theme.design.timingTower.nameLeftMargin}px;
+  margin-left: ${p => p.theme.design.timingTower.nameLeftMarginPx}px;
 `;
 DriverNameContainer.displayName = "DriverNameContainer";
 
@@ -206,7 +206,7 @@ export const DriverName = styled.span<DirectionalTransitionProps>`
   top: 0;
   left: 0;
 
-  color: white;
+  color: ${p => p.theme.colors.textWhite};
   font-family: ${p => p.theme.fonts.f1Bold};
   font-size: 20px;
   text-transform: uppercase;
@@ -218,8 +218,6 @@ export const DriverName = styled.span<DirectionalTransitionProps>`
 DriverName.displayName = "DriverName";
 
 export const DriverNameWipe = styled.div<DirectionalTransitionProps>`
-  /* background: #deadbe; */
-
   width: ${({ open }) => open ? 800 : 200}px;
   height: ${p => p.theme.design.timingTower.rowHeightPx}px;
 
@@ -237,7 +235,7 @@ type TimeDiffProps = DirectionalTransitionProps & {
   yScale: Fraction,
 };
 export const TimeDiff = styled.span<TimeDiffProps>`
-  color: white;
+  color: ${p => p.theme.colors.textWhite};
   font-family: ${p => p.theme.fonts.f1Regular};
   font-size: 20px;
 

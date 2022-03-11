@@ -4,14 +4,12 @@ import { useSelector } from "react-redux";
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { eventSelector } from "../../../../features/event/eventSelector";
 import { BGTimingTowerDisplayMode, CarStatus } from "../../../../types/state";
-import { Fraction } from "../../../../types/style";
+import { DebugDurationProps } from "../../../../types/style";
 
 import { RowsContainer } from "./styles";
 import { TimingTowerRow } from "./TimingTowerRow";
 
-type TimingTowerProps = {
-  debugDurationMultiplier?: Fraction,
-};
+type TimingTowerProps = DebugDurationProps;
 
 export function TimingTower({ debugDurationMultiplier: DDM }: TimingTowerProps) {
   const { lastUpdate, grid, trackLength } = useSelector(eventSelector);

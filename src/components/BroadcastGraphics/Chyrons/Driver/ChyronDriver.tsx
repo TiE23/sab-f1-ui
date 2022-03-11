@@ -2,7 +2,7 @@ import { useSpring } from "@react-spring/web";
 import { useDispatch } from "react-redux";
 
 import { BGChyronDriver, BGChyronSubMode, OpenState } from "../../../../types/state";
-import { Fraction } from "../../../../types/style";
+import { DebugDurationProps } from "../../../../types/style";
 import { clearChyrons } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { theme } from "../../../../shared/theme";
 import { outlineClipPath } from "../../../../utils/styling";
@@ -30,11 +30,10 @@ import {
 import { VenetianBlindsTransition } from "../../Common/VenetianBlindsTransition";
 import { Spacer } from "../../Common/Spacer.styled";
 
-type ChyronDriverProps = {
+type ChyronDriverProps = DebugDurationProps & {
   chyronData: BGChyronDriver,
   subMode: BGChyronSubMode,
   openState: OpenState,
-  debugDurationMultiplier?: Fraction,
 };
 export function ChyronDriver({
   chyronData,

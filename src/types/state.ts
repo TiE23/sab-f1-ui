@@ -82,8 +82,8 @@ export interface Event {
 export interface EventProgress {
   startTime: Milliseconds;
   timeLimit: Milliseconds;
-  currentLap: number;
   lapCount: number;
+  scheduledLaps: number;
 }
 export enum EventMode {
   Race,
