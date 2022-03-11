@@ -24,8 +24,10 @@ export const theme = {
     lightGrey: "#ddd",
     faintGrey: "#eee",
     darkGrey: "#303030",
+    dimGrey: "#999",
     videoFrameBG: "#333",
     positionFlagBG: "#f4f3ee",
+    textWhite: "#f1f1f1", // I found it to be #f2f2f2 but whatever
     teams: {  // 2021 Season
       alfaRomeo: "#900000",
       alphaTauri: "#2b4562",
@@ -65,6 +67,8 @@ export const theme = {
   fontSizes: {
     label: "0.9em",
     selector: "0.9em",
+    indicatorLapLabel: "1.2em",
+    indicatorLapCount: "1.5em",
   },
   design: {
     statusIndicator: {

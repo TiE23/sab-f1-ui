@@ -41,7 +41,8 @@ const initialState: RootState["event"] = {
   progress: {
     startTime: Date.now(),
     timeLimit: 60 * 60 * 2 * 1000,
-    lapCount: 44,
+    lapCount: 1,
+    scheduledLaps: 44,
   },
   leaderGridSpot: 0,
   grid: [
