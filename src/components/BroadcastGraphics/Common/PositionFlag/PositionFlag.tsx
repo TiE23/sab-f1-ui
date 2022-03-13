@@ -13,7 +13,7 @@ export function PositionFlag({
   size,
   number,
   numberSizeFraction = 0.64,
-  color = theme.colors.positionFlagBG,
+  color = theme.colors.posWhite,
 }: PositionFlagProps) {
   return (
     <PositionFlagBox size={size} color={color}>

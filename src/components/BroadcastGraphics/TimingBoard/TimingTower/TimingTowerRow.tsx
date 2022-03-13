@@ -36,6 +36,7 @@ import {
   AnimatedRowLeftHalfOutline,
   DriverNameContainer,
   DriverNameWipe,
+  FastestLapContainer,
 } from "./styles";
 import useMeasure from "react-use-measure";
 
@@ -62,27 +63,28 @@ export function TimingTowerRow({
 
   const [pastPos, setPastPos] = useState(car.position);
   const [posChange, setPosChange] = useState(0);
+  const [pastFLHolder, setPastFLHolder] = useState(false);
   const [pastDisplayMode, setPastDisplayMode] = useState(displayMode);
   const [hugRight, setHugRight] = useState(true);
 
   // Using timeouts and boolean states I can manipulate visiblity of the position
-  // change effects. wipeVisible is true for only 1ms before being switched back off.
-  const [showPosChange, setShowPosChange] = useState(false);
+  // change effects. showPosWipe is true for only 1ms before being switched back off.
+  const [showPosOutline, setShowPosOutline] = useState(false);
   const [showOutline, setShowOutline] = useState(false);
-  const [wipeVisible, setWipeVisible] = useState(false);
-  useTimeoutWhen(() => setShowPosChange(false), (
+  const [showPosWipe, setShowPosWipe] = useState(false);
+  useTimeoutWhen(() => setShowPosOutline(false), (
     ttTheme.wipeDelayMs + ttTheme.wipeDurationMs
-  ) * DDM, showPosChange);
+  ) * DDM, showPosOutline);
   useTimeoutWhen(() => setShowOutline(false), ttTheme.rowTravelDurationMs * DDM, showOutline);
-  useTimeoutWhen(() => setWipeVisible(false), 1, wipeVisible);
+  useTimeoutWhen(() => setShowPosWipe(false), 1, showPosWipe);
 
   useEffect(() => {
     if (car.position !== pastPos) {
       setPastPos(car.position);
       setPosChange(pastPos - car.position);
-      setShowPosChange(true);
+      setShowPosOutline(true);
       setShowOutline(true);
-      setWipeVisible(true);
+      setShowPosWipe(true);
     }
   }, [car.position]);
 
@@ -103,7 +105,7 @@ export function TimingTowerRow({
   }, [displayMode]);
 
   const { outlineClipPathProgress } = useSpring({
-    outlineClipPathProgress: showPosChange ? 1 : 0,
+    outlineClipPathProgress: showPosOutline ? 1 : 0,
     config: { duration: 333 * DDM },
     delay: 0 * DDM,
   });
@@ -154,9 +156,15 @@ export function TimingTowerRow({
       top={(car.position - 1) * ttTheme.rowHeightPx}
       transitionTime={ttTheme.rowTravelDurationMs * DDM}
     >
-      {car.notices.includes(CarNotice.FastestLap) && (
-        <FastestLapGem />
-      )}
+      <FastestLapContainer>
+        <FastestLapGem
+          open={car.notices.includes(CarNotice.FastestLap)}
+          transitionProps={[{
+            property: "left",
+            duration: ttTheme.fastestLapToastDurationMs * DDM,
+          }]}
+        />
+      </FastestLapContainer>
       <RowLeftHalf
         roundedCornerBottom={
           bottomRounded && orMatch(
@@ -201,12 +209,12 @@ export function TimingTowerRow({
               />
               <RowLeftHalfPosFlagChangeContainer
                 size={ttTheme.posFlagSizePx}
-                visible={showPosChange}
+                visible={showPosOutline}
                 transitionTime={167 * DDM}
               >
-                {showPosChange && (
+                {(showPosOutline) && (
                   <WipeTransition
-                    visible={wipeVisible}
+                    visible={showPosWipe}
                     delay={ttTheme.wipeDelayMs * DDM}
                     angle={45}
                     duration={ttTheme.wipeDurationMs * DDM}

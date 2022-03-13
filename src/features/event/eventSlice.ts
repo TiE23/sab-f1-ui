@@ -222,6 +222,10 @@ interface SetCarStatusAction {
   status: CarStatus;
 }
 
+/**
+ * Note: Add `state.lastUpdate = Date.now();` to the end of every reducer to
+ * keep components up to date that watch for changes with useEffect() functions.
+ */
 export const eventSlice = createSlice({
   name: "event",
   initialState,

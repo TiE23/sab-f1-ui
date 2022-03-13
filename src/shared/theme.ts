@@ -20,13 +20,14 @@ export const theme = {
     disabledRed: "#e08a91",
     posLostRed: "#e40030",
     posGainedGreen: "#10ff35",
+    posFastestLap: "#ae43ca",
     grey: "#aaa",
     lightGrey: "#ddd",
     faintGrey: "#eee",
     darkGrey: "#303030",
     dimGrey: "#999",
     videoFrameBG: "#333",
-    positionFlagBG: "#f4f3ee",
+    posWhite: "#f4f3ee",
     textWhite: "#f1f1f1", // I found it to be #f2f2f2 but whatever
     teams: {  // 2021 Season
       alfaRomeo: "#900000",
@@ -89,6 +90,7 @@ export const theme = {
       rowTravelDurationMs: 750,
       fullWidthDurationMs: 750,
       fullWidthCloseDelayMs: 333,
+      fastestLapToastDurationMs: 500,
     },
     button: {
       borderRadius: "0.25rem",
