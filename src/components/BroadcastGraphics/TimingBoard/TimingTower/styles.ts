@@ -119,6 +119,7 @@ export const RowLeftHalfLayout = styled.div`
   display: flex;
   padding-left: 3px;
 
+  align-items: center;
   justify-content: flex-start;
 `;
 RowLeftHalfLayout.displayName = "RowLeftHalfLayout";
@@ -199,6 +200,7 @@ RowRightHalfLayout.displayName = "RowRightHalfLayout";
 export const DriverNameContainer = styled.div`
   position: relative;
   margin-left: ${p => p.theme.design.timingTower.nameLeftMarginPx}px;
+  margin-top: ${p => p.theme.design.timingTower.nameTopMarginPx}px;
 `;
 DriverNameContainer.displayName = "DriverNameContainer";
 

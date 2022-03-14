@@ -84,6 +84,7 @@ export const theme = {
       teamGemSizePx: 30,
       posFlagSizePx: 32,
       nameLeftMarginPx: 14,
+      nameTopMarginPx: 4,
       rowRoundedCornerRadiusPx: 5,
       wipeDelayMs: 3500,
       wipeDurationMs: 400,
