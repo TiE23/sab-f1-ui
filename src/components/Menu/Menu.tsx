@@ -21,6 +21,7 @@ export const MainMenu = React.forwardRef<HTMLDivElement>(
     />
   ),
 );
+MainMenu.displayName = "MainMenu";
 
 type MenuProps = {
   links: Array<{label: string, to: string}>,
@@ -55,6 +56,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
     );
   },
 );
+Menu.displayName = "Menu";
 
 type MenuNavLinkProps = {
   to: string,
