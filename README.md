@@ -70,7 +70,7 @@ If you ever want to contribute to this code you'll need to get your feet wet in 
 1) If everything installed correctly, now run `yarn start` (if you didn't get yarn, run `npm start`).
 1) If a browser window doesn't open for you automatically, open up a new browser tab and go to [localhost:3000](http://localhost:3000/).
 
-Currently 95% of the content of my project is under the "Workspaces" segment. Take a look a play around!
+Currently 95% of the content of my project is under the "Workspaces" segment. Take a look and play around!
 
 If you get bad performance or flashing text its because you're in developer mode. If you want you can try to build the project and serve it in production mode. Run `yarn build` (or `npm build`) and then follow [this guide](https://create-react-app.dev/docs/deployment/#static-server) to find how to install the command line program `serve` and host the static site with `serve -s build`.
 
@@ -94,12 +94,12 @@ Working at Facebook (or as its now called, Meta) I was hired on for the combinat
 
 I didn't learn that much more about React beyond getting familiar with React Hooks. Facebook uses Flow instead of TypeScript and Flux (and other solutions) instead of Redux and has a ton of technical overhead when it comes to the marriage of their own language Hack (an extension of PHP), their cross-language API/RPC framework Thrift, and their configuration files system Configurator to the world of React and JavaScript.
 
-## 2020 Self Teaching
+## 2021 Self Teaching
 My time with Facebook ended in June 2021 and after taking a month to vacation and relax and started by reading through a 660 page long look from cover-to-cover on React and [TypeScript](https://www.typescriptlang.org/) to learn everything I didn't already know (or what came out as the new paradigms - having built Metric-Teacher just before hooks became the norm).
 
 Then I learned about composing CSS styles through the [Styled-Components](https://styled-components.com/) system that I have grown to absolutely love.
 
-Finally I worked my way through a comprehensive course in [D3.js](https://d3js.org/). And while I haven't found a use for this library in my project it really has left a mark on me and I'm excited to use it in the future.
+Finally I worked my way through a comprehensive course in [D3.js](https://d3js.org/). And while I haven't found a use for this library in my project it really has left a mark on me and I'm excited for any chance to use it in the future.
 
 ## F1 World Broadcast Emulator project
 I started work on this project in mid December mostly working on the basic scaffolding of the project - routing, state, and getting familiar with general page layout. I then promptly took time off for Christmas and New Years.
