@@ -6,6 +6,7 @@ import {
   Px,
   DirectionalTransitionProps,
   TransitionProps,
+  OpenProps,
 } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
 import { commonDirectionalTransition, commonTransition } from "../../../../utils/styling";
@@ -134,20 +135,12 @@ export const RowLeftHalfPosFlagContainer = styled.div<RowLeftHalfPosFlagContaine
 `;
 RowLeftHalfPosFlagContainer.displayName = "RowLeftHalfPosFlagContainer";
 
-type RowLeftHalfPosFlagChangeContainerProps = {
-  size: Px,
-  visible: boolean,
-  transitionTime: Milliseconds,
-};
-export const RowLeftHalfPosFlagChangeContainer = styled.div<RowLeftHalfPosFlagChangeContainerProps>`
+export const RowLeftHalfPosFlagChangeContainer = styled.div<OpenProps>`
   position: absolute;
   top: 0;
   left: 0;
-  height: ${({ size }) => size}px;
-  width: ${({ size }) => size}px;
 
-  opacity: ${({ visible }) => visible ? 1 : 0};
-  transition: opacity ${({ transitionTime }) => transitionTime}ms;
+  opacity: ${({ open }) => open ? 1 : 0};
 `;
 RowLeftHalfPosFlagChangeContainer.displayName = "RowLeftHalfPosFlagChangeContainer";
 

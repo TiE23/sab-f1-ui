@@ -62,31 +62,38 @@ export function TimingTowerRow({
   const { design: { timingTower: ttTheme } } = theme;
 
   const [pastPos, setPastPos] = useState(car.position);
-  const [posChange, setPosChange] = useState(0);
-  const [pastFLHolder, setPastFLHolder] = useState(false);
+  const [currentFL, setCurrentFL] = useState(false);
   const [pastDisplayMode, setPastDisplayMode] = useState(displayMode);
   const [hugRight, setHugRight] = useState(true);
 
   // Using timeouts and boolean states I can manipulate visiblity of the position
-  // change effects. showPosWipe is true for only 1ms before being switched back off.
-  const [showPosOutline, setShowPosOutline] = useState(false);
+  // change effects. When a
   const [showOutline, setShowOutline] = useState(false);
-  const [showPosWipe, setShowPosWipe] = useState(false);
-  useTimeoutWhen(() => setShowPosOutline(false), (
-    ttTheme.wipeDelayMs + ttTheme.wipeDurationMs
-  ) * DDM, showPosOutline);
   useTimeoutWhen(() => setShowOutline(false), ttTheme.rowTravelDurationMs * DDM, showOutline);
-  useTimeoutWhen(() => setShowPosWipe(false), 1, showPosWipe);
+  const [showChangeFlag, setShowChangeFlag] = useState(false);
+  useTimeoutWhen(() => setShowChangeFlag(false), ttTheme.wipeDelayMs * DDM, showChangeFlag);
+  const [changeColors, setChangeColors] = useState<[string, string]>(["white", "black"]);
 
   useEffect(() => {
     if (car.position !== pastPos) {
+      // Position change.
+      setShowChangeFlag(true);
+      setChangeColors([
+        car.position < pastPos ? theme.colors.posGainedGreen : theme.colors.posLostRed,
+        theme.colors.black,
+      ]);
       setPastPos(car.position);
-      setPosChange(pastPos - car.position);
-      setShowPosOutline(true);
       setShowOutline(true);
-      setShowPosWipe(true);
+    } else if (car.notices.includes(CarNotice.FastestLap) && !currentFL) {
+      // Fastest Lap gained.
+      setShowChangeFlag(true);
+      setCurrentFL(true);
+      setChangeColors([theme.colors.posFastestLap, theme.colors.textWhite]);
+    } else if (currentFL && !car.notices.includes(CarNotice.FastestLap)) {
+      // Fastest Lap lost.
+      setCurrentFL(false);
     }
-  }, [car.position]);
+  }, [car.position, car.notices]);
 
   useEffect(() => {
     if (pastDisplayMode !== displayMode) {
@@ -105,7 +112,7 @@ export function TimingTowerRow({
   }, [displayMode]);
 
   const { outlineClipPathProgress } = useSpring({
-    outlineClipPathProgress: showPosOutline ? 1 : 0,
+    outlineClipPathProgress: showOutline ? 1 : 0,
     config: { duration: 333 * DDM },
     delay: 0 * DDM,
   });
@@ -201,36 +208,34 @@ export function TimingTowerRow({
       >
         <RowLeftHalfLayout>
           {car.status !== CarStatus.Retired && (
+            /**
+             * The "Change" PositionFlag (the colored one) is always present but
+             * usually hidden under a second visible "Normal" PositionFlag. When
+             * a change is made the normal PositionFlag is hidden instantly and
+             * after a delay is revealed. With the reveal a WipeTransition also
+             * takes place. Before, the "Change" PositionFlag would wipe away.
+             * Now, instead, it is hidden under a revealed "Normal" PositionFlag.
+            */
             <RowLeftHalfPosFlagContainer size={ttTheme.posFlagSizePx}>
               <PositionFlag
                 size={ttTheme.posFlagSizePx}
                 number={car.position}
-                numberSizeFraction={.6}
+                numberSizeFraction={0.6}
+                bgColor={changeColors[0]}
+                numberColor={changeColors[1]}
               />
-              <RowLeftHalfPosFlagChangeContainer
-                size={ttTheme.posFlagSizePx}
-                visible={showPosOutline}
-                transitionTime={167 * DDM}
-              >
-                {(showPosOutline) && (
-                  <WipeTransition
-                    visible={showPosWipe}
-                    delay={ttTheme.wipeDelayMs * DDM}
-                    angle={45}
-                    duration={ttTheme.wipeDurationMs * DDM}
-                    startingCorner="topLeft"
-                  >
-                    <PositionFlag
-                      size={ttTheme.posFlagSizePx}
-                      number={car.position}
-                      numberSizeFraction={.6}
-                      color={posChange > 0
-                        ? theme.colors.posGainedGreen
-                        : theme.colors.posLostRed}
-                    />
-                  </WipeTransition>
-
-                )}
+              <RowLeftHalfPosFlagChangeContainer open={!showChangeFlag}>
+                <WipeTransition
+                  visible={!showChangeFlag}
+                  angle={45}
+                  duration={ttTheme.wipeDurationMs * DDM}
+                  startingCorner="bottomRight"
+                >
+                  <PositionFlag
+                    size={ttTheme.posFlagSizePx}
+                    number={car.position}
+                  />
+                </WipeTransition>
               </RowLeftHalfPosFlagChangeContainer>
             </RowLeftHalfPosFlagContainer>
           )}
@@ -285,12 +290,8 @@ export function TimingTowerRow({
           open={showOutline}
           startThickness={1.5}
           endThickness={1.5}
-          startColor={posChange > 0
-            ? theme.colors.posGainedGreen
-            : theme.colors.posLostRed}
-          endColor={posChange > 0
-            ? theme.colors.posGainedGreen
-            : theme.colors.posLostRed}
+          startColor={changeColors[0]}
+          endColor={changeColors[0]}
           transitionProps={[{
             property: "opacity",
             duration: 333 * DDM,

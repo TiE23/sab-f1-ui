@@ -21,6 +21,7 @@ export const theme = {
     posLostRed: "#e40030",
     posGainedGreen: "#10ff35",
     posFastestLap: "#ae43ca",
+    black: "#000",
     grey: "#aaa",
     lightGrey: "#ddd",
     faintGrey: "#eee",
