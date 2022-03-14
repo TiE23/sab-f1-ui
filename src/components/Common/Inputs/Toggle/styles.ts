@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 
 type ToggleContainerProps = {
   fontSize?: string;
@@ -8,26 +8,22 @@ export const ToggleContainer = styled.div<ToggleContainerProps>`
   align-items: flex-end;
   font-size: ${({ fontSize = "inherit" }) => fontSize};
 `;
-ToggleContainer.displayName = "ToggleContainer";
 
 export const ToggleBody = styled.div`
   position: relative;
   display: inline-block;
   text-align: left;
 `;
-ToggleBody.displayName = "ToggleBody";
 
 export const ToggleInput = styled.input`
   display: none;
 `;
-ToggleInput.displayName = "ToggleInput";
 
 export const ToggleLabelText = styled.span`
   margin-right: 1ch;
   font-family: ${p => p.theme.fonts.f1Regular};
   font-size: ${p => p.theme.fontSizes.label};
 `;
-ToggleLabelText.displayName = "ToggleLabelText";
 
 export const ToggleLabel = styled.label`
   display: block;
@@ -37,7 +33,6 @@ export const ToggleLabel = styled.label`
   width: 2.7em;
   cursor: pointer;
 `;
-ToggleLabel.displayName = "ToggleLabel";
 
 type ToggleBackgroundProps = {
   toggled: boolean,
@@ -81,7 +76,6 @@ export const ToggleBackground = styled.div<ToggleBackgroundProps>`
       }
     `)}
 `;
-ToggleBackground.displayName = "ToggleBackground";
 
 type ToggleCircleProps = {
   toggled: boolean,
@@ -97,4 +91,3 @@ export const ToggleCircle = styled.div<ToggleCircleProps>`
   top: 0;
   ${({ toggled }) => toggled ? css`right: 0;` : css`left: 0;`}
 `;
-ToggleCircle.displayName = "ToggleCircle";

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 type SizeProp = number | Array<number | string>;
 
@@ -36,7 +36,6 @@ export const LayoutGrid = styled.div<LayoutGridProps>`
   height: calc(100% - ${({ headerOffset = 0 }) => headerOffset}px);
   width: 100%;
 `;
-LayoutGrid.displayName = "LayoutGrid";
 
 type LayoutGridItemProps = {
   column: number,
@@ -50,4 +49,3 @@ export const LayoutGridItem = styled.div<LayoutGridItemProps>`
   grid-row: ${({ row }) => row}
     / span ${({ rowSpan = 1 }) => rowSpan};;
 `;
-LayoutGridItem.displayName = "LayoutGridItem";

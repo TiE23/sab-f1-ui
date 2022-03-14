@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 import { PadBox } from "@bedrock-layout/padbox";
 
 const hoverRules = css`

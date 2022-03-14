@@ -1,5 +1,5 @@
 import { animated } from "@react-spring/web";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 type SlotWindowProps = {
   disabled: boolean,
@@ -23,7 +23,6 @@ export const SlotWindow = styled.div<SlotWindowProps>`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
-SlotWindow.displayName = "SlotWindow";
 
 export const SlotText = styled.span`
   position: absolute;
@@ -34,13 +33,10 @@ export const SlotText = styled.span`
   color: ${p => p.theme.colors.darkGrey};
   user-select: none;
 `;
-SlotText.displayName = "SlotText";
 
 export const AnimatedSlotText = animated(SlotText);
-AnimatedSlotText.displayName = "AnimatedSlotText";
 
 export const SelectorLabel = styled.span`
   font-family: ${p => p.theme.fonts.f1Regular};
   font-size: ${p => p.theme.fontSizes.label};
 `;
-SelectorLabel.displayName = "SelectorLabel";

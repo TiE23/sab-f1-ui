@@ -1,4 +1,4 @@
-import { createGlobalStyle, ThemeProps } from "styled-components";
+import { createGlobalStyle, ThemeProps } from "styled-components/macro";
 
 export const theme = {
   fonts: {

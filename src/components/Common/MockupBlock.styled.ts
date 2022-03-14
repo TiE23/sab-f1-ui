@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 type MockupBlockProps = {
   color: string,
@@ -16,4 +16,3 @@ export const MockupBlock = styled.div<MockupBlockProps>`
   background-color: ${({ color }) => color};
   padding: 0.3em;
 `;
-MockupBlock.displayName = "MockupBlock";

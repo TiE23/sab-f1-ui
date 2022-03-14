@@ -1,5 +1,5 @@
 import { animated } from "@react-spring/web";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components/macro";
 
 import { Degrees, Px } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
@@ -58,7 +58,5 @@ export const VenetianBlindsFilter = styled.div<VenetianBlindsFilterProps>`
       : null)
 }
 `;
-VenetianBlindsFilter.displayName = "VenetianBlindsFilter";
 
 export const AnimatedVenetianBlindsFilter = animated(VenetianBlindsFilter);
-AnimatedVenetianBlindsFilter.displayName = "AnimatedVenetianBlindsFilter";

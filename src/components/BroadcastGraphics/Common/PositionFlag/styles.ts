@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Px } from "../../../../types/style";
 
 type PositionFlagBoxProps = {
@@ -17,7 +17,6 @@ export const PositionFlagBox = styled.div<PositionFlagBoxProps>`
   align-items: center;
   justify-content: center;
 `;
-PositionFlagBox.displayName = "PositionFlagBox";
 
 type PositionNumberProps = {
   size: Px,
@@ -29,4 +28,3 @@ export const PositionNumber = styled.span<PositionNumberProps>`
   color: ${({ color }) => color};
   margin-top: 2px;
 `;
-PositionNumber.displayName = "PositionNumber";

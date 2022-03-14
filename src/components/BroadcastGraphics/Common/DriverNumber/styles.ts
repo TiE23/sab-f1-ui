@@ -1,10 +1,9 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const NumberContainer = styled.div`
   position: relative;
   display: inline;
 `;
-NumberContainer.displayName = "NumberContainer";
 
 type NumberProps = {
   fontFamily: string,
@@ -24,7 +23,6 @@ export const StrokeNumber = styled.span<StrokeNumberProps>`
   -webkit-text-stroke-color: ${({ strokeColor }) => strokeColor};
   -webkit-text-stroke-width: ${({ strokeWidth }) => strokeWidth};
 `;
-StrokeNumber.displayName = "StrokeNumber";
 
 type ShadowNumberProps = NumberProps & {
   shadowProperties: string,
@@ -37,4 +35,3 @@ export const ShadowNumber = styled.span<ShadowNumberProps>`
 
   text-shadow: ${({ shadowProperties }) => shadowProperties};
 `;
-ShadowNumber.displayName = "ShadowNumber";
