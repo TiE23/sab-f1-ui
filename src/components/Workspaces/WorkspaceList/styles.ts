@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { PadBox } from "@bedrock-layout/padbox";
 
 type WorkspaceListBoxProps = {
@@ -13,4 +13,3 @@ export const WorkspaceListBox = styled(PadBox).attrs(() => ({
   border-right: 1px solid ${p => p.theme.colors.darkGrey};
   overflow-y: scroll;
 `;
-WorkspaceListBox.displayName = "WorkspaceListBox";

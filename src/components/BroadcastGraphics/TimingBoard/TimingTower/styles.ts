@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 import { animated } from "@react-spring/web";
 
 import {
@@ -33,7 +33,6 @@ export const RowsContainer = styled.div<RowsContainerProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-RowsContainer.displayName = "RowsContainer";
 
 type AnimatedRowContainerProps = {
   retired?: boolean,
@@ -59,7 +58,6 @@ export const AnimatedRowContainer = animated(styled.div.attrs<AnimatedRowContain
 
   ${({ retired }) => retired && css`opacity: 0.7;`}
 `);
-AnimatedRowContainer.displayName = "AnimatedRowContainer";
 
 type RoundedProp = {
   roundedCornerTop?: Px,
@@ -86,7 +84,6 @@ export const RowLeftHalf = styled(Rounded)<DirectionalTransitionProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-RowLeftHalf.displayName = "RowLeftHalf";
 
 type AnimatedRowLeftHalfOutlineProps = DirectionalTransitionProps & {
   startThickness: Px,
@@ -110,7 +107,6 @@ export const AnimatedRowLeftHalfOutline = animated(styled(Rounded)<AnimatedRowLe
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `);
-AnimatedRowLeftHalfOutline.displayName = "AnimatedRowLeftHalfOutline";
 
 export const RowLeftHalfLayout = styled.div`
   position: relative;
@@ -123,7 +119,6 @@ export const RowLeftHalfLayout = styled.div`
   align-items: center;
   justify-content: flex-start;
 `;
-RowLeftHalfLayout.displayName = "RowLeftHalfLayout";
 
 type RowLeftHalfPosFlagContainerProps = {
   size: Px,
@@ -133,7 +128,6 @@ export const RowLeftHalfPosFlagContainer = styled.div<RowLeftHalfPosFlagContaine
   height: ${({ size }) => size}px;
   width: ${({ size }) => size}px;
 `;
-RowLeftHalfPosFlagContainer.displayName = "RowLeftHalfPosFlagContainer";
 
 export const RowLeftHalfPosFlagChangeContainer = styled.div<OpenProps>`
   position: absolute;
@@ -142,7 +136,6 @@ export const RowLeftHalfPosFlagChangeContainer = styled.div<OpenProps>`
 
   opacity: ${({ open }) => open ? 1 : 0};
 `;
-RowLeftHalfPosFlagChangeContainer.displayName = "RowLeftHalfPosFlagChangeContainer";
 
 export const RowLeftHalfGemContainer = styled.div`
   position: absolute;
@@ -150,7 +143,6 @@ export const RowLeftHalfGemContainer = styled.div`
   top: 0;
   margin-top: 2px;
 `;
-RowLeftHalfGemContainer.displayName = "RowLeftHalfGemContainer";
 
 type RowRightHalfProps = DirectionalTransitionProps & {
   hugRight: boolean,
@@ -176,7 +168,6 @@ export const RowRightHalf = styled(Rounded)<RowRightHalfProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-RowRightHalf.displayName = "RowRightHalf";
 
 export const RowRightHalfLayout = styled.div`
   width: 100%;
@@ -188,14 +179,12 @@ export const RowRightHalfLayout = styled.div`
   justify-content: flex-end;
   padding-right: 8px;
 `;
-RowRightHalfLayout.displayName = "RowRightHalfLayout";
 
 export const DriverNameContainer = styled.div`
   position: relative;
   margin-left: ${p => p.theme.design.timingTower.nameLeftMarginPx}px;
   margin-top: ${p => p.theme.design.timingTower.nameTopMarginPx}px;
 `;
-DriverNameContainer.displayName = "DriverNameContainer";
 
 export const DriverName = styled.span<DirectionalTransitionProps>`
   position: absolute;
@@ -211,7 +200,6 @@ export const DriverName = styled.span<DirectionalTransitionProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-DriverName.displayName = "DriverName";
 
 export const DriverNameWipe = styled.div<DirectionalTransitionProps>`
   width: ${({ open }) => open ? 800 : 200}px;
@@ -224,7 +212,6 @@ export const DriverNameWipe = styled.div<DirectionalTransitionProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-DriverNameWipe.displayName = "DriverNameWipe";
 
 type TimeDiffProps = DirectionalTransitionProps & {
   xScale: Fraction,
@@ -245,7 +232,6 @@ export const TimeDiff = styled.span<TimeDiffProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-TimeDiff.displayName = "TimeDiff";
 
 export const FastestLapContainer = styled.div`
   position: absolute;
@@ -275,4 +261,3 @@ export const FastestLapGem = styled.div<TransitionProps>`
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-FastestLapGem.displayName = "FastestLapGem";

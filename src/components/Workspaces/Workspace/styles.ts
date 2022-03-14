@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components/macro";
 import { PadBox } from "@bedrock-layout/padbox";
 
 import { Dimensions } from "../../../types/state";
@@ -35,7 +35,6 @@ export const PreviewWindow = styled.div<PreviewWindowProps>`
     animation: ${scrollAnimation} 5s linear infinite;
   `}
 `;
-PreviewWindow.displayName = "PreviewWindow";
 
 export const H2 = styled.h2`
   margin: 0.2em;
@@ -43,7 +42,6 @@ export const H2 = styled.h2`
   font-family: ${p => p.theme.fonts.f1Regular};
   max-inline-size: 600px;
 `;
-H2.displayName = "H2";
 
 export const ControlsContainer = styled(PadBox).attrs(() => ({
   padding: "lg",
@@ -53,4 +51,3 @@ export const ControlsContainer = styled(PadBox).attrs(() => ({
   width: 800px;
   margin-bottom: 1em;
 `;
-ControlsContainer.displayName = "ControlsContainer";

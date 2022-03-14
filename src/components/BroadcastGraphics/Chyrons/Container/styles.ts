@@ -1,8 +1,7 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const DoubleChyronContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 1196px;
 `;
-DoubleChyronContainer.displayName = "DoubleChyronContainer";

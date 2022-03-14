@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 import { TeamFlagStyle } from "../../../../domain/data/teams";
 import { Px } from "../../../../types/style";
 
@@ -25,7 +25,6 @@ export const Container = styled.div<ContainerProps>`
     transparent 100%
   );
 `;
-Container.displayName = "Container";
 
 type FlagContainerProps = {
   height: Px,
@@ -68,7 +67,6 @@ export const FlagContainer = styled.div<FlagContainerProps>`
       );
     `}
 `;
-FlagContainer.displayName = "FlagContainer";
 
 type FlagDivBaseProps = {
   src: string,
@@ -92,7 +90,6 @@ export const CountryFlagDiv = styled(FlagDivBase)<CountryFlagDivProps>`
     ? css`background-position: center;`
     : css`background-position-x: ${xOffset}px`}
 `;
-CountryFlagDiv.displayName = "CountryFlagDiv";
 
 type TeamFlagDivProps = {
   style: TeamFlagStyle,
@@ -156,7 +153,6 @@ export const Sheen = styled.div<SlashProps>`
 
   border-left: 0.015em solid rgba(255, 255, 255, 0.1);
 `;
-Sheen.displayName = "Sheen";
 
 export const Slant = styled.div<SlashProps>`
   position: absolute;
@@ -166,7 +162,6 @@ export const Slant = styled.div<SlashProps>`
   background: #1a1a28;
   transform: skewX(-45deg) translateX(${({ x = 0 }) => `${x}px`});
 `;
-Slant.displayName = "Slant";
 
 export const FlagEdge = styled.div<SlashProps>`
   position: absolute;
@@ -184,4 +179,3 @@ export const FlagEdge = styled.div<SlashProps>`
     black 100%
   );
 `;
-FlagEdge.displayName = "FlagEdge";

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 type SpacerProps = {
   width?: string,
@@ -8,4 +8,3 @@ export const Spacer = styled.div<SpacerProps>`
   width: ${({ width = "0" }) => width};
   height: ${({ height = "0" }) => height};
 `;
-Spacer.displayName = "Spacer";

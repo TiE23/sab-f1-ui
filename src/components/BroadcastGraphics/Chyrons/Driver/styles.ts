@@ -1,5 +1,5 @@
 import { animated } from "@react-spring/web";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components/macro";
 
 import { Placement, Px, TransitionArgs } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
@@ -21,7 +21,6 @@ export const AnimatedBaseContainer = animated(styled.div<AnimatedBaseContainerPr
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};
 `);
-AnimatedBaseContainer.displayName = "AnimatedBaseContainer";
 
 const BaseShape = styled.div`
   position: absolute;
@@ -44,7 +43,6 @@ export const AnimatedBaseOutline = animated(styled(BaseShape)<AnimatedBaseOutlin
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `);
-AnimatedBaseOutline.displayName = "AnimatedBaseOutline";
 
 export const BaseBlack = styled(BaseShape)<TransitionProps>`
   opacity: ${({ open }) => open ? 1 : 0.1};
@@ -54,7 +52,6 @@ export const BaseBlack = styled(BaseShape)<TransitionProps>`
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-BaseBlack.displayName = "BaseBlack";
 
 type BaseBackgroundColorProps = {
   teamColor: string,
@@ -67,7 +64,6 @@ export const BaseBackgroundColor = styled(BaseShape)<BaseBackgroundColorProps & 
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-BaseBackgroundColor.displayName = "BaseBackgroundColor";
 
 export const BaseLayout = styled(BaseShape)<TransitionProps>`
   position: absolute;
@@ -85,7 +81,6 @@ export const BaseLayout = styled(BaseShape)<TransitionProps>`
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-BaseLayout.displayName = "BaseLayout";
 
 type TeamColorBarProps = {
   color: string,
@@ -105,7 +100,6 @@ export const TeamColorBar = styled.div<TeamColorBarProps & TransitionProps>`
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-TeamColorBar.displayName = "TeamColorBar";
 
 export const TextContainer = styled.div`
   position: relative;
@@ -114,20 +108,17 @@ export const TextContainer = styled.div`
 
   height: 100%;
 `;
-TextContainer.displayName = "TextContainer";
 
 export const NameContainer = styled.div`
   position: relative;
   top: 5px;
 `;
-NameContainer.displayName = "NameContainer";
 
 export const FirstName = styled.span`
   font-family: ${p => p.theme.fonts.f1Regular};
   color: #fff;
   font-size: 25px;
 `;
-FirstName.displayName = "FirstName";
 
 export const LastName = styled.span`
   font-family: ${p => p.theme.fonts.f1Bold};
@@ -136,7 +127,6 @@ export const LastName = styled.span`
   font-size: 25px;
   margin-left: 5px;
 `;
-LastName.displayName = "LastName";
 
 export const NumberContainer = styled.div`
   position: relative;
@@ -145,7 +135,6 @@ export const NumberContainer = styled.div`
   bottom: 3px;
   left: 10px;
 `;
-NumberContainer.displayName = "NumberContainer";
 
 const blinkingAnimation = keyframes`
   0% { opacity: 0.4 }
@@ -169,7 +158,6 @@ export const TeamName = styled.div<TeamNameProps>`
     animation: ${blinkingAnimation} ${duration}ms step-end ${delay}ms;
   `}
 `;
-TeamName.displayName = "TeamName";
 
 type FlagContainerProps = {
   height: Px,
@@ -194,7 +182,6 @@ export const FlagContainer = styled.div<FlagContainerProps & TransitionProps>`
 
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-FlagContainer.displayName = "FlagContainer";
 
 type DriverPortraitContainerProps = TransitionProps & {
   placement: Placement,
@@ -207,4 +194,3 @@ export const DriverPortraitContainer = styled.div<DriverPortraitContainerProps>`
   opacity: ${({ open }) => open ? 1 : 0};
   ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
-DriverPortraitContainer.displayName = "DriverPortraitContainer";

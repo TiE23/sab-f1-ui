@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components/macro";
 
 import Formula1RegularWoff2 from "./Formula1-Regular.woff2";
 import Formula1RegularTTF from "./Formula1-Regular.ttf";

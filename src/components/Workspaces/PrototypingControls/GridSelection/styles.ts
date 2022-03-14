@@ -1,5 +1,5 @@
 import { PadBox } from "@bedrock-layout/padbox";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 type GridItemProps = {
   selected: boolean,

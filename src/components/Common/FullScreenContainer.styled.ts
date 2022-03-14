@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 type FullScreenContainerProps = {
   minHeight?: number,
@@ -25,4 +25,3 @@ export const FullScreenContainer = styled.div<FullScreenContainerProps>`
   overflow-y: var(--overflowY);
   overflow-x: var(--overflowX);
 `;
-FullScreenContainer.displayName = "FullScreenContainer";

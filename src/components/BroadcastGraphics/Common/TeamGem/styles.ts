@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { TeamGemStyle } from "../../../../domain/data/teams";
 import { Px } from "../../../../types/style";
 
@@ -20,7 +20,6 @@ export const GemContainer = styled.div<GemContainerProps>`
   mask-image: linear-gradient(to left, black 0%, black 80%, transparent 100%);
   clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%, 0 50%);
 `;
-GemContainer.displayName = "GemContainer";
 
 type GemColorDivProps = {
   height: Px,
@@ -57,4 +56,3 @@ export const GemLogoDiv = styled.div<GemLogoDivProps>`
   )};
   background-repeat: no-repeat;
 `;
-GemLogoDiv.displayName = "GemDiv";

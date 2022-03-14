@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { BGStatusIndicatorModes } from "../../../../types/state";
 
 import { DirectionalTransitionProps } from "../../../../types/style";
@@ -15,7 +15,6 @@ export const StatusIndicatorBase = styled.div<DirectionalTransitionProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-StatusIndicatorBase.displayName = "StatusIndicatorBase";
 
 
 export const StatusIndicatorLayout = styled.div`
@@ -23,7 +22,6 @@ export const StatusIndicatorLayout = styled.div`
   width: 100%;
   height: 100%;
 `;
-StatusIndicatorLayout.displayName = "StatusIndicatorLayout";
 
 type IndicatorModeProps = {
   mode: BGStatusIndicatorModes,
@@ -64,7 +62,6 @@ export const LapLine = styled.div<LapLineProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-LapLine.displayName = "LapLine";
 
 
 type LapLabelProps = DirectionalTransitionProps & IndicatorModeProps;
@@ -84,7 +81,6 @@ export const LapLabel = styled.span<LapLabelProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-LapLabel.displayName = "LapLabel";
 
 
 type LapCountProps = DirectionalTransitionProps & IndicatorModeProps;
@@ -117,4 +113,3 @@ export const LapCount = styled.div<LapCountProps>`
   ${({ open, transitionOpeningProps, transitionClosingProps, transitionProps }) =>
     commonDirectionalTransition(open, transitionOpeningProps, transitionClosingProps, transitionProps)}
 `;
-LapCount.displayName = "LapCount";

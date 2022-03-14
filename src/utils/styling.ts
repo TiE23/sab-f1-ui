@@ -1,4 +1,4 @@
-import { css }from "styled-components";
+import { css }from "styled-components/macro";
 import { clamp } from "lodash";
 
 import { Corner, Fraction, Placement, Px, TransitionArgs } from "../types/style";

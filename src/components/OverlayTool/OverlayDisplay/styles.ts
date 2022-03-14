@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 /**
  * scale is a percentage (0-100%)
@@ -20,7 +20,6 @@ export const OverlayImage = styled.img.attrs<OverlayImageProps>(({
     outline-offset: -2px;
   }
 `;
-OverlayImage.displayName = "OverlayImage";
 
 type OverlayImageContainerProps = {
   opacity: number,
@@ -41,12 +40,10 @@ export const OverlayImageContainer = styled.div.attrs<OverlayImageContainerProps
   }
 
 `;
-OverlayImageContainer.displayName = "OverlayImageContainer";
 
 export const OverlayImageSubContainer = styled.div`
   flex-shrink: 0;
 `;
-OverlayImageSubContainer.displayName = "OverlayImageSubContainer";
 
 export const OverlayImageSize = styled.span`
   position: absolute;
@@ -61,4 +58,3 @@ export const OverlayImageSize = styled.span`
   font-size: 1em;
   text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
 `;
-OverlayImageSize.displayName = "OverlayImageSize";

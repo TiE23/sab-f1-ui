@@ -1,5 +1,5 @@
 import { animated } from "@react-spring/web";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const ProgressSliderBody = styled.div`
   position: relative;
@@ -32,10 +32,8 @@ export const ProgressSliderBar = styled.div<ProgressSliderBarProps>`
   )};
   transition: background-color 0.2s ease;
 `;
-ProgressSliderBar.displayName = "ProgressSliderBar";
 
 export const AnimatedProgressSliderBar = animated(ProgressSliderBar);
-AnimatedProgressSliderBar.displayName = "AnimatedProgressSliderBar";
 
 type ProgressSliderBarHandleProps = {
   color?: string,
@@ -61,7 +59,6 @@ export const ProgressSliderBarHandle = styled.div<ProgressSliderBarHandleProps>`
     opacity: 0.8;
   }
 `;
-ProgressSliderBarHandle.displayName = "ProgressSliderBarHandle";
 
 type ProgressSliderBarIndicatorProps = {
   left: number,
@@ -90,4 +87,3 @@ export const ProgressSliderBarIndicator = styled.span<ProgressSliderBarIndicator
 
   user-select: none;
 `;
-ProgressSliderBarIndicator.displayName = "ProgressSliderBarIndicator";

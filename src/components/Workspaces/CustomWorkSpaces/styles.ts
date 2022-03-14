@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Px } from "../../../types/style";
 
 type BasicBlockProps = {
@@ -19,4 +19,3 @@ export const BasicBlock = styled.div<BasicBlockProps>`
 
   border-radius: 15px;
 `;
-BasicBlock.displayName = "BasicBlock";

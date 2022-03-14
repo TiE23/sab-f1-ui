@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 
 type VideoFeedFrameProps = {
   centered?: boolean,
@@ -19,14 +19,12 @@ export const VideoFeedFrame = styled.div<VideoFeedFrameProps>`
     }
   `}
 `;
-VideoFeedFrame.displayName = "VideoFeedFrame";
 
 export const BackgroundImage = styled.img`
   height: 100%;
   max-width: 100%;
   object-fit: contain;
 `;
-BackgroundImage.displayName = "BackgroundImage";
 
 type BackgroundImageDivProps = {
   src: string,
@@ -39,4 +37,3 @@ export const BackgroundImageDiv = styled.div<BackgroundImageDivProps>`
   background-repeat: no-repeat;
   background-position: 0% 50%;
 `;
-BackgroundImageDiv.displayName = "BackgroundImageDiv";

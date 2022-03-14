@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 import { Percent, Px } from "../../../../types/style";
 
@@ -26,4 +26,3 @@ export const PortraitDiv = styled.div<PortraitDivProps>`
   mask-repeat: no-repeat;
   mask-position: var(--position);
 `;
-PortraitDiv.displayName = "PortraitDiv";
