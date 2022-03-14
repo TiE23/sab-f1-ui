@@ -21,10 +21,12 @@ PositionFlagBox.displayName = "PositionFlagBox";
 
 type PositionNumberProps = {
   size: Px,
+  color: string,
 };
 export const PositionNumber = styled.span<PositionNumberProps>`
   font-family: ${p => p.theme.fonts.f1Regular};
   font-size: ${({ size }) => size}px;
+  color: ${({ color }) => color};
   margin-top: 2px;
 `;
 PositionNumber.displayName = "PositionNumber";

@@ -5,9 +5,11 @@ import {
   Fraction,
   Px,
   DirectionalTransitionProps,
+  TransitionProps,
+  OpenProps,
 } from "../../../../types/style";
 import { Milliseconds } from "../../../../types/util";
-import { commonDirectionalTransition } from "../../../../utils/styling";
+import { commonDirectionalTransition, commonTransition } from "../../../../utils/styling";
 
 import fastestLapIcon from "../../../../public/images/icons/fastest-lap.svg";
 
@@ -118,6 +120,7 @@ export const RowLeftHalfLayout = styled.div`
   display: flex;
   padding-left: 3px;
 
+  align-items: center;
   justify-content: flex-start;
 `;
 RowLeftHalfLayout.displayName = "RowLeftHalfLayout";
@@ -132,20 +135,12 @@ export const RowLeftHalfPosFlagContainer = styled.div<RowLeftHalfPosFlagContaine
 `;
 RowLeftHalfPosFlagContainer.displayName = "RowLeftHalfPosFlagContainer";
 
-type RowLeftHalfPosFlagChangeContainerProps = {
-  size: Px,
-  visible: boolean,
-  transitionTime: Milliseconds,
-};
-export const RowLeftHalfPosFlagChangeContainer = styled.div<RowLeftHalfPosFlagChangeContainerProps>`
+export const RowLeftHalfPosFlagChangeContainer = styled.div<OpenProps>`
   position: absolute;
   top: 0;
   left: 0;
-  height: ${({ size }) => size}px;
-  width: ${({ size }) => size}px;
 
-  opacity: ${({ visible }) => visible ? 1 : 0};
-  transition: opacity ${({ transitionTime }) => transitionTime}ms;
+  opacity: ${({ open }) => open ? 1 : 0};
 `;
 RowLeftHalfPosFlagChangeContainer.displayName = "RowLeftHalfPosFlagChangeContainer";
 
@@ -198,6 +193,7 @@ RowRightHalfLayout.displayName = "RowRightHalfLayout";
 export const DriverNameContainer = styled.div`
   position: relative;
   margin-left: ${p => p.theme.design.timingTower.nameLeftMarginPx}px;
+  margin-top: ${p => p.theme.design.timingTower.nameTopMarginPx}px;
 `;
 DriverNameContainer.displayName = "DriverNameContainer";
 
@@ -251,19 +247,32 @@ export const TimeDiff = styled.span<TimeDiffProps>`
 `;
 TimeDiff.displayName = "TimeDiff";
 
-export const FastestLapGem = styled.div`
+export const FastestLapContainer = styled.div`
   position: absolute;
+  left: ${p => -p.theme.design.timingTower.rowHeightPx + 2}px;
+  top: 0;
 
   height: ${p => p.theme.design.timingTower.rowHeightPx}px;
   width: ${p => p.theme.design.timingTower.rowHeightPx - 2}px;
 
-  left: ${p => -p.theme.design.timingTower.rowHeightPx + 2}px;
+  overflow: clip;
+`;
+
+export const FastestLapGem = styled.div<TransitionProps>`
+  position: absolute;
+  left: ${({ open }) => open ? 0
+    : p => p.theme.design.timingTower.rowHeightPx}px;
   top: 0;
+
+  height: ${p => p.theme.design.timingTower.rowHeightPx}px;
+  width: ${p => p.theme.design.timingTower.rowHeightPx - 2}px;
 
   background-color: ${p => p.theme.colors.laps.purple};
   background-image: url(${fastestLapIcon});
   background-repeat: no-repeat;
   background-size: 89%;
   background-position: center 40%;
+
+  ${({ transitionProps }) => commonTransition(transitionProps)}
 `;
 FastestLapGem.displayName = "FastestLapGem";

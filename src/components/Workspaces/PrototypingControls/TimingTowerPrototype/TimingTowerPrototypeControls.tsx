@@ -8,7 +8,7 @@ import { broadcastDirectorSelector } from "../../../../features/broadcast/direct
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { setTimingTowerDisplayMode, setTimingTowerSplitsMode } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { eventSelector } from "../../../../features/event/eventSelector";
-import { increaseDistance, refreshRunningOrder, setCarStatus } from "../../../../features/event/eventSlice";
+import { awardFastestLap, increaseDistance, refreshRunningOrder, setCarStatus } from "../../../../features/event/eventSlice";
 import { BGTimingTowerDisplayMode, BGTimingTowerSplitsMode, CarStatus } from "../../../../types/state";
 import { GridSelection } from "../GridSelection";
 
@@ -89,6 +89,15 @@ export function TimingTowerPrototypeControls() {
               }}
             >
               Un-retire
+            </ClickSpan>
+            <ClickSpan
+              onClick={() => {
+                if (selectedCars.length > 0) {
+                  dispatch(awardFastestLap(selectedCars[0]));
+                }
+              }}
+            >
+              Award FL
             </ClickSpan>
           </InlineCluster>
           <hr />
