@@ -102,6 +102,10 @@ export const theme = {
     medRadius: "11px",
     smRadius: "7px",
   },
+  broadcast: {
+    dimensionsWidthPx: 1920,
+    dimensionsHeightPx: 1080,
+  },
 };
 
 export type MainThemeProps = ThemeProps<typeof theme>;

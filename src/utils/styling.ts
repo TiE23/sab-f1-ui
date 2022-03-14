@@ -182,3 +182,37 @@ export function formatTime(time: Seconds, limit: Seconds) {
   const seconds = time % 60;
   return `${minutes}:${seconds.toFixed(3).padStart(6, "0")}`;
 }
+
+/**
+ * Given a frame to work within, this will return the dimensions of an element
+ * that will best fit into this given frame with a specific ratio.
+ * @param frameWidth Width of the working frame in pixels
+ * @param frameHeight Width of the working frame in pixels
+ * @param ratioWH Ratio in the form of [width, height]
+ * @returns Dimensions [width, height] of a fitted element in pixels
+ */
+export function calculateFitSize(frameWidth: Px, frameHeight: Px, ratioWH: [number, number]): [Px, Px] {
+  const [w, h] = ratioWH;
+  let scaledWidth = frameWidth;
+  let scaledHeight = frameHeight;
+
+  if ((frameWidth / frameHeight) > (w / h)) { // Wider frame.
+    scaledWidth = frameHeight / h * w;
+  } else if ((frameWidth / frameHeight) < (w / h)) {  // Narrower frame.
+    scaledHeight = frameWidth / w * h;
+  }
+  return [scaledWidth, scaledHeight];
+}
+
+/**
+ * Given a fit element's dimensions in pixels this take the provided reference
+ * width and height defined in pixels and return the scale the fitted element
+ * is currently at.
+ * @param fitWidth Width of the fitted element in pixels
+ * @param fitHeight Height of the fitted element in pixels
+ * @param referenceWH Dimensions that we need to be scaled to [width, height] in pixels
+ * @returns Scale of the fitted element as a fraction
+ */
+export function calculateScale(fitWidth: Px, fitHeight: Px, referenceWH: [Px, Px]): Fraction {
+  return (fitWidth / referenceWH[0] + fitHeight / referenceWH[1]) / 2;
+}
