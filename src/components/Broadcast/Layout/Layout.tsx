@@ -1,6 +1,7 @@
 import { MockupBlock } from "../../Common/MockupBlock.styled";
 import VideoFeed from "../VideoFeed/VideoFeed";
 import { LayoutGrid, LayoutGridItem } from "../../Common/LayoutGrid.styled";
+import { TimingTowerPrototypeControls } from "../../Workspaces/PrototypingControls/TimingTowerPrototype";
 
 type LayoutProps = {
   headerHeight?: number,
@@ -33,9 +34,7 @@ export function Layout({ headerHeight }: LayoutProps) {
       </LayoutGridItem>
 
       <LayoutGridItem column={2} row={7} columnSpan={5} rowSpan={4}>
-        <MockupBlock
-          color="#4d828b"
-        >Broadcast Director UI</MockupBlock>
+        <TimingTowerPrototypeControls />
       </LayoutGridItem>
     </LayoutGrid>
   );

@@ -13,8 +13,8 @@ import {
 const initialState: RootState["broadcastGraphics"] = {
   chyrons: null,
   timingBoard: {
-    relativePos: {},
-    openState: 0,
+    placement: { top: "54px", left: "96px" },
+    openState: 1,
     statusIndicator: {
       mode: BGStatusIndicatorModes.LapNarrow,
     },
