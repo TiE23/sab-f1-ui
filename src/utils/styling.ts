@@ -24,10 +24,7 @@ export function placementStyleRules(pos: Placement) {
  * @returns A function that can be used to convert pixel values into percent values
  */
 const clipConvertToPercent = (width: Px, height: Px) =>
-  (coords: [Px, Px]): [Percent, Percent] => [
-    coords[0] / width * 100,
-    coords[1] / height * 100,
-  ];
+  ([x, y]: [Px, Px]): [Percent, Percent] => [x / width * 100, y / height * 100];
 
 /**
  * Provides the x, y coordinates of a three point polygon for use in a clip-path
