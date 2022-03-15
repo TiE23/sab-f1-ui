@@ -64,7 +64,7 @@ export function WipeTransition({
             startingCorner,
             angle,
           );
-          return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
+          return `polygon(${coordinates.map(([x, y]) => `${x}% ${y}%`).join(", ")})`;
         }),
       }}
       ref={childRef}

@@ -305,7 +305,7 @@ export function TimingTowerRow({
                 3,
                 3,
               );
-              return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
+              return `polygon(${coordinates.map(([x, y]) => `${x}% ${y}%`).join(", ")})`;
             }),
           }}
         />

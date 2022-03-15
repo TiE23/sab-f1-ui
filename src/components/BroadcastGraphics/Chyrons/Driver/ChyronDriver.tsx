@@ -98,7 +98,7 @@ export function ChyronDriver({
               progress,
               5,
             );
-            return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
+            return `polygon(${coordinates.map(([x, y]) => `${x}% ${y}%`).join(", ")})`;
           }),
         }}
       />

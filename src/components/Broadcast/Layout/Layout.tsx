@@ -17,7 +17,7 @@ export function Layout({ headerHeight }: LayoutProps) {
         >Timing Board UI</MockupBlock>
       </LayoutGridItem>
 
-      <LayoutGridItem column={2} row={1} columnSpan={5} rowSpan={6} >
+      <LayoutGridItem column={2} row={1} columnSpan={5} rowSpan={7} >
         <VideoFeed />
       </LayoutGridItem>
 
@@ -33,7 +33,7 @@ export function Layout({ headerHeight }: LayoutProps) {
         >Race Director UI</MockupBlock>
       </LayoutGridItem>
 
-      <LayoutGridItem column={2} row={7} columnSpan={5} rowSpan={4}>
+      <LayoutGridItem column={2} row={8} columnSpan={5} rowSpan={3}>
         <TimingTowerPrototypeControls />
       </LayoutGridItem>
     </LayoutGrid>
