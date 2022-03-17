@@ -14,7 +14,7 @@ import {
   setChyronsOpenState,
 } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { flagModeList, getChyronModesList, getChyronSubModesList } from "../../../../domain/data/broadcastGraphics";
-import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, Car, FlagMode, GridSpot } from "../../../../types/state";
+import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, FlagMode, GridSpot } from "../../../../types/state";
 
 import { SlotSelector } from "../../../Common/Inputs/SlotSelector";
 import { Button, CloseButton, OpenButton, Title } from "./styles";
