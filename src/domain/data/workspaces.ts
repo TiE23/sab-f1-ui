@@ -23,6 +23,7 @@ export const workspaces: WorkspaceObject = {
       "chyron-driver-medium-full-lat-no-pos.png",
       "chyron-driver-large-np-tsu.png",
       "chyron-driver-large-dnf-ver.png",
+      "chyron-driver-medium-full-rolex.png",
     ],
     previewWindowDimensions: {
       width: 750,

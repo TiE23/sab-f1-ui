@@ -22,6 +22,7 @@ export function ChyronContainer({ debug = false, placement = {} }: ChyronContain
       chyronData={chyrons.driver.primary}
       subMode={chyrons.subMode}
       openState={chyrons.openState}
+      showRolex
       debugDurationMultiplier={debug ? debugDurationMultiplier : 1}
     />
   );
@@ -35,6 +36,7 @@ export function ChyronContainer({ debug = false, placement = {} }: ChyronContain
             chyronData={chyrons.driver.secondary}
             subMode={chyrons.subMode}
             openState={chyrons.openState}
+            showRolex={false}
             debugDurationMultiplier={debug ? debugDurationMultiplier : 1}
           />
         </DoubleChyronContainer>
