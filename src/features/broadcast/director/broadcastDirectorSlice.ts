@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { findIndex } from "lodash";
 
-import { RootState, Car } from "../../../types/state";
+import { RootState, GridSpot } from "../../../types/state";
 import { Optional } from "../../../types/util";
-import { carMatch } from "../../../utils/comparators";
 
 const initialState: RootState["broadcastDirector"] = {
   selectedCars: [],
@@ -13,22 +11,16 @@ export const broadcastDirectorSlice = createSlice({
   name: "broadcastDirector",
   initialState,
   reducers: {
-    pushSelectedCars: (state, action: PayloadAction<Car>) => {
-      const index = findIndex(state.selectedCars, carMatch(action.payload));
-      if (index === -1) {
-        state.selectedCars = state.selectedCars.concat(action.payload);
+    pushSelectedCars: (state, action: PayloadAction<GridSpot>) => {
+      if (!state.selectedCars.includes(action.payload)) {
+        state.selectedCars.push(action.payload);
       }
     },
-    setSelectedCars: (state, action: PayloadAction<Car>) => { // Might be removed.
+    setSelectedCars: (state, action: PayloadAction<GridSpot>) => { // Might be removed.
       state.selectedCars = [action.payload];
     },
-    removeSelectedCars: (state, action: PayloadAction<Car | number>) => {
-      const index = typeof action.payload === "number"
-        ? action.payload
-        : findIndex(state.selectedCars, carMatch(action.payload));
-      state.selectedCars = state.selectedCars.slice(0, index).concat(
-        state.selectedCars.slice(index + 1),
-      );
+    removeSelectedCars: (state, action: PayloadAction<GridSpot>) => {
+      state.selectedCars = state.selectedCars.filter(grid => grid !== action.payload);
     },
     /**
      * Shortcut to clear out selected cars. There is also a trick - if you
@@ -36,7 +28,7 @@ export const broadcastDirectorSlice = createSlice({
      * car.
      * @param action Car (optional)
      */
-    clearSelectedCars: (state, action: PayloadAction<Optional<Car>>) => {
+    clearSelectedCars: (state, action: PayloadAction<Optional<GridSpot>>) => {
       if (action.payload == null) {
         state.selectedCars = [];
       } else {

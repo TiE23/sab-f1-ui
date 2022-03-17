@@ -1,12 +1,10 @@
 import { InlineCluster } from "@bedrock-layout/inline-cluster";
-import { findIndex } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 
 import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
 import { pushSelectedCars, clearSelectedCars, removeSelectedCars } from "../../../../features/broadcast/director/broadcastDirectorSlice";
 import { eventSelector } from "../../../../features/event/eventSelector";
-import { Car } from "../../../../types/state";
-import { carMatch } from "../../../../utils/comparators";
+import { GridSpot } from "../../../../types/state";
 
 import { DriverLabel, GridItem, SelectionLabel } from "./styles";
 
@@ -19,24 +17,24 @@ export function GridSelection() {
     selectedCars,
   } = useSelector(broadcastDirectorSelector);
 
-  const carClick = (car: Car, selected: boolean) => () => {
+  const carClick = (gridSpot: GridSpot, selected: boolean) => () => {
     if (selected) {
-      dispatch(removeSelectedCars(car));
+      dispatch(removeSelectedCars(gridSpot));
     } else {
-      dispatch(pushSelectedCars(car));
+      dispatch(pushSelectedCars(gridSpot));
     }
   };
-  const carDoubleClick = (car: Car) => () => {
-    dispatch(clearSelectedCars(car));
+  const carDoubleClick = (gridSpot: GridSpot) => () => {
+    dispatch(clearSelectedCars(gridSpot));
   };
 
   return (
     <InlineCluster gutter="xs">
-      {grid.map(car => {
-        const selectedIndex = findIndex(selectedCars, carMatch(car));
+      {grid.map((car, gridSpot) => {
+        const selectedIndex = selectedCars.findIndex(g => g === gridSpot);
         const selected = selectedIndex !== -1;
-        const onClick = carClick(car, selected);
-        const onDoubleClick = carDoubleClick(car);
+        const onClick = carClick(gridSpot, selected);
+        const onDoubleClick = carDoubleClick(gridSpot);
         return (
           <GridItem
             key={car.driver.id}

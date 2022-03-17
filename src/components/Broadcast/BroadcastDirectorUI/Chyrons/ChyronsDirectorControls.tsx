@@ -7,13 +7,14 @@ import { FaCheck, FaStepForward, FaTimes } from "react-icons/fa";
 
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
+import { eventSelector } from "../../../../features/event/eventSelector";
 import {
   incrementChyronsOpenState,
   setChyrons,
   setChyronsOpenState,
 } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { flagModeList, getChyronModesList, getChyronSubModesList } from "../../../../domain/data/broadcastGraphics";
-import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, Car, FlagMode } from "../../../../types/state";
+import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, Car, FlagMode, GridSpot } from "../../../../types/state";
 
 import { SlotSelector } from "../../../Common/Inputs/SlotSelector";
 import { Button, CloseButton, OpenButton, Title } from "./styles";
@@ -36,6 +37,7 @@ export function ChyronsDirectorControls() {
   const dispatch = useDispatch();
   const { chyrons } = useSelector(broadcastGraphicsSelector);
   const { selectedCars } = useSelector(broadcastDirectorSelector);
+  const { grid } = useSelector(eventSelector);
 
   // Handle changes to the chyron mode so submodes can be changed accordingly.
   useEffect(() => {
@@ -60,29 +62,31 @@ export function ChyronsDirectorControls() {
 
   const buildDriver = () => {
     if (selectedCars.length === 0) return;
-    let primaryCar = selectedCars[0];
-    let secondaryCar = selectedCars.length > 1 ? selectedCars[1] : null;
+    let primaryCarGridSpot = selectedCars[0];
+    let secondaryCarGridSpot = selectedCars[1] ?? -1;
 
-    // Auto-sort drivers by position so trailing car always appears second.
-    if (chyronSubMode === "medium" && secondaryCar != null
-      && secondaryCar.position < primaryCar.position) {
-      secondaryCar = selectedCars[0];
-      primaryCar = selectedCars[1];
+    // Auto-sort drivers by position so trailing car appears second on mounting.
+    if (chyronSubMode === "medium" && secondaryCarGridSpot != -1
+      && grid[secondaryCarGridSpot].position < grid[primaryCarGridSpot].position) {
+      secondaryCarGridSpot = selectedCars[0];
+      primaryCarGridSpot = selectedCars[1];
     }
+
     const newChyrons: BGChyrons = {
       openState: 0,
       mode: chyronMode,
       subMode: chyronSubMode,
       driver: {
-        primary: buildDriverChyron(primaryCar),
-        secondary: secondaryCar != null ? buildDriverChyron(secondaryCar) : null,
+        primary: buildDriverChyron(primaryCarGridSpot),
+        secondary: secondaryCarGridSpot !== -1
+          ? buildDriverChyron(secondaryCarGridSpot) : null,
       },
     };
     dispatch(setChyrons(newChyrons));
   };
 
-  const buildDriverChyron = (car: Car): BGChyronDriver => ({
-    car,
+  const buildDriverChyron = (carGridSpot: GridSpot): BGChyronDriver => ({
+    carGridSpot,
     flagMode,
     showPosFlag: posFlag,
     showDriverNumber: driverNum,

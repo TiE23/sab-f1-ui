@@ -32,7 +32,7 @@ export function TimingTowerPrototypeControls() {
             <ClickSpan
               onClick={() => {
                 dispatch(increaseDistance({
-                  cars: selectedCars,
+                  gridSpots: selectedCars,
                   distance: 200,
                   randomness: 0,
                   usePerformance: false,
@@ -45,7 +45,7 @@ export function TimingTowerPrototypeControls() {
             <ClickSpan
               onClick={() => {
                 dispatch(increaseDistance({
-                  cars: grid,
+                  gridSpots: Array.from(Array(grid.length).keys()),
                   distance: 100,
                   randomness: 0.05,
                   usePerformance: true,
@@ -58,7 +58,7 @@ export function TimingTowerPrototypeControls() {
             <ClickSpan
               onClick={() => {
                 dispatch(increaseDistance({
-                  cars: grid,
+                  gridSpots: Array.from(Array(grid.length).keys()),
                   distance: 1000,
                   randomness: 0.05,
                   usePerformance: true,
@@ -71,7 +71,7 @@ export function TimingTowerPrototypeControls() {
             <ClickSpan
               onClick={() => {
                 dispatch(setCarStatus({
-                  cars: selectedCars,
+                  gridSpots: selectedCars,
                   status: CarStatus.Retired,
                 }));
                 dispatch(refreshRunningOrder());
@@ -82,7 +82,7 @@ export function TimingTowerPrototypeControls() {
             <ClickSpan
               onClick={() => {
                 dispatch(setCarStatus({
-                  cars: selectedCars,
+                  gridSpots: selectedCars,
                   status: CarStatus.Normal,
                 }));
                 dispatch(refreshRunningOrder());

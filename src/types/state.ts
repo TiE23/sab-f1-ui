@@ -1,5 +1,5 @@
 import { Meters, Milliseconds, Optional } from "./util";
-import { Corner, Fraction, Placement } from "./style";
+import { Corner, Fraction } from "./style";
 
 export interface RootState {
   pageDimensions: PageDimensions;
@@ -76,7 +76,6 @@ export interface Event {
   progress: EventProgress;
   leaderGridSpot: GridSpot; // Might be removed.
   grid: Grid;
-  // gridPositions: GridSpot[];
   lastUpdate: number;
 }
 export interface EventProgress {
@@ -120,7 +119,7 @@ export enum SectorFlag {
 export enum SafetyCarStatus { Clear, Starting, Out, Ending }
 export enum VirtualSafetyCarStatus { Clear, Active, Ending }
 export type Grid = Car[];  // Grid order does not change.
-export type GridSpot = number;
+export type GridSpot = number;  // GridSpot doesn't change. Starts at 0.
 export interface Car {
   position: number; // Position is DERIVED from distance and status.
   driver: Driver;
@@ -249,7 +248,7 @@ export type TeamFullName =
 
 // Broadcast Director
 export interface BroadcastDirector {
-  selectedCars: Car[];
+  selectedCars: GridSpot[];
 }
 
 // Broadcast Graphics
@@ -322,7 +321,7 @@ export interface BGChyrons extends BGBaseState {
 }
 
 export interface BGChyronDriver {
-  car: Car;
+  carGridSpot: GridSpot;
   flagMode: FlagMode;
   showPosFlag: boolean;
   showDriverNumber: boolean;

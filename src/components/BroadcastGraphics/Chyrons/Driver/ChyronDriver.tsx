@@ -1,11 +1,12 @@
 import { useSpring } from "@react-spring/web";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { BGChyronDriver, BGChyronSubMode, CarStatus, OpenState } from "../../../../types/state";
 import { DebugDurationProps } from "../../../../types/style";
 import { clearChyrons } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { theme } from "../../../../shared/theme";
 import { outlineClipPath } from "../../../../utils/styling";
+import { eventSelector } from "../../../../features/event/eventSelector";
 
 import { DriverNumber } from "../../Common/DriverNumber";
 import { AngledFlag } from "../../Common/AngledFlag";
@@ -45,7 +46,9 @@ export function ChyronDriver({
     : subMode === "large" ? [638, 98]
       : [0, 0];
 
-  const { car, flagMode, showPosFlag, showDriverNumber, showPortrait } = chyronData;
+  const { carGridSpot, flagMode, showPosFlag, showDriverNumber, showPortrait } = chyronData;
+  const { grid } = useSelector(eventSelector);
+  const car = grid[carGridSpot];
 
   const flagProps = flagMode === "country"
     ? { flagMode, flag: car.driver.nationality }
