@@ -14,7 +14,7 @@ import {
   setChyronsOpenState,
 } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { flagModeList, getChyronModesList, getChyronSubModesList } from "../../../../domain/data/broadcastGraphics";
-import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, Car, FlagMode } from "../../../../types/state";
+import { BGChyronDriver, BGChyronMode, BGChyrons, BGChyronSubMode, Car, FlagMode, GridSpot } from "../../../../types/state";
 
 import { SlotSelector } from "../../../Common/Inputs/SlotSelector";
 import { Button, CloseButton, OpenButton, Title } from "./styles";
@@ -62,29 +62,31 @@ export function ChyronsDirectorControls() {
 
   const buildDriver = () => {
     if (selectedCars.length === 0) return;
-    let primaryCar = grid[selectedCars[0]];
-    let secondaryCar = selectedCars.length > 1 ? grid[selectedCars[1]] : null;
+    let primaryCarGridSpot = selectedCars[0];
+    let secondaryCarGridSpot = selectedCars[1] ?? -1;
 
-    // Auto-sort drivers by position so trailing car always appears second.
-    if (chyronSubMode === "medium" && secondaryCar != null
-      && secondaryCar.position < primaryCar.position) {
-      secondaryCar = grid[selectedCars[0]];
-      primaryCar = grid[selectedCars[1]];
+    // Auto-sort drivers by position so trailing car appears second on mounting.
+    if (chyronSubMode === "medium" && secondaryCarGridSpot != -1
+      && grid[secondaryCarGridSpot].position < grid[primaryCarGridSpot].position) {
+      secondaryCarGridSpot = selectedCars[0];
+      primaryCarGridSpot = selectedCars[1];
     }
+
     const newChyrons: BGChyrons = {
       openState: 0,
       mode: chyronMode,
       subMode: chyronSubMode,
       driver: {
-        primary: buildDriverChyron(primaryCar),
-        secondary: secondaryCar != null ? buildDriverChyron(secondaryCar) : null,
+        primary: buildDriverChyron(primaryCarGridSpot),
+        secondary: secondaryCarGridSpot !== -1
+          ? buildDriverChyron(secondaryCarGridSpot) : null,
       },
     };
     dispatch(setChyrons(newChyrons));
   };
 
-  const buildDriverChyron = (car: Car): BGChyronDriver => ({
-    car,
+  const buildDriverChyron = (carGridSpot: GridSpot): BGChyronDriver => ({
+    carGridSpot,
     flagMode,
     showPosFlag: posFlag,
     showDriverNumber: driverNum,

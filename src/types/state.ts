@@ -321,7 +321,7 @@ export interface BGChyrons extends BGBaseState {
 }
 
 export interface BGChyronDriver {
-  car: Car;
+  carGridSpot: GridSpot;
   flagMode: FlagMode;
   showPosFlag: boolean;
   showDriverNumber: boolean;
