@@ -153,6 +153,13 @@ export function TimingTowerRow({
 
     xScale = rightHalfContent.includes(":") ? 0.75 : 0.9;
     yScale = rightHalfContent.includes("+") ? 1.1 : 1.0;
+
+    if (rightHalfContent.includes("LAPS") && rightHalfContent.length > 7) {
+      xScale = 0.85;  // Extreme edge case where +10 laps or more behind.
+    }
+    if (rightHalfContent.length > 9) {
+      xScale = 0.7; // Extreme edge case where +10 minutes or more behind.
+    }
   }
 
   return (
@@ -305,7 +312,7 @@ export function TimingTowerRow({
                 3,
                 3,
               );
-              return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
+              return `polygon(${coordinates.map(([x, y]) => `${x}% ${y}%`).join(", ")})`;
             }),
           }}
         />

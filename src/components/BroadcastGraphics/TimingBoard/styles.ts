@@ -1,7 +1,14 @@
 import styled from "styled-components/macro";
 
-export const TimingBoardLayout = styled.div`
-  position: relative;
+import { Placement } from "../../../types/style";
+import { placementStyleRules } from "../../../utils/styling";
+
+type TimingBoardLayoutProps = {
+  placement: Placement,
+};
+export const TimingBoardLayout = styled.div<TimingBoardLayoutProps>`
+  position: absolute;
+  ${({ placement }) => placementStyleRules(placement)}
 
   display: flex;
   flex-direction: column;

@@ -1,6 +1,10 @@
-import { MockupBlock } from "../../Common/MockupBlock.styled";
+import { PadBox } from "@bedrock-layout/padbox";
+
 import VideoFeed from "../VideoFeed/VideoFeed";
+import { MockupBlock } from "../../Common/MockupBlock.styled";
 import { LayoutGrid, LayoutGridItem } from "../../Common/LayoutGrid.styled";
+import { TimingTowerPrototypeControls } from "../../Workspaces/PrototypingControls/TimingTowerPrototype";
+import { ChyronsDirectorControls } from "../BroadcastDirectorUI/Chyrons";
 
 type LayoutProps = {
   headerHeight?: number,
@@ -16,7 +20,7 @@ export function Layout({ headerHeight }: LayoutProps) {
         >Timing Board UI</MockupBlock>
       </LayoutGridItem>
 
-      <LayoutGridItem column={2} row={1} columnSpan={5} rowSpan={6} >
+      <LayoutGridItem column={2} row={1} columnSpan={5} rowSpan={8} >
         <VideoFeed />
       </LayoutGridItem>
 
@@ -32,10 +36,11 @@ export function Layout({ headerHeight }: LayoutProps) {
         >Race Director UI</MockupBlock>
       </LayoutGridItem>
 
-      <LayoutGridItem column={2} row={7} columnSpan={5} rowSpan={4}>
-        <MockupBlock
-          color="#4d828b"
-        >Broadcast Director UI</MockupBlock>
+      <LayoutGridItem column={2} row={9} columnSpan={5} rowSpan={2}>
+        <PadBox padding="lg">
+          <TimingTowerPrototypeControls />
+          <ChyronsDirectorControls />
+        </PadBox>
       </LayoutGridItem>
     </LayoutGrid>
   );

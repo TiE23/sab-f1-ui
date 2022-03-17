@@ -1,7 +1,7 @@
 import { useSpring } from "@react-spring/web";
 import { useDispatch } from "react-redux";
 
-import { BGChyronDriver, BGChyronSubMode, OpenState } from "../../../../types/state";
+import { BGChyronDriver, BGChyronSubMode, CarStatus, OpenState } from "../../../../types/state";
 import { DebugDurationProps } from "../../../../types/style";
 import { clearChyrons } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { theme } from "../../../../shared/theme";
@@ -98,7 +98,7 @@ export function ChyronDriver({
               progress,
               5,
             );
-            return `polygon(${coordinates.map(([x, y]) => `${x}px ${y}px`).join(", ")})`;
+            return `polygon(${coordinates.map(([x, y]) => `${x}% ${y}%`).join(", ")})`;
           }),
         }}
       />
@@ -133,7 +133,7 @@ export function ChyronDriver({
           teamColor={teamColor}
         />
         <Spacer width="6px" />
-        {showPosFlag && (
+        {showPosFlag && car.status !== CarStatus.Retired && (
           <VenetianBlindsTransition
             visible={openState !== 0}
             delay={500 * DDM}

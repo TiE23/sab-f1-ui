@@ -13,13 +13,12 @@ import {
 const initialState: RootState["broadcastGraphics"] = {
   chyrons: null,
   timingBoard: {
-    relativePos: {},
-    openState: 0,
+    openState: 1,
     statusIndicator: {
       mode: BGStatusIndicatorModes.LapNarrow,
     },
     timingTower: {
-      open: 1,
+      openState: 1,
       displayMode: BGTimingTowerDisplayMode.LeftAndRight,
       splitsMode: BGTimingTowerSplitsMode.Leader,
       focusedCars: [],

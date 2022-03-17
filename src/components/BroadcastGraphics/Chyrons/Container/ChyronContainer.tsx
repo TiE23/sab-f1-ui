@@ -2,14 +2,16 @@ import { useSelector } from "react-redux";
 
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { workspaceSelector } from "../../../../features/workspace/workspaceSelector";
+import { Placement } from "../../../../types/style";
 
 import { ChyronDriver } from "../Driver";
-import { DoubleChyronContainer } from "./styles";
+import { ChyronPlacement, DoubleChyronContainer } from "./styles";
 
 type ChyronContainerProps = {
   debug?: boolean,
+  placement?: Placement,
 };
-export function ChyronContainer({ debug = false }: ChyronContainerProps) {
+export function ChyronContainer({ debug = false, placement = {} }: ChyronContainerProps) {
   const { chyrons } = useSelector(broadcastGraphicsSelector);
   const { debugDurationMultiplier } = useSelector(workspaceSelector);
 
@@ -23,19 +25,20 @@ export function ChyronContainer({ debug = false }: ChyronContainerProps) {
       debugDurationMultiplier={debug ? debugDurationMultiplier : 1}
     />
   );
-  if (chyrons.subMode === "medium" && chyrons.driver.secondary) {
-    return (
-      <DoubleChyronContainer>
-        {primary}
-        <ChyronDriver
-          chyronData={chyrons.driver.secondary}
-          subMode={chyrons.subMode}
-          openState={chyrons.openState}
-          debugDurationMultiplier={debug ? debugDurationMultiplier : 1}
-        />
-      </DoubleChyronContainer>
-    );
-  } else {
-    return primary;
-  }
+
+  return (
+    <ChyronPlacement placement={placement}>
+      {chyrons.subMode === "medium" && chyrons.driver.secondary ? (
+        <DoubleChyronContainer>
+          {primary}
+          <ChyronDriver
+            chyronData={chyrons.driver.secondary}
+            subMode={chyrons.subMode}
+            openState={chyrons.openState}
+            debugDurationMultiplier={debug ? debugDurationMultiplier : 1}
+          />
+        </DoubleChyronContainer>
+      ) : primary}
+    </ChyronPlacement>
+  );
 }

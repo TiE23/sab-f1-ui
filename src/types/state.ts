@@ -1,5 +1,5 @@
 import { Meters, Milliseconds, Optional } from "./util";
-import { Corner, Fraction } from "./style";
+import { Corner, Fraction, Placement } from "./style";
 
 export interface RootState {
   pageDimensions: PageDimensions;
@@ -253,14 +253,7 @@ export interface BroadcastDirector {
 }
 
 // Broadcast Graphics
-export interface BGRelativePos {
-  top?: string;
-  right?: string;
-  bottom?: string;
-  left?: string;
-}
 export interface BGBaseState {
-  relativePos: BGRelativePos;
   openState: OpenState;
 }
 /**
@@ -293,7 +286,7 @@ export enum BGStatusIndicatorModes {
 
 // Timing Tower
 export interface BGTimingTower {
-  open: OpenState;
+  openState: OpenState;
   displayMode: BGTimingTowerDisplayMode;
   splitsMode: BGTimingTowerSplitsMode,
   focusedCars: Car[],

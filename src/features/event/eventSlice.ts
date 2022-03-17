@@ -72,7 +72,7 @@ const initialState: RootState["event"] = {
     },
     {
       position: 4,
-      status: CarStatus.Retired,
+      status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
       distance: POLE_TO_START - GRID_POSITION_GAP * 3,
@@ -88,7 +88,7 @@ const initialState: RootState["event"] = {
     },
     {
       position: 6,
-      status: CarStatus.Retired,
+      status: CarStatus.Normal,
       tyre: DEFAULT_TYRE,
       notices: [],
       distance: POLE_TO_START - GRID_POSITION_GAP * 5,
