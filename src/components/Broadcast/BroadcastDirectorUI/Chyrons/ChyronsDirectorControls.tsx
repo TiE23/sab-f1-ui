@@ -71,7 +71,6 @@ export function ChyronsDirectorControls() {
     }
     const newChyrons: BGChyrons = {
       openState: 0,
-      placement: { top: "0", right: "0", bottom: "0", left: "0" },
       mode: chyronMode,
       subMode: chyronSubMode,
       driver: {

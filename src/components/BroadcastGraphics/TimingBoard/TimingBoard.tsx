@@ -1,21 +1,21 @@
 import { useSelector } from "react-redux";
 
 import { workspaceSelector } from "../../../features/workspace/workspaceSelector";
+import { Placement } from "../../../types/style";
 
 import { TimingBoardLayout } from "./styles";
 import { TimingTower } from "./TimingTower";
 import { StatusIndicator } from "./StatusIndicator";
-import { broadcastGraphicsSelector } from "../../../features/broadcast/graphics/broadcastGraphicsSelector";
 
 type TimingBoardProps = {
   debug?: boolean,
+  placement?: Placement,
 };
-export function TimingBoard({ debug = false }: TimingBoardProps) {
+export function TimingBoard({ debug = false, placement = {} }: TimingBoardProps) {
   const { debugDurationMultiplier } = useSelector(workspaceSelector);
-  const { timingBoard } = useSelector(broadcastGraphicsSelector);
 
   return (
-    <TimingBoardLayout placement={timingBoard.placement}>
+    <TimingBoardLayout placement={placement}>
       <StatusIndicator
         debugDurationMultiplier={debug ? debugDurationMultiplier : 1}
       />

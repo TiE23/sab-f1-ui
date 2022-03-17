@@ -105,6 +105,12 @@ export const theme = {
   broadcast: {
     dimensionsWidthPx: 1920,
     dimensionsHeightPx: 1080,
+    logoHeightPx: 40,
+    placement: {
+      chyrons: { bottom: "52px", left: "378px" },
+      timingBoard: { top: "54px", left: "96px" },
+      logo: { left: "86px", bottom: "52px" },
+    },
   },
 };
 

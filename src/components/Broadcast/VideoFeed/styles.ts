@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components/macro";
 
-import { Fraction, Px } from "../../../types/style";
+import { Fraction, Placement, Px } from "../../../types/style";
+import { placementStyleRules } from "../../../utils/styling";
 
 type VideoFeedFrameProps = {
   centered?: boolean,
@@ -60,4 +61,14 @@ export const DimensionsSpan = styled.span`
   right: 10px;
   color: ${p => p.theme.colors.textWhite};
   font-family: ${p => p.theme.fonts.f1Regular};
+`;
+
+type LogoProps = {
+  placement: Placement,
+  height: Px,
+};
+export const Logo = styled.img<LogoProps>`
+  position: absolute;
+  ${({ placement }) => placementStyleRules(placement)}
+  height: ${({ height }) => height}px;
 `;

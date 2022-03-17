@@ -7,7 +7,7 @@ type TimingBoardLayoutProps = {
   placement: Placement,
 };
 export const TimingBoardLayout = styled.div<TimingBoardLayoutProps>`
-  position: relative;
+  position: absolute;
   ${({ placement }) => placementStyleRules(placement)}
 
   display: flex;

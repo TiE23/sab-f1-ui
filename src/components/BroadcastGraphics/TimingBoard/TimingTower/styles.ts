@@ -221,6 +221,7 @@ export const TimeDiff = styled.span<TimeDiffProps>`
   color: ${p => p.theme.colors.textWhite};
   font-family: ${p => p.theme.fonts.f1Regular};
   font-size: 20px;
+  white-space: nowrap;
 
   text-align: end;
 

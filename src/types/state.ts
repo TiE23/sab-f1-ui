@@ -254,7 +254,6 @@ export interface BroadcastDirector {
 
 // Broadcast Graphics
 export interface BGBaseState {
-  placement: Placement;
   openState: OpenState;
 }
 /**
@@ -287,7 +286,7 @@ export enum BGStatusIndicatorModes {
 
 // Timing Tower
 export interface BGTimingTower {
-  open: OpenState;
+  openState: OpenState;
   displayMode: BGTimingTowerDisplayMode;
   splitsMode: BGTimingTowerSplitsMode,
   focusedCars: Car[],
