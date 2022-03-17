@@ -12,7 +12,7 @@ import {
   SectorFlag,
   SafetyCarStatus,
   VirtualSafetyCarStatus,
-  Car,
+  GridSpot,
 } from "../../types/state";
 import { Meters } from "../../types/util";
 import { orMatch } from "../../utils/common";
@@ -211,14 +211,14 @@ const initialState: RootState["event"] = {
 };
 
 interface IncreaseDistanceAction {
-  cars: Car[];
+  gridSpots: GridSpot[];
   distance: Meters;
   randomness: number;
   usePerformance: boolean;
 }
 
 interface SetCarStatusAction {
-  cars: Car[];
+  gridSpots: GridSpot[];
   status: CarStatus;
 }
 
@@ -267,9 +267,11 @@ export const eventSlice = createSlice({
     increaseDistance: (state, action: PayloadAction<IncreaseDistanceAction>) => {
       const gridMap = driverToGridMap(state.grid);
 
-      const { cars, distance, randomness, usePerformance } = action.payload;
+      const { gridSpots, distance, randomness, usePerformance } = action.payload;
 
-      cars.forEach(car => {
+      gridSpots.forEach(gridSpot => {
+        const car = state.grid[gridSpot];
+
         // Do not update cars that are DNS, retired, or finished.
         // This does remind me that Finished cars must be treated and reported
         // differently...
@@ -289,13 +291,13 @@ export const eventSlice = createSlice({
       });
       state.lastUpdate = Date.now();
     },
-    awardFastestLap: (state, action: PayloadAction<Car>) => {
+    awardFastestLap: (state, action: PayloadAction<GridSpot>) => {
       // Awards fastest lap to provided car. Removes fastest lap from anyone else.
       state.grid.forEach((car, index) => {
         const fastestLapNoticeIndex = car.notices.findIndex(
           notice => notice === CarNotice.FastestLap,
         );
-        if (car.driver.id === action.payload.driver.id) {
+        if (car.driver.id === state.grid[action.payload].driver.id) {
           if (fastestLapNoticeIndex === -1) {
             state.grid[index].notices.push(CarNotice.FastestLap);
           }
@@ -307,8 +309,9 @@ export const eventSlice = createSlice({
     },
     setCarStatus: (state, action: PayloadAction<SetCarStatusAction>) => {
       const gridMap = driverToGridMap(state.grid);
-      const { cars, status } = action.payload;
-      cars.forEach(car => {
+      const { gridSpots, status } = action.payload;
+      gridSpots.forEach(gridSpot => {
+        const car = state.grid[gridSpot];
         state.grid[gridMap[car.driver.id]].status = status;
       });
       state.lastUpdate = Date.now();

@@ -7,6 +7,7 @@ import { FaCheck, FaStepForward, FaTimes } from "react-icons/fa";
 
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
 import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
+import { eventSelector } from "../../../../features/event/eventSelector";
 import {
   incrementChyronsOpenState,
   setChyrons,
@@ -36,6 +37,7 @@ export function ChyronsDirectorControls() {
   const dispatch = useDispatch();
   const { chyrons } = useSelector(broadcastGraphicsSelector);
   const { selectedCars } = useSelector(broadcastDirectorSelector);
+  const { grid } = useSelector(eventSelector);
 
   // Handle changes to the chyron mode so submodes can be changed accordingly.
   useEffect(() => {
@@ -60,14 +62,14 @@ export function ChyronsDirectorControls() {
 
   const buildDriver = () => {
     if (selectedCars.length === 0) return;
-    let primaryCar = selectedCars[0];
-    let secondaryCar = selectedCars.length > 1 ? selectedCars[1] : null;
+    let primaryCar = grid[selectedCars[0]];
+    let secondaryCar = selectedCars.length > 1 ? grid[selectedCars[1]] : null;
 
     // Auto-sort drivers by position so trailing car always appears second.
     if (chyronSubMode === "medium" && secondaryCar != null
       && secondaryCar.position < primaryCar.position) {
-      secondaryCar = selectedCars[0];
-      primaryCar = selectedCars[1];
+      secondaryCar = grid[selectedCars[0]];
+      primaryCar = grid[selectedCars[1]];
     }
     const newChyrons: BGChyrons = {
       openState: 0,
