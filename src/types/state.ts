@@ -71,10 +71,11 @@ export interface OverlayItem {
 export interface Event {
   trackName: string;
   trackLength: Meters;
+  trackStartFinishDelta: Meters;  // Negative if finish behind start line.
   courseStatus: CourseStatus;
-  mode: EventMode;
-  progress: EventProgress;
-  leaderGridSpot: GridSpot; // Might be removed.
+  eventStatus: EventStatus;
+  eventMode: EventMode;
+  eventProgress: EventProgress;
   grid: Grid;
   lastUpdate: number;
 }
@@ -83,6 +84,12 @@ export interface EventProgress {
   timeLimit: Milliseconds;
   lapCount: number;
   scheduledLaps: number;
+}
+export enum EventStatus {
+  Waiting,  // Event is waiting to start.
+  Running,  // Event is running.
+  Stopped,  // Event has concluded.
+  Suspended,  // Event is suspended (ex: rain delay).
 }
 export enum EventMode {
   Race,

@@ -13,6 +13,7 @@ import {
   SafetyCarStatus,
   VirtualSafetyCarStatus,
   GridSpot,
+  EventStatus,
 } from "../../types/state";
 import { Meters } from "../../types/util";
 import { orMatch } from "../../utils/common";
@@ -31,20 +32,21 @@ const POLE_TO_START: Meters = -10;
 const initialState: RootState["event"] = {
   trackName: "Circuit de Spa-Franchorchamps",
   trackLength: 7004,
+  trackStartFinishDelta: -124,
   courseStatus: {
     courseFlag: CourseFlag.Green,
     sectorFlags: [SectorFlag.Green, SectorFlag.Green, SectorFlag.Green],
     safetyCar: SafetyCarStatus.Clear,
     virtualSafetyCar: VirtualSafetyCarStatus.Clear,
   },
-  mode: EventMode.Race,
-  progress: {
+  eventStatus: EventStatus.Waiting,
+  eventMode: EventMode.Race,
+  eventProgress: {
     startTime: Date.now(),
     timeLimit: 60 * 60 * 2 * 1000,
     lapCount: 1,
     scheduledLaps: 44,
   },
-  leaderGridSpot: 0,
   grid: [
     {
       position: 1,
@@ -235,32 +237,51 @@ export const eventSlice = createSlice({
       state.lastUpdate = Date.now();
     },
     refreshRunningOrder: (state) => {
-      const sortingGrid = state.grid.map((car, index) => ({
+      const sortingGrid = state.grid.map((car, index): {
+        gridSpot: GridSpot,
+        distance: Meters,
+        status: CarStatus,
+      } => ({
         gridSpot: index,
         distance: car.distance,
         status: car.status,
       }));
 
-      const add = (status: CarStatus) => {
+      // Adds distance to the cars that are out of the race.
+      const out = (status: CarStatus) => {
         if (status === CarStatus.Retired) {
-          return 1000000;
+          return -1000000;
         } else if (status === CarStatus.DidNotStart) {
-          return 2000000;
+          return -2000000;
         }
         return 0;
       };
 
       sortingGrid.sort((a, b) =>
         // Retired cars go to the end but still maintain their own order.
-        (b.distance - add(b.status)) - (a.distance - add(a.status)),
+        (b.distance + out(b.status)) - (a.distance + out(a.status)),
       );
 
+      const raceEndDistance = state.trackLength * state.eventProgress.scheduledLaps
+        + state.trackStartFinishDelta;
+
       sortingGrid.forEach((entry, sortedPosition) => {
-        state.grid[entry.gridSpot].position = sortedPosition + 1;
+        // Don't update positions of cars who have crossed the finish line.
+        if (entry.distance < raceEndDistance) {
+          state.grid[entry.gridSpot].position = sortedPosition + 1;
+        }
       });
-      state.leaderGridSpot = sortingGrid[0].gridSpot;
-      state.progress.lapCount =
-        Math.max(1, Math.floor(sortingGrid[0].distance / state.trackLength) + 1);
+
+      /**
+       * Calculate which lap we're on by taking the leader's distance.
+       * Also must consider the fact that the race distance 0 is at the start
+       * line, but the race ends at the finish line, which is often (always?)
+       * behind the start line by some distance.
+       */
+      state.eventProgress.lapCount =
+        Math.max(1, Math.floor(
+          (sortingGrid[0].distance - state.trackStartFinishDelta) / state.trackLength,
+        ) + 1);
 
       state.lastUpdate = Date.now();
     },
