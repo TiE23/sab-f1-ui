@@ -1,4 +1,4 @@
-import { Car, Grid } from "../types/state";
+import { Car, CarStatus, Grid } from "../types/state";
 
 import { Meters } from "../types/util";
 
@@ -40,4 +40,20 @@ export function driverToGridMap(grid: Grid) {
     gridMap[car.driver.id] = index;
   });
   return gridMap;
+}
+
+
+// Adds distance to the cars that are out of the race.
+function outPosition(status: CarStatus) {
+  if (status === CarStatus.Retired) {
+    return -1000000;
+  } else if (status === CarStatus.DidNotStart) {
+    return -2000000;
+  }
+  return 0;
+}
+
+export function sortCarPosition(a: Car, b: Car): number {
+  return (b.distance + outPosition(b.status))
+    - (a.distance + outPosition(a.status));
 }

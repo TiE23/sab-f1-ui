@@ -77,6 +77,7 @@ export interface Event {
   eventMode: EventMode;
   eventProgress: EventProgress;
   grid: Grid;
+  sortedGridSpots: GridSpot[];
   lastUpdate: number;
 }
 export interface EventProgress {

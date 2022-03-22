@@ -14,11 +14,12 @@ import {
   VirtualSafetyCarStatus,
   GridSpot,
   EventStatus,
+  Car,
 } from "../../types/state";
 import { Meters } from "../../types/util";
 import { orMatch } from "../../utils/common";
 import { cloneDriver, getTeam } from "../../utils/dataLookup";
-import { driverToGridMap } from "../../utils/event";
+import { driverToGridMap, sortCarPosition } from "../../utils/event";
 
 const DEFAULT_TYRE: Tyre = {
   compound: TyreCompound.Medium,
@@ -209,6 +210,7 @@ const initialState: RootState["event"] = {
       driver: cloneDriver("mazepin"),
     },
   ],
+  sortedGridSpots: Array.from(Array(20).keys()),
   lastUpdate: Date.now(),
 };
 
@@ -234,33 +236,24 @@ export const eventSlice = createSlice({
   reducers: {
     setCourseFlag: (state, action: PayloadAction<CourseFlag>) => {
       state.courseStatus.courseFlag = action.payload;
+
+      state.lastUpdate = Date.now();
+    },
+    setEventStatus: (state, action: PayloadAction<EventStatus>) => {
+      state.eventStatus = action.payload;
+
       state.lastUpdate = Date.now();
     },
     refreshRunningOrder: (state) => {
-      const sortingGrid = state.grid.map((car, index): {
+      const sortingGrid = state.grid.map((car, index): Car & {
         gridSpot: GridSpot,
-        distance: Meters,
-        status: CarStatus,
       } => ({
         gridSpot: index,
-        distance: car.distance,
-        status: car.status,
+        ...car,
       }));
 
-      // Adds distance to the cars that are out of the race.
-      const out = (status: CarStatus) => {
-        if (status === CarStatus.Retired) {
-          return -1000000;
-        } else if (status === CarStatus.DidNotStart) {
-          return -2000000;
-        }
-        return 0;
-      };
-
-      sortingGrid.sort((a, b) =>
-        // Retired cars go to the end but still maintain their own order.
-        (b.distance + out(b.status)) - (a.distance + out(a.status)),
-      );
+      sortingGrid.sort(sortCarPosition);
+      state.sortedGridSpots = sortingGrid.map(car => car.gridSpot);
 
       const raceEndDistance = state.trackLength * state.eventProgress.scheduledLaps
         + state.trackStartFinishDelta;
@@ -305,11 +298,13 @@ export const eventSlice = createSlice({
           addedDistance *= random(1 - randomness, 1 + randomness);
         }
         if (usePerformance) {
+          addedDistance *= 1 - (car.position * 0.005);
           addedDistance *=
             getTeam(car.driver.team.id).performance + car.driver.performance;
         }
         state.grid[gridMap[car.driver.id]].distance += addedDistance;
       });
+
       state.lastUpdate = Date.now();
     },
     awardFastestLap: (state, action: PayloadAction<GridSpot>) => {
@@ -326,6 +321,7 @@ export const eventSlice = createSlice({
           state.grid[index].notices.splice(fastestLapNoticeIndex, 1);
         }
       });
+
       state.lastUpdate = Date.now();
     },
     setCarStatus: (state, action: PayloadAction<SetCarStatusAction>) => {
@@ -335,6 +331,7 @@ export const eventSlice = createSlice({
         const car = state.grid[gridSpot];
         state.grid[gridMap[car.driver.id]].status = status;
       });
+
       state.lastUpdate = Date.now();
     },
   },
@@ -342,6 +339,7 @@ export const eventSlice = createSlice({
 
 export const {
   setCourseFlag,
+  setEventStatus,
   refreshRunningOrder,
   increaseDistance,
   awardFastestLap,

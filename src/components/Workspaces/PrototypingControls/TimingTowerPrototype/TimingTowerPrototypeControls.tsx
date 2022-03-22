@@ -3,16 +3,16 @@ import { PadBox } from "@bedrock-layout/padbox";
 import { Split } from "@bedrock-layout/split";
 import { Stack } from "@bedrock-layout/stack";
 import { useDispatch, useSelector } from "react-redux";
-import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
 
+import { broadcastDirectorSelector } from "../../../../features/broadcast/director/broadcastDirectorSelector";
 import { broadcastGraphicsSelector } from "../../../../features/broadcast/graphics/broadcastGraphicsSelector";
-import { setTimingTowerDisplayMode, setTimingTowerSplitsMode } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { eventSelector } from "../../../../features/event/eventSelector";
+import { setTimingTowerDisplayMode, setTimingTowerSplitsMode } from "../../../../features/broadcast/graphics/broadcastGraphicsSlice";
 import { awardFastestLap, increaseDistance, refreshRunningOrder, setCarStatus } from "../../../../features/event/eventSlice";
 import { BGTimingTowerDisplayMode, BGTimingTowerSplitsMode, CarStatus } from "../../../../types/state";
-import { GridSelection } from "../GridSelection";
 
-import { ClickSpan } from "./styles";
+import { GridSelection } from "../GridSelection";
+import { ClickSpan } from "../../../Common/Inputs/ClickSpan.styled";
 
 export function TimingTowerPrototypeControls() {
   const dispatch = useDispatch();
@@ -113,17 +113,17 @@ export function TimingTowerPrototypeControls() {
             >
               Splits Mode = {BGTimingTowerSplitsMode[splitsMode]}
             </ClickSpan>
-            <ClickSpan onClick={() => dispatch(setTimingTowerDisplayMode(BGTimingTowerDisplayMode.LeftAndRight))}>
-              {(displayMode === BGTimingTowerDisplayMode.LeftAndRight ? "*" : "") + "LeftAndRight"}
+            <ClickSpan onClick={() => dispatch(setTimingTowerDisplayMode(BGTimingTowerDisplayMode.Hidden))}>
+              {(displayMode === BGTimingTowerDisplayMode.Hidden ? "*" : "") + "Hidden"}
             </ClickSpan>
             <ClickSpan onClick={() => dispatch(setTimingTowerDisplayMode(BGTimingTowerDisplayMode.LeftOnly))}>
               {(displayMode === BGTimingTowerDisplayMode.LeftOnly ? "*" : "") + "LeftOnly"}
             </ClickSpan>
+            <ClickSpan onClick={() => dispatch(setTimingTowerDisplayMode(BGTimingTowerDisplayMode.LeftAndRight))}>
+              {(displayMode === BGTimingTowerDisplayMode.LeftAndRight ? "*" : "") + "LeftAndRight"}
+            </ClickSpan>
             <ClickSpan onClick={() => dispatch(setTimingTowerDisplayMode(BGTimingTowerDisplayMode.FullLeft))}>
               {(displayMode === BGTimingTowerDisplayMode.FullLeft ? "*" : "") + "FullLeft"}
-            </ClickSpan>
-            <ClickSpan onClick={() => dispatch(setTimingTowerDisplayMode(BGTimingTowerDisplayMode.Hidden))}>
-              {(displayMode === BGTimingTowerDisplayMode.Hidden ? "*" : "") + "Hidden"}
             </ClickSpan>
 
           </InlineCluster>
