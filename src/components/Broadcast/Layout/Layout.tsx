@@ -5,6 +5,7 @@ import { MockupBlock } from "../../Common/MockupBlock.styled";
 import { LayoutGrid, LayoutGridItem } from "../../Common/LayoutGrid.styled";
 import { TimingTowerPrototypeControls } from "../../Workspaces/PrototypingControls/TimingTowerPrototype";
 import { ChyronsDirectorControls } from "../BroadcastDirectorUI/Chyrons";
+import { RaceDirectorControls } from "../RaceDirectorUI/EventLoop/RaceDirectorControls";
 
 type LayoutProps = {
   headerHeight?: number,
@@ -31,9 +32,7 @@ export function Layout({ headerHeight }: LayoutProps) {
       </LayoutGridItem>
 
       <LayoutGridItem column={1} row={10}>
-        <MockupBlock
-          color="#bc62ce"
-        >Race Director UI</MockupBlock>
+        <RaceDirectorControls />
       </LayoutGridItem>
 
       <LayoutGridItem column={2} row={9} columnSpan={5} rowSpan={2}>

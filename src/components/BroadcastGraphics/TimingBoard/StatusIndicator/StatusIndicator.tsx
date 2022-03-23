@@ -20,7 +20,7 @@ export function StatusIndicator({
 
   const { timingBoard: { statusIndicator: { mode } } } =
     useSelector(broadcastGraphicsSelector);
-  const { progress: { scheduledLaps, lapCount } } = useSelector(eventSelector);
+  const { eventProgress: { scheduledLaps, lapCount } } = useSelector(eventSelector);
 
   const toWideTransition: TransitionArgs[] = [{
     property: "all",

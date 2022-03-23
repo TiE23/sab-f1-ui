@@ -8,6 +8,7 @@ import {
 import { MainMenu } from "./components/Menu";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { EventLoop } from "./components/Broadcast/RaceDirectorUI/EventLoop/EventLoop";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
     <div className="App" ref={appRef}>
       <MainMenu ref={mainMenuRef} />
       <Outlet />
+      <EventLoop />
     </div>
   );
 }
