@@ -3,11 +3,150 @@ Hello! What you've stumbled upon is a personal practice web development project 
 
 I've probably written 98% of all the CSS I've ever written in my life in this project alone. While I'm not exactly a master (yet) I feel entirely capable of taking design directions from a designer and building the CSS that is needed to create it in the real world.
 
-# Video Demo
-Coming soon!
+# Demos
+## Driver Chyrons
+*"Chyrons"* - Dynamic, animated information boxes.
 
-# Images
-Coming soon!
+<img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron.webp"/>
+
+They are used to highlight the current cars on screen to viewers.
+
+### Features
+* Animated mounting with multiple moving elements
+* Portraits for all 20 drivers from 2021
+* Team colors for elements and driver numbers
+* Custom fit country and team flags
+* Retired cars hide their position
+* Built with CSS and JS timing functions
+
+### Image Gallery
+*(Click to view full size.)*
+<table>
+  <tr>
+    <td style="width:350px">
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-001.png">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-001.png" />
+      </a>
+      <br />
+      Normal size with portrait and team flag
+    </td>
+    <td style="width:350px">
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-002.png">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-002.png" />
+      </a>
+      <br />
+      Normal size with country flag
+    </td>
+    </tr>
+    <tr>
+    <td style="width:350px">
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-003.png">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-003.png" />
+      </a>
+      <br />
+      Normal size with no position
+    </td>
+    <td style="width:350px">
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-large.png">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/chyron-large.png" />
+      </a>
+      <br />
+      Large size
+    </td>
+  </tr>
+</table>
+
+## Timing Board
+*"Timing Board"* - Constant display of car positions and race progress
+<table>
+  <tr>
+    <td style="width:233px">
+      <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/timing1.webp" />
+      Fastest lap award animation
+    </td>
+    <td style="width:233px">
+      <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/timing2.webp" />
+      Mode changes
+    </td>
+    <td style="width:233px">
+      <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/timing3.webp" />
+      Animated position changes
+    </td>
+  </tr>
+</table>
+
+### Features
+* Position changes animate with subtle outline hightlight
+* Position flags wipe away their color when complete
+* Fastest Lap indicator with matching animation
+* Four different display modes: *Hidden*, *Left Only*, *Left + Right*, and *Full Left*
+* Interval and Leader split times
+
+## Prototype Interface
+Page elements are prototyped in a shared workspace where new elements can be developed, adjusted, and controlled.
+
+### Video Gallery
+*(Click to view short video.)*
+<table>
+  <tr>
+    <td colspan=2>
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/002.mp4">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/002.png" />
+      </a>
+      <br />
+      Workspace interface with custom-made input components
+    </td>
+  </tr>
+  <tr>
+    <td style="width:350px">
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/003.mp4">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/003.png" />
+      </a>
+      <br />
+      Slow motion up to 1/10th speed
+    </td>
+    <td style="width:350px">
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/004.mp4">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/004.png" />
+      </a>
+      <br />
+      Reference images gathered from official footage can have its position and opacity adjusted to pursue pixel-perfect re-creations
+    </td>
+  </tr>
+</table>
+
+## Broadcast Page
+### Video Gallery
+*(Click to view short video.)*
+<table>
+  <tr>
+    <td>
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/001.mp4">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/001.png" />
+      </a>
+      <br />
+      Timing Tower
+    </td>
+    <td>
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/005.mp4">
+        <img src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/005.png" />
+      </a>
+      <br />
+      Dual Driver Chyrons
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2>
+    <div>
+      <a href="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/000.mp4">
+        <img  src="https://sab-f1-ui.s3.us-west-2.amazonaws.com/demos/000.jpg" />
+      </a>
+      <br />
+    </div>
+      Dynamically scaled 16:9 broadcast frame works with any window size
+    </td>
+  </tr>
+</table>
 
 # What is this... exactly?
 As strange as this might sound this is a website.
@@ -89,7 +228,7 @@ On the client-side I learned ReactJS, Apollo, and how to use GraphQL.
 On the sever-side I learned NodeJS, SQL database design, and how to build a GraphQL schema.
 For hosting I became familiar with Docker, Traefik, AWS, and mechanisms for data backup and restoration.
 
-## Meta (née Facebook) Contractor (2019-2021)
+## Meta (formerly Facebook) Contractor (2019-2021)
 Working at Facebook (or as its now called, Meta) I was hired on for the combination of skills I developed at Accretive and Metric-Teacher. I would develop internal scripts and web tools that facilitated language-localized testing for Facebook's voice assistant product.
 
 I didn't learn that much more about React beyond getting familiar with React Hooks. Facebook uses Flow instead of TypeScript and Flux (and other solutions) instead of Redux and has a ton of technical overhead when it comes to the marriage of their own language Hack (an extension of PHP), their cross-language API/RPC framework Thrift, and their configuration files system Configurator to the world of React and JavaScript.
