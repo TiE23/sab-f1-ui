@@ -116,6 +116,8 @@ Page elements are prototyped in a shared workspace where new elements can be dev
 </table>
 
 ## Broadcast Page
+The broadcast page is used to emulate the look and feel of the F1 broadcast. The broadcast graphics scale and position correctly based on the size of the browser window.
+
 ### Video Gallery
 *(Click to view short video.)*
 <table>
@@ -244,3 +246,25 @@ Finally I worked my way through a comprehensive course in [D3.js](https://d3js.o
 I started work on this project in mid December mostly working on the basic scaffolding of the project - routing, state, and getting familiar with general page layout. I then promptly took time off for Christmas and New Years.
 
 In January and February I did most of the *interesting* work you see here. While I had in my mind the idea of re-creating most if not all of the graphics you see on F1's broadcasts it's clear to me that a team of trained professionals using specially designed tools had worked on the graphics for some time. So I really had to limit my ambitions and grew to accept that I would learn all I needed to learn by doing just a few segments to a satisfactorily polished level.
+
+# Fair Use Disclaimer
+Copyright Disclaimer Under Section 107 of the Copyright Act in 1976; Allowance is made for "Fair Use" for purposes such as criticism, comment, news reporting, teaching, **scholarship**, and **research**.
+
+Fair use is a use permitted by copyright statute that might otherwise be infringing. Non-profit, educational or personal use tips the balance in favor of fair use.
+
+All rights and credit go directly to its rightful owners. No copyright infringement intended.
+
+In particular:
+* Mercedes-AMG Petronas Formula One Team
+* Red Bull Racing Ltd
+* Ferrari S.p.A
+* McLaren Racing
+* RENAULT s.a.s.
+* AMR GP Limited
+* Scuderia AlphaTauri S.p.A.
+* Sauber Group
+* FCA US LLC
+* Williams Group
+* Haas F1 Team
+* Formula One World Championship Limited
+* Rolex
