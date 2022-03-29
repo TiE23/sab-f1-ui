@@ -4,6 +4,8 @@ Hello! What you've stumbled upon is a personal practice web development project 
 I've probably written 98% of all the CSS I've ever written in my life in this project alone. While I'm not exactly a master (yet) I feel entirely capable of taking design directions from a designer and building the CSS that is needed to create it in the real world.
 
 # Demos
+*Please note that animated images on this page are in WEBP format and may have performance issues (a lowered framerate) depending on your device. Animations are buttery smooth in practice! View the videos below if they're slow for you!*
+
 ## Driver Chyrons
 *"Chyrons"* - Dynamic, animated information boxes.
 
